@@ -5,6 +5,7 @@ import doctorhoai.learn.user_service.entity.Role;
 import doctorhoai.learn.user_service.entity.Status;
 import doctorhoai.learn.user_service.exception.ErrorException;
 import doctorhoai.learn.user_service.exception.RoleNotFound;
+import doctorhoai.learn.user_service.helper.MapperToDto;
 import doctorhoai.learn.user_service.repository.RoleRepository;
 import doctorhoai.learn.user_service.service.inter.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -43,11 +44,7 @@ public class RoleServiceImpl implements RoleService {
             if( role.isEmpty()){
                 throw new RoleNotFound("Can't find role with id : id");
             }
-            return RoleDto.builder()
-                    .id(role.get().getId())
-                    .roleName(role.get().getRoleName())
-                    .status(role.get().getRoleName())
-                    .build();
+            return MapperToDto.RoleToDto(role.get());
         }catch (Exception e){
             log.error("Can't get role with id : id");
             throw new ErrorException(e.getMessage());
@@ -71,7 +68,7 @@ public class RoleServiceImpl implements RoleService {
         try{
             Role r = new Role( role.getRoleName(), Status.valueOf(role.getStatus().toUpperCase()));
             Role roleSaved = roleRepository.save(r);
-            return roleSaved;
+            return MapperToDto.RoleToDto(roleSaved);
         }catch (Exception ex ){
             log.error("Add role error : " + ex.getMessage());
             throw new ErrorException(ex.getMessage());
@@ -88,11 +85,7 @@ public class RoleServiceImpl implements RoleService {
             }
             Role roleNew = new Role(id, role.getRoleName(), Status.valueOf(role.getStatus().toUpperCase()));
             Role savedRole = roleRepository.save(roleNew);
-            return RoleDto.builder()
-                    .id(savedRole.getId())
-                    .roleName(savedRole.getRoleName())
-                    .status(savedRole.getStatus().toString())
-                    .build();
+            return MapperToDto.RoleToDto(savedRole);
         }catch ( Exception ex ){
             log.error("Update role error : " + ex.getMessage());
             throw new ErrorException(ex.getMessage());

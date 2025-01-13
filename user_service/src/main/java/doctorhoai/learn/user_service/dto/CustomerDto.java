@@ -1,5 +1,6 @@
 package doctorhoai.learn.user_service.dto;
 
+import doctorhoai.learn.user_service.entity.Status;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -24,5 +26,6 @@ public class CustomerDto {
     @Email(message = "Email isn't in correct format")
     private String email;
     private AccountDto account;
-    private Date timestamp;
+    private LocalDate timestamp;
+    private Status status;
 }

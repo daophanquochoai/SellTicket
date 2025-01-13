@@ -22,5 +22,5 @@ public class AccountDto {
     @Min(value = 4, message = "Password has more than 4 characters")
     private String password;
     private RoleDto role;
-    private Status active;
+    private String active;
 }
