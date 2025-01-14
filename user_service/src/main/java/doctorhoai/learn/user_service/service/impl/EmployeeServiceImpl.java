@@ -17,7 +17,6 @@ import doctorhoai.learn.user_service.service.inter.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,11 +32,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto addEmployee(EmployeeRequest employee) {
+        Optional<Role> role = roleRepository.findById(employee.getRoleId());
+        if( role.isEmpty()){
+            throw new RoleNotFound("Role not found with id : " + employee.getRoleId());
+        }
         try{
-            Optional<Role> role = roleRepository.findById(employee.getRoleId());
-            if( role.isEmpty()){
-                throw new RoleNotFound("Role not found with id : " + employee.getRoleId());
-            }
             Account account = Account.builder()
                     .userName(employee.getUserName())
                     .password(employee.getPassword()) //TODO : Chinh sua ma bcryt
@@ -61,15 +60,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto updateEmployee(String id, EmployeeRequest employee) {
+        Optional<Employee> empOp = employeeRepository.findById(id);
+        if( empOp.isEmpty()){
+            throw new EmployeeNotFound("Employee not found with id : " + id);
+        }
+        Employee empOld = empOp.get();
+        empOld.setName(employee.getName());
+        empOld.setEmail(employee.getEmail());
+        empOld.setCCCD(employee.getCCCD());
         try{
-            Optional<Employee> empOp = employeeRepository.findById(id);
-            if( empOp.isEmpty()){
-                throw new EmployeeNotFound("Employee not found with id : " + id);
-            }
-            Employee empOld = empOp.get();
-            empOld.setName(employee.getName());
-            empOld.setEmail(employee.getEmail());
-            empOld.setCCCD(employee.getCCCD());
             return MapperToDto.EmployeeToDto(employeeRepository.save(empOld));
         }catch (Exception e){
             log.error(e.getMessage());
@@ -80,13 +79,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployee(String id) {
+        Optional<Employee> empOp = employeeRepository.findById(id);
+        if( empOp.isEmpty()){
+            throw new EmployeeNotFound("Employee not found with id : " + id);
+        }
+        Employee employee = empOp.get();
+        employee.setStatus(Status.DELETE);
         try{
-            Optional<Employee> empOp = employeeRepository.findById(id);
-            if( empOp.isEmpty()){
-                throw new EmployeeNotFound("Employee not found with id : " + id);
-            }
-            Employee employee = empOp.get();
-            employee.setStatus(Status.DELETE);
             employeeRepository.save(employee);
         }catch (Exception e){
             log.error(e.getMessage());
@@ -96,13 +95,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void activeEmployee(String id) {
+        Optional<Employee> empOp = employeeRepository.findById(id);
+        if( empOp.isEmpty()){
+            throw new EmployeeNotFound("Employee not found with id : " + id);
+        }
+        Employee employee = empOp.get();
+        employee.setStatus(Status.ACTIVE);
         try{
-            Optional<Employee> empOp = employeeRepository.findById(id);
-            if( empOp.isEmpty()){
-                throw new EmployeeNotFound("Employee not found with id : " + id);
-            }
-            Employee employee = empOp.get();
-            employee.setStatus(Status.ACTIVE);
             employeeRepository.save(employee);
         }catch (Exception e){
             log.error(e.getMessage());
@@ -123,21 +122,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updatePassword(String id, String password, String newPassword) {
+        Optional<Employee> empOp = employeeRepository.findById(id);
+        if( empOp.isEmpty()){
+            throw new EmployeeNotFound("Employee not found with id : " + id);
+        }
+        Employee employee = empOp.get();
+        if( employee.getAccount() == null){
+            throw new EmployeeNotFound("Employee hasn't account");
+        }else{
+            if( employee.getAccount().getPassword().equals(password)){ // TODO : chua tinh ma hoa
+                employee.getAccount().setPassword(newPassword);
+            }else {
+                throw new ErrorException("Wrong password");
+            }
+        }
         try{
-            Optional<Employee> empOp = employeeRepository.findById(id);
-            if( empOp.isEmpty()){
-                throw new EmployeeNotFound("Employee not found with id : " + id);
-            }
-            Employee employee = empOp.get();
-            if( employee.getAccount() == null){
-                throw new EmployeeNotFound("Employee hasn't account");
-            }else{
-                if( employee.getAccount().getPassword().equals(password)){ // TODO : chua tinh ma hoa
-                    employee.getAccount().setPassword(newPassword);
-                }else {
-                    throw new ErrorException("Wrong password");
-                }
-            }
             employeeRepository.save(employee);
         }catch (Exception e){
             log.error(e.getMessage());

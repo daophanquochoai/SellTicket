@@ -19,7 +19,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 @RequestMapping("/customer")
 @Tag(name = "Customer controller", description = "Handler customer operation")
-public class CustomerController {
+public class CustomerController { // TODO : chua co banking
     private final CustomerService customerService;
 
     @Operation(

@@ -1,6 +1,7 @@
-package doctorhoai.learn.user_service.exception;
+package doctorhoai.learn.film_service.exception;
 
-import doctorhoai.learn.user_service.dto.response.ErrorResponse;
+
+import doctorhoai.learn.film_service.dto.response.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    @ExceptionHandler( value = {UserNotFound.class, RoleNotFound.class, CustomerNotFound.class, EmployeeNotFound.class})
+    @ExceptionHandler(value = {FilmNotFound.class, TypeFilmNotFound.class})
     public ResponseEntity<Object> handleUserNotFound(Exception ex, WebRequest request){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler(value = {Exception.class, ErrorException.class})
     public ResponseEntity<Object> handleGlobalException(Exception exception,
-                                                                  WebRequest webRequest) {
+                                                        WebRequest webRequest) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 ErrorResponse.builder()
                         .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())

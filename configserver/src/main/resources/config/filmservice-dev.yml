@@ -1,0 +1,52 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/HuongDichVu
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: none
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQLDialect
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+# cau hinh actuator
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+# thong tin ung dung
+info:
+  app:
+    name: "Film service"
+    description: "Using fetch about Film"
+    version: "1.0.0"
+server:
+  port: 8081
+
+pattern:
+  level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"

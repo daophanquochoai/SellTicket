@@ -35,11 +35,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public CustomerDto addCustomer(CustomerRequest customer) {
+        Optional<Role> role = roleRepository.findById(customer.getRoleId());
+        if( role.isEmpty()){
+            throw new RoleNotFound("Role not found with id : " + customer.getRoleId());
+        }
         try{
-            Optional<Role> role = roleRepository.findById(customer.getRoleId());
-            if( role.isEmpty()){
-                throw new RoleNotFound("Role not found with id : " + customer.getRoleId());
-            }
             Account account = Account.builder()
                     .userName(customer.getUserName())
                     .password(customer.getPassword()) // TODO: ma hoa bcryt
@@ -64,17 +64,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto updateCustomer(String id, CustomerRequest customer) {
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        if( !customerOptional.isPresent()){
+            throw new CustomerNotFound("Customer not found with id : " + id);
+        }
+        Customer customerUpdate = customerOptional.get();
+        customerUpdate.setName(customer.getName());
+        customerUpdate.setPhoneNumber(customer.getPhoneNumber());
+        customerUpdate.setEmail(customer.getEmail());
+        customerUpdate.setTimestamp(LocalDate.now());
+        Customer customerSaved = customerRepository.save(customerUpdate);
         try{
-            Optional<Customer> customerOptional = customerRepository.findById(id);
-            if( !customerOptional.isPresent()){
-                throw new CustomerNotFound("Customer not found with id : " + id);
-            }
-            Customer customerUpdate = customerOptional.get();
-            customerUpdate.setName(customer.getName());
-            customerUpdate.setPhoneNumber(customer.getPhoneNumber());
-            customerUpdate.setEmail(customer.getEmail());
-            customerUpdate.setTimestamp(LocalDate.now());
-            Customer customerSaved = customerRepository.save(customerUpdate);
             return MapperToDto.CustomerToDto(customerSaved);
         }catch (Exception e ){
             log.error(e.getMessage());
@@ -84,13 +84,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(String id) {
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        if( !customerOptional.isPresent()){
+            throw new CustomerNotFound("Customer not found with id : " + id);
+        }
+        Customer customer = customerOptional.get();
+        customer.setStatus(Status.DELETE);
         try{
-            Optional<Customer> customerOptional = customerRepository.findById(id);
-            if( !customerOptional.isPresent()){
-                throw new CustomerNotFound("Customer not found with id : " + id);
-            }
-            Customer customer = customerOptional.get();
-            customer.setStatus(Status.DELETE);
             customerRepository.save(customer);
         }catch (Exception e ){
             log.error(e.getMessage());
@@ -100,13 +100,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void activeCustomer(String id) {
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        if( !customerOptional.isPresent()){
+            throw new CustomerNotFound("Customer not found with id : " + id);
+        }
+        Customer customer = customerOptional.get();
+        customer.setStatus(Status.ACTIVE);
         try{
-            Optional<Customer> customerOptional = customerRepository.findById(id);
-            if( !customerOptional.isPresent()){
-                throw new CustomerNotFound("Customer not found with id : " + id);
-            }
-            Customer customer = customerOptional.get();
-            customer.setStatus(Status.ACTIVE);
             customerRepository.save(customer);
         }catch (Exception e ){
             log.error(e.getMessage());
@@ -122,20 +122,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void updatePassword(String id, String passwordOld, String passwordNew) {
-        try{
-            Optional<Customer> customerOptional = customerRepository.findById(id);
-            if( !customerOptional.isPresent()){
-                throw new CustomerNotFound("Customer not found with id : " + id);
-            }
-            if( customerOptional.get().getAccount() == null){
-                throw new ErrorException("Customer hasn't account");
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        if( !customerOptional.isPresent()){
+            throw new CustomerNotFound("Customer not found with id : " + id);
+        }
+        if( customerOptional.get().getAccount() == null){
+            throw new ErrorException("Customer hasn't account");
+        }else{
+            if( customerOptional.get().getAccount().getPassword().equals(passwordOld)){ // TODO : chua tinh ma hoa
+                customerOptional.get().getAccount().setPassword(passwordNew);
             }else{
-                if( customerOptional.get().getAccount().getPassword().equals(passwordOld)){ // TODO : chua tinh ma hoa
-                    customerOptional.get().getAccount().setPassword(passwordNew);
-                }else{
-                    throw new ErrorException("Password does not match");
-                }
+                throw new ErrorException("Password does not match");
             }
+        }
+        try{
             customerRepository.save(customerOptional.get());
         }catch (Exception e){
             log.error(e.getMessage());

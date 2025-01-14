@@ -25,12 +25,12 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void deleteRole(int id) {
+        Optional<Role> roleSaved = roleRepository.findById(id);
+        if( roleSaved.isEmpty()){
+            throw new RoleNotFound("Role not found with id : " + id);
+        }
+        roleSaved.get().setStatus(Status.DELETE);
         try{
-            Optional<Role> roleSaved = roleRepository.findById(id);
-            if( roleSaved.isEmpty()){
-                throw new RoleNotFound("Role not found with id : " + id);
-            }
-            roleSaved.get().setStatus(Status.DELETE);
             roleRepository.save(roleSaved.get());
         }catch(Exception e){
             throw new ErrorException(e.getMessage());
@@ -39,11 +39,11 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDto getRole(int id) {
+        Optional<Role> role = roleRepository.findById(id);
+        if( role.isEmpty()){
+            throw new RoleNotFound("Can't find role with id : id");
+        }
         try{
-            Optional<Role> role = roleRepository.findById(id);
-            if( role.isEmpty()){
-                throw new RoleNotFound("Can't find role with id : id");
-            }
             return MapperToDto.RoleToDto(role.get());
         }catch (Exception e){
             log.error("Can't get role with id : id");
@@ -78,12 +78,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional
     public RoleDto updateRole(int id, RoleDto role) {
+        Optional<Role> r = roleRepository.findById(id);
+        if( r.isEmpty()){
+            throw new RoleNotFound("Can't find role with id : id");
+        }
+        Role roleNew = new Role(id, role.getRoleName(), Status.valueOf(role.getStatus().toUpperCase()));
         try{
-            Optional<Role> r = roleRepository.findById(id);
-            if( r.isEmpty()){
-                throw new RoleNotFound("Can't find role with id : id");
-            }
-            Role roleNew = new Role(id, role.getRoleName(), Status.valueOf(role.getStatus().toUpperCase()));
             Role savedRole = roleRepository.save(roleNew);
             return MapperToDto.RoleToDto(savedRole);
         }catch ( Exception ex ){
