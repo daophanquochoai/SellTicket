@@ -7,7 +7,7 @@ spring:
     jpa:
       show-sql: true
       hibernate:
-        ddl-auto: none
+        ddl-auto: update
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MySQLDialect
@@ -42,25 +42,11 @@ management:
 # thong tin ung dung
 info:
   app:
-    name: "Rate service"
-    description: "Using fetch about Rate"
+    name: "Dish service"
+    description: "Using fetch about Dish"
     version: "1.0.0"
 server:
-  port: 8082
+  port: 8083
 
 pattern:
   level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
-
-resilience4j:
-  circuitbreaker:
-    instances:
-      proxyService:
-        register-health-indicator: true
-        event-consumer-buffer-size: 10
-        automatic-transition-from-open-to-half-open-enabled: true
-        failure-rate-threshold: 50
-        minimum-number-of-calls: 5
-        permitted-number-of-calls-in-half-open-state: 3
-        sliding-window-size: 10
-        wait-duration-in-open-state: 5s
-        sliding-window-type: COUNT_BASED
