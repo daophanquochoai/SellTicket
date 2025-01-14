@@ -1,6 +1,7 @@
-package doctorhoai.learn.user_service.dto;
+package doctorhoai.learn.rateservice.feignclient.dto;
 
-import doctorhoai.learn.user_service.entity.Status;
+
+import doctorhoai.learn.rateservice.entity.Status;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -9,18 +10,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class EmployeeDto {
+public class CustomerDto {
     private String id;
     @NotBlank(message = "Name not blank")
     private String name;
-    @Length(min = 10,max = 12, message = "CCCD have length 10 - 12 characters")
-    private String CCCD;
+    @Length(min = 10, max = 11)
+    private String phoneNumber;
+    @NotBlank(message = "Email not blank")
     @Email(message = "Email isn't in correct format")
     private String email;
     private AccountDto account;
-    private String status;
+    private LocalDate timestamp;
+    private Status status;
 }

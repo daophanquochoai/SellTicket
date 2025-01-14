@@ -26,10 +26,10 @@ public class TypeFilmController {
     public ResponseEntity<Response> getTypeFilmById(
             @PathVariable @NotBlank String id
             ) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Get type film successfully")
                                 .data(typeFilmService.getTypeFilmById(id))
                                 .build()
@@ -41,10 +41,10 @@ public class TypeFilmController {
     )
     @GetMapping("/get/all")
     public ResponseEntity<Response> getAllTypeFilm() {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Get all type film successfully")
                                 .data(typeFilmService.getAllTypeFilm())
                                 .build()
@@ -94,10 +94,10 @@ public class TypeFilmController {
             @PathVariable @NotBlank String id
     ){
         typeFilmService.activeTypeFilm(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Active type film successfully")
                                 .build()
                 );
@@ -111,10 +111,10 @@ public class TypeFilmController {
             @PathVariable @NotBlank String id,
             @RequestBody @Valid TypeFilmDto typeFilmDto
     ){
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Update type film successfully")
                                 .data(typeFilmService.updateTypeFilm(id, typeFilmDto))
                                 .build()

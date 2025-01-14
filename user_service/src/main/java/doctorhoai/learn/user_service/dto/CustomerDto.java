@@ -27,5 +27,5 @@ public class CustomerDto {
     private String email;
     private AccountDto account;
     private LocalDate timestamp;
-    private Status status;
+    private String status;
 }

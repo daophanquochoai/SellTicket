@@ -27,9 +27,9 @@ public class EmployeeController {
     )
     @GetMapping("/all")
     public ResponseEntity<Response> getAllEmployees() {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
-                        .statusCode(HttpStatus.ACCEPTED.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("Get all employees successfully")
                         .dataList(Collections.singletonList(employeeService.getAllEmployees()))
                         .build()
@@ -43,9 +43,9 @@ public class EmployeeController {
             @PathVariable("id") String id,
             @RequestBody @Valid EmployeeRequest employee
             ) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
-                        .statusCode(HttpStatus.ACCEPTED.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("Update employee successfully")
                         .data(employeeService.updateEmployee(id,employee))
                         .build()
@@ -74,9 +74,9 @@ public class EmployeeController {
             @PathVariable("id") @NotBlank String id
     ){
         employeeService.deleteEmployee(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
-                        .statusCode(HttpStatus.ACCEPTED.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("Hidden account employee successfully")
                         .build()
         );
@@ -89,9 +89,9 @@ public class EmployeeController {
             @PathVariable("id") @NotBlank String id
     ){
         employeeService.activeEmployee(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
-                        .statusCode(HttpStatus.ACCEPTED.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("Active account employee successfully")
                         .build()
         );

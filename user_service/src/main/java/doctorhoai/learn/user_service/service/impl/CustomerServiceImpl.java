@@ -146,4 +146,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new ErrorException(e.getMessage());
         }
     }
+
+    @Override
+    public CustomerDto getCustomerById(String id) {
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        if(customerOptional.isEmpty()){
+            throw new CustomerNotFound("Customer not found with id : " + id);
+        }
+        CustomerDto customerDto =  MapperToDto.CustomerToDto(customerOptional.get());
+        return customerDto;
+    }
 }

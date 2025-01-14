@@ -26,10 +26,10 @@ public class FilmController {
     )
     @GetMapping("/all")
     public ResponseEntity<Response> getAllFilms() {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Get all film successfully")
                                 .data(filmService.getFilms())
                                 .build()
@@ -41,10 +41,10 @@ public class FilmController {
     )
     @GetMapping("/{id}")
     public ResponseEntity<Response> getFilmById(@PathVariable String id) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Get film successfully")
                                 .data(filmService.getFilm(id))
                                 .build()
@@ -56,10 +56,10 @@ public class FilmController {
     )
     @PostMapping("/add")
     public ResponseEntity<Response> addFilm(@RequestBody @Valid FilmRequest film ) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Add film successfully")
                                 .data(filmService.addFilm(film))
                                 .build()
@@ -73,10 +73,10 @@ public class FilmController {
     public ResponseEntity<Response> updateFilm(
             @PathVariable @NotBlank String id,
             @RequestBody @Valid FilmRequest film) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Update film successfully")
                                 .data(filmService.updateFilm(id, film))
                                 .build()
@@ -91,10 +91,10 @@ public class FilmController {
             @PathVariable @NotBlank String id
     ){
         filmService.deleteFilm(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Delete (hidden) film successfully")
                                 .build()
                 );
@@ -108,10 +108,10 @@ public class FilmController {
             @PathVariable @NotBlank String id
     ){
         filmService.activeFilm(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Active film successfully")
                                 .build()
                 );

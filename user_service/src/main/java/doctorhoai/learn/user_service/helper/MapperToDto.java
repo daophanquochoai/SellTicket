@@ -31,6 +31,7 @@ public class MapperToDto {
                 .CCCD(employee.getCCCD())
                 .email(employee.getEmail())
                 .account(accountDto)
+                .status(employee.getStatus().toString())
                 .build();
     }
     public static Employee DtoToEmployee(EmployeeDto employeeDto) {
@@ -41,6 +42,7 @@ public class MapperToDto {
                 .email(employeeDto.getEmail())
                 .CCCD(employeeDto.getCCCD())
                 .account(account)
+                .status(Status.valueOf(employeeDto.getStatus().toUpperCase()))
                 .build();
     }
     public static AccountDto AccountToDto(Account account){
@@ -71,6 +73,7 @@ public class MapperToDto {
                 .email(customerDto.getEmail())
                 .account(MapperToDto.DtoToAccount(customerDto.getAccount()))
                 .timestamp(customerDto.getTimestamp())
+                .status(Status.valueOf(customerDto.getStatus()))
                 .build();
     }
     public static CustomerDto CustomerToDto(Customer customer){
@@ -81,6 +84,7 @@ public class MapperToDto {
                 .email(customer.getEmail())
                 .account(MapperToDto.AccountToDto(customer.getAccount()))
                 .timestamp(customer.getTimestamp())
+                .status(customer.getStatus().toString())
                 .build();
     }
 }

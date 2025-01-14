@@ -14,4 +14,5 @@ public interface CustomerService {
     void activeCustomer(String id);
     List<CustomerDto> getAllCustomers();
     void updatePassword(String id, String passwordOld, String passwordNew);
+    CustomerDto getCustomerById(String id);
 }

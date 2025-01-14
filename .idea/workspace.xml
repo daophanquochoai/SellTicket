@@ -5,15 +5,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/controller/FilmController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/rateservice-dev.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/controller/RateController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/dto/CustomerDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/dto/FilmDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/dto/RateFilmDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/dto/TypeFilmDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/dto/request/RateFilmRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/dto/response/ErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/dto/response/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/entity/RateFilm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/entity/Status.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/exception/CustomerNotFound.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/exception/ErrorException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/exception/FilmNotFound.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/exception/RateNotFound.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/feignclient/FilmFeignCallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/feignclient/FilmFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/feignclient/UserFeignCallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/feignclient/UserFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/feignclient/dto/AccountDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/feignclient/dto/CustomerDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/feignclient/dto/RoleDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/helper/MapperToDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/repository/RateRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/impl/RateServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/inter/RateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/request/FilmRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/request/FilmRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/FilmServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/FilmServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/TypeFilmServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/TypeFilmServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/inter/FilmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/inter/FilmService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/controller/FilmController.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/controller/FilmController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/controller/TypeFilmController.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/controller/TypeFilmController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/RateserviceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/RateserviceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/EmployeeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/CustomerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/CustomerDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/EmployeeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/EmployeeDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/helper/MapperToDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/helper/MapperToDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/RoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/inter/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/inter/CustomerService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +60,9 @@
       <list>
         <option value="spring-beans.schema" />
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Exception" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -80,20 +115,21 @@
     "Spring Boot.ConfigserverApplication.executor": "Run",
     "Spring Boot.EurekaserverApplication.executor": "Run",
     "Spring Boot.FilmServiceApplication.executor": "Run",
+    "Spring Boot.RateserviceApplication.executor": "Run",
     "Spring Boot.UserServiceApplication.executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "jbr-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/MONHOC/HK2-NAM4/HuongDichVu/MICRO/film_service/src/main/java/doctorhoai/learn/film_service/dto",
+    "last_opened_file_path": "D:/MONHOC/HK2-NAM4/HuongDichVu/MICRO/rateservice/src/main/java/doctorhoai/learn/rateservice/feignclient/dto",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "reactor",
+    "settings.editor.selected.configurable": "database.query.execution",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -107,6 +143,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\rateservice\src\main\java\doctorhoai\learn\rateservice\feignclient\dto" />
+      <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\user_service\src\main\java\doctorhoai\learn\user_service\exception" />
+      <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\rateservice\src\main\java\doctorhoai\learn\rateservice\dto\response" />
       <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\film_service\src\main\java\doctorhoai\learn\film_service\dto" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -116,6 +155,7 @@
       <recent name="doctorhoai.learn.user_service.helper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="doctorhoai.learn.rateservice.exception" />
       <recent name="doctorhoai.learn.film_service.exception" />
     </key>
   </component>
@@ -134,7 +174,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.FilmServiceApplication">
+  <component name="RunManager" selected="Spring Boot.ConfigserverApplication">
     <configuration name="MapperToDtoTest.Test_DtoToAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="user_service" />
       <extension name="coverage">
@@ -235,7 +275,7 @@
       <workItem from="1736769499141" duration="18652000" />
       <workItem from="1736789646813" duration="55000" />
       <workItem from="1736816871777" duration="3699000" />
-      <workItem from="1736829977638" duration="7353000" />
+      <workItem from="1736829977638" duration="20776000" />
     </task>
     <servers />
   </component>
@@ -246,12 +286,23 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/RoleController.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java</url>
+          <line>156</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java</url>
+          <line>151</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="customerFeign" />
+        <watch expression="customerFeign" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

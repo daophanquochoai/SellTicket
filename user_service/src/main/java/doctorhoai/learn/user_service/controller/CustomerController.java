@@ -27,10 +27,10 @@ public class CustomerController { // TODO : chua co banking
     )
     @GetMapping("/all")
     public ResponseEntity<Response> getAllCustomer() {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Get all customer successfully")
                                 .dataList(Collections.singletonList(customerService.getAllCustomers()))
                                 .build()
@@ -44,10 +44,10 @@ public class CustomerController { // TODO : chua co banking
             @PathVariable @NotBlank String id
             ){
         customerService.deleteCustomer(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Delete hidden customer successfully")
                                 .build()
                 );
@@ -60,11 +60,28 @@ public class CustomerController { // TODO : chua co banking
             @PathVariable @NotBlank String id
     ){
         customerService.activeCustomer(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.ACCEPTED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Active customer successfully")
+                                .build()
+                );
+    }
+
+    @Operation(
+            summary = "Get customer in database"
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<Response> getCustomerById(
+            @PathVariable @NotBlank String id
+    ){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(
+                        Response.builder()
+                                .statusCode(HttpStatus.OK.value())
+                                .message("Get customer successfully")
+                                .data(customerService.getCustomerById(id))
                                 .build()
                 );
     }

@@ -30,9 +30,9 @@ public class RoleController {
     @GetMapping("/all")
     public ResponseEntity<Response> getAllRoles() {
         List<RoleDto> roleList = roleService.getRoles();
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
-                        .statusCode(HttpStatus.ACCEPTED.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("Get all role successfully")
                         .dataList(Collections.singletonList(roleList))
                         .build()
@@ -63,9 +63,9 @@ public class RoleController {
             @RequestBody @NotNull int id
     ){
         roleService.deleteRole(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
-                        .statusCode(HttpStatus.ACCEPTED.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("Delete role successfully")
                         .build()
         );
