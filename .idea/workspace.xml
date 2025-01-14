@@ -5,34 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/dishservice-dev.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/controller/DishController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/controller/TypeDishController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/dto/DishDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/dto/TypeDishDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/dto/request/DishRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/dto/response/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/dto/response/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/entity/Dish.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/entity/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/entity/TypeDish.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/exception/DishNotFound.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/exception/ErrorException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/exception/TypeDishNotFound.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/helper/MapperToDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/repository/DishRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/repository/TypeDishRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/service/imp/DishServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/service/imp/TypeDishServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/service/inter/DishService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/service/inter/TypeDishService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/FallBack/FallBackController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/FallBack/response/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/apigateway-dev.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/rateservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/rateservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rateservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,11 +77,13 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ApigatewayApplication.executor": "Run",
     "Spring Boot.ConfigserverApplication.executor": "Run",
     "Spring Boot.DishserviceApplication.executor": "Run",
     "Spring Boot.EurekaserverApplication.executor": "Run",
     "Spring Boot.FilmServiceApplication.executor": "Run",
     "Spring Boot.RateserviceApplication.executor": "Run",
+    "Spring Boot.UserServiceApplication (1).executor": "Run",
     "Spring Boot.UserServiceApplication.executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
@@ -178,6 +161,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ApigatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="apigateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.apigateway.ApigatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ConfigserverApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="configserver" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.configserver.ConfigserverApplication" />
@@ -219,6 +209,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserServiceApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="user_service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.user_service.UserServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="user_service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.user_service.UserServiceApplication" />
@@ -228,8 +225,10 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.MapperToDtoTest.Test_DtoToAccount" />
+      <item itemvalue="Spring Boot.ApigatewayApplication" />
       <item itemvalue="Spring Boot.DishserviceApplication" />
       <item itemvalue="Spring Boot.RateserviceApplication" />
+      <item itemvalue="Spring Boot.UserServiceApplication (1)" />
       <item itemvalue="Spring Boot.FilmServiceApplication" />
       <item itemvalue="Spring Boot.ConfigserverApplication" />
       <item itemvalue="Spring Boot.UserServiceApplication" />
@@ -270,7 +269,7 @@
       <workItem from="1736769499141" duration="18652000" />
       <workItem from="1736789646813" duration="55000" />
       <workItem from="1736816871777" duration="3699000" />
-      <workItem from="1736829977638" duration="29092000" />
+      <workItem from="1736829977638" duration="31607000" />
     </task>
     <servers />
   </component>

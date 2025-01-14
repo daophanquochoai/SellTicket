@@ -45,8 +45,8 @@ info:
     name: "User service"
     description: "Using fetch about User"
     version: "1.0.0"
-server:
-  port: 8080
+#server:
+#  port: 8080
 
 pattern:
   level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
