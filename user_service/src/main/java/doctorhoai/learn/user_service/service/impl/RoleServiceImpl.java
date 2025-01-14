@@ -24,6 +24,7 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override
+    @Transactional
     public void deleteRole(int id) {
         Optional<Role> roleSaved = roleRepository.findById(id);
         if( roleSaved.isEmpty()){

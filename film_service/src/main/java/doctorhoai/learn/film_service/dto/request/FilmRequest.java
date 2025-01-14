@@ -1,13 +1,21 @@
 package doctorhoai.learn.film_service.dto.request;
 
-import doctorhoai.learn.film_service.entity.TypeFilm;
+import doctorhoai.learn.film_service.dto.TypeFilmDto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 public class FilmRequest {
     @NotBlank(message = "Name can't blank")
     private String name;
@@ -18,9 +26,7 @@ public class FilmRequest {
     private String description;
     private String content;
     private String trailer;
-    private List<TypeFilm> typeFilms;
+    private List<TypeFilmDto> typeFilms;
     @Pattern(regexp = "^(ACTIVE|DELETE)$", message = "Active should value 'ACTIVE' or 'DELETE'")
     private String status;
-    @NotBlank(message = "Film should ")
-    private String typeFilmId;
 }

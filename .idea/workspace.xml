@@ -5,37 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/filmservice-dev.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/controller/TypeFilmController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/FilmDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/TypeFilmDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/request/FilmRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/response/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/response/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/entity/Film.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/entity/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/entity/TypeFilm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/exception/ErrorException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/exception/FilmNotFound.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/exception/TypeFilmNotFound.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/helper/MapperToDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/repository/FilmRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/repository/TypeFilmRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/FilmServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/TypeFilmServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/inter/FilmService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/inter/TypeFilmService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/controller/FilmController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/request/FilmRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/request/FilmRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/FilmServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/FilmServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/TypeFilmServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/TypeFilmServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/inter/FilmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/inter/FilmService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/RoleServiceImpl.java" afterDir="false" />
@@ -203,6 +178,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RateserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="rateservice" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.rateservice.RateserviceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="user_service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.user_service.UserServiceApplication" />
@@ -212,6 +194,7 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.MapperToDtoTest.Test_DtoToAccount" />
+      <item itemvalue="Spring Boot.RateserviceApplication" />
       <item itemvalue="Spring Boot.FilmServiceApplication" />
       <item itemvalue="Spring Boot.ConfigserverApplication" />
       <item itemvalue="Spring Boot.UserServiceApplication" />
@@ -252,7 +235,7 @@
       <workItem from="1736769499141" duration="18652000" />
       <workItem from="1736789646813" duration="55000" />
       <workItem from="1736816871777" duration="3699000" />
-      <workItem from="1736829977638" duration="3751000" />
+      <workItem from="1736829977638" duration="7353000" />
     </task>
     <servers />
   </component>

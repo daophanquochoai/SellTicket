@@ -11,6 +11,7 @@ import doctorhoai.learn.film_service.service.inter.TypeFilmService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class TypeFilmServiceImpl implements TypeFilmService {
     private final TypeFilmRepository typeFilmRepository;
 
     @Override
+    @Transactional
     public TypeFilmDto addTypeFilm(TypeFilmDto typeFilmDto) {
         try{
             TypeFilm typeFilm = MapperToDto.DtoToTypeFilm(typeFilmDto);
@@ -33,6 +35,7 @@ public class TypeFilmServiceImpl implements TypeFilmService {
     }
 
     @Override
+    @Transactional
     public TypeFilmDto updateTypeFilm(String id, TypeFilmDto typeFilmDto) {
         Optional<TypeFilm> typeFilm = typeFilmRepository.findById(id);
         if( typeFilm.isEmpty()){
@@ -69,6 +72,7 @@ public class TypeFilmServiceImpl implements TypeFilmService {
     }
 
     @Override
+    @Transactional
     public void deleteTypeFilm(String id) {
         Optional<TypeFilm> typeFilm = typeFilmRepository.findById(id);
         if( typeFilm.isEmpty()){
@@ -84,6 +88,7 @@ public class TypeFilmServiceImpl implements TypeFilmService {
     }
 
     @Override
+    @Transactional
     public void activeTypeFilm(String id) {
         Optional<TypeFilm> typeFilm = typeFilmRepository.findById(id);
         if( typeFilm.isEmpty()){

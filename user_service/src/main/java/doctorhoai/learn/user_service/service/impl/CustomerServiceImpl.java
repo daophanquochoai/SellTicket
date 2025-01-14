@@ -63,6 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public CustomerDto updateCustomer(String id, CustomerRequest customer) {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if( !customerOptional.isPresent()){
@@ -83,6 +84,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public void deleteCustomer(String id) {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if( !customerOptional.isPresent()){
@@ -99,6 +101,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public void activeCustomer(String id) {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if( !customerOptional.isPresent()){
@@ -121,6 +124,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public void updatePassword(String id, String passwordOld, String passwordNew) {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if( !customerOptional.isPresent()){

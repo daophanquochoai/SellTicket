@@ -17,6 +17,7 @@ import doctorhoai.learn.user_service.service.inter.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final AccountRepository accountRepository;
 
     @Override
+    @Transactional
     public EmployeeDto addEmployee(EmployeeRequest employee) {
         Optional<Role> role = roleRepository.findById(employee.getRoleId());
         if( role.isEmpty()){
@@ -59,6 +61,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public EmployeeDto updateEmployee(String id, EmployeeRequest employee) {
         Optional<Employee> empOp = employeeRepository.findById(id);
         if( empOp.isEmpty()){
@@ -78,6 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
+    @Transactional
     public void deleteEmployee(String id) {
         Optional<Employee> empOp = employeeRepository.findById(id);
         if( empOp.isEmpty()){
@@ -94,6 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public void activeEmployee(String id) {
         Optional<Employee> empOp = employeeRepository.findById(id);
         if( empOp.isEmpty()){
@@ -121,6 +126,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public void updatePassword(String id, String password, String newPassword) {
         Optional<Employee> empOp = employeeRepository.findById(id);
         if( empOp.isEmpty()){
