@@ -50,6 +50,8 @@ management:
       enabled: true
     readinessstate:
       enabled: true
+    circuitbreakers:
+      enabled: true
   endpoint:
     gateway:
       enabled: true

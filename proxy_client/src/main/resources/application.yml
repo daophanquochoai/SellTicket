@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: proxy_client
+  datasource:
+    url: jdbc:mysql://localhost:3306/HuongDichVu
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQLDialect
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8070/eureka/
+
+#Cau hinh actuator
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+    circuitbreakers:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+
+#thong tin ung dung
+info:
+  app:
+    name: "Proxy Client"
+    description: "Using identity for user"
+    version: "1.0.0"
+

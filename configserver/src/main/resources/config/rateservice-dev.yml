@@ -35,6 +35,8 @@ management:
       enabled: true
     readinessstate:
       enabled: true
+    circuitbreakers:
+      enabled: true
   info:
     env:
       enabled: true
