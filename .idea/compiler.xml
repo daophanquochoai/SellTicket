@@ -3,40 +3,31 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Annotation profile for user_service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
-        </processorPath>
-        <module name="eurekaserver" />
-        <module name="user_service" />
-        <module name="configserver" />
-        <module name="rateservice" />
-        <module name="film_service" />
-      </profile>
-      <profile name="Annotation profile for roomservice" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
-        </processorPath>
-        <module name="apigateway" />
-        <module name="roomservice" />
-        <module name="dishservice" />
-      </profile>
       <profile name="Annotation profile for showtimeservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
         <module name="showtimeservice" />
+      </profile>
+      <profile name="Annotation profile for proxy_client" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="eurekaserver" />
+        <module name="apigateway" />
+        <module name="proxy_client" />
+        <module name="user_service" />
+        <module name="roomservice" />
+        <module name="dishservice" />
+        <module name="configserver" />
+        <module name="rateservice" />
+        <module name="film_service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -47,6 +38,7 @@
       <module name="dishservice" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
       <module name="film_service" options="-parameters" />
+      <module name="proxy_client" options="-parameters" />
       <module name="rateservice" options="-parameters" />
       <module name="roomservice" options="-parameters" />
       <module name="showtimeservice" options="-parameters" />

@@ -1,6 +1,7 @@
 package doctorhoai.learn.user_service.exception;
 
 import doctorhoai.learn.user_service.dto.response.ErrorResponse;
+import lombok.Builder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -27,28 +28,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             errors.add(fieldError.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                ErrorResponse.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message(String.join("\n",errors))
-                        .build()
+                new ErrorResponse( HttpStatus.BAD_REQUEST.value(), String.join("\n",errors))
         );
     }
 
     @ExceptionHandler( value = {UserNotFound.class, RoleNotFound.class, CustomerNotFound.class, EmployeeNotFound.class})
     public ResponseEntity<Object> handleUserNotFound(Exception ex, WebRequest request){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.builder()
-                .statusCode(HttpStatus.NOT_FOUND.value())
-                .message(ex.getMessage())
-                .build());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage())
+        );
     }
     @ExceptionHandler(value = {Exception.class, ErrorException.class})
     public ResponseEntity<Object> handleGlobalException(Exception exception,
                                                                   WebRequest webRequest) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                ErrorResponse.builder()
-                        .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                        .message(exception.getMessage())
-                        .build()
+                new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage())
         );
     }
 }

@@ -136,7 +136,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if( employee.getAccount() == null){
             throw new EmployeeNotFound("Employee hasn't account");
         }else{
-            if( employee.getAccount().getPassword().equals(password)){ // TODO : chua tinh ma hoa
+            if( employee.getAccount().getPassword().equals(password)){
                 employee.getAccount().setPassword(newPassword);
             }else {
                 throw new ErrorException("Wrong password");

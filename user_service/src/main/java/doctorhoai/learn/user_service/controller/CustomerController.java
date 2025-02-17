@@ -1,5 +1,6 @@
 package doctorhoai.learn.user_service.controller;
 
+import doctorhoai.learn.user_service.dto.CustomerDto;
 import doctorhoai.learn.user_service.dto.request.CustomerRequest;
 import doctorhoai.learn.user_service.dto.response.Response;
 import doctorhoai.learn.user_service.repository.CustomerRepository;
@@ -85,4 +86,23 @@ public class CustomerController { // TODO : chua co banking
                                 .build()
                 );
     }
+
+    @Operation(
+            summary = "Add customer into database"
+    )
+    @PostMapping("/add")
+    public ResponseEntity<Response> addCustomer(
+            @RequestBody @Valid CustomerRequest customerRequest
+            ){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(
+                        Response.builder()
+                                .statusCode(HttpStatus.CREATED.value())
+                                .message("Add customer successfully")
+                                .data(customerService.addCustomer(customerRequest))
+                                .build()
+                );
+    }
+
+
 }

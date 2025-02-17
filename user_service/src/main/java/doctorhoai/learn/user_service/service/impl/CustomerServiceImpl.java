@@ -16,6 +16,7 @@ import doctorhoai.learn.user_service.repository.RoleRepository;
 import doctorhoai.learn.user_service.service.inter.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final RoleRepository roleRepository;
     private final AccountRepository accountRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     @Transactional
@@ -42,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
         try{
             Account account = Account.builder()
                     .userName(customer.getUserName())
-                    .password(customer.getPassword()) // TODO: ma hoa bcryt
+                    .password(bCryptPasswordEncoder.encode(customer.getPassword()))
                     .role(role.get())
                     .active(Status.ACTIVE)
                     .build();
@@ -52,6 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
                     .phoneNumber(customer.getPhoneNumber())
                     .email(customer.getEmail())
                     .timestamp(LocalDate.now())
+                    .account(accountSaved)
                     .status(Status.ACTIVE)
                     .build();
             Customer customerSaved = customerRepository.save(c);
@@ -133,8 +136,8 @@ public class CustomerServiceImpl implements CustomerService {
         if( customerOptional.get().getAccount() == null){
             throw new ErrorException("Customer hasn't account");
         }else{
-            if( customerOptional.get().getAccount().getPassword().equals(passwordOld)){ // TODO : chua tinh ma hoa
-                customerOptional.get().getAccount().setPassword(passwordNew);
+            if( customerOptional.get().getAccount().getPassword().equals(passwordOld)){
+                customerOptional.get().getAccount().setPassword(bCryptPasswordEncoder.encode(passwordNew));
             }else{
                 throw new ErrorException("Password does not match");
             }

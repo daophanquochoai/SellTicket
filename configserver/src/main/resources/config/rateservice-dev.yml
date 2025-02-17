@@ -11,7 +11,10 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MySQLDialect
-
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 eureka:
   instance:
     preferIpAddress: true
@@ -53,10 +56,16 @@ server:
 pattern:
   level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
 
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
 resilience4j:
   circuitbreaker:
-    instances:
-      proxyService:
+    configs:
+      default:
         register-health-indicator: true
         event-consumer-buffer-size: 10
         automatic-transition-from-open-to-half-open-enabled: true
@@ -66,3 +75,21 @@ resilience4j:
         sliding-window-size: 10
         wait-duration-in-open-state: 5s
         sliding-window-type: COUNT_BASED
+  retry:
+    configs:
+      default:
+        maxRetryAttempts: 3
+        waitDuration: 500
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        ignoreExceptions:
+          - java.lang.NullPointerException
+        retryExceptions:
+          - java.util.concurrent.TimeoutException
+
+  ratelimiter:
+    configs:
+      default:
+        timeoutDuration: 1000
+        limitRefreshPeriod: 5000
+        limitForPeriod: 1

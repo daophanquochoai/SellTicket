@@ -59,8 +59,9 @@ public class RoleController {
     @Operation(
             summary = "Delete Role (Hidden) in database"
     )
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Response> deleteRole(
-            @RequestBody @NotNull int id
+            @PathVariable @NotNull int id
     ){
         roleService.deleteRole(id);
         return ResponseEntity.status(HttpStatus.OK).body(
