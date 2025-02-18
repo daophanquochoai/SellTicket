@@ -1,6 +1,5 @@
 package doctorhoai.learn.roomservice.dto;
 
-import doctorhoai.learn.roomservice.entity.Branch;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,5 @@
 package doctorhoai.learn.proxy_client.business.rate.model;
 
-import doctorhoai.learn.rateservice.entity.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -68,6 +68,7 @@ public class BranchController {
     @Operation(
             summary = "Get all branch"
     )
+    @GetMapping("/all")
     public ResponseEntity<Response> getAllBranch(){
         return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
