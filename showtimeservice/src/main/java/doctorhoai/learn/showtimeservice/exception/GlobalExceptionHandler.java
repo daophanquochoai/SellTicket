@@ -32,10 +32,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             errors.add(fieldError.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                ErrorResponse.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message(String.join("\n",errors))
-                        .build()
+                new ErrorResponse( HttpStatus.BAD_REQUEST.value(),String.join("\n",errors))
         );
     }
 
@@ -47,10 +44,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleErrorException( Exception ex, WebRequest request){
         log.info("** Process error exception **");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                ErrorResponse.builder()
-                        .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                        .message(ex.getMessage())
-                        .build()
+                new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage() )
         );
     }
     @ExceptionHandler(value = {
@@ -63,10 +57,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         final var badRequest = HttpStatus.BAD_REQUEST;
         return ResponseEntity.status(HttpStatus.valueOf(503))
                 .body(
-                        ErrorResponse.builder()
-                                .statusCode(503)
-                                .message(e.getMessage())
-                                .build()
+                        new ErrorResponse(503, e.getMessage() )
                 );
     }
 

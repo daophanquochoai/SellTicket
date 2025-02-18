@@ -96,7 +96,7 @@ public class RoomServiceImpl implements RoomService {
         try{
             Optional<Room> roomOptional = roomRepository.findById(id);
             if( roomOptional.isEmpty() ){
-                throw new RoomNotFound("Room not found with id : " + null);
+                throw new RoomNotFound("Room not found with id : " + id);
             }
             Room room = roomOptional.get();
             return MapperToDto.RoomToDto(room);

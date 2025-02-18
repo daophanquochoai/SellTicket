@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/filmshowtime")
+@RequestMapping("/filmshowtime")
 public class FilmShowTimeController {
     private final FilmShowService filmShowService;
 

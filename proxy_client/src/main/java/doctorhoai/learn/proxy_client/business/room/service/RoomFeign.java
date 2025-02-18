@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "roomservice", contextId = "roomProxyClient", fallbackFactory = RoomFeignFallBack.class)
+@FeignClient(name = "roomservice", contextId = "roomProxyClient", path = "/room", fallbackFactory = RoomFeignFallBack.class)
 public interface RoomFeign {
 
     @PostMapping("/add")
