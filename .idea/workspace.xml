@@ -5,83 +5,84 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/proxyclient-dev.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/showtimeservice-dev.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/controller/AuthenticationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/model/request/AuthenticationRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/model/request/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/model/response/AuthenticationResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/service/AuthenticationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/service/impl/AuthenticationServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/CustomerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/EmploymentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/RoleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/AccountDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/CustomerDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/EmployeeDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/RoleDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/request/CustomerRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/request/EmployeeRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/response/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/response/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/CustomerFeign.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/EmploymentFeign.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/RoleFeign.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/CustomerFeignCallBack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/EmployeeFeignCallBack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/FunctionCommon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/RoleFeignFallBack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/config/encoder/EncoderConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/config/filter/JwtRequestFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/config/redis/CommonUtility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/constant/AppConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/exception/GlobalException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/exception/InternalServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/exception/UnAuthorizedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/exception/payload/ExceptionMsg.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/service/JwtService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/service/TokenService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/service/impl/JwtServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/service/impl/TokenServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/util/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/util/impl/JwtUtilImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/AuthenticationConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/SecurityConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/SwaggerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/FilmDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/FilmShowDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/TypeFilmDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/request/FilmShowRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/response/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/response/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/FilmShowTime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/repository/FilmShowRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/FilmShowService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/config/Encoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/BaseDomain/ErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/controller/DishController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/controller/TypeDishController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/model/Dish.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/model/DishDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/model/Status.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/model/TypeDish.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/model/TypeDishDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/model/request/DishRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/service/DishFeign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/service/TypeDishFeign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/service/fallback/DishFeignFallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/service/fallback/TypeFIlmFeignFallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/controller/FilmController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/controller/TypeFilmController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/model/Film.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/model/FilmDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/model/Status.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/model/TypeFilm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/model/TypeFilmDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/model/request/FilmRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/service/FilmFeign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/service/TypeFilmFeign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/service/fallback/FilmFeignFallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/service/fallback/TypeFilmFeignFallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/Validation/TimeEndAfterTimeStartValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/Validation/ValidTimeRange.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/controller/FilmShowTimeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/Branch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/Film.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/TypeFilm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/ErrorException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/FilmShowTimeNotFound.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/helper/MapperObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/client/fallback/FilmFallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/client/fallback/FunctionCommon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/client/fallback/RoomFallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/client/feign/FilmFeign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/client/feign/RoomFeign.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/rateservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/rateservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/ProxyClientApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/ProxyClientApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/dishservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/dishservice-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/proxyclient-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/proxyclient-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/showtimeservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/showtimeservice-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/EmploymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/EmploymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/response/ErrorResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/response/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/BaseDomain/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/CustomerFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/CustomerFeign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/EmploymentFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/EmploymentFeign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/RoleFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/RoleFeign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/CustomerFeignCallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/CustomerFeignCallBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/EmployeeFeignCallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/EmployeeFeignCallBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/FunctionCommon.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/FunctionCommon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/RoleFeignFallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/RoleFeignFallBack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/showtimeservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/UserServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/UserServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/RoleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/response/ErrorResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/response/ErrorResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/entity/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/ShowtimeserviceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/ShowtimeserviceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/FilmShowDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/FilmShowDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/request/FilmShowRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto/request/FilmShowRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/FilmShowTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/FilmShowTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/entity/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/repository/FilmShowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/repository/FilmShowRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/FilmShowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/FilmShowService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,9 +94,9 @@
       <list>
         <option value="spring-beans.schema" />
         <option value="JUnit5 Test Class" />
-        <option value="Exception" />
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
+        <option value="Exception" />
         <option value="Class" />
       </list>
     </option>
@@ -117,6 +118,19 @@
 }</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
+  &quot;configuredContexts&quot;: [
+    {
+      &quot;name&quot;: &quot;docker-desktop&quot;,
+      &quot;kubeConfigUrl&quot;: &quot;file://C:/Users/Admin/.kube/config&quot;,
+      &quot;currentNamespace&quot;: &quot;default&quot;
+    },
+    {
+      &quot;name&quot;: &quot;minikube&quot;,
+      &quot;kubeConfigUrl&quot;: &quot;file://C:/Users/Admin/.kube/config&quot;,
+      &quot;originalNamespace&quot;: &quot;default&quot;,
+      &quot;currentNamespace&quot;: &quot;default&quot;
+    }
+  ],
   &quot;isMigrated&quot;: true
 }</component>
   <component name="ProblemsViewState">
@@ -134,58 +148,60 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.eureka.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MapperToDtoTest.Test_DtoToAccount.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.configserver [clean,install].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ApigatewayApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ConfigserverApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.DishserviceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.EurekaserverApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FilmServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ProxyClientApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.RateserviceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.RoomserviceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.UserServiceApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;jbr-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/MONHOC/HK2-NAM4/HuongDichVu/MICRO/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/dto&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.eureka.executor": "Run",
+    "JUnit.MapperToDtoTest.Test_DtoToAccount.executor": "Run",
+    "Maven.configserver [clean,install].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ApigatewayApplication.executor": "Run",
+    "Spring Boot.ConfigserverApplication.executor": "Run",
+    "Spring Boot.DishserviceApplication.executor": "Run",
+    "Spring Boot.EurekaserverApplication.executor": "Run",
+    "Spring Boot.FilmServiceApplication.executor": "Run",
+    "Spring Boot.ProxyClientApplication.executor": "Run",
+    "Spring Boot.RateserviceApplication.executor": "Run",
+    "Spring Boot.RoomserviceApplication.executor": "Run",
+    "Spring Boot.ShowtimeserviceApplication.executor": "Run",
+    "Spring Boot.UserServiceApplication (1).executor": "Run",
+    "Spring Boot.UserServiceApplication.executor": "Run",
+    "Spring Boot.proxy.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "jbr-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/MONHOC/HK2-NAM4/HuongDichVu/MICRO/film_service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql_aurora&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql_aurora"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\business\dish\model" />
       <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\showtimeservice\src\main\java\doctorhoai\learn\showtimeservice\dto" />
       <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\exception" />
       <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\user_service\src\main\java\doctorhoai\learn\user_service\exception" />
       <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\business\user\model" />
-      <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\roomservice\src\main\java\doctorhoai\learn\roomservice\dto" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -194,11 +210,11 @@
       <recent name="doctorhoai.learn.user_service.helper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="doctorhoai.learn.showtimeservice.entity" />
       <recent name="doctorhoai.learn.showtimeservice.exception" />
       <recent name="doctorhoai.learn.showtimeservice.dto" />
       <recent name="doctorhoai.learn.dishservice.exception" />
       <recent name="doctorhoai.learn.rateservice.exception" />
-      <recent name="doctorhoai.learn.film_service.exception" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -217,23 +233,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MapperToDtoTest.Test_DtoToAccount">
-    <configuration name="MapperToDtoTest.Test_DtoToAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="user_service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="doctorhoai.learn.user_service.helper.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="doctorhoai.learn.user_service.helper" />
-      <option name="MAIN_CLASS_NAME" value="doctorhoai.learn.user_service.helper.MapperToDtoTest" />
-      <option name="METHOD_NAME" value="Test_DtoToAccount" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.proxy">
     <configuration name="ApigatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="apigateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.apigateway.ApigatewayApplication" />
@@ -303,9 +303,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="proxy" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="proxy_client" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.proxy_client.ProxyClientApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="JUnit.MapperToDtoTest.Test_DtoToAccount" />
       <item itemvalue="Spring Boot.ShowtimeserviceApplication" />
+      <item itemvalue="Spring Boot.proxy" />
       <item itemvalue="Spring Boot.ApigatewayApplication" />
       <item itemvalue="Spring Boot.DishserviceApplication" />
       <item itemvalue="Spring Boot.RateserviceApplication" />
@@ -318,7 +325,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.EurekaserverApplication" />
-        <item itemvalue="JUnit.MapperToDtoTest.Test_DtoToAccount" />
       </list>
     </recent_temporary>
   </component>
@@ -362,6 +368,9 @@
       <workItem from="1739369798535" duration="4222000" />
       <workItem from="1739439500987" duration="19949000" />
       <workItem from="1739490740376" duration="600000" />
+      <workItem from="1739787174120" duration="15601000" />
+      <workItem from="1739849451044" duration="2272000" />
+      <workItem from="1739875260302" duration="1671000" />
     </task>
     <servers />
   </component>
@@ -400,6 +409,16 @@
           <url>file://$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java</url>
           <line>60</line>
           <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

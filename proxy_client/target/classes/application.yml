@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: proxyclient
+  config:
+    import: optional:configserver:http://localhost:8071
+  profiles:
+    active: dev
+
+server:
+  port: 8888

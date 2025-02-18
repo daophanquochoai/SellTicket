@@ -1,7 +1,7 @@
 package doctorhoai.learn.proxy_client.business.user.controller;
 
+import doctorhoai.learn.proxy_client.BaseDomain.Response;
 import doctorhoai.learn.proxy_client.business.user.model.request.CustomerRequest;
-import doctorhoai.learn.proxy_client.business.user.model.response.Response;
 import doctorhoai.learn.proxy_client.business.user.service.CustomerFeign;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

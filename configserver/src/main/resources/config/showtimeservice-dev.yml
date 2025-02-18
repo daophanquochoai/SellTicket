@@ -1,0 +1,101 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/HuongDichVu
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: none
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQLDialect
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8070/eureka/
+
+
+#Cau hinh actuator
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+    circuitbreakers:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+
+#thong tin ung dung
+info:
+  app:
+    name: "Show Time Service"
+    description: "Using create show time"
+    version: "1.0.0"
+
+
+# Gui zipkin
+pattern:
+  level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        automatic-transition-from-open-to-half-open-enabled: true
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        wait-duration-in-open-state: 5s
+        sliding-window-type: COUNT_BASED
+  retry:
+    configs:
+      default:
+        maxRetryAttempts: 3
+        waitDuration: 500
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        ignoreExceptions:
+          - java.lang.NullPointerException
+        retryExceptions:
+          - java.util.concurrent.TimeoutException
+
+  ratelimiter:
+    configs:
+      default:
+        timeoutDuration: 1000
+        limitRefreshPeriod: 5000
+        limitForPeriod: 1
+
+server:
+  port: 8084

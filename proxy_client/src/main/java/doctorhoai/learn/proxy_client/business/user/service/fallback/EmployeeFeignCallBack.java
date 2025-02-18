@@ -1,8 +1,9 @@
 package doctorhoai.learn.proxy_client.business.user.service.fallback;
 
-import doctorhoai.learn.proxy_client.business.user.model.response.Response;
+import doctorhoai.learn.proxy_client.BaseDomain.Response;
 import doctorhoai.learn.proxy_client.business.user.model.request.EmployeeRequest;
 import doctorhoai.learn.proxy_client.business.user.service.EmploymentFeign;
+import doctorhoai.learn.proxy_client.security.FunctionCommon;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.http.ResponseEntity;

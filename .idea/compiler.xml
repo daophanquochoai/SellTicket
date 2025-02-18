@@ -8,15 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
-        <module name="showtimeservice" />
-      </profile>
-      <profile name="Annotation profile for proxy_client" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="eurekaserver" />
@@ -24,6 +15,7 @@
         <module name="proxy_client" />
         <module name="user_service" />
         <module name="roomservice" />
+        <module name="showtimeservice" />
         <module name="dishservice" />
         <module name="configserver" />
         <module name="rateservice" />

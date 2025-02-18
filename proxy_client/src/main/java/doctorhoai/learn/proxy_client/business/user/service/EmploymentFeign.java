@@ -1,6 +1,6 @@
 package doctorhoai.learn.proxy_client.business.user.service;
 
-import doctorhoai.learn.proxy_client.business.user.model.response.Response;
+import doctorhoai.learn.proxy_client.BaseDomain.Response;
 import doctorhoai.learn.proxy_client.business.user.model.request.EmployeeRequest;
 import doctorhoai.learn.proxy_client.business.user.service.fallback.EmployeeFeignCallBack;
 import jakarta.validation.Valid;

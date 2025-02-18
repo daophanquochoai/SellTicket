@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -28,7 +29,7 @@ public class FilmShowTime {
     @NotNull
     private Time timeStart;
     @NotNull
-    private LocalDateTime timestamp;
+    private LocalDate timestamp;
     @Enumerated(EnumType.STRING)
     private Status status;
     @Column(name = "film_id")
