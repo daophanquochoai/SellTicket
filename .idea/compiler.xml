@@ -21,6 +21,15 @@
         <module name="rateservice" />
         <module name="film_service" />
       </profile>
+      <profile name="Annotation profile for paymentservice" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="paymentservice" />
+      </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
@@ -30,6 +39,7 @@
       <module name="dishservice" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
       <module name="film_service" options="-parameters" />
+      <module name="paymentservice" options="-parameters" />
       <module name="proxy_client" options="-parameters" />
       <module name="rateservice" options="-parameters" />
       <module name="roomservice" options="-parameters" />

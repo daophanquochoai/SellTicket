@@ -5,42 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/roomservice-dev.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/Validation/TimeEndAfterTimeStartValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/Validation/ValidTimeRange.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/controller/FilmShowTimeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/Branch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/Film.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/FilmDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/FilmShowDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/FilmShowTime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/Room.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/TypeFilm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/TypeFilmDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/model/request/FilmShowRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/service/FilmShowTimeFeign.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/service/fallback/FilmShowTimeFeignFallBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/entity/AccountBanking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/entity/Active.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/classes/doctorhoai/learn/dishservice/dto/response/ErrorResponse$ErrorResponseBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/classes/doctorhoai/learn/dishservice/dto/response/ErrorResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/classes/doctorhoai/learn/dishservice/dto/response/ErrorResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/classes/doctorhoai/learn/dishservice/exception/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/classes/doctorhoai/learn/dishservice/exception/GlobalExceptionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/room/service/RoomFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/room/service/RoomFeign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/room/service/RoomFeign.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/room/service/RoomFeign.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/impl/RoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/impl/RoomServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/dto/response/ErrorResponse$ErrorResponseBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/dto/response/ErrorResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/dto/response/ErrorResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/exception/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/exception/GlobalExceptionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/controller/FilmShowTimeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/controller/FilmShowTimeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/GlobalExceptionHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +101,7 @@
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "jbr-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/MONHOC/HK2-NAM4/HuongDichVu/MICRO/showtimeservice",
+    "last_opened_file_path": "D:/MONHOC/HK2-NAM4/HuongDichVu/Stripe",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -154,6 +121,9 @@
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="doctorhoai.learn.user_service.entity" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\business\dish\model" />
       <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\showtimeservice\src\main\java\doctorhoai\learn\showtimeservice\dto" />
@@ -233,6 +203,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PaymentserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="paymentservice" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.paymentservice.PaymentserviceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RateserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="rateservice" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="doctorhoai.learn.rateservice.RateserviceApplication" />
@@ -269,15 +246,16 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Spring Boot.ShowtimeserviceApplication" />
-      <item itemvalue="Spring Boot.proxy" />
+      <item itemvalue="Spring Boot.PaymentserviceApplication" />
       <item itemvalue="Spring Boot.ApigatewayApplication" />
-      <item itemvalue="Spring Boot.DishserviceApplication" />
-      <item itemvalue="Spring Boot.RateserviceApplication" />
-      <item itemvalue="Spring Boot.FilmServiceApplication" />
-      <item itemvalue="Spring Boot.UserServiceApplication" />
-      <item itemvalue="Spring Boot.RoomserviceApplication" />
       <item itemvalue="Spring Boot.ConfigserverApplication" />
+      <item itemvalue="Spring Boot.DishserviceApplication" />
+      <item itemvalue="Spring Boot.FilmServiceApplication" />
+      <item itemvalue="Spring Boot.RateserviceApplication" />
+      <item itemvalue="Spring Boot.RoomserviceApplication" />
+      <item itemvalue="Spring Boot.ShowtimeserviceApplication" />
+      <item itemvalue="Spring Boot.UserServiceApplication" />
+      <item itemvalue="Spring Boot.proxy" />
       <item itemvalue="Spring Boot.EurekaserverApplication" />
     </list>
     <recent_temporary>
@@ -329,6 +307,13 @@
       <workItem from="1739787174120" duration="15601000" />
       <workItem from="1739849451044" duration="2272000" />
       <workItem from="1739875260302" duration="11955000" />
+      <workItem from="1739890564501" duration="61000" />
+      <workItem from="1739951655621" duration="48000" />
+      <workItem from="1739951855991" duration="203000" />
+      <workItem from="1739962349583" duration="1462000" />
+      <workItem from="1739968915137" duration="1532000" />
+      <workItem from="1739974752498" duration="30000" />
+      <workItem from="1740016421279" duration="1659000" />
     </task>
     <servers />
   </component>
