@@ -12,4 +12,6 @@ public interface FilmShowService {
     void deleteFilmShow(Integer id);
     void activeFilmShow(Integer id);
     List<FilmShowDto> getFilmShows(String roomId, LocalDate date);
+    public FilmShowDto getFilmShowByRoomIdAndFilmShowDto(String roomId, Integer Id);
+    FilmShowDto getFilmShowById(Integer Id);
 }

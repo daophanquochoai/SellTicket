@@ -55,11 +55,10 @@ public class MapperToDto {
     public static Room DtoToRoom(RoomDto dto){
         ObjectMapper objectMapper = new ObjectMapper();
         try{
-            String seatMatrixJson = objectMapper.writeValueAsString(dto.getPositionChair());
             return Room.builder()
                     .id(dto.getId())
                     .name(dto.getName())
-                    .positionChair(seatMatrixJson)
+                    .positionChair(dto.getPositionChair())
                     .branch(MapperToDto.DtoToBranch(dto.getBranch()))
                     .build();
         }catch (Exception e){
@@ -70,11 +69,10 @@ public class MapperToDto {
     public static RoomDto RoomToDto( Room room){
         ObjectMapper objectMapper = new ObjectMapper();
         try{
-            int[][] seatMatrix = objectMapper.readValue(room.getPositionChair().toString(), int[][].class);
             return RoomDto.builder()
                     .id(room.getId())
                     .name(room.getName())
-                    .positionChair(seatMatrix)
+                    .positionChair(room.getPositionChair())
                     .branch(MapperToDto.BranchToDto(room.getBranch()))
                     .status(room.getStatus().toString())
                     .build();

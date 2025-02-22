@@ -82,4 +82,30 @@ public class FilmShowTimeController {
         );
     }
 
+    @GetMapping("/rom/{roomId}/showtime/{id}")
+    public ResponseEntity<Response> getFilmShowByRoomAndId(
+            @Valid @PathVariable @NotNull String roomId,
+            @Valid @PathVariable @NotNull Integer id
+    ){
+        return ResponseEntity.ok(
+                Response
+                        .builder()
+                        .statusCode(200)
+                        .data(filmShowService.getFilmShowByRoomIdAndFilmShowDto(roomId,id))
+                        .build()
+        );
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Response> getFilmShowTime(
+            @Valid @PathVariable @NotNull Integer id
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .data(filmShowService.getFilmShowById(id))
+                        .build()
+        );
+    }
+
 }

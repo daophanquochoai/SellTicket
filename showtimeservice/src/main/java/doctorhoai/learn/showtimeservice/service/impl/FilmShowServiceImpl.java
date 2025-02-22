@@ -118,4 +118,22 @@ public class FilmShowServiceImpl implements FilmShowService {
         List<FilmShowTime> list = filmShowRepository.getFilmShowTimeByRoomIdAndTimestamp(roomId,date);
         return list.stream().map(MapperObject::mapToFilmShowDto).collect(Collectors.toList());
     }
+
+    @Override
+    public FilmShowDto getFilmShowByRoomIdAndFilmShowDto(String roomId, Integer Id) {
+        Optional<FilmShowTime> filmShowTimeOptional = filmShowRepository.getFilmShowTimeByRoomIdAndId(roomId, Id);
+        if( filmShowTimeOptional.isEmpty()){
+            throw new FilmShowTimeNotFound("Film Show Not Found with id : " + Id);
+        }
+        return MapperObject.mapToFilmShowDto(filmShowTimeOptional.get());
+    }
+
+    @Override
+    public FilmShowDto getFilmShowById(Integer Id) {
+        Optional<FilmShowTime> filmShowTimeOptional = filmShowRepository.findById(Id);
+        if( filmShowTimeOptional.isEmpty()){
+            throw new FilmShowTimeNotFound("Film Show Not Found with id : " + Id);
+        }
+        return MapperObject.mapToFilmShowDto(filmShowTimeOptional.get());
+    }
 }

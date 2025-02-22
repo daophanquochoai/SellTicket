@@ -1,5 +1,6 @@
 package doctorhoai.learn.proxy_client.business.time.model;
 
+import doctorhoai.learn.proxy_client.business.film.model.FilmDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

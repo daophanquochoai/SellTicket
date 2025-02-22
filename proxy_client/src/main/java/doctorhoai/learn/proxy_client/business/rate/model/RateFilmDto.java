@@ -1,5 +1,7 @@
 package doctorhoai.learn.proxy_client.business.rate.model;
 
+import doctorhoai.learn.proxy_client.business.film.model.FilmDto;
+import doctorhoai.learn.proxy_client.business.user.model.request.CustomerRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +18,7 @@ public class RateFilmDto {
     private int star;
     private String content;
     private LocalDateTime timeStamp;
-    private CustomerDto customer;
+    private CustomerRequest customer;
     private FilmDto film;
     private Status active;
 }

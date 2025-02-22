@@ -6,13 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class RoomRequest {
     private String name;
-    private int[][] positionChair;
+    private Integer[][] positionChair;
     private String branchId;
     private String status;
 }

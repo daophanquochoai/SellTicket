@@ -1,10 +1,13 @@
 package doctorhoai.learn.roomservice.entity;
 
+import doctorhoai.learn.roomservice.helper.PositionChairConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Map;
 
 @Entity
 @AllArgsConstructor
@@ -19,7 +22,8 @@ public class Room {
     private String name;
     @Lob
     @Column(nullable = false)
-    private String positionChair;
+    @Convert(converter =  PositionChairConverter.class)
+    private Integer[][] positionChair;
     @ManyToOne
     @JoinColumn(name = "branch_id")
     private Branch branch;

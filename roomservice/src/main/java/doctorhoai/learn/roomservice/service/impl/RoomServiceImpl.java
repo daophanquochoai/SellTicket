@@ -40,17 +40,13 @@ public class RoomServiceImpl implements RoomService {
         try{
             Room room = Room.builder()
                     .name(roomRequest.getName())
-                    .positionChair(objectMapper.writeValueAsString(roomRequest.getPositionChair()))
+                    .positionChair(roomRequest.getPositionChair())
                     .branch(branch)
                     .status(Status.valueOf(roomRequest.getStatus().toUpperCase()))
                     .build();
             Room roomSaved = roomRepository.save(room);
             return MapperToDto.RoomToDto(roomSaved);
-        }catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-        catch (Exception e){
+        } catch (Exception e){
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());
         }
@@ -65,7 +61,7 @@ public class RoomServiceImpl implements RoomService {
             }
             Room room = roomOptional.get();
             room.setName(roomRequest.getName());
-            room.setPositionChair( objectMapper.writeValueAsString(roomRequest.getPositionChair()));
+            room.setPositionChair( roomRequest.getPositionChair());
             if( !roomOptional.get().getBranch().getId().equals(roomRequest.getBranchId()) ){
                 Optional<Branch> branchOptional1 = branchRepository.findById(roomRequest.getBranchId());
                 if( branchOptional1.isEmpty() ){
@@ -80,12 +76,7 @@ public class RoomServiceImpl implements RoomService {
         catch (BranchNotFound branchNotFound){
             log.error(branchNotFound.getMessage());
             throw new BranchNotFound(branchNotFound.getMessage());
-        }
-        catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-        catch (Exception e){
+        } catch (Exception e){
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());
         }

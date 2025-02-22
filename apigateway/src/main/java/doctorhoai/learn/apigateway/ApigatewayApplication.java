@@ -87,6 +87,20 @@ public class ApigatewayApplication {
                                 )
                                 .uri("lb://DISHSERVICE")
                 )
+                .route(
+                        p -> p
+                                .path("/doctorhoai/proxy/**")
+                                .filters(
+                                        f -> f
+                                                .rewritePath("/doctorhoai/proxy/(?<segment>.*)", "/${segment}")
+                                                .addRequestHeader("X-Response-Time", LocalDateTime.now().toString())
+                                                .circuitBreaker(
+                                                        config ->config.setName("proxySupport")
+                                                                .setFallbackUri("forward:/proxySupport")
+                                                )
+                                )
+                                .uri("lb://PROXYCLIENT")
+                )
                 .build();
     }
 }

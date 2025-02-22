@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class RoomDto {
     private String id;
     private String name;
-    private int[][] positionChair;
+    private Integer[][] positionChair;
     private BranchDto branch;
     private String status;
 }
