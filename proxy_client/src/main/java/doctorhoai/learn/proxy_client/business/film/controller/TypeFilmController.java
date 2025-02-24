@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/typefilm")
+@RequestMapping("/film-service/api/typefilm")
 @RequiredArgsConstructor
 public class TypeFilmController {
 

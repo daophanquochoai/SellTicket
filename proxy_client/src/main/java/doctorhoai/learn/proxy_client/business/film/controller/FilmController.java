@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/film")
+@RequestMapping("/film-service/api/film")
 public class FilmController {
 
     private final FilmFeign filmFeign;

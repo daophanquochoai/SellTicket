@@ -31,7 +31,7 @@ public class EmployeeController {
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Get all employees successfully")
-                        .dataList(Collections.singletonList(employeeService.getAllEmployees()))
+                        .data(Collections.singletonList(employeeService.getAllEmployees()))
                         .build()
         );
     }

@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: notificationservice
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dpquochoai@gmail.com
+    password: haas dmfz dscz ppgi
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+    topic:
+      name: ticket
+  dinary:
+    cloud:
+      name: dkbukqhmr
+    api:
+      key: 182839138267935
+      secret: MDpABd4odJ9f9XSrbY5kbkxPCWw
+  servlet:
+    multipart:
+      max-file-size: 2GB
+      max-request-size: 2GB

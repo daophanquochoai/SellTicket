@@ -16,6 +16,7 @@ import doctorhoai.learn.user_service.repository.RoleRepository;
 import doctorhoai.learn.user_service.service.inter.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,18 +31,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
     private final AccountRepository accountRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     @Transactional
     public EmployeeDto addEmployee(EmployeeRequest employee) {
-        Optional<Role> role = roleRepository.findById(employee.getRoleId());
+        Optional<Role> role = roleRepository.findById(2);
         if( role.isEmpty()){
             throw new RoleNotFound("Role not found with id : " + employee.getRoleId());
         }
         try{
             Account account = Account.builder()
                     .userName(employee.getUserName())
-                    .password(employee.getPassword()) //TODO : Chinh sua ma bcryt
+                    .password(bCryptPasswordEncoder.encode(employee.getPassword()))
                     .active(Status.ACTIVE)
                     .role(role.get())
                     .build();

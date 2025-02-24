@@ -3,11 +3,27 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="configserver" />
+      </profile>
+      <profile name="Annotation profile for BaseDomain" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="BaseDomain" />
+      </profile>
       <profile name="Annotation profile for paymentservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="eurekaserver" />
@@ -17,20 +33,22 @@
         <module name="roomservice" />
         <module name="showtimeservice" />
         <module name="dishservice" />
-        <module name="configserver" />
         <module name="paymentservice" />
         <module name="rateservice" />
         <module name="film_service" />
+        <module name="notificationservice" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="BaseDomain" options="-parameters" />
       <module name="apigateway" options="-parameters" />
       <module name="configserver" options="-parameters" />
       <module name="dishservice" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
       <module name="film_service" options="-parameters" />
+      <module name="notificationservice" options="-parameters" />
       <module name="paymentservice" options="-parameters" />
       <module name="proxy_client" options="-parameters" />
       <module name="rateservice" options="-parameters" />

@@ -33,7 +33,7 @@ public class CustomerController { // TODO : chua co banking
                         Response.builder()
                                 .statusCode(HttpStatus.OK.value())
                                 .message("Get all customer successfully")
-                                .dataList(Collections.singletonList(customerService.getAllCustomers()))
+                                .data(Collections.singletonList(customerService.getAllCustomers()))
                                 .build()
                 );
     }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/branch")
+@RequestMapping("room-service/api/branch")
 public class BranchController {
 
     private final BranchFeign branchFeign;

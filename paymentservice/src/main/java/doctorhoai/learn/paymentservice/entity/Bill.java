@@ -17,7 +17,9 @@ public class Bill {
     @Id
     @GeneratedValue( strategy = GenerationType.UUID)
     private String id;
+    @Column(nullable = false)
     private Float totalPrice;
+    @Column(unique = true, nullable = false)
     private String transactionCode;
     private Integer filmShowTimeId;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -28,4 +30,10 @@ public class Bill {
     private LocalDateTime timestamp;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @Column(nullable = false)
+    private String userName;
+    @Column(nullable = false)
+    private String email;
+    @Column(nullable = false)
+    private String numberPhone;
 }

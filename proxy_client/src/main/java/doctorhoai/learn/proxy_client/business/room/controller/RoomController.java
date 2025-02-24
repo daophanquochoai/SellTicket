@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/room")
+@RequestMapping("/room-service/api/room")
 public class RoomController {
 
     private final RoomFeign roomFeign;

@@ -10,9 +10,14 @@ import doctorhoai.learn.paymentservice.repository.TicketRepository;
 import doctorhoai.learn.paymentservice.service.inter.TicketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -69,9 +74,20 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDto> getTickets() {
-        List<Ticket> tickets = ticketRepository.findAll();
-        return tickets.stream().map(mapperToObject::mapperToTicketDto).toList();
+    public List<Ticket> getTickets(String limit, String page, String active, String orderBy, String asc) {
+        Pageable pageable;
+        if( asc.equals("asc")){
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+        Page<Ticket> list;
+        if(Objects.equals(active, "none")){
+            list = ticketRepository.findAll(pageable);
+        }else{
+            list = ticketRepository.findAllByActive(pageable, Active.valueOf(active));
+        }
+        return list.get().toList();
     }
 
     @Override

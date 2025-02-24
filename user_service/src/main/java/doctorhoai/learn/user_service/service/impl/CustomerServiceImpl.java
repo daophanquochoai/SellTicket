@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public CustomerDto addCustomer(CustomerRequest customer) {
-        Optional<Role> role = roleRepository.findById(customer.getRoleId());
+        Optional<Role> role = roleRepository.findById(1);
         if( role.isEmpty()){
             throw new RoleNotFound("Role not found with id : " + customer.getRoleId());
         }

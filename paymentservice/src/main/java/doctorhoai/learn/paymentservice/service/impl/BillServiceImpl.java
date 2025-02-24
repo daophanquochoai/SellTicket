@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import doctorhoai.learn.basedomain.Event.BillChairTicket;
+import doctorhoai.learn.basedomain.Event.BillDishTicket;
+import doctorhoai.learn.basedomain.Event.TicketEmail;
 import doctorhoai.learn.paymentservice.dto.*;
 import doctorhoai.learn.paymentservice.dto.response.Response;
 import doctorhoai.learn.paymentservice.entity.*;
@@ -15,9 +18,13 @@ import doctorhoai.learn.paymentservice.service.feign.FilmFeign;
 import doctorhoai.learn.paymentservice.service.feign.FilmShowTimeFeign;
 import doctorhoai.learn.paymentservice.service.feign.RoomFeign;
 import doctorhoai.learn.paymentservice.service.inter.BillService;
+import doctorhoai.learn.paymentservice.service.producer.KafkaMessagePublish;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -44,6 +51,7 @@ public class BillServiceImpl implements BillService {
     private final PaymentMethodRepository paymentMethodRepository;
     private final FilmFeign filmFeign;
     private final MapperToObject mapperToObject;
+    private final KafkaMessagePublish kafkaMessagePublish;
 
 
     @Transactional
@@ -104,6 +112,9 @@ public class BillServiceImpl implements BillService {
                     .active(Active.ACTIVE)
                     .timestamp(LocalDateTime.now())
                     .status(Status.CREATED)
+                    .userName(billDto.getUserName())
+                    .email(billDto.getEmail())
+                    .numberPhone(billDto.getNumberPhone())
                     .build();
             Bill billSaved = billRepository.save(bill);
             // convert bill dto
@@ -125,6 +136,9 @@ public class BillServiceImpl implements BillService {
                     .nameRoom(roomDto.getName())
                     .filmId(filmDto.getId())
                     .nameFilm(filmDto.getName())
+                    .userName(billSaved.getUserName())
+                    .email(billSaved.getEmail())
+                    .numberPhone(billSaved.getNumberPhone())
                     .build();
             List<BillChairDto> billChairDto = billDto.getChairs();
             //list return into billdto
@@ -186,6 +200,53 @@ public class BillServiceImpl implements BillService {
                 });
                 billConvert.setDishes(billDishReturn);
             }
+            log.info("Create bill dto...");
+            //send email
+            TicketEmail ticketEmail = new TicketEmail(
+                  billConvert.getTotalPrice(),
+                    billConvert.getTransactionCode(),
+                    billConvert.getPaymentMethodId(),
+                    billConvert.getPaymentMethod(),
+                  new ArrayList<>(),
+                  new ArrayList<>(),
+                    billConvert.getTimestamp(),
+                    billConvert.getTimeEnd(),
+                    billConvert.getTimeStart(),
+                    billConvert.getTimeStampSee(),
+                    billConvert.getNameRoom(),
+                    billConvert.getNameFilm(),
+                    billConvert.getUserName(),
+                    billConvert.getEmail(),
+                    billConvert.getNumberPhone()
+            );
+            billConvert.getChairs().forEach( item -> {
+                ticketEmail.getChairs().add(
+                        new BillChairTicket(
+                                item.getChairCode(),
+                                item.getPrice(),
+                                item.getTicket().getConditionUse(),
+                                item.getTicket().getName(),
+                                item.getTicket().getTypeTicket()
+                        )
+                );
+            });
+            billConvert.getDishes().forEach( item -> {
+                ticketEmail.getDishes().add(
+                        new BillDishTicket(
+                                item.getPrice(),
+                                item.getAmount(),
+                                item.getActive().toString(),
+                                item.getDishDto().getName(),
+                                item.getDishDto().getImage(),
+                                item.getDishDto().getTypeDish().getName()
+                        )
+                );
+            });
+            log.info("Send kafka...");
+            kafkaMessagePublish.sendEventToTopic(
+                    ticketEmail
+            );
+
             return billConvert;
         }catch (TicketNotFound t){
             log.error(t.getMessage());
@@ -212,9 +273,20 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public List<BillDto> getAllBills() {
+    public List<BillDto> getAllBills(String page, String limit, String active, String orderBy,String asc, String q) {
         List<BillDto> list = new ArrayList<>();
-        List<Bill> bills = billRepository.findAll();
+        Pageable pageable;
+        List<Bill> bills;
+        if( asc.equals("asc")){
+            pageable = PageRequest.of(Integer.parseInt(page),Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page),Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+        if( active.equals("none")){
+            bills = billRepository.findAllCustom(pageable,q).toList();
+        }else{
+            bills = billRepository.findAllCustom(pageable,q,active).toList();
+        }
         bills.forEach(bill -> {
             //call showtime
             ResponseEntity<Response> responseShowTime = filmShowTimeFeign.getFilmShowTime(bill.getFilmShowTimeId());

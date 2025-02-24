@@ -47,6 +47,9 @@ management:
   tracing:
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      enpoint: ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
   health:
     livenessstate:
       enabled: true
@@ -68,10 +71,10 @@ management:
 info:
   app:
     name: "Api gateway service"
-    description: "Using fetch about Api gatewau"
+    description: "Using fetch about Api gateway"
     version: "1.0.0"
 server:
-  port: 6379
+  port: 6380
 logging:
   pattern:
     level: DEBUG

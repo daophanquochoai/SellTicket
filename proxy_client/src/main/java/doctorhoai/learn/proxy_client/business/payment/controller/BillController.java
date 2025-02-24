@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping("/api/bill")
+@RequestMapping("/payment-service/api/bill")
 @RequiredArgsConstructor
 public class BillController {
 

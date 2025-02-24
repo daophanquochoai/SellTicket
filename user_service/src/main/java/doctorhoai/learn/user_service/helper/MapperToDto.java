@@ -1,9 +1,6 @@
 package doctorhoai.learn.user_service.helper;
 
-import doctorhoai.learn.user_service.dto.AccountDto;
-import doctorhoai.learn.user_service.dto.CustomerDto;
-import doctorhoai.learn.user_service.dto.EmployeeDto;
-import doctorhoai.learn.user_service.dto.RoleDto;
+import doctorhoai.learn.user_service.dto.*;
 import doctorhoai.learn.user_service.entity.*;
 
 public class MapperToDto {
@@ -86,5 +83,30 @@ public class MapperToDto {
                 .timestamp(customer.getTimestamp())
                 .status(customer.getStatus().toString())
                 .build();
+    }
+    public static AccountBankingDto AccountBankToDto(AccountBanking accountBanking){
+        return AccountBankingDto
+                .builder()
+                .id(accountBanking.getId())
+                .cvv(accountBanking.getCvv())
+                .active(accountBanking.getActive())
+                .cardCode(accountBanking.getCardCode())
+                .dayStart(accountBanking.getDayStart())
+                .dayEnd(accountBanking.getDayEnd())
+                .name(accountBanking.getName())
+                .build();
+    }
+    public static AccountBanking DtoToAccountBanking(AccountBankingDto accountBankingDto){
+        return AccountBanking
+                .builder()
+                .id(accountBankingDto.getId())
+                .cvv(accountBankingDto.getCvv())
+                .active(accountBankingDto.getActive())
+                .cardCode(accountBankingDto.getCardCode())
+                .dayStart(accountBankingDto.getDayStart())
+                .dayEnd(accountBankingDto.getDayEnd())
+                .name(accountBankingDto.getName())
+                .build();
+
     }
 }

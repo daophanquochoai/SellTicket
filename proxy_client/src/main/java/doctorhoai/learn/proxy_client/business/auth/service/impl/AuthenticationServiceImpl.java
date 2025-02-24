@@ -28,7 +28,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
         log.info("** AuthenticationResponse, authenticate user service **");
 
-        //TODO: chua ma hoa mat khau
         try{
             this.authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

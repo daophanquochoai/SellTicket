@@ -34,7 +34,7 @@ public class RoleController {
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Get all role successfully")
-                        .dataList(Collections.singletonList(roleList))
+                        .data(Collections.singletonList(roleList))
                         .build()
         );
     }

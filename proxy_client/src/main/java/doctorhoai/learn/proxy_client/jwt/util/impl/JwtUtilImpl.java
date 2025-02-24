@@ -4,13 +4,16 @@ import doctorhoai.learn.proxy_client.jwt.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtUtilImpl implements JwtUtil {
@@ -40,6 +43,8 @@ public class JwtUtilImpl implements JwtUtil {
     @Override
     public String generateToken(UserDetails userDetails) {
         final Map<String, Object> claims = new HashMap<>();
+        List<String> authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        claims.put("roles", authorities);
         return this.createToken(claims, userDetails.getUsername());
     }
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/chair")
+@RequestMapping("/room-service/api/chair")
 public class ChairController {
 
     private final ChairFeign chairFeign;

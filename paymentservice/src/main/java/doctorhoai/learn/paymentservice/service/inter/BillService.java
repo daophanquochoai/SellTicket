@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BillService {
     BillDto createBill(BillDto billDto);
-    List<BillDto> getAllBills();
+    List<BillDto> getAllBills(String page, String limit, String active, String orderBy,String asc, String q);
     BillDto getBillById(String id);
     void deleteBill(String id);
     void activeBill(String id);

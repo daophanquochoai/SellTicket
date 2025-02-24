@@ -2,7 +2,13 @@ spring:
   application:
     name: paymentservice
   config:
-    import: optional:configserver:http://localhost:8071
+    import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
   profiles:
     active: dev
-
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic:
+      name: ticket
