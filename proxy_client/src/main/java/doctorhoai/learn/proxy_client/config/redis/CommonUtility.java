@@ -1,5 +1,6 @@
 package doctorhoai.learn.proxy_client.config.redis;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +14,16 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class CommonUtility {
 
+    @Value("${spring.redis.host}")
+    private String hostname;
+    @Value("${spring.redis.port}")
+    private Integer port;
+
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName("127.0.0.1");
-        redisStandaloneConfiguration.setPort(6379);
+        redisStandaloneConfiguration.setHostName(hostname);
+        redisStandaloneConfiguration.setPort(port);
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration);
         return jedisConnectionFactory;
     }

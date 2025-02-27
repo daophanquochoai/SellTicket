@@ -145,6 +145,16 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <to>
+                        <image>doctorhoai/huongdichvu_roomservice:f3</image>
+                    </to>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

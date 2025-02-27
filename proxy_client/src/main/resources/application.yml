@@ -2,9 +2,11 @@ spring:
   application:
     name: proxyclient
   config:
-    import: optional:configserver:http://localhost:8071
+    import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
   profiles:
     active: dev
-
+  redis:
+    host: ${SPRING_REDIS_HOST:127.0.0.1}
+    port: ${SPRING_REDIS_PORT:6379}
 server:
   port: 8888

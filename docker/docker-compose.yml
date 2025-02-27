@@ -1,5 +1,61 @@
 version: '3'
 services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - huongdichvu
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  zookeeper:
+    container_name: zookeeper
+    image: "docker.io/bitnami/zookeeper:3"
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    healthcheck:
+      test: [ "CMD", "echo", "ruok", "|", "nc", "localhost", "2181" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - huongdichvu
+
+  kafka:
+    container_name: kafka
+    image: "docker.io/bitnami/kafka:2-debian-10"
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+    depends_on:
+      - zookeeper
+    healthcheck:
+      test: [ "CMD", "kafka-topics.sh", "--list", "--bootstrap-server", "localhost:9092" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - huongdichvu
+
   mysql-container:
     image: mysql:latest
     container_name: mysqlservice
@@ -20,16 +76,16 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - huongdichvu
-  zipkin-container:
+  zipkin:
     image: openzipkin/zipkin
-    container_name: zipkin-container
+    container_name: zipkin
     ports:
       - 9411:9411
     networks:
       - huongdichvu
 
   configserver:
-    image: doctorhoai/huongdichvu_configserver:v1
+    image: doctorhoai/huongdichvu_configserver:f3
     container_name: configserver
     ports:
       - "8071:8071"
@@ -40,16 +96,16 @@ services:
       retries: 20
       start_period: 10s
     environment:
-      - SPRING_ZIPKIN_BASE_URL=http://zipkin-container:9411
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
-      - EUREKA_INSTANCE=eureka
+      - EUREKA_INSTANCE=localhost
     networks:
       - huongdichvu
   eurekaservice:
-    image: doctorhoai/huongdichvu_eureka:v1
+    image: doctorhoai/huongdichvu_eurekaservice:f3
     container_name: eurekaservice
     ports:
       - "8070:8070"
@@ -60,17 +116,18 @@ services:
       retries: 20
       start_period: 10s
     depends_on:
-      zipkin-container:
+      zipkin:
         condition: service_healthy
       configserver:
         condition: service_healthy
     environment:
       - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
-      - SPRING_ZIPKIN_BASE_URL=http://zipkin-container:9411
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - EUREKA_INSTANCE=localhost
     networks:
       - huongdichvu
   userservice:
-    image: doctorhoai/huongdichvu_userservice:v1
+    image: doctorhoai/huongdichvu_userservice:f3
     container_name: userservice
     ports:
       - "9000:9000"
@@ -83,7 +140,7 @@ services:
     depends_on:
       mysql-container:
         condition: service_healthy
-      zipkin-container:
+      zipkin:
         condition: service_healthy
       configserver:
         condition: service_healthy
@@ -91,7 +148,7 @@ services:
         condition: service_healthy
     environment:
       - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
-      - SPRING_ZIPKIN_BASE_URL=http://zipkin-container:9411
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
@@ -99,9 +156,272 @@ services:
       - EUREKA_INSTANCE=eureka
     networks:
       - huongdichvu
-
+  showtimeservice:
+    image: doctorhoai/huongdichvu_showwtimeservice:f3
+    container_name: showtimeservice
+    ports:
+      - "8084:8084"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8084/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaservice:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+    networks:
+      - huongdichvu
+  roomservice:
+    image: doctorhoai/huongdichvu_roomservice:f3
+    container_name: roomservice
+    ports:
+      - "8085:8085"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8085/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaservice:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+    networks:
+      - huongdichvu
+  rateservice:
+    image: doctorhoai/huongdichvu_rateservice:f3
+    container_name: rateservice
+    ports:
+      - "8082:8082"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8082/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaservice:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+    networks:
+      - huongdichvu
+  paymentservice:
+    image: doctorhoai/huongdichvu_paymentservice:f3
+    container_name: paymentservice
+    ports:
+      - "8086:8086"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8086/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaservice:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_URL_KAFKA=kafka:29092
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+    networks:
+      - huongdichvu
+  noficationservice:
+    image: doctorhoai/huongdichvu_notificationservice:f3
+    container_name: noficationservice
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8080/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      kafka:
+        condition: service_healthy
+      zookeeper:
+        condition: service_healthy
+    environment:
+      - SPRING_URL_KAFKA=kafka:29092
+      - DINARY_CLOUD_NAME=dkbukqhmr
+      - DINARY_API_KEY=182839138267935
+      - DINARY_API_SECRET=MDpABd4odJ9f9XSrbY5kbkxPCWw
+    networks:
+      - huongdichvu
+  apigateway:
+    image: doctorhoai/huongdichvu_apigateway:f3
+    container_name: apigateway
+    ports:
+      - "6380:6380"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:6380/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaservice:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+      - EUREKA_INSTANCE=eureka
+    networks:
+      - huongdichvu
+  filmservice:
+    image: doctorhoai/huongdichvu_filmservice:f3
+    container_name: filmservice
+    ports:
+      - "8081:8081"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8081/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaservice:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+    networks:
+      - huongdichvu
+  dishservice:
+    image: doctorhoai/huongdichvu_dishservice:f3
+    container_name: dishservice
+    ports:
+      - "8083:8083"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8083/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaservice:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+    networks:
+      - huongdichvu
+  proxyclient:
+    image: doctorhoai/huongdichvu_proxyservice:f3
+    container_name: proxyclient
+    ports:
+      - "8888:8888"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8888/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaservice:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    networks:
+      - huongdichvu
 volumes:
   mysql_data:
+    driver: local
+  zookeeper_data:
+    driver: local
+  kafka_data:
     driver: local
 
 networks:

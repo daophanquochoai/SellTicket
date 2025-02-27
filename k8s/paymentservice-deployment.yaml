@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose.yml -o k8s/
+    kompose.version: 1.35.0 (9532ceef3)
+  labels:
+    io.kompose.service: paymentservice
+  name: paymentservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: paymentservice
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose.yml -o k8s/
+        kompose.version: 1.35.0 (9532ceef3)
+      labels:
+        io.kompose.service: paymentservice
+    spec:
+      containers:
+        - env:
+            - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
+              value: http://eurekaservice:8070/eureka/
+            - name: SPRING_CONFIG_IMPORT
+              value: configserver:http://configserver:8071
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: root
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_URL_KAFKA
+              value: kafka:29092
+            - name: SPRING_ZIPKIN_BASE_URL
+              value: http://zipkin:9411/api/v2/spans
+          image: doctorhoai/huongdichvu_paymentservice:f3
+          livenessProbe:
+            exec:
+              command:
+                - curl --fail --silent http://localhost:8086/actuator/healthy/readiness | grep UP || exit 1
+            failureThreshold: 20
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 5
+          name: paymentservice
+          ports:
+            - containerPort: 8086
+              protocol: TCP
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose.yml -o k8s/
+    kompose.version: 1.35.0 (9532ceef3)
+  labels:
+    io.kompose.service: paymentservice
+  name: paymentservice
+spec:
+  ports:
+    - name: "8086"
+      port: 8086
+      targetPort: 8086
+  selector:
+    io.kompose.service: paymentservice
