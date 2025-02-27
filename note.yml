@@ -1,11 +1,96 @@
 - configserver :
-    + SPRING_ZIPKIN_BASE_URL
-    + SPRING_DATASOURCE_URL
-    + SPRING_DATASOURCE_USERNAME
-    + SPRING_DATASOURCE_PASSWORD
-    + EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
-    + EUREKA_INSTANCE
+    ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+    ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+    ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/HuongDichVu}
+    ${SPRING_DATASOURCE_USERNAME:root}
+    ${SPRING_DATASOURCE_PASSWORD:root}
+    ${EUREKA_INSTANCE:localhost}
 - eureka :
-    + SPRING_CONFIG_IMPORT
+    SPRING_CONFIG_IMPORT
+    EUREKA_INSTANCE
+    SPRING_ZIPKIN_BASE_URL
 - userservice :
-    + SPRING_CONFIG_IMPORT
+    SPRING_CONFIG_IMPORT
+- apigateway :
+    ${SPRING_CONFIG_IMPORT:configserver:http://localhost:8071/}
+    ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+    ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+- dishservice :
+    ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
+    ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+    ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/HuongDichVu}
+    ${SPRING_DATASOURCE_USERNAME:root}
+    ${SPRING_DATASOURCE_PASSWORD:root}
+    ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+- filmservice :
+    ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
+    ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+    ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/HuongDichVu}
+    ${SPRING_DATASOURCE_USERNAME:root}
+    ${SPRING_DATASOURCE_PASSWORD:root}
+    ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+- notification:
+    ${SPRING_URL_KAFKA:localhost:9092}
+    ${DINARY_CLOUD_NAME:dkbukqhmr}
+    ${DINARY_API_KEY:182839138267935}
+    ${DINARY_API_SECRET:MDpABd4odJ9f9XSrbY5kbkxPCWw}
+- paymentservice :
+    ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
+    ${SPRING_URL_KAFKA:localhost:9092}
+    ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+    ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/HuongDichVu}
+    ${SPRING_DATASOURCE_USERNAME:root}
+    ${SPRING_DATASOURCE_PASSWORD:root}
+    ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+- proxyclient :
+    ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
+    ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+    ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/HuongDichVu}
+    ${SPRING_DATASOURCE_USERNAME:root}
+    ${SPRING_DATASOURCE_PASSWORD:root}
+    ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+    ${SPRING_REDIS_HOST:127.0.0.1}
+    ${SPRING_REDIS_PORT:6379}
+- rateservice :
+    ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
+    ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+    ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/HuongDichVu}
+    ${SPRING_DATASOURCE_USERNAME:root}
+    ${SPRING_DATASOURCE_PASSWORD:root}
+    ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+- roomservice :
+      ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
+      ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+      ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/HuongDichVu}
+      ${SPRING_DATASOURCE_USERNAME:root}
+      ${SPRING_DATASOURCE_PASSWORD:root}
+      ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+- showtimeservice :
+      ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
+      ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+      ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/HuongDichVu}
+      ${SPRING_DATASOURCE_USERNAME:root}
+      ${SPRING_DATASOURCE_PASSWORD:root}
+      ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+- userservice :
+      ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071}
+      ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+      ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/HuongDichVu}
+      ${SPRING_DATASOURCE_USERNAME:root}
+      ${SPRING_DATASOURCE_PASSWORD:root}
+      ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
+
+
+------------------
+thay doi khi deploy k8s
+  <dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+  <version>2.2.10.RELEASE</version>
+  </dependency>
+  <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-kubernetes-all -->
+  <dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-kubernetes-all</artifactId>
+  <version>1.1.10.RELEASE</version>
+  </dependency>

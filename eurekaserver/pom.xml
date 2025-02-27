@@ -106,7 +106,7 @@
                 <version>3.4.1</version>
                 <configuration>
                     <to>
-                        <image>doctorhoai/huongdichvu_eureka:v1</image>
+                        <image>doctorhoai/huongdichvu_eurekaservice:f3</image>
                     </to>
                 </configuration>
             </plugin>

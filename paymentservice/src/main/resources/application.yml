@@ -7,8 +7,10 @@ spring:
     active: dev
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      security.protocol: PLAINTEXT
     topic:
       name: ticket
+    bootstrap-servers: ${SPRING_URL_KAFKA:localhost:9092}

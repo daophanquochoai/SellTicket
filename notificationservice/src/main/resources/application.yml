@@ -17,7 +17,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${SPRING_URL_KAFKA:localhost:9092}
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
@@ -29,10 +29,10 @@ spring:
       name: ticket
   dinary:
     cloud:
-      name: dkbukqhmr
+      name: ${DINARY_CLOUD_NAME:dkbukqhmr}
     api:
-      key: 182839138267935
-      secret: MDpABd4odJ9f9XSrbY5kbkxPCWw
+      key: ${DINARY_API_KEY:182839138267935}
+      secret: ${DINARY_API_SECRET:MDpABd4odJ9f9XSrbY5kbkxPCWw}
   servlet:
     multipart:
       max-file-size: 2GB

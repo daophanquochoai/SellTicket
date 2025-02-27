@@ -9,14 +9,26 @@
         <outputRelativeToContentRoot value="true" />
         <module name="configserver" />
       </profile>
-      <profile name="Annotation profile for BaseDomain" enabled="true">
+      <profile name="Annotation profile for eurekaserver" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="eurekaserver" />
+        <module name="user_service" />
+      </profile>
+      <profile name="Annotation profile for proxy_client" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
-        <module name="BaseDomain" />
+        <module name="proxy_client" />
+        <module name="notificationservice" />
       </profile>
       <profile name="Annotation profile for paymentservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -26,17 +38,14 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
-        <module name="eurekaserver" />
         <module name="apigateway" />
-        <module name="proxy_client" />
-        <module name="user_service" />
         <module name="roomservice" />
+        <module name="BaseDomain" />
         <module name="showtimeservice" />
         <module name="dishservice" />
         <module name="paymentservice" />
-        <module name="rateservice" />
         <module name="film_service" />
-        <module name="notificationservice" />
+        <module name="rateservice" />
       </profile>
     </annotationProcessing>
   </component>

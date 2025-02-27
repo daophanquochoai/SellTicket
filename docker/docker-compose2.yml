@@ -1,0 +1,60 @@
+version: '3'
+services:
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - 9411:9411
+    networks:
+      - huongdichvu
+  configserver:
+    image: doctorhoai/huongdichvu_configserver:f3
+    container_name: configserver
+    ports:
+      - "8071:8071"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    environment:
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+      - EUREKA_INSTANCE=localhost
+    networks:
+      - huongdichvu
+
+  eurekaservice:
+    image: doctorhoai/huongdichvu_eurekaservice:f3
+    container_name: eurekaservice
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - EUREKA_INSTANCE=localhost
+    networks:
+      - huongdichvu
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  huongdichvu:
+    driver: bridge

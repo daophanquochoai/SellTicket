@@ -5,37 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BaseDomain/src/main/java/doctorhoai/learn/basedomain/Event/BillChairTicket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BaseDomain/src/main/java/doctorhoai/learn/basedomain/Event/BillDishTicket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BaseDomain/src/main/java/doctorhoai/learn/basedomain/Event/TicketEmail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/note.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notificationservice/src/main/java/doctorhoai/learn/notificationservice/config/CloudDinaryConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notificationservice/src/main/java/doctorhoai/learn/notificationservice/config/RetryTopicConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notificationservice/src/main/java/doctorhoai/learn/notificationservice/consumer/KafkaMessageListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notificationservice/src/main/java/doctorhoai/learn/notificationservice/service/impl/MailServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notificationservice/src/main/java/doctorhoai/learn/notificationservice/service/inter/MailService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/config/KafkaConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/controller/TicketController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/producer/KafkaMessagePublish.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/AccountBankController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/AccountBankingDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/Active.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/AccountBankFeign.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/AccountBankFeignFallBack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/AccountBankController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/AccountBankingDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/exception/AccountBankNotFound.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/repository/AccountBankRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/AccountBankingServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/docker-compose2.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/1.kafka-data-pvc.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/1.kafka-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/1.mysql-data-pvc.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/1.mysql-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/1.redis-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/1.zipkin-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/1.zookeeper-data-pvc.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/1.zookeeper-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/2.configserver-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/3.eurekaservice-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.apigateway-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.dishservice-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.filmservice-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.noficationservice-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.paymentservice-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.proxyclient-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.rateservice-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.roomservice-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.showtimeservice-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/4.userservice-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/hpa.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/ApigatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/ApigatewayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/apigateway-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/apigateway-dev.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/dishservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/dishservice-dev.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/eurekaserver-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/eurekaserver-dev.yml" afterDir="false" />
@@ -46,47 +42,34 @@
       <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/roomservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/roomservice-dev.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/showtimeservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/showtimeservice-dev.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eurekaserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/eurekaserver/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eurekaserver/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/eurekaserver/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/note.yml" beforeDir="false" afterPath="$PROJECT_DIR$/note.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notificationservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notificationservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notificationservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/notificationservice/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paymentservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/config/KafkaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/config/KafkaConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/controller/BillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/BillDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/BillDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/TicketDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/TicketDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/entity/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/entity/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/TicketRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/TicketRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/TicketServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/TicketServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/inter/BillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/inter/BillService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/inter/TicketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/inter/TicketService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paymentservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/model/request/AuthenticationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/model/request/AuthenticationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/service/impl/AuthenticationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/service/impl/AuthenticationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/controller/DishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/controller/DishController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/controller/TypeDishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/dish/controller/TypeDishController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/controller/FilmController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/controller/FilmController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/controller/TypeFilmController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/controller/TypeFilmController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/rate/controller/RateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/rate/controller/RateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/room/controller/BranchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/room/controller/BranchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/room/controller/ChairController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/room/controller/ChairController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/room/controller/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/room/controller/RoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/controller/FilmShowTimeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/controller/FilmShowTimeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/util/impl/JwtUtilImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/util/impl/JwtUtilImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/auth/service/impl/AuthenticationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/auth/service/impl/AuthenticationServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/SecurityConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/AccountBankFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/AccountBankFeign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/config/redis/CommonUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/config/redis/CommonUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/config/redis/CommonUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/config/redis/CommonUtility.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/EmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/RoleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/response/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/response/Response.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/entity/AccountBanking.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/entity/AccountBanking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/helper/MapperToDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/helper/MapperToDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/inter/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/inter/AccountBankService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,11 +138,22 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.eureka.executor": "Run",
+    "Docker.docker/docker-compose2.yml: Compose Deployment.executor": "Run",
     "Docker.docker: Compose Deployment.executor": "Run",
     "JUnit.MapperToDtoTest.Test_DtoToAccount.executor": "Run",
+    "Maven.BaseDomain [clean,install,-DskipTests].executor": "Run",
+    "Maven.apigateway [clean,install,jib:build...].executor": "Run",
     "Maven.configserver [clean,install,jib:build...].executor": "Run",
     "Maven.configserver [clean,install].executor": "Run",
+    "Maven.dishservice [clean,install,jib:build...].executor": "Run",
     "Maven.eurekaserver [clean,install,jib:build...].executor": "Run",
+    "Maven.film_service [clean,install,jib:build...].executor": "Run",
+    "Maven.notificationservice [clean,install...].executor": "Run",
+    "Maven.paymentservice [clean,install,jib:build...].executor": "Run",
+    "Maven.proxy_client [clean,install,jib:build...].executor": "Run",
+    "Maven.rateservice [clean,install,jib:build...].executor": "Run",
+    "Maven.roomservice [clean,install,jib:build...].executor": "Run",
+    "Maven.showtimeservice [clean,install,jib:build...].executor": "Run",
     "Maven.user_service [clean,install,jib:build...].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -187,12 +181,15 @@
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "jbr-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Admin/Downloads/movie-ticket-main",
+    "last_opened_file_path": "D:/MONHOC/HK2-NAM4/HuongDichVu",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "run.configurations.included.in.services": "true",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
@@ -220,6 +217,9 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\k8s" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="doctorhoai.learn.user_service.helper" />
     </key>
@@ -235,6 +235,7 @@
     <option name="myCommands">
       <command value="mvn clean install" />
       <command value="docker login" />
+      <command value="mvn clean install -DskipTests " />
       <command value="mvn clean install jib:build -DskipTests " />
     </option>
   </component>
@@ -361,7 +362,16 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="docker/docker-compose2.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker/docker-compose2.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Docker.docker/docker-compose2.yml: Compose Deployment" />
       <item itemvalue="Docker.docker: Compose Deployment" />
       <item itemvalue="Spring Boot.ConfigserverApplication" />
       <item itemvalue="Spring Boot.PaymentserviceApplication" />
@@ -379,8 +389,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.EurekaserverApplication" />
         <item itemvalue="Docker.docker: Compose Deployment" />
+        <item itemvalue="Docker.docker/docker-compose2.yml: Compose Deployment" />
+        <item itemvalue="Spring Boot.EurekaserverApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -449,7 +460,21 @@
       <workItem from="1740281874570" duration="21312000" />
       <workItem from="1740323990903" duration="5068000" />
       <workItem from="1740359213513" duration="538000" />
-      <workItem from="1740365640653" duration="10951000" />
+      <workItem from="1740365640653" duration="21217000" />
+      <workItem from="1740397843325" duration="831000" />
+      <workItem from="1740410852730" duration="962000" />
+      <workItem from="1740446428281" duration="1747000" />
+      <workItem from="1740461912319" duration="853000" />
+      <workItem from="1740470631104" duration="2379000" />
+      <workItem from="1740481099555" duration="6058000" />
+      <workItem from="1740520828285" duration="2780000" />
+      <workItem from="1740529462885" duration="2929000" />
+      <workItem from="1740540973348" duration="5875000" />
+      <workItem from="1740563458465" duration="597000" />
+      <workItem from="1740565088785" duration="1821000" />
+      <workItem from="1740579147478" duration="2521000" />
+      <workItem from="1740586853646" duration="4374000" />
+      <workItem from="1740623889621" duration="10899000" />
     </task>
     <servers />
   </component>
