@@ -1,35 +1,74 @@
 package doctorhoai.learn.paymentservice.controller;
 
-import doctorhoai.learn.basedomain.Event.TicketEmail;
+import com.google.gson.Gson;
 import doctorhoai.learn.paymentservice.dto.BillDto;
 import doctorhoai.learn.paymentservice.dto.response.Response;
 import doctorhoai.learn.paymentservice.service.inter.BillService;
-import doctorhoai.learn.paymentservice.service.producer.KafkaMessagePublish;
-import doctorhoai.learn.paymentservice.service.producer.KafkaMessagePublish;
+import doctorhoai.learn.paymentservice.service.sse.Message;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.time.LocalDateTime;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/bill")
 public class BillController {
 
     private final BillService billService;
-    private final KafkaMessagePublish kafkaMessagePublish;
+    private final Gson gson;
+
+    private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+
+    @GetMapping("/sse/subscribe")
+    public SseEmitter subscribe() {
+        SseEmitter emitter = new SseEmitter();
+        // Lưu emitter
+        emitters.add(emitter);
+
+        // Xóa emitter khi hoàn thành hoặc timeout
+        emitter.onCompletion(() -> emitters.remove(emitter));
+        emitter.onTimeout(() -> emitters.remove(emitter));
+
+        return emitter;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Response> createBill(
-            @RequestBody @Valid BillDto billDto
+//            @RequestBody @Valid BillDto billDto
             )
     {
 
-        BillDto bill = billService.createBill(billDto);
+//        BillDto bill = billService.createBill(billDto);
+        BillDto bill = new BillDto();
+        for (SseEmitter emitter : emitters) {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            executorService.execute(() -> {
+                try {
+                    emitter.send(SseEmitter.event()
+                            .name("billEvent")
+                            .data(gson.toJson(new Message(bill.getChairs(),2,bill.getRoomId(),bill.getFilmId())), MediaType.APPLICATION_JSON));
+                } catch (IOException e) {
+                    emitter.completeWithError(e);
+                    emitters.remove(emitter);
+                    log.error("SSE fail : " + e.getMessage());
+                }
+            });
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(
                         Response.builder()
