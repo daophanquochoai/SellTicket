@@ -5,71 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docker/docker-compose2.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/1.kafka-data-pvc.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/1.kafka-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/1.mysql-data-pvc.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/1.mysql-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/1.redis-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/1.zipkin-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/1.zookeeper-data-pvc.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/1.zookeeper-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/2.configserver-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/3.eurekaservice-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.apigateway-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.dishservice-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.filmservice-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.noficationservice-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.paymentservice-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.proxyclient-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.rateservice-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.roomservice-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.showtimeservice-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/4.userservice-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/hpa.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/sse/Message.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/apigateway-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/apigateway-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/dishservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/dishservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/eurekaserver-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/eurekaserver-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/filmservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/filmservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/paymentservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/paymentservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/proxyclient-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/proxyclient-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/rateservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/rateservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/roomservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/roomservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/showtimeservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/showtimeservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eurekaserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/eurekaserver/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/film_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/film_service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/apigateway-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/5.apigateway-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/configserver-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/2.configserver-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/dishservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.dishservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/eurekaservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/3.eurekaservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/filmservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.filmservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/hpa.yml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/hpa.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/kafka-data-persistentvolumeclaim.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/0.kafka-pvc.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/kafka-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/1.kafka-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/mysql-container-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/1.mysql-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/mysql-data-persistentvolumeclaim.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/0.mysql-pvc.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/noficationservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.noficationservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/paymentservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.paymentservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/proxyclient-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/5.proxyclient-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/rateservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.rateservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/redis-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/1.redis-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/roomservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.roomservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/showtimeservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.showtimeservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/showtimeservice-service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/userservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.userservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/zipkin-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/1.zipkin-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/zookeeper-data-persistentvolumeclaim.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/0.zookeeper-pvc.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/zookeeper-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/1.zookeeper-deployment.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/note.yml" beforeDir="false" afterPath="$PROJECT_DIR$/note.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notificationservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notificationservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notificationservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/notificationservice/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paymentservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/config/KafkaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/config/KafkaConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/controller/BillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/AccountBankFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/AccountBankFeign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/config/redis/CommonUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/config/redis/CommonUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/config/redis/CommonUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/config/redis/CommonUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rateservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rateservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/showtimeservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/BillDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/BillDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,9 +48,9 @@
         <option value="spring-beans.schema" />
         <option value="JUnit5 Test Class" />
         <option value="Enum" />
-        <option value="Exception" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
@@ -181,7 +147,7 @@
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "jbr-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/MONHOC/HK2-NAM4/HuongDichVu",
+    "last_opened_file_path": "D:/MONHOC/HK2-NAM4/Android",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -218,6 +184,8 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO" />
+      <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\docker\k8s" />
       <recent name="D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\k8s" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
@@ -371,27 +339,27 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Docker.docker/docker-compose2.yml: Compose Deployment" />
-      <item itemvalue="Docker.docker: Compose Deployment" />
-      <item itemvalue="Spring Boot.ConfigserverApplication" />
-      <item itemvalue="Spring Boot.PaymentserviceApplication" />
       <item itemvalue="Spring Boot.ApigatewayApplication" />
       <item itemvalue="Spring Boot.BaseDomainApplication" />
+      <item itemvalue="Spring Boot.ConfigserverApplication" />
       <item itemvalue="Spring Boot.DishserviceApplication" />
+      <item itemvalue="Spring Boot.EurekaserverApplication" />
       <item itemvalue="Spring Boot.FilmServiceApplication" />
       <item itemvalue="Spring Boot.NotificationserviceApplication" />
+      <item itemvalue="Spring Boot.PaymentserviceApplication" />
       <item itemvalue="Spring Boot.RateserviceApplication" />
       <item itemvalue="Spring Boot.RoomserviceApplication" />
       <item itemvalue="Spring Boot.ShowtimeserviceApplication" />
       <item itemvalue="Spring Boot.UserServiceApplication" />
       <item itemvalue="Spring Boot.proxy" />
-      <item itemvalue="Spring Boot.EurekaserverApplication" />
+      <item itemvalue="Docker.docker: Compose Deployment" />
+      <item itemvalue="Docker.docker/docker-compose2.yml: Compose Deployment" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.EurekaserverApplication" />
         <item itemvalue="Docker.docker: Compose Deployment" />
         <item itemvalue="Docker.docker/docker-compose2.yml: Compose Deployment" />
-        <item itemvalue="Spring Boot.EurekaserverApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -474,7 +442,9 @@
       <workItem from="1740565088785" duration="1821000" />
       <workItem from="1740579147478" duration="2521000" />
       <workItem from="1740586853646" duration="4374000" />
-      <workItem from="1740623889621" duration="10899000" />
+      <workItem from="1740623889621" duration="17330000" />
+      <workItem from="1740647504115" duration="3999000" />
+      <workItem from="1740658040922" duration="34000" />
     </task>
     <servers />
   </component>
@@ -533,16 +503,6 @@
           <url>file://$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/impl/RoomServiceImpl.java</url>
           <line>50</line>
           <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java</url>
-          <line>276</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java</url>
-          <line>289</line>
-          <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/AccountBankingServiceImpl.java</url>

@@ -1,8 +1,6 @@
 package doctorhoai.learn.paymentservice.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import doctorhoai.learn.paymentservice.entity.Active;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

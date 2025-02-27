@@ -81,16 +81,44 @@
       ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8070/eureka/}
 
 
-------------------
-thay doi khi deploy k8s
-  <dependency>
-  <groupId>org.springframework.cloud</groupId>
-  <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-  <version>2.2.10.RELEASE</version>
-  </dependency>
-  <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-kubernetes-all -->
-  <dependency>
-  <groupId>org.springframework.cloud</groupId>
-  <artifactId>spring-cloud-starter-kubernetes-all</artifactId>
-  <version>1.1.10.RELEASE</version>
-  </dependency>
+#------------------
+#thay doi khi deploy k8s
+#  <dependency>
+#  <groupId>org.springframework.cloud</groupId>
+#  <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+#  <version>2.2.10.RELEASE</version>
+#  </dependency>
+#  <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-kubernetes-all -->
+#  <dependency>
+#  <groupId>org.springframework.cloud</groupId>
+#  <artifactId>spring-cloud-starter-kubernetes-all</artifactId>
+#  <version>1.1.10.RELEASE</version>
+#  </dependency>
+
+#----------------------
+#!/bin/bash
+# Áp dụng các PersistentVolumeClaim (PVC) trước
+  kubectl apply -f 0.kafka-pvc.yaml,0.mysql-pvc.yaml,0.zookeeper-pvc.yaml
+  
+  # Áp dụng các deployment của nhóm "1"
+  kubectl apply -f 1.mysql-deployment.yaml,1.redis-deployment.yaml,1.zipkin-deployment.yaml,1.zookeeper-deployment.yaml
+  
+  kubectl apply -f 1.kafka-deployment.yaml
+
+  
+  # Áp dụng deployment nhóm "2"
+  kubectl apply -f 2.configserver-deployment.yaml
+
+  
+  # Áp dụng deployment nhóm "3"
+  kubectl apply -f 3.eurekaservice-deployment.yaml
+
+  
+  # Áp dụng deployment nhóm "4"
+  kubectl apply -f 4.dishservice-deployment.yaml,4.filmservice-deployment.yaml,4.noficationservice-deployment.yaml,4.paymentservice-deployment.yaml,4.rateservice-deployment.yaml,4.roomservice-deployment.yaml,4.showtimeservice-deployment.yaml,4.userservice-deployment.yaml
+
+  # Áp dụng deployment nhóm "5"
+  kubectl apply -f 5.apigateway-deployment.yaml,5.proxyclient-deployment.yaml
+  
+  # Áp dụng các file khác (ví dụ hpa.yml) nếu cần
+  kubectl apply -f hpa.yml

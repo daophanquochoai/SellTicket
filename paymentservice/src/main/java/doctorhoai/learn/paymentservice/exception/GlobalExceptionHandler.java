@@ -31,7 +31,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler( value = {
             ErrorException.class,
-            Exception.class
+            Exception.class,
     })
     public ResponseEntity<ErrorResponse> handleGlobalException( Exception ex, WebRequest webRequest){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
@@ -44,7 +44,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             PaymentNotFound.class,
             DishNotFound.class,
             RoomNotFound.class,
-            BillNotFound.class
+            BillNotFound.class,
+            FilmNotFound.class
     })
     public ResponseEntity<ErrorResponse> handleObjectNotFound( Exception ex, WebRequest webRequest){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
