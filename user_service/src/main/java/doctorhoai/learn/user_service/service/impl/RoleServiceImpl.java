@@ -10,6 +10,9 @@ import doctorhoai.learn.user_service.repository.RoleRepository;
 import doctorhoai.learn.user_service.service.inter.RoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,4 +95,22 @@ public class RoleServiceImpl implements RoleService {
             throw new ErrorException(ex.getMessage());
         }
     }
+
+    @Override
+    public List<RoleDto> getRoleByCustom(String limit, String page, String orderBy, String asc, String status, String q) {
+        List<Role> roles;
+        Pageable pageable;
+        if( asc.equals("asc") ){
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+        if( status.equals("none") ){
+            roles = roleRepository.getAllRole(pageable, q).toList();
+        }else{
+            roles = roleRepository.getAllRole(pageable, q, Status.valueOf(status)).toList();
+        }
+        return roles.stream().map(MapperToDto::RoleToDto).toList();
+    }
+
 }

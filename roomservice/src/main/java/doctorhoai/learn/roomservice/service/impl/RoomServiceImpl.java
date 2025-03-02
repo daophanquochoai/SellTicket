@@ -16,6 +16,9 @@ import doctorhoai.learn.roomservice.repository.RoomRepository;
 import doctorhoai.learn.roomservice.service.inter.RoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -137,5 +140,22 @@ public class RoomServiceImpl implements RoomService {
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());
         }
+    }
+
+    @Override
+    public List<RoomDto> getRoomByCustom(String limit, String page, String orderBy, String q, String asc, String status) {
+        List<Room> rooms;
+        Pageable pageable;
+        if( asc.equals("asc")){
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+        if( status.equals("none") ){
+            rooms = roomRepository.getRoomByCustom(pageable,q).toList();
+        }else{
+            rooms = roomRepository.getRoomByCustom(pageable,q, Status.valueOf(status)).toList();
+        }
+        return rooms.stream().map(MapperToDto::RoomToDto).toList();
     }
 }

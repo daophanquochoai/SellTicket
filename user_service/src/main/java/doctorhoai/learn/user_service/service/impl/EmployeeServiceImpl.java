@@ -16,6 +16,9 @@ import doctorhoai.learn.user_service.repository.RoleRepository;
 import doctorhoai.learn.user_service.service.inter.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final RoleRepository roleRepository;
     private final AccountRepository accountRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final CustomerServiceImpl customerServiceImpl;
 
     @Override
     @Transactional
@@ -150,5 +154,22 @@ public class EmployeeServiceImpl implements EmployeeService {
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());
         }
+    }
+
+    @Override
+    public List<EmployeeDto> getEmployee(String limit, String page, String q, String asc, String status, String orderBy) {
+        List<Employee> employees;
+        Pageable pageable;
+        if( asc.equals("asc") ){
+            pageable = PageRequest.of(Integer.parseInt(limit), Integer.parseInt(page), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(limit), Integer.parseInt(page), Sort.by(orderBy).descending());
+        }
+        if( status.equals("none") ){
+            employees = employeeRepository.getAllByCustom(pageable,q).toList();
+        }else {
+            employees = employeeRepository.getAllByCustom(pageable, q, Status.valueOf(status)).toList();
+        }
+        return employees.stream().map(MapperToDto::EmployeeToDto).toList();
     }
 }

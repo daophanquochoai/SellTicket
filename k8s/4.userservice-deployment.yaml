@@ -33,17 +33,23 @@ spec:
               value: jdbc:mysql://mysqlservice:3306/HuongDichVu?allowPublicKeyRetrieval=true&useSSL=false
             - name: SPRING_DATASOURCE_USERNAME
               value: root
+            - name: SPRING_URL_KAFKA
+              value: kafka:29092
+            - name: SPRING_REDIS_HOST
+              value: redis
+            - name: SPRING_REDIS_PORT
+              value: "6379"
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_userservice:f3
+          image: doctorhoai/huongdichvu_userservice:f4
           imagePullPolicy: IfNotPresent
           resources:
             requests:
-              memory: 512Mi
-              cpu: 100m
-            limits:
               memory: 1024Mi
-              cpu: 500m
+              cpu: 200m
+            limits:
+              memory: 2048Mi
+              cpu: 1000m
           livenessProbe:
             exec:
               command:

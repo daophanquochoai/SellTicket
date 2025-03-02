@@ -27,7 +27,7 @@ metadata:
   name: scale-proxy-container
   namespace: default
 spec:
-  maxReplicas: 3
+  maxReplicas: 5
   metrics:
     - resource:
         name: cpu

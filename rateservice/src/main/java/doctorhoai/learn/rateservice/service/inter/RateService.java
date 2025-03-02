@@ -10,4 +10,5 @@ public interface RateService {
     void deleteRateFilm(String id);
     void activeRateFilm(String id);
     List<RateFilmDto> getRateByFilmId(String filmId);
+    List<RateFilmDto> getRateByCustom(String limit, String page, String asc, String status, String q, String orderBy);
 }

@@ -1,6 +1,9 @@
 package doctorhoai.learn.user_service.controller;
 
-import doctorhoai.learn.user_service.dto.EmployeeDto;
+import doctorhoai.learn.user_service.service.inter.AccountBankService;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.core.env.Environment;
 import doctorhoai.learn.user_service.dto.request.EmployeeRequest;
 import doctorhoai.learn.user_service.dto.response.Response;
 import doctorhoai.learn.user_service.service.inter.EmployeeService;
@@ -21,6 +24,8 @@ import java.util.Collections;
 @Tag(name = "Employee controller", description = "Handler employee operations")
 public class EmployeeController {
     private final EmployeeService employeeService;
+    private final Environment environment;
+    private final AccountBankService accountBankService;
 
     @Operation(
             summary = "Get all employee in database"
@@ -97,7 +102,57 @@ public class EmployeeController {
         );
     }
 
-    // TODO : Doi mat khau chua lam
+    @GetMapping("/event")
+    public String getEvent(){
+        return environment.getProperty("local.server.port");
+    }
 
+
+    @PostMapping("/forget/admin")
+    public ResponseEntity<Response> forgetAdmin(
+            @RequestBody @Valid @NotBlank String email
+    ){
+        accountBankService.forgetAccountAdmin(email);
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("OPT has been sent to email successfully")
+                        .build()
+        );
+    }
+
+    @PostMapping("/change/admin/{opt}/{email}")
+    public ResponseEntity<Response> changePassword(
+            @RequestBody @Valid @Length(min = 6, message = "Password should 6 characters") String password,
+            @PathVariable @Valid @NotBlank @Email String email,
+            @PathVariable @Valid @NotBlank @Length(min = 4) String opt
+    ){
+        accountBankService.changePasswordAdmin(password,email,opt);
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Change password successfully")
+                        .build()
+        );
+    }
+
+    @GetMapping("/get/employee")
+    public ResponseEntity<Response> getEmployee(
+            @RequestParam(required = false, defaultValue = "0") String page,
+            @RequestParam(required = false, defaultValue = "10") String limit,
+            @RequestParam(required = false, defaultValue = "asc") String asc,
+            @RequestParam(required = false, defaultValue = "none") String status,
+            @RequestParam(required = false, defaultValue = "name") String orderBy,
+            @RequestParam(required = false, defaultValue = "") String q
+    )
+    {
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("")
+                        .data(employeeService.getEmployee( limit, page, q,asc,status,orderBy))
+                        .build()
+        );
+    }
 
 }

@@ -4,12 +4,15 @@ import doctorhoai.learn.user_service.dto.CustomerDto;
 import doctorhoai.learn.user_service.dto.request.CustomerRequest;
 import doctorhoai.learn.user_service.dto.response.Response;
 import doctorhoai.learn.user_service.repository.CustomerRepository;
+import doctorhoai.learn.user_service.service.inter.AccountBankService;
 import doctorhoai.learn.user_service.service.inter.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +23,9 @@ import java.util.Collections;
 @RequiredArgsConstructor
 @RequestMapping("/customer")
 @Tag(name = "Customer controller", description = "Handler customer operation")
-public class CustomerController { // TODO : chua co banking
+public class CustomerController {
     private final CustomerService customerService;
+    private final AccountBankService accountBankService;
 
     @Operation(
             summary = "Get all customer in database"
@@ -102,6 +106,53 @@ public class CustomerController { // TODO : chua co banking
                                 .data(customerService.addCustomer(customerRequest))
                                 .build()
                 );
+    }
+
+    @PostMapping("/forget/customer")
+    public ResponseEntity<Response> forgetCustomer(
+            @RequestBody @Valid @NotBlank String email
+    ){
+
+        accountBankService.forgetAccountUser(email);
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("OPT has been sent to email successfully")
+                        .build()
+        );
+    }
+
+    @PostMapping("/change/customer/{opt}/{email}")
+    public ResponseEntity<Response> changePassword(
+            @RequestBody @Valid @Length(min = 6, message = "Password should 6 characters") String password,
+            @PathVariable @Valid @NotBlank @Email String email,
+            @PathVariable @Valid @NotBlank @Length(min = 4) String opt
+    ){
+        accountBankService.changePasswordCustomer(opt, email, password);
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Change password successfully")
+                        .build()
+        );
+    }
+
+    @GetMapping("/get/customer")
+    public ResponseEntity<Response> getCustomerByCustom(
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status,
+            @RequestParam(defaultValue = "name", required = false) String orderBy
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get customer successfully")
+                        .data(customerService.getCustomerByCustom(page,limit,status,orderBy,asc,q))
+                        .build()
+        );
     }
 
 

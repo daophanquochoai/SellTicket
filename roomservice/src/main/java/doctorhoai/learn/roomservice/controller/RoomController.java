@@ -120,4 +120,23 @@ public class RoomController {
                         .build()
         );
     }
+
+    @GetMapping("/get/room")
+    public ResponseEntity<Response> getRoomByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "name", required = false) String orderBy
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get Room Successfully")
+                        .data(roomService.getRoomByCustom(limit, page, orderBy, q, asc, status))
+                        .build()
+        );
+    }
+
 }

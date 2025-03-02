@@ -5,6 +5,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import doctorhoai.learn.basedomain.Event.MailOpt;
 import doctorhoai.learn.basedomain.Event.TicketEmail;
 import doctorhoai.learn.notificationservice.service.inter.MailService;
 import jakarta.mail.internet.MimeMessage;
@@ -133,6 +134,26 @@ public class MailServiceImpl implements MailService {
             helper.setTo(ticketEmail.getEmail());
             helper.setSubject("Vé xem phim của bạn");
             helper.setText(String.valueOf(messageData), true);
+            log.info("Sending email.....");
+            javaMailSender.send(message);
+            log.info("Sended email!!");
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+    }
+
+    @Override
+    public void sendOptMail(MailOpt mailOpt) {
+        try{
+            //gui mail
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+            helper.setFrom(emailSender);
+            helper.setTo(mailOpt.getToEmail());
+            helper.setSubject("Quên mật khẩu - movieTicket");
+            helper.setText("Mã khôi phục của bạn là : " + mailOpt.getOpt(), true);
             log.info("Sending email.....");
             javaMailSender.send(message);
             log.info("Sended email!!");

@@ -10,4 +10,8 @@ public interface AccountBankService {
     void deleteAccountBanking(String id);
     void activeAccountBanking(String id);
     List<AccountBankingDto> getAccountBanking(String customerId);
+    void forgetAccountAdmin( String email );
+    void forgetAccountUser(String email);
+    void changePasswordCustomer( String password, String opt, String email);
+    void changePasswordAdmin( String password, String op, String email);
 }

@@ -23,7 +23,7 @@ public class BranchController {
             summary = "Add Branch"
     )
     @PostMapping("/add")
-    public ResponseEntity<Response> addBranch(BranchDto branchDto){
+    public ResponseEntity<Response> addBranch(BranchDto branchDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 Response.builder()
                         .statusCode(HttpStatus.CREATED.value())
@@ -40,8 +40,7 @@ public class BranchController {
     public ResponseEntity<Response> updateBranch(
             @PathVariable @NotBlank String id,
             @RequestBody @Valid BranchDto branchDto
-    )
-    {
+    ) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
@@ -55,7 +54,7 @@ public class BranchController {
             summary = "Get branch by id"
     )
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getBranchById(@PathVariable @NotBlank String id){
+    public ResponseEntity<Response> getBranchById(@PathVariable @NotBlank String id) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
@@ -69,7 +68,7 @@ public class BranchController {
             summary = "Get all branch"
     )
     @GetMapping("/all")
-    public ResponseEntity<Response> getAllBranch(){
+    public ResponseEntity<Response> getAllBranch() {
         return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
@@ -83,7 +82,7 @@ public class BranchController {
             summary = "Delete (hidden) branch"
     )
     @PatchMapping("/delete/{id}")
-    public ResponseEntity<Response> deleteBranch(@PathVariable @NotBlank String id){
+    public ResponseEntity<Response> deleteBranch(@PathVariable @NotBlank String id) {
         branchService.deleteBranch(id);
         return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
@@ -97,12 +96,30 @@ public class BranchController {
             summary = "Active branch"
     )
     @PatchMapping("/active/{id}")
-    public ResponseEntity<Response> activateBranch(@PathVariable @NotBlank String id){
+    public ResponseEntity<Response> activateBranch(@PathVariable @NotBlank String id) {
         branchService.activeBranch(id);
         return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Active Branch Successfully")
+                        .build()
+        );
+    }
+
+    @GetMapping("/get/branch")
+    public ResponseEntity<Response> getBranchByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "nameBranch", required = false) String orderBy
+    ){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get Branch Successfully")
+                        .data(branchService.getBranchByCustom(limit,page,q,orderBy,asc,status))
                         .build()
         );
     }

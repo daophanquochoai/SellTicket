@@ -12,4 +12,5 @@ public interface RoomService {
     List<RoomDto> getRooms();
     void deleteRoom(String id);
     void activeRoom(String id);
+    List<RoomDto> getRoomByCustom(String limit, String page, String orderBy, String q, String asc, String status);
 }

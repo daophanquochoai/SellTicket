@@ -13,4 +13,5 @@ public interface EmployeeService {
     void activeEmployee(String id);
     List<EmployeeDto> getAllEmployees();
     void updatePassword(String id, String password, String newPassword);
+    List<EmployeeDto> getEmployee(String limit, String page, String q, String asc, String status, String orderBy);
 }

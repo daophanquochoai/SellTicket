@@ -11,4 +11,5 @@ public interface BranchService {
     List<BranchDto> getAllBranch();
     void deleteBranch(String id);
     void activeBranch(String id);
+    List<BranchDto> getBranchByCustom(String limit, String page, String q, String orderBy, String asc, String status);
 }

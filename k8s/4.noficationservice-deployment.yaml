@@ -24,7 +24,14 @@ spec:
               value: dkbukqhmr
             - name: SPRING_URL_KAFKA
               value: kafka:29092
-          image: doctorhoai/huongdichvu_notificationservice:f3
+          image: doctorhoai/huongdichvu_notificationservice:f4
+          resources:
+            requests:
+              memory: 1024Mi
+              cpu: 200m
+            limits:
+              memory: 2048Mi
+              cpu: 1000m
           livenessProbe:
             exec:
               command:

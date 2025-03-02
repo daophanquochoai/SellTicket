@@ -18,6 +18,9 @@ import doctorhoai.learn.rateservice.repository.RateRepository;
 import doctorhoai.learn.rateservice.service.inter.RateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -161,5 +164,22 @@ public class RateServiceImpl implements RateService {
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());
         }
+    }
+
+    @Override
+    public List<RateFilmDto> getRateByCustom(String limit, String page, String asc, String status, String q, String orderBy) {
+        List<RateFilm> rateFilms;
+        Pageable pageable;
+        if( asc.equals("asc")){
+            pageable = PageRequest.of(Integer.parseInt(page),Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page),Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+        if( status.equals("none")){
+            rateFilms = rateRepository.getRateFilmByCustom(pageable,q);
+        }else{
+            rateFilms = rateRepository.getRateFilmByCustom(pageable,q,Status.valueOf(status));
+        }
+        return rateFilms.stream().map(MapperToDto::RateToDto).toList();
     }
 }

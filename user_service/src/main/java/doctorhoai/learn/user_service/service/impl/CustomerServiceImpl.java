@@ -2,10 +2,7 @@ package doctorhoai.learn.user_service.service.impl;
 
 import doctorhoai.learn.user_service.dto.CustomerDto;
 import doctorhoai.learn.user_service.dto.request.CustomerRequest;
-import doctorhoai.learn.user_service.entity.Account;
-import doctorhoai.learn.user_service.entity.Customer;
-import doctorhoai.learn.user_service.entity.Role;
-import doctorhoai.learn.user_service.entity.Status;
+import doctorhoai.learn.user_service.entity.*;
 import doctorhoai.learn.user_service.exception.CustomerNotFound;
 import doctorhoai.learn.user_service.exception.ErrorException;
 import doctorhoai.learn.user_service.exception.RoleNotFound;
@@ -16,11 +13,15 @@ import doctorhoai.learn.user_service.repository.RoleRepository;
 import doctorhoai.learn.user_service.service.inter.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -158,5 +159,23 @@ public class CustomerServiceImpl implements CustomerService {
         }
         CustomerDto customerDto =  MapperToDto.CustomerToDto(customerOptional.get());
         return customerDto;
+    }
+
+    @Override
+    public List<CustomerDto> getCustomerByCustom(String page, String limit, String status, String orderBy, String asc, String q) {
+        Pageable pageable;
+        List<Customer> customers;
+        if( asc.equals("asc")){
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+
+        if( status.equals("none")){
+            customers = customerRepository.findAllCustomer(pageable, q).toList();
+        }else {
+            customers = customerRepository.findAllCustomer(pageable, q, Status.valueOf(status)).toList();
+        }
+        return customers.stream().map(MapperToDto::CustomerToDto).toList();
     }
 }

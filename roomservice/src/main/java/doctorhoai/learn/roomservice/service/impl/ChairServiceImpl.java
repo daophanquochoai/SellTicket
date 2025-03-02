@@ -10,6 +10,9 @@ import doctorhoai.learn.roomservice.repository.ChairRepository;
 import doctorhoai.learn.roomservice.service.inter.ChairService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -101,5 +104,22 @@ public class ChairServiceImpl implements ChairService {
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());
         }
+    }
+
+    @Override
+    public List<ChairDto> getChairByCustom(String limit, String page, String orderBy, String q, String asc, String status) {
+        List<Chair> chairs;
+        Pageable pageable;
+        if( asc.equals("asc")){
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+        if( status.equals("none") ){
+            chairs = chairRepository.getChairByCustom(pageable,q).toList();
+        }else{
+            chairs = chairRepository.getChairByCustom(pageable,q,Status.valueOf(status)).toList();
+        }
+        return chairs.stream().map(MapperToDto::ChairToDto).toList();
     }
 }
