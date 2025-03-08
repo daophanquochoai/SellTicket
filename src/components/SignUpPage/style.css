@@ -1,0 +1,6 @@
+.boxImageSignUp {
+    background-image:  url(../../../public/signupbg.jpg);
+}
+.ant-spin-dot-item{
+    @apply !bg-main
+}

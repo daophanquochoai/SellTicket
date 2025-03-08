@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*custom loading*/
+.ant-spin-dot-item{
+    @apply !text-main
+}
+html{
+    scroll-behavior: smooth;
+}
