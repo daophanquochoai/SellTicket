@@ -6,6 +6,7 @@ import doctorhoai.learn.proxy_client.business.film.service.TypeFilmFeign;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,5 +46,16 @@ public class TypeFilmController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Response> updateTypeFilm(@PathVariable @NotBlank String id, @RequestBody @Valid TypeFilmDto typeFilmDto){
         return typeFilmFeign.updateTypeFilm(id, typeFilmDto);
+    }
+    @GetMapping("/get/custom")
+    public ResponseEntity<Response> getTypeFilmByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "name", required = false) String orderBy,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status
+    ){
+        return typeFilmFeign.getTypeFilmByCustom(page, limit, q, orderBy, asc, status);
     }
 }

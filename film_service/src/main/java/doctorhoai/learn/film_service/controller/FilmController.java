@@ -8,10 +8,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
@@ -115,5 +118,50 @@ public class FilmController {
                                 .message("Active film successfully")
                                 .build()
                 );
+    }
+
+    @GetMapping("/get/custom")
+    public ResponseEntity<Response> getFilmByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status,
+            @RequestParam(defaultValue = "name", required = false) String orderBy
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get film successfully")
+                        .data(filmService.getFilmByCustom(limit,page,asc,orderBy,q,status))
+                        .build()
+        );
+    }
+
+    @GetMapping("/get/{branchId}/{time}")
+    public ResponseEntity<Response> getFilmByBranchIdAndTime(
+            @PathVariable @Valid @NotBlank String branchId,
+            @PathVariable @Valid @NotNull LocalDate time
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .message("Get film successfully")
+                        .data(filmService.getFilmBySearch(branchId, time))
+                        .build()
+        );
+    }
+
+    @GetMapping("/get/status/{status}")
+    public ResponseEntity<Response> getFilmByStatus(
+            @PathVariable @Valid @NotBlank String status
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .message("Get film successfully")
+                        .data(filmService.getFilmByStatus(status))
+                        .build()
+        );
     }
 }

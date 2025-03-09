@@ -102,6 +102,7 @@ D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn
 D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\business\user\service\RoleFeign.java
 D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\config\encoder\EncoderConfig.java
 D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\config\filter\JwtRequestFilter.java
+D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\config\ratelimit\RateLimitConfig.java
 D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\config\redis\CommonUtility.java
 D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\constant\AppConstant.java
 D:\MONHOC\HK2-NAM4\HuongDichVu\MICRO\proxy_client\src\main\java\doctorhoai\learn\proxy_client\exception\GlobalException.java

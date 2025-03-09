@@ -13,7 +13,10 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MySQLDialect
-
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 eureka:
   instance:
     preferIpAddress: true
@@ -45,6 +48,37 @@ management:
   info:
     env:
       enabled: true
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        automatic-transition-from-open-to-half-open-enabled: true
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        wait-duration-in-open-state: 5s
+        sliding-window-type: COUNT_BASED
+  retry:
+    configs:
+      default:
+        maxRetryAttempts: 3
+        waitDuration: 500
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        ignoreExceptions:
+          - java.lang.NullPointerException
+        retryExceptions:
+          - java.util.concurrent.TimeoutException
+
+  ratelimiter:
+    configs:
+      default:
+        timeoutDuration: 1000
+        limitRefreshPeriod: 5000
+        limitForPeriod: 1
 
 # thong tin ung dung
 info:

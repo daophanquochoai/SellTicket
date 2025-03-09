@@ -1,5 +1,6 @@
 package doctorhoai.learn.proxy_client.business.film.model.request;
 
+import doctorhoai.learn.proxy_client.business.film.model.SubDto;
 import doctorhoai.learn.proxy_client.business.film.model.TypeFilmDto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -22,7 +23,10 @@ public class FilmRequest {
     @Min(value = 0, message = "Age has value more than 0")
     @Max(value = 100, message = "Age has value less than 100")
     private int age;
-    private String sub;
+    private List<SubDto> sub;
+    private String image;
+    private String nation;
+    private String duration;
     private String description;
     private String content;
     private String trailer;

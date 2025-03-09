@@ -19,10 +19,12 @@ public class Film {
     private String id;
     private String name;
     private int age;
-    private String sub;
+    private String image;
     private String description;
     private String content;
     private String trailer;
+    private String nation;
+    private String duration;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "Film_Type",
@@ -32,4 +34,6 @@ public class Film {
     private List<TypeFilm> typeFilms;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "filmId")
+    private List<SubFilm> subFilms;
 }

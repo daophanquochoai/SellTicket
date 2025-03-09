@@ -30,6 +30,11 @@ public class RoomFallBack implements FallbackFactory<RoomFeign> {
             public ResponseEntity<Response> activeRoom(String id) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getRoomByBranch(String branchId) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

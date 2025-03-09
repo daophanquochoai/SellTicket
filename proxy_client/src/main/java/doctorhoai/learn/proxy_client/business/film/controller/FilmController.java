@@ -5,9 +5,12 @@ import doctorhoai.learn.proxy_client.business.film.model.request.FilmRequest;
 import doctorhoai.learn.proxy_client.business.film.service.FilmFeign;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,5 +47,29 @@ public class FilmController {
     @PatchMapping("/active/{id}")
     public ResponseEntity<Response> activeFilm(@PathVariable @NotBlank String id){
         return filmFeign.activeFilm(id);
+    }
+    @GetMapping("/get/custom")
+    public ResponseEntity<Response> getFilmByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status,
+            @RequestParam(defaultValue = "name", required = false) String orderBy
+    ){
+        return filmFeign.getFilmByCustom(page, limit, q, asc, status, orderBy);
+    }
+    @GetMapping("/get/{branchId}/{time}")
+    public ResponseEntity<Response> getFilmByBranchIdAndTime(
+            @PathVariable @Valid @NotBlank String branchId,
+            @PathVariable @Valid @NotNull LocalDate time
+    ){
+        return filmFeign.getFilmByBranchIdAndTime(branchId, time);
+    }
+    @GetMapping("/get/status/{status}")
+    public ResponseEntity<Response> getFilmByStatus(
+            @PathVariable @Valid @NotBlank String status
+    ){
+        return filmFeign.getFilmByStatus(status);
     }
 }

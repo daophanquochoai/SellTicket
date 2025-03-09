@@ -46,6 +46,11 @@ public class TypeFilmFeignFallBack implements FallbackFactory<TypeFilmFeign> {
             public ResponseEntity<Response> updateTypeFilm(String id, TypeFilmDto typeFilmDto) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getTypeFilmByCustom(String page, String limit, String q, String orderBy, String asc, String status) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

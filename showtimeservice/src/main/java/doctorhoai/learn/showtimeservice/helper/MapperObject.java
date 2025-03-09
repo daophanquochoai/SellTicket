@@ -14,7 +14,7 @@ public class MapperObject {
                 .id(filmShowTime.getId())
                 .timeEnd(filmShowTime.getTimeEnd())
                 .timeStart(filmShowTime.getTimeStart())
-                .filmDto(FilmDto.builder().id(filmShowTime.getFilmId()).build())
+                .subFilmId(filmShowTime.getSubFilmId())
                 .roomId(filmShowTime.getRoomId())
                 .timestamp(filmShowTime.getTimestamp())
                 .status(filmShowTime.getStatus().toString())
@@ -29,7 +29,7 @@ public class MapperObject {
                 .timeEnd(filmShowDto.getTimeEnd())
                 .timeStart(filmShowDto.getTimeStart())
                 .timestamp(filmShowDto.getTimestamp())
-                .filmId(filmShowDto.getFilmDto().getId())
+                .subFilmId(filmShowDto.getSubFilmId())
                 .roomId(filmShowDto.getRoomId())
                 .status(Status.valueOf(filmShowDto.getStatus().toUpperCase()))
                 .build();

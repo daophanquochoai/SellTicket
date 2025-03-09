@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -16,7 +17,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CustomerDto {
+public class CustomerDto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     @NotBlank(message = "Name not blank")
     private String name;

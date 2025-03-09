@@ -69,7 +69,7 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public List<BranchDto> getAllBranch() {
-        return branchRepository.findAll().stream().map(MapperToDto::BranchToDto).toList();
+        return branchRepository.getBranchByStatus(Status.ACTIVE).stream().map(MapperToDto::BranchToDto).toList();
     }
 
     @Override

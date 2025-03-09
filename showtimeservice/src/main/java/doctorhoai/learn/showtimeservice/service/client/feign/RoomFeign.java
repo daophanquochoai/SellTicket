@@ -37,4 +37,8 @@ public interface RoomFeign {
     public ResponseEntity<Response> activeRoom(
             @PathVariable @NotBlank String id
     );
+    @GetMapping("/get/branch/{branchId}")
+    public ResponseEntity<Response> getRoomByBranch(
+            @PathVariable @NotBlank String branchId
+    );
 }

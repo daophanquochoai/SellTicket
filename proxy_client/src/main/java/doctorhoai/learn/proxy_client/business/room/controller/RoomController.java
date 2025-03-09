@@ -44,4 +44,15 @@ public class RoomController {
     ResponseEntity<Response> activeRoom(@PathVariable @NotBlank String id){
         return roomFeign.activeRoom(id);
     }
+    @GetMapping("/get/room")
+    public ResponseEntity<Response> getRoomByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "name", required = false) String orderBy
+    ){
+        return roomFeign.getRoomByCustom(page, limit, asc, status, q, orderBy);
+    }
 }

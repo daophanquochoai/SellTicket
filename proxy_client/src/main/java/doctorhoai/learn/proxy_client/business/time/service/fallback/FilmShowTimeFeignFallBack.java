@@ -42,6 +42,11 @@ public class FilmShowTimeFeignFallBack implements FallbackFactory<FilmShowTimeFe
             public ResponseEntity<Response> getFilmShowByDate(String roomId, LocalDate date) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getFilmShowTimeByParam(String branchId, LocalDate time, String filmId, String subId) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

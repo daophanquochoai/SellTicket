@@ -16,4 +16,5 @@ public interface CustomerService {
     void updatePassword(String id, String passwordOld, String passwordNew);
     CustomerDto getCustomerById(String id);
     List<CustomerDto> getCustomerByCustom(String page, String limit, String status, String orderBy, String asc, String q);
+    CustomerDto getCustomerByUsername(String username);
 }

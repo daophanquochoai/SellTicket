@@ -37,13 +37,21 @@ public class RateController {
             summary = "Get all rate of film"
     )
     @GetMapping("/film/{filmId}")
-    public ResponseEntity<Response> getRateByFilmId(@PathVariable @NotBlank String filmId){
+    public ResponseEntity<Response> getRateByFilmId(
+            @PathVariable @NotBlank String filmId,
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "2", required = false) String limit,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "timeStamp", required = false) String orderBy,
+            @RequestParam(defaultValue = "ACTIVE", required = false) String status
+    ){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
                                 .statusCode(HttpStatus.OK.value())
                                 .message("Get rate successfully")
-                                .data(rateService.getRateByFilmId(filmId))
+                                .data(rateService.getRateByFilmId(filmId, limit, page, asc, status, q, orderBy))
                                 .build()
                 );
     }
@@ -76,5 +84,23 @@ public class RateController {
                         .statusCode(HttpStatus.OK.value())
                         .message("Active successfully")
                         .build());
+    }
+
+    @GetMapping("/get/rate")
+    public ResponseEntity<Response> getRate(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "timeStamp",required = false) String orderBy,
+            @RequestParam(defaultValue = "none", required = false) String status
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get rate successfully")
+                        .data(rateService.getRateByCustom(limit,page,asc,status,q,orderBy))
+                        .build()
+        );
     }
 }

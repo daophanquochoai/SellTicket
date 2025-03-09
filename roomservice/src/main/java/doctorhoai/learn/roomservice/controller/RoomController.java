@@ -138,5 +138,17 @@ public class RoomController {
                         .build()
         );
     }
+    @GetMapping("/get/branch/{branchId}")
+    public ResponseEntity<Response> getRoomByBranch(
+            @PathVariable @NotBlank String branchId
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .message("Get Room Successfully")
+                        .data(roomService.getRoomByBranch(branchId))
+                        .build()
+        );
+    }
 
 }

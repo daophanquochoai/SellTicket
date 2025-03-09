@@ -155,4 +155,17 @@ public class EmployeeController {
         );
     }
 
+    @GetMapping("/info/{username}")
+    public ResponseEntity<Response> getInfoAccount(
+            @PathVariable @Valid @NotBlank String username
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get info account successfully")
+                        .data(employeeService.getEmployeeByUsername(username))
+                        .build()
+        );
+    }
+
 }

@@ -45,4 +45,15 @@ public class ChairController {
     public ResponseEntity<Response> activateChair(@PathVariable @NotBlank String id){
         return chairFeign.activateChair(id);
     }
+    @GetMapping("/get/chair")
+    public ResponseEntity<Response> getChairByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "none", required = false) String status,
+            @RequestParam(defaultValue = "name", required = false) String orderBy
+    ){
+        return chairFeign.getChairByCustom(page, limit, asc, q, status, orderBy);
+    }
 }

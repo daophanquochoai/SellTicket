@@ -14,4 +14,5 @@ public interface FilmShowService {
     List<FilmShowDto> getFilmShows(String roomId, LocalDate date);
     public FilmShowDto getFilmShowByRoomIdAndFilmShowDto(String roomId, Integer Id);
     FilmShowDto getFilmShowById(Integer Id);
+    List<FilmShowDto> getFilmShowsByBranch(String branchId, LocalDate date, String filmId, String subId);
 }

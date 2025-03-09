@@ -41,6 +41,26 @@ public class EmployeeFeignCallBack implements FallbackFactory<EmploymentFeign> {
             public ResponseEntity<Response> activeEmployee(String id) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> forgetAdmin(String email) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> changePassword(String password, String email, String opt) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> getEmployee(String page, String limit, String asc, String status, String orderBy, String q) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> getInfoAccount(String username) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

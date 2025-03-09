@@ -45,4 +45,15 @@ public class BranchController {
     public ResponseEntity<Response> activateBranch(@PathVariable @NotBlank String id){
         return branchFeign.activateBranch(id);
     }
+    @GetMapping("/get/branch")
+    public ResponseEntity<Response> getBranchByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "nameBranch", required = false) String orderBy
+    ){
+        return branchFeign.getBranchByCustom(page, limit, asc, status, q, orderBy);
+    }
 }

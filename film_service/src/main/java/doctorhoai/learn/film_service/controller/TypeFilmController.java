@@ -120,4 +120,22 @@ public class TypeFilmController {
                                 .build()
                 );
     }
+
+    @GetMapping("/get/custom")
+    public ResponseEntity<Response> getTypeFilmByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "name", required = false) String orderBy,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get type film successfully")
+                        .data(typeFilmService.getTypeFilmByCustom(page,limit,q,orderBy,status,asc))
+                        .build()
+        );
+    }
 }

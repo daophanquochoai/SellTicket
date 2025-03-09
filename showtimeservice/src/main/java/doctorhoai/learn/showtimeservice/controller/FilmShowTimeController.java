@@ -5,8 +5,10 @@ import doctorhoai.learn.showtimeservice.dto.request.FilmShowRequest;
 import doctorhoai.learn.showtimeservice.dto.response.Response;
 import doctorhoai.learn.showtimeservice.service.FilmShowService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -104,6 +106,22 @@ public class FilmShowTimeController {
                 Response.builder()
                         .statusCode(200)
                         .data(filmShowService.getFilmShowById(id))
+                        .build()
+        );
+    }
+
+    @GetMapping("/get/{branchId}/{time}/{filmId}/{subId}")
+    public ResponseEntity<Response> getFilmShowTimeByParam(
+            @PathVariable @Valid @NotBlank String branchId,
+            @PathVariable @Valid @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate time,
+            @PathVariable @Valid @NotBlank String filmId,
+            @PathVariable @Valid @NotBlank String subId
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .message("Get film show by param successful")
+                        .data(filmShowService.getFilmShowsByBranch(branchId, time, filmId, subId))
                         .build()
         );
     }

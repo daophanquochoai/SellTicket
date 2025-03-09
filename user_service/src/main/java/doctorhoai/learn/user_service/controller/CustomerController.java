@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ import java.util.Collections;
 public class CustomerController {
     private final CustomerService customerService;
     private final AccountBankService accountBankService;
+    private final Environment environment;
 
     @Operation(
             summary = "Get all customer in database"
@@ -154,6 +156,22 @@ public class CustomerController {
                         .build()
         );
     }
+    @GetMapping("/enviroment")
+    public String getenviroment(){
+        return environment.getProperty("HOSTNAME");
+    }
 
+    @GetMapping("/info/{username}")
+    public ResponseEntity<Response> getInfoAccount(
+            @PathVariable @Valid @NotBlank String username
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get info account successfully")
+                        .data(customerService.getCustomerByUsername(username))
+                        .build()
+        );
+    }
 
 }

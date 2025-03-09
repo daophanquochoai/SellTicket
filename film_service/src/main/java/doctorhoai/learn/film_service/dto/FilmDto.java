@@ -24,7 +24,10 @@ public class FilmDto {
     @Min(value = 0, message = "Age has value more than 0")
     @Max(value = 100, message = "Age has value less than 100")
     private int age;
-    private String sub;
+    private String image;
+    private List<SubDto> sub;
+    private String nation;
+    private String duration;
     private String description;
     private String content;
     private String trailer;

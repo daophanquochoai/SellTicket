@@ -32,8 +32,7 @@ public class FilmShowTime {
     private LocalDate timestamp;
     @Enumerated(EnumType.STRING)
     private Status status;
-    @Column(name = "film_id")
-    private String filmId;
+    private String subFilmId;
     @Column(name = "room_id")
     @NotNull
     private String roomId;

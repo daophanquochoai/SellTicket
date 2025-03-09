@@ -6,6 +6,7 @@ import doctorhoai.learn.proxy_client.business.rate.service.fallback.RateFeignFal
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +16,29 @@ public interface RateFeign {
     public ResponseEntity<Response> addRate(@PathVariable @NotBlank String userid, @PathVariable @NotBlank String filmId, @RequestBody @Valid RateFilmRequest rate);
 
     @GetMapping("/film/{filmId}")
-    public ResponseEntity<Response> getRateByFilmId(@PathVariable @NotBlank String filmId);
+    public ResponseEntity<Response> getRateByFilmId(
+            @PathVariable @NotBlank String filmId,
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "2", required = false) String limit,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "timestamp", required = false) String orderBy,
+            @RequestParam(defaultValue = "", required = false) String status
+    );
 
     @PatchMapping("/delete/{id}")
     public ResponseEntity<Response> deleteRate(@PathVariable @NotBlank String id);
 
     @PatchMapping("/active/{id}")
     public ResponseEntity<Response> activeRate(@PathVariable @NotBlank String id);
+    @GetMapping("/get/rate")
+    public ResponseEntity<Response> getRate(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "timeStamp",required = false) String orderBy,
+            @RequestParam(defaultValue = "none", required = false) String status
+    );
+
 }

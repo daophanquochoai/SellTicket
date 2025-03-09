@@ -172,4 +172,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employees.stream().map(MapperToDto::EmployeeToDto).toList();
     }
+
+    @Override
+    public EmployeeDto getEmployeeByUsername(String username) {
+        Optional<Employee> employeeOptional = employeeRepository.getEmployeeByAccount_UserName(username);
+        if( employeeOptional.isEmpty() ){
+            throw new EmployeeNotFound("Employee not found with username : " + username);
+        }
+        return MapperToDto.EmployeeToDto(employeeOptional.get());
+    }
 }

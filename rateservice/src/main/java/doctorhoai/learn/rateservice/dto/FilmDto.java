@@ -21,6 +21,9 @@ public class FilmDto {
     private String id;
     private String name;
     private int age;
+    private String image;
+    private String nation;
+    private String duration;
     private String sub;
     private String description;
     private String content;

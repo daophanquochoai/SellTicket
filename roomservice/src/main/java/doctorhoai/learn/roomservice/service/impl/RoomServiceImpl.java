@@ -158,4 +158,9 @@ public class RoomServiceImpl implements RoomService {
         }
         return rooms.stream().map(MapperToDto::RoomToDto).toList();
     }
+
+    @Override
+    public List<RoomDto> getRoomByBranch(String branch) {
+        return roomRepository.getRoomsByBranch_Id(branch).stream().map(MapperToDto::RoomToDto).toList();
+    }
 }

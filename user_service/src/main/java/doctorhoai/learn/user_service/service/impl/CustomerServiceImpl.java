@@ -3,9 +3,7 @@ package doctorhoai.learn.user_service.service.impl;
 import doctorhoai.learn.user_service.dto.CustomerDto;
 import doctorhoai.learn.user_service.dto.request.CustomerRequest;
 import doctorhoai.learn.user_service.entity.*;
-import doctorhoai.learn.user_service.exception.CustomerNotFound;
-import doctorhoai.learn.user_service.exception.ErrorException;
-import doctorhoai.learn.user_service.exception.RoleNotFound;
+import doctorhoai.learn.user_service.exception.*;
 import doctorhoai.learn.user_service.helper.MapperToDto;
 import doctorhoai.learn.user_service.repository.AccountRepository;
 import doctorhoai.learn.user_service.repository.CustomerRepository;
@@ -41,6 +39,14 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Role> role = roleRepository.findById(1);
         if( role.isEmpty()){
             throw new RoleNotFound("Role not found with id : " + customer.getRoleId());
+        }
+        Optional<Customer> customerOptional = customerRepository.findByEmailOrPhoneNumber(customer.getEmail(), customer.getPhoneNumber());
+        if(customerOptional.isPresent()){
+            throw new CustomerDuplicated("Email or Phone Number has been registered");
+        }
+        Optional<Account> accountOptional = accountRepository.findByUserName(customer.getUserName());
+        if(accountOptional.isPresent()){
+            throw new AccountDuplicated("Username has been registered");
         }
         try{
             Account account = Account.builder()
@@ -177,5 +183,14 @@ public class CustomerServiceImpl implements CustomerService {
             customers = customerRepository.findAllCustomer(pageable, q, Status.valueOf(status)).toList();
         }
         return customers.stream().map(MapperToDto::CustomerToDto).toList();
+    }
+
+    @Override
+    public CustomerDto getCustomerByUsername(String username) {
+        Optional<Customer> customerOptional = customerRepository.getCustomerByAccount_UserName(username);
+        if( customerOptional.isEmpty() ){
+            throw new CustomerNotFound("Customer not found with username : " + username);
+        }
+        return MapperToDto.CustomerToDto(customerOptional.get());
     }
 }

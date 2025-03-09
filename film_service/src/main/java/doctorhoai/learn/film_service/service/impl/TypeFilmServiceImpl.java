@@ -10,6 +10,9 @@ import doctorhoai.learn.film_service.repository.TypeFilmRepository;
 import doctorhoai.learn.film_service.service.inter.TypeFilmService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -101,5 +104,22 @@ public class TypeFilmServiceImpl implements TypeFilmService {
             log.error(ex.getMessage());
             throw new ErrorException(ex.getMessage());
         }
+    }
+
+    @Override
+    public List<TypeFilmDto> getTypeFilmByCustom(String page, String limit, String q, String orderBy, String status, String asc) {
+        List<TypeFilm> list;
+        Pageable pageable;
+        if( asc.equals("asc")){
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+        if( status.equals("none")){
+            list = typeFilmRepository.getTypeFilmByCustom(pageable,q);
+        }else{
+            list = typeFilmRepository.getTypeFilmByCustom(pageable,q,Status.valueOf(status));
+        }
+        return list.stream().map(MapperToDto::TypeFilmToDto).toList();
     }
 }

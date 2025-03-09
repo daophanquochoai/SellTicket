@@ -48,12 +48,11 @@ public class BillController {
 
     @PostMapping("/add")
     public ResponseEntity<Response> createBill(
-//            @RequestBody @Valid BillDto billDto
+            @RequestBody @Valid BillDto billDto
             )
     {
 
-//        BillDto bill = billService.createBill(billDto);
-        BillDto bill = new BillDto();
+        BillDto bill = billService.createBill(billDto);
         for (SseEmitter emitter : emitters) {
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             executorService.execute(() -> {

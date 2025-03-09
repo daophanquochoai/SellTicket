@@ -47,6 +47,11 @@ public class ChairFeignFallBack implements FallbackFactory<ChairFeign> {
             public ResponseEntity<Response> activateChair(String id) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getChairByCustom(String page, String limit, String asc, String q, String status, String orderBy) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

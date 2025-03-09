@@ -24,7 +24,7 @@ public class FilmShowRequest {
     private LocalDate timestamp;
     private String status;
     @NotNull
-    private String filmId;
+    private String subFilmId;
     @NotNull
     private String roomId;
 }

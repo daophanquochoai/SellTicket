@@ -23,7 +23,7 @@ public class RateFeignFallBack implements FallbackFactory<RateFeign> {
             }
 
             @Override
-            public ResponseEntity<Response> getRateByFilmId(String filmId) {
+            public ResponseEntity<Response> getRateByFilmId(String filmId, String page, String limit, String asc, String q, String orderBy, String status) {
                 return functionCommon.process(cause);
             }
 
@@ -34,6 +34,11 @@ public class RateFeignFallBack implements FallbackFactory<RateFeign> {
 
             @Override
             public ResponseEntity<Response> activeRate(String id) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> getRate(String page, String limit, String q, String asc, String orderBy, String status) {
                 return functionCommon.process(cause);
             }
         };

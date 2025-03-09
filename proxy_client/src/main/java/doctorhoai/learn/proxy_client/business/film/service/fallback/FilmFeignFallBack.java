@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 @RequiredArgsConstructor
 public class FilmFeignFallBack implements FallbackFactory<FilmFeign> {
@@ -44,6 +46,21 @@ public class FilmFeignFallBack implements FallbackFactory<FilmFeign> {
 
             @Override
             public ResponseEntity<Response> activeFilm(String id) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> getFilmByCustom(String page, String limit, String q, String asc, String status, String orderBy) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> getFilmByBranchIdAndTime(String branchId, LocalDate time) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> getFilmByStatus(String status) {
                 return functionCommon.process(cause);
             }
         };

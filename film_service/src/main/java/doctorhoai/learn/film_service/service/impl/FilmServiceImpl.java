@@ -1,22 +1,37 @@
 package doctorhoai.learn.film_service.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import doctorhoai.learn.film_service.dto.FilmDto;
+import doctorhoai.learn.film_service.dto.FilmShowDto;
+import doctorhoai.learn.film_service.dto.SubDto;
 import doctorhoai.learn.film_service.dto.request.FilmRequest;
-import doctorhoai.learn.film_service.entity.Film;
-import doctorhoai.learn.film_service.entity.Status;
-import doctorhoai.learn.film_service.entity.TypeFilm;
+import doctorhoai.learn.film_service.dto.response.Response;
+import doctorhoai.learn.film_service.entity.*;
 import doctorhoai.learn.film_service.exception.ErrorException;
 import doctorhoai.learn.film_service.exception.FilmNotFound;
+import doctorhoai.learn.film_service.exception.SubNotFound;
 import doctorhoai.learn.film_service.exception.TypeFilmNotFound;
 import doctorhoai.learn.film_service.helper.MapperToDto;
 import doctorhoai.learn.film_service.repository.FilmRepository;
+import doctorhoai.learn.film_service.repository.SubRepository;
 import doctorhoai.learn.film_service.repository.TypeFilmRepository;
+import doctorhoai.learn.film_service.service.feignclient.feign.FilmShowFeign;
 import doctorhoai.learn.film_service.service.inter.FilmService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +43,8 @@ public class FilmServiceImpl implements FilmService {
 
     private final TypeFilmRepository typeFilmRepository;
     private final FilmRepository filmRepository;
+    private final SubRepository subRepository;
+    private final FilmShowFeign filmShowFeign;
 
     @Override
     @Transactional
@@ -44,15 +61,33 @@ public class FilmServiceImpl implements FilmService {
             Film filmNew = Film.builder()
                     .name(film.getName())
                     .age(film.getAge())
-                    .sub(film.getSub())
+                    .image(film.getImage())
+                    .duration(film.getDuration())
+                    .nation(film.getNation())
                     .description(film.getDescription())
                     .content(film.getContent())
                     .trailer(film.getTrailer())
                     .typeFilms(listTypeFilm)
                     .status(Status.ACTIVE)
                     .build();
+            List<SubFilm> subFilms = new ArrayList<>();
+            film.getSub().forEach( item -> {
+                Optional<Sub> subOptional = subRepository.findById(item.getId());
+                if( subOptional.isEmpty()){
+                    throw new SubNotFound("Sub not found with id : " + item.getId());
+                }
+                subFilms.add(SubFilm.builder().subId(subOptional.get()).filmId(filmNew).build());
+            });
+            filmNew.setSubFilms(subFilms);
            Film filmSaved = filmRepository.save(filmNew);
-           return MapperToDto.FilmToDto(filmSaved);
+           FilmDto filmDto = MapperToDto.FilmToDto(filmSaved);
+           List<SubDto> subDtos= new ArrayList<>();
+           filmSaved.getSubFilms().forEach( item -> {
+               SubDto temp = new SubDto(item.getSubId().getId(), item.getSubId().getSub());
+               subDtos.add(temp);
+           });
+           filmDto.setSub(subDtos);
+           return filmDto;
        }catch (Exception e){
             log.error(e.getMessage());
             throw new FilmNotFound(e.getMessage());
@@ -69,8 +104,10 @@ public class FilmServiceImpl implements FilmService {
         try{
             Film filmNew = filmOptional.get();
             filmNew.setName(film.getName());
+            filmNew.setImage(film.getImage());
             filmNew.setAge(film.getAge());
-            filmNew.setSub(film.getSub());
+            filmNew.setNation(film.getNation());
+            filmNew.setDuration(film.getDuration());
             filmNew.setDescription(film.getDescription());
             filmNew.setContent(film.getContent());
             filmNew.setTrailer(film.getTrailer());
@@ -78,8 +115,15 @@ public class FilmServiceImpl implements FilmService {
                     film.getTypeFilms().stream().map(MapperToDto::DtoToTypeFilm).toList()
             );
             filmNew.setStatus(Status.valueOf(film.getStatus().toUpperCase()));
-            Film fileSaved = filmRepository.save(filmNew);
-            return MapperToDto.FilmToDto(fileSaved);
+            Film filmSaved = filmRepository.save(filmNew);
+            FilmDto filmDto = MapperToDto.FilmToDto(filmSaved);
+            List<SubDto> subDtos= new ArrayList<>();
+            filmSaved.getSubFilms().forEach( item -> {
+                SubDto temp = new SubDto(item.getSubId().getId(), item.getSubId().getSub());
+                subDtos.add(temp);
+            });
+            filmDto.setSub(subDtos);
+            return filmDto;
         }catch (Exception e){
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());
@@ -121,13 +165,21 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    @Transactional
     public FilmDto getFilm(String id) {
-        Optional<Film> filmOptional = filmRepository.findById(id);
+        Optional<Film> filmOptional = filmRepository.findFilmBySub(id);
         if( filmOptional.isEmpty()){
             throw new FilmNotFound("Film not found with id : " + id);
         }
         try{
-            return MapperToDto.FilmToDto(filmOptional.get());
+            FilmDto filmDto = MapperToDto.FilmToDto(filmOptional.get());
+            List<SubDto> subDtos= new ArrayList<>();
+            filmOptional.get().getSubFilms().forEach( item -> {
+                SubDto temp = new SubDto(item.getSubId().getId(), item.getSubId().getSub());
+                subDtos.add(temp);
+            });
+            filmDto.setSub(subDtos);
+            return filmDto;
         }catch (Exception e){
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());
@@ -136,6 +188,113 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<FilmDto> getFilms() {
-        return filmRepository.findAll().stream().map(MapperToDto::FilmToDto).toList();
+        return filmRepository.findAll().stream().map(
+                film -> {
+                    FilmDto filmDto = MapperToDto.FilmToDto(film);
+                    List<SubDto> subDtos= new ArrayList<>();
+                    film.getSubFilms().forEach( item -> {
+                        SubDto temp = new SubDto(item.getSubId().getId(), item.getSubId().getSub());
+                        subDtos.add(temp);
+                    });
+                    filmDto.setSub(subDtos);
+                    return filmDto;
+                }
+        ).toList();
+    }
+
+    @Override
+    public List<FilmDto> getFilmByCustom(String limit, String page, String asc, String orderBy, String q, String active) {
+        List<Film> list;
+        Pageable pageable;
+        if( asc.equals("asc")){
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+        if( active.equals("none")){
+            list = filmRepository.getFilmByCustom(pageable,q);
+        }else{
+            list = filmRepository.getFilmByCustom(pageable,q, Status.valueOf(active));
+        }
+        return list.stream().map(
+                film -> {
+                    FilmDto filmDto = MapperToDto.FilmToDto(film);
+                    List<SubDto> subDtos= new ArrayList<>();
+                    film.getSubFilms().forEach( item -> {
+                        SubDto temp = new SubDto(item.getSubId().getId(), item.getSubId().getSub());
+                        subDtos.add(temp);
+                    });
+                    filmDto.setSub(subDtos);
+                    return filmDto;
+                }
+        ).toList();
+    }
+
+    @Override
+    public List<FilmDto> getFilmBySearch(String branchId, LocalDate time) {
+        try{
+            ResponseEntity<Response> response = filmShowFeign.getFilmShowTimeByParam(branchId,time);
+            if( response.getStatusCode() != HttpStatusCode.valueOf(200)){
+                throw new ErrorException("Show time service down");
+            }
+            ObjectMapper objectMapper = new ObjectMapper()
+                    .registerModule(new ParameterNamesModule())
+                    .registerModule(new Jdk8Module())
+                    .registerModule(new JavaTimeModule());
+            String json = objectMapper.writeValueAsString(response.getBody().getData());
+            List<FilmShowDto> list = objectMapper.readValue(json, objectMapper.getTypeFactory().constructCollectionType(List.class, FilmShowDto.class));
+            List<String> idFilm = list.stream().map(FilmShowDto::getSubFilmId).toList();
+            List<Film> films = filmRepository.getFilmBySubFilmsIdIn(idFilm);
+            List<FilmDto> returnList = new ArrayList<>();
+            films.forEach( item -> {
+                FilmDto film = FilmDto.builder()
+                        .id(item.getId())
+                        .name(item.getName())
+                        .age(item.getAge())
+                        .image(item.getImage())
+                        .duration(item.getDuration())
+                        .nation(item.getNation())
+                        .description(item.getDescription())
+                        .content(item.getContent())
+                        .trailer(item.getTrailer())
+                        .status(item.getStatus().toString())
+                        .build();
+                List<SubDto> subs = new ArrayList<>();
+                item.getSubFilms().forEach( sub -> {
+                    SubDto temp = new SubDto(sub.getSubId().getId(), sub.getSubId().getSub());
+                    List<FilmShowDto> filmShowTemp = list.stream().filter(filmS -> {
+                        if( filmS.getSubFilmId().equals(sub.getId())){
+                            return true;
+                        }
+                        return false;
+                    }).toList();
+                    temp.setFilmShowDtos(filmShowTemp);
+                    subs.add(temp);
+                });
+                film.setSub(subs);
+                returnList.add(film);
+            });
+            return returnList;
+        }catch (Exception e){
+            throw new ErrorException(e.getMessage());
+        }
+
+    }
+
+    @Override
+    public List<FilmDto> getFilmByStatus(String status) {
+        List<Film> list = filmRepository.getFilmByStatus(Status.valueOf(status));
+        return list.stream().map(
+                film -> {
+                    FilmDto filmDto = MapperToDto.FilmToDto(film);
+                    List<SubDto> subDtos= new ArrayList<>();
+                    film.getSubFilms().forEach( item -> {
+                        SubDto temp = new SubDto(item.getSubId().getId(), item.getSubId().getSub());
+                        subDtos.add(temp);
+                    });
+                    filmDto.setSub(subDtos);
+                    return filmDto;
+                }
+        ).toList();
     }
 }

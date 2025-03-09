@@ -1,11 +1,14 @@
 package doctorhoai.learn.showtimeservice.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import doctorhoai.learn.showtimeservice.dto.FilmShowDto;
+import doctorhoai.learn.showtimeservice.dto.RoomDto;
 import doctorhoai.learn.showtimeservice.dto.request.FilmShowRequest;
 import doctorhoai.learn.showtimeservice.dto.response.Response;
-import doctorhoai.learn.showtimeservice.entity.Film;
 import doctorhoai.learn.showtimeservice.entity.FilmShowTime;
-import doctorhoai.learn.showtimeservice.entity.Room;
 import doctorhoai.learn.showtimeservice.entity.Status;
 import doctorhoai.learn.showtimeservice.exception.ErrorException;
 import doctorhoai.learn.showtimeservice.exception.FilmShowTimeNotFound;
@@ -14,9 +17,11 @@ import doctorhoai.learn.showtimeservice.repository.FilmShowRepository;
 import doctorhoai.learn.showtimeservice.service.FilmShowService;
 import doctorhoai.learn.showtimeservice.service.client.feign.FilmFeign;
 import doctorhoai.learn.showtimeservice.service.client.feign.RoomFeign;
-import feign.FeignException;
+import doctorhoai.learn.showtimeservice.service.client.feign.SubFilmFeign;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,65 +37,68 @@ public class FilmShowServiceImpl implements FilmShowService {
     private final FilmShowRepository filmShowRepository;
     private final FilmFeign filmFeign;
     private final RoomFeign roomFeign;
+    private final SubFilmFeign subFilmFeign;
 
     @Override
     public FilmShowDto addFilmShow(FilmShowRequest filmShowRequest) {
 
-        Response responseFilm = filmFeign.getFilmById(filmShowRequest.getFilmId()).getBody();
-        Response responseRoom = roomFeign.getRoomById(filmShowRequest.getRoomId()).getBody();
-
-        FilmShowTime filmShowTime = FilmShowTime.builder()
-                .timeEnd(filmShowRequest.getTimeEnd())
-                .timeStart(filmShowRequest.getTimeStart())
-                .timestamp(filmShowRequest.getTimestamp())
-                .status(Status.valueOf(filmShowRequest.getStatus().toUpperCase()))
-                .build();
-        if( responseFilm.getStatusCode() == 200 ){
-            filmShowTime.setFilmId(filmShowRequest.getFilmId());
-        }
-        if( responseRoom.getStatusCode() == 200 ){
-            filmShowTime.setRoomId(filmShowRequest.getRoomId());
-        }
-        FilmShowTime filmShowTimeSaved = filmShowRepository.save(filmShowTime);
-        return MapperObject.mapToFilmShowDto(filmShowTimeSaved);
+//        Response responseFilm = filmFeign.getFilmById(filmShowRequest.getFilmId()).getBody();
+//        Response responseRoom = roomFeign.getRoomById(filmShowRequest.getRoomId()).getBody();
+//
+//        FilmShowTime filmShowTime = FilmShowTime.builder()
+//                .timeEnd(filmShowRequest.getTimeEnd())
+//                .timeStart(filmShowRequest.getTimeStart())
+//                .timestamp(filmShowRequest.getTimestamp())
+//                .status(Status.valueOf(filmShowRequest.getStatus().toUpperCase()))
+//                .build();
+//        if( responseFilm.getStatusCode() == 200 ){
+//            filmShowTime.setFilmId(filmShowRequest.getFilmId());
+//        }
+//        if( responseRoom.getStatusCode() == 200 ){
+//            filmShowTime.setRoomId(filmShowRequest.getRoomId());
+//        }
+//        FilmShowTime filmShowTimeSaved = filmShowRepository.save(filmShowTime);
+//        return MapperObject.mapToFilmShowDto(filmShowTimeSaved);
+        return null;
     }
 
     @Override
     public FilmShowDto updateFilmShow(Integer id ,FilmShowRequest filmShowRequest) {
-        Optional<FilmShowTime> filmShowTimeOptional = filmShowRepository.findById(id);
-        if ( filmShowTimeOptional.isEmpty() ){
-            throw new FilmShowTimeNotFound("Film Show Time not found with id : " + id);
-        }
-        FilmShowTime filmShowTimeOld = filmShowTimeOptional.get();
-        filmShowTimeOld.setId(id);
-        filmShowTimeOld.setTimeEnd(filmShowRequest.getTimeEnd());
-        filmShowTimeOld.setTimeStart(filmShowRequest.getTimeStart());
-        filmShowTimeOld.setTimestamp(filmShowRequest.getTimestamp());
-        filmShowTimeOld.setStatus(Status.valueOf(filmShowRequest.getStatus().toUpperCase()));
-        if( filmShowTimeOld.getFilmId() != filmShowRequest.getFilmId() ){
-            try{
-                Response responseFilm = filmFeign.getFilmById(filmShowRequest.getFilmId()).getBody();
-                if( responseFilm.getStatusCode() == 200 ){
-                    filmShowTimeOld.setFilmId(filmShowRequest.getFilmId());
-                }
-            }catch (Exception e){
-                log.info(e.getMessage());
-                throw new ErrorException("Film not found with id : " + filmShowRequest.getFilmId());
-            }
-        }
-        if( filmShowTimeOld.getRoomId() != filmShowRequest.getRoomId() ){
-            try{
-                Response responseRoom = roomFeign.getRoomById(filmShowRequest.getRoomId()).getBody();
-                if( responseRoom.getStatusCode() == 200 ){
-                    filmShowTimeOld.setRoomId(filmShowRequest.getRoomId());
-                }
-            }catch (Exception e){
-                log.info(e.getMessage());
-                throw new ErrorException("Room not found with id : " + filmShowRequest.getRoomId());
-            }
-        }
-        FilmShowTime filmShowTimeSaved = filmShowRepository.save(filmShowTimeOld);
-        return MapperObject.mapToFilmShowDto(filmShowTimeSaved);
+//        Optional<FilmShowTime> filmShowTimeOptional = filmShowRepository.findById(id);
+//        if ( filmShowTimeOptional.isEmpty() ){
+//            throw new FilmShowTimeNotFound("Film Show Time not found with id : " + id);
+//        }
+//        FilmShowTime filmShowTimeOld = filmShowTimeOptional.get();
+//        filmShowTimeOld.setId(id);
+//        filmShowTimeOld.setTimeEnd(filmShowRequest.getTimeEnd());
+//        filmShowTimeOld.setTimeStart(filmShowRequest.getTimeStart());
+//        filmShowTimeOld.setTimestamp(filmShowRequest.getTimestamp());
+//        filmShowTimeOld.setStatus(Status.valueOf(filmShowRequest.getStatus().toUpperCase()));
+//        if( filmShowTimeOld.getFilmId() != filmShowRequest.getFilmId() ){
+//            try{
+//                Response responseFilm = filmFeign.getFilmById(filmShowRequest.getFilmId()).getBody();
+//                if( responseFilm.getStatusCode() == 200 ){
+//                    filmShowTimeOld.setFilmId(filmShowRequest.getFilmId());
+//                }
+//            }catch (Exception e){
+//                log.info(e.getMessage());
+//                throw new ErrorException("Film not found with id : " + filmShowRequest.getFilmId());
+//            }
+//        }
+//        if( filmShowTimeOld.getRoomId() != filmShowRequest.getRoomId() ){
+//            try{
+//                Response responseRoom = roomFeign.getRoomById(filmShowRequest.getRoomId()).getBody();
+//                if( responseRoom.getStatusCode() == 200 ){
+//                    filmShowTimeOld.setRoomId(filmShowRequest.getRoomId());
+//                }
+//            }catch (Exception e){
+//                log.info(e.getMessage());
+//                throw new ErrorException("Room not found with id : " + filmShowRequest.getRoomId());
+//            }
+//        }
+//        FilmShowTime filmShowTimeSaved = filmShowRepository.save(filmShowTimeOld);
+//        return MapperObject.mapToFilmShowDto(filmShowTimeSaved);
+        return null;
     }
 
     @Override
@@ -121,7 +129,7 @@ public class FilmShowServiceImpl implements FilmShowService {
 
     @Override
     public FilmShowDto getFilmShowByRoomIdAndFilmShowDto(String roomId, Integer Id) {
-        Optional<FilmShowTime> filmShowTimeOptional = filmShowRepository.getFilmShowTimeByRoomIdAndId(roomId, Id);
+        Optional<FilmShowTime> filmShowTimeOptional = filmShowRepository.getFilmShowTimeByRoomIdAndIdAndStatus(roomId, Id, Status.ACTIVE);
         if( filmShowTimeOptional.isEmpty()){
             throw new FilmShowTimeNotFound("Film Show Not Found with id : " + Id);
         }
@@ -135,5 +143,39 @@ public class FilmShowServiceImpl implements FilmShowService {
             throw new FilmShowTimeNotFound("Film Show Not Found with id : " + Id);
         }
         return MapperObject.mapToFilmShowDto(filmShowTimeOptional.get());
+    }
+
+    @Override
+    public List<FilmShowDto> getFilmShowsByBranch(String branchId, LocalDate date, String filmId, String subId) {
+        try{
+            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmByFilmIdAndSubId(filmId, subId);
+            if( responseSubFilm.getStatusCode() != HttpStatusCode.valueOf(200)){
+                throw new ErrorException("Film service down");
+            }
+            List<FilmShowTime> list = filmShowRepository.getShowTimeByTimestampAndSubFilmIdAndStatus(date, filmId, Status.ACTIVE);
+            List<RoomDto> listRoom;
+            ResponseEntity<Response> response = roomFeign.getRoomByBranch(branchId);
+            if( response.getStatusCode() != HttpStatusCode.valueOf(200)){
+                throw new ErrorException("Room service down");
+            }
+            ObjectMapper objectMapper = new ObjectMapper()
+                    .registerModule(new ParameterNamesModule())
+                    .registerModule(new Jdk8Module())
+                    .registerModule(new JavaTimeModule());
+            String json = objectMapper.writeValueAsString(response.getBody().getData());
+            listRoom = objectMapper.readValue(json, objectMapper.getTypeFactory().constructCollectionType(List.class, RoomDto.class));
+            list = list.stream().filter( item -> {
+                for (RoomDto roomDto : listRoom) {
+                    if( roomDto.getId().equals(item.getRoomId())){
+                        return true;
+                    }
+                }
+                return false;
+            }).toList();
+            return list.stream().map(MapperObject::mapToFilmShowDto).toList();
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new RuntimeException(ex.getCause());
+        }
     }
 }

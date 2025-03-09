@@ -11,4 +11,5 @@ public interface TypeFilmService {
     List<TypeFilmDto> getAllTypeFilm();
     void deleteTypeFilm(String id);
     void activeTypeFilm(String id);
+    List<TypeFilmDto> getTypeFilmByCustom(String page, String limit, String q, String orderBy, String status, String asc);
 }

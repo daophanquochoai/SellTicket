@@ -45,6 +45,31 @@ public class CustomerFeignCallBack implements FallbackFactory<CustomerFeign> {
             public ResponseEntity<Response> addCustomer(CustomerRequest customerRequest) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> forgetCustomer(String email) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> changePassword(String password, String email, String opt) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> getCustomerByCustom(String limit, String page, String q, String asc, String status, String orderBy) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public String getenviroment() {
+                return "Fail";
+            }
+
+            @Override
+            public ResponseEntity<Response> getInfoAccount(String username) {
+                return functionCommon.process(cause);
+            }
         };
     }
 

@@ -31,7 +31,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    @ExceptionHandler(value = {FilmNotFound.class, TypeFilmNotFound.class})
+    @ExceptionHandler(value = {FilmNotFound.class, TypeFilmNotFound.class, SubNotFound.class})
     public ResponseEntity<Object> handleUserNotFound(Exception ex, WebRequest request){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage())

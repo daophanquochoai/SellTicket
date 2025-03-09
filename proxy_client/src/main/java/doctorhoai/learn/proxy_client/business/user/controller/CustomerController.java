@@ -34,4 +34,24 @@ public class CustomerController {
     public ResponseEntity<Response> addCustomer(@RequestBody @Valid CustomerRequest customerRequest){
         return customerFeign.addCustomer(customerRequest);
     }
+    @PostMapping("/forget/customer")
+    public ResponseEntity<Response> forgetCustomer(String email) {
+        return customerFeign.forgetCustomer(email);
+    }
+
+    @PostMapping("/change/customer/{opt}/{email}")
+    public ResponseEntity<Response> changePassword(String password, String email, String opt) {
+        return customerFeign.changePassword(password, email, opt);
+    }
+
+    @GetMapping("/get/customer")
+    public ResponseEntity<Response> getCustomerByCustom(String limit, String page, String q, String asc, String status, String orderBy) {
+        return customerFeign.getCustomerByCustom(limit, page, q, asc, status, orderBy);
+    }
+
+    @GetMapping("/enviroment")
+    public String getenviroment() {
+        return customerFeign.getenviroment();
+    }
+
 }

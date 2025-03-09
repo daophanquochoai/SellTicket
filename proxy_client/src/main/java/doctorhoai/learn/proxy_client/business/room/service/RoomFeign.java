@@ -6,6 +6,7 @@ import doctorhoai.learn.proxy_client.business.room.service.fallback.RoomFeignFal
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,4 +30,13 @@ public interface RoomFeign {
 
     @PatchMapping("/active/{id}")
     ResponseEntity<Response> activeRoom(@PathVariable @NotBlank String id);
+    @GetMapping("/get/room")
+    public ResponseEntity<Response> getRoomByCustom(
+            @RequestParam(defaultValue = "0", required = false) String page,
+            @RequestParam(defaultValue = "10", required = false) String limit,
+            @RequestParam(defaultValue = "asc", required = false) String asc,
+            @RequestParam(defaultValue = "none", required = false) String status,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "name", required = false) String orderBy
+    );
 }

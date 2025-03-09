@@ -25,13 +25,12 @@ public class SecurityConfiguration {
     private final JwtRequestFilter jwtRequestFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfig corsConfig, AuthenticationManager authenticationManager) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/api/authenticate", "/api/**", "/actuator/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                                .requestMatchers("/api/authenticate", "/api/**", "/actuator/**","/swagger-ui/**", "/v3/api-docs/**", "/user-service/api/customer/enviroment").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/room-service/api/**","/film-service/api/typefilm/**", "/film-service/api/**","/dish-service/api/**","/filmshowtime-service/api/filmshowtime/**", "/rate-service/api/rate/film/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/payment-service/api/bill/add","/user-service/api/customer/add").permitAll()
                                 .requestMatchers("/user-service/api/account/bank/**","/user-service/api/customer/**").hasAnyRole("USER", "ADMIN")

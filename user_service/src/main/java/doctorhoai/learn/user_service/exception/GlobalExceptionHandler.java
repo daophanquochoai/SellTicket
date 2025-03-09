@@ -38,6 +38,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage())
         );
     }
+
+    @ExceptionHandler( value = {CustomerDuplicated.class})
+    public ResponseEntity<Object> handleCustomerDuplicated(Exception ex, WebRequest request){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                new ErrorResponse(HttpStatus.CONFLICT.value(), ex.getMessage())
+        );
+    }
+
     @ExceptionHandler(value = {Exception.class, ErrorException.class})
     public ResponseEntity<Object> handleGlobalException(Exception exception,
                                                                   WebRequest webRequest) {

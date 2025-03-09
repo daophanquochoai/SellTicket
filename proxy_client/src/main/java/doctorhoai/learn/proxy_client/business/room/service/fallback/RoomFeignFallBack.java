@@ -46,6 +46,11 @@ public class RoomFeignFallBack implements FallbackFactory<RoomFeign> {
             public ResponseEntity<Response> activeRoom(String id) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getRoomByCustom(String page, String limit, String asc, String status, String q, String orderBy) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

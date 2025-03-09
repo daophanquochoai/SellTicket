@@ -4,8 +4,10 @@ import doctorhoai.learn.proxy_client.BaseDomain.Response;
 import doctorhoai.learn.proxy_client.business.time.model.request.FilmShowRequest;
 import doctorhoai.learn.proxy_client.business.time.service.FilmShowTimeFeign;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +43,16 @@ public class FilmShowTimeController {
     @GetMapping("/{roomId}/all")
     public ResponseEntity<Response> getFilmShowByDate(@PathVariable @NotNull String roomId, @RequestParam(required = true) LocalDate date){
         return filmShowTimeFeign.getFilmShowByDate(roomId, date);
+    }
+
+    @GetMapping("/get/{branchId}/{time}/{filmId}/{subId}")
+    public ResponseEntity<Response> getFilmShowTimeByParam(
+            @PathVariable @Valid @NotBlank String branchId,
+            @PathVariable @Valid @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate time,
+            @PathVariable @Valid @NotBlank String filmId,
+            @PathVariable @Valid @NotBlank String subId
+    ){
+        return filmShowTimeFeign.getFilmShowTimeByParam(branchId, time, filmId, subId);
     }
 
 }

@@ -127,7 +127,7 @@ services:
     networks:
       - huongdichvu
   userservice:
-    image: doctorhoai/huongdichvu_userservice:f4
+    image: doctorhoai/huongdichvu_userservice:f6
     container_name: userservice
     ports:
       - "9000:9000"
@@ -327,7 +327,7 @@ services:
     networks:
       - huongdichvu
   filmservice:
-    image: doctorhoai/huongdichvu_filmservice:f4
+    image: doctorhoai/huongdichvu_filmservice:f5
     container_name: filmservice
     ports:
       - "8081:8081"
@@ -385,7 +385,7 @@ services:
     networks:
       - huongdichvu
   proxyclient:
-    image: doctorhoai/huongdichvu_proxyservice:f4
+    image: doctorhoai/huongdichvu_proxyservice:f5
     container_name: proxyclient
     ports:
       - "8888:8888"

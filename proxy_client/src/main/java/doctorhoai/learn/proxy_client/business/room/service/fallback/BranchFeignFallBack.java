@@ -46,6 +46,11 @@ public class BranchFeignFallBack implements FallbackFactory<BranchFeign> {
             public ResponseEntity<Response> activateBranch(String id) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getBranchByCustom(String page, String limit, String asc, String status, String q, String orderBy) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

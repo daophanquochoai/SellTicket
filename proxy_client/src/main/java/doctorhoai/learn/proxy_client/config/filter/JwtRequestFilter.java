@@ -3,6 +3,10 @@ package doctorhoai.learn.proxy_client.config.filter;
 import doctorhoai.learn.proxy_client.exception.UnAuthorizedException;
 import doctorhoai.learn.proxy_client.jwt.service.JwtService;
 import doctorhoai.learn.proxy_client.jwt.service.TokenService;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Bucket4j;
+import io.github.bucket4j.Refill;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +23,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @Slf4j
@@ -28,10 +35,29 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Lazy
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
+//    private final Bucket bucket;
     private final TokenService tokenService;
+
+    private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
+
+    private Bucket getBucketForIp(String ip) {
+        return buckets.computeIfAbsent(ip, k ->
+                Bucket4j.builder()
+                .addLimit(Bandwidth.classic(100000, Refill.intervally(100000, Duration.ofMinutes(1)))) //TODO : Chinh la
+                .build());
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        String ip = request.getRemoteAddr(); // Lấy địa chỉ IP của client
+        Bucket bucket = getBucketForIp(ip);
+
+        if (!bucket.tryConsume(1)) {
+            response.setStatus(429);
+            response.getWriter().write("Too many requests - Rate limit exceeded");
+            return; // Không tiếp tục xử lý request nếu bị chặn
+        }
         if (request.getServletPath().contains("/api/authenticate")) {
             filterChain.doFilter(request, response);
             return;
