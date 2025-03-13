@@ -63,7 +63,7 @@ const Display : React.FC<Props> = ({title,active}) => {
         const response = await handleSlide(active);
         setLoading(false);
         if( response.status !== 200 ){
-            toast.error("Loading data fail");
+            toast.error("Không thể kết nối với máy chủ");
             return;
         }
         const data : Film[] = await response.data.data;
@@ -99,12 +99,12 @@ const Display : React.FC<Props> = ({title,active}) => {
                         >
                         {
                             filmList.map((item) => (
-                                <SwiperSlide key={item.id} onClick={()=>handleToDetailFilm(item.id)}>
+                                <SwiperSlide key={item.id}>
                                         <div className={'relative group overflow-hidden cursor-pointer'}>
                                             {
                                                 item.image != null
                                                     ?
-                                                    <div className={'relative'}>
+                                                    <div className={'relative'} onClick={()=>handleToDetailFilm(item.id)}>
                                                         <img
                                                             src={item.image}
                                                             alt={`Film`}
@@ -165,7 +165,9 @@ const Display : React.FC<Props> = ({title,active}) => {
                                             </div>
                                             <div className={'flex justify-between px-4 gap-4'}>
                                                 <button className={'flex-1 text-main underline font-medium hover:text-white'} onClick={()=>setIsTrailer({active : true, url : item.trailer})}>Xem Trailer</button>
-                                                <button className={'rounded-xl px-4 py-2 bg-main text-white flex-1 border-2 border-main hover:text-main hover:bg-white transition-all duration-300'}>Đặt vé</button>
+                                                <button
+                                                    onClick={()=>handleToDetailFilm(item.id)}
+                                                    className={'rounded-xl px-4 py-2 bg-main text-white flex-1 border-2 border-main hover:text-main hover:bg-white transition-all duration-300'}>Đặt vé</button>
                                             </div>
                                         </div>
                                     </SwiperSlide>

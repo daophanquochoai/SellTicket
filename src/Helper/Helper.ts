@@ -45,6 +45,171 @@ export const handleSlide :
     }
 }
 
+export const fetchFilmById :
+    ( filmId : string) => Promise<any> = async ( filmId ) => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/film/` + filmId);
+        return response;
+    }catch ( e ){
+        return e;
+    }
+}
+
+export const fetchComment :
+    ( filmId : string ) => Promise<any> = async ( filmId ) => {
+    try {
+        const response = await axios.get(`${env.url.API_BASE_URL}/rate-service/api/rate/film/` + filmId + `?page=0&limit=2&asc=asc&orderBy=timeStamp&status=ACTIVE`)
+        return response
+    }catch (e){
+        return e;
+    }
+}
+
+export const fetchTheater :
+    () => Promise<any> = async () => {
+    try {
+        const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/branch/all`);
+        return response;
+    }catch ( e ){
+        return e;
+    }
+}
+
+export const fetchFilmShow :
+    (branchId : string, subId : string, filmId : string, time : string) => Promise<any> = async ( branchId, subId, filmId, time) => {
+    try{
+        const response = await axios.get(`${env.url.API_BASE_URL}/filmshowtime-service/api/filmshowtime/get/` + branchId + `/` + time + `/` + filmId + `/` + subId);
+        return response;
+    }catch ( e ){
+        return e;
+    }
+}
+export const fetchTicket :
+    () => Promise<any> = async () => {
+    try{
+        const response = await axios.get(`${env.url.API_BASE_URL}/payment-service/api/ticket/all?limit=100&page=0&active=none&orderBy=price&asc=asc`)
+        return response;
+    }catch ( e){
+        return e;
+    }
+}
+
+export const fetchRoomById :
+    (id : string) => Promise<any> = async (id) =>
+{
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/room/` + id);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+export const fetchRoomBooked :
+    (id : number) => Promise<any> = async (id) => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/payment-service/api/billchair/` + id);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+export const fetchDish : () => Promise<any> = async () => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/dish-service/api/typedish/all`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+export const fetchBranch : () => Promise<any> = async () => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/branch/all`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+export const fetchFilmAll : () => Promise<any> = async () => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/film/all`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+interface BillDto {
+    id : string,
+    totalPrice : number,
+    transactionCode : string,
+    paymentMethodId : string,
+    paymentMethod : string,
+    chairs : BillChairDto[],
+    dishes : BillDishDto[],
+    timestamp : string,  // 1
+    status : string,
+    filmShowTimeId : number,
+    timeEnd : string,
+    timeStart : string,
+    timeStampSee : string,
+    roomId : string,
+    nameRoom : string,
+    filmId : string,
+    nameFilm : string,
+    userName : string,
+    email : string,
+    numberPhone : string,
+    nameBranch : string,
+    address : string
+}
+interface BillChairDto{
+    id : string,
+    chairCode : string,
+    price : string,
+    ticket : TicketDto,
+}
+interface TicketDto {
+    id : string,
+    conditionUse : string,
+    name : string,
+    price : string,
+    typeTicket : string
+}
+interface  BillDishDto {
+    id : string,
+    price : number,
+    amount : number,
+    dishDto : DishDto
+}
+interface DishDto{
+    id : string,
+    price : number,
+    name : string,
+    image : string,
+    typeDish : TypeDishDto
+}
+interface TypeDishDto{
+    id : string,
+    name : string
+}
+
+export const paymentBill :
+    (bill : BillDto) => Promise<any>
+    = async ( bill ) => {
+    try{
+        const response = await  axios.post(`${env.url.API_BASE_URL}/payment-service/api/bill/add`,{
+            ...bill
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
 export const parseJwt = (token : string) => {
     if (!token) { return }
     const base64Url = token.split('.')[1]

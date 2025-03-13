@@ -42,6 +42,7 @@ const LoginPage : React.FC = () => {
         setProcessLogin(true);
         if( response.status != 200){
             toast.warning(<p className={"w-full"}>Account not found?</p>);
+            return;
         }
         setProcessLogin(false);
         const data = await response.data;

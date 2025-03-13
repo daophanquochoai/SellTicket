@@ -5,10 +5,13 @@ import { ToastContainer } from 'react-toastify';
 import DetailFilm from "./components/DetailFilm/DetailFilm.tsx";
 const LoginPage = lazy(() => import("./components/LoginPage/LoginPage.tsx"));
 const SignUpPage = lazy(() => import("./components/SignUpPage/SignUp.tsx"));
-const ForgetPasswordPage = lazy(() => import("./components/ForgetPasswordPage/ForgetPassword.tsx"))
+const ForgetPasswordPage = lazy(() => import("./components/ForgetPasswordPage/ForgetPassword.tsx"));
 const LoadingPage = lazy(() => import("./components/LoadingPage/LoadingPage.tsx"));
-const HomePage = lazy(() => import("./components/HomePage/HomePage.tsx"))
-const ContainerPage  = lazy(()  => import("./components/CommonPage/ContainerPage.tsx"))
+const HomePage = lazy(() => import("./components/HomePage/HomePage.tsx"));
+const ContainerPage  = lazy(()  => import("./components/CommonPage/ContainerPage.tsx"));
+const PaymentPage = lazy(() => import("./components/PaymentPage/PaymentPage.tsx"));
+const TheaterMovie = lazy(() => import("./components/TheaterMovie/TheaterMovie.tsx"));
+const Intro = lazy(() => import('./components/Intro/Intro.tsx'));
 
 const routes  = [
     {
@@ -56,6 +59,30 @@ const routes  = [
                 element: (
                     <Suspense fallback={<LoadingPage />}>
                         <DetailFilm />
+                    </Suspense>
+                ),
+            },
+            {
+                path : '/payment',
+                element: (
+                    <Suspense fallback={<LoadingPage />}>
+                        <PaymentPage />
+                    </Suspense>
+                ),
+            },
+            {
+                path : '/theater',
+                element: (
+                    <Suspense fallback={<LoadingPage />}>
+                        <TheaterMovie />
+                    </Suspense>
+                ),
+            },
+            {
+                path : '/intro',
+                element: (
+                    <Suspense fallback={<LoadingPage />}>
+                        <Intro />
                     </Suspense>
                 ),
             }

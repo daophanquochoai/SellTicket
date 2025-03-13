@@ -46,7 +46,6 @@ const SignUp : React.FC = () => {
         setProcessSignUp(true);
         const response = await handleSignUpByAccount(info.name, info.phoneNumber, info.email, info.username, info.password);
         setProcessSignUp(false);
-        console.log(response)
 
         if( response.status !== 201 ){
             toast.error(<p className={'w-full'}>{response.response.data.message}</p>)

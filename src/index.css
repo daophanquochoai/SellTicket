@@ -9,3 +9,7 @@
 html{
     scroll-behavior: smooth;
 }
+
+.ant-spin-text {
+    @apply !text-main
+}

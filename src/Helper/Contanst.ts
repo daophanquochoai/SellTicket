@@ -3,3 +3,4 @@ export const env = {
         API_BASE_URL: 'http://localhost:8888',
     }
 }
+export const PUBLIC_KEY = "pk_test_51QuPM5BcNft3NmLQZVIJ785cTDy9t8KaqQ7jwCb5GbPOe263Fq6mRrsWrN6TMYt0VKSoYsayw5ODzJSKCIjVfuGX00MHglpjYu";

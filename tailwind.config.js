@@ -12,7 +12,11 @@ export default {
         main : "#f7ac00",
         foreground : "#111827",
         bodyBg : "#181a1b",
-        border : "#172338"
+        border : "#172338",
+        textCol : "#d6e3ee"
+      },
+      fontSize : {
+        medium : "18px"
       },
       keyframes : {
         icon : {
