@@ -74,7 +74,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> getTickets(String limit, String page, String active, String orderBy, String asc) {
+    public List<TicketDto> getTickets(String limit, String page, String active, String orderBy, String asc) {
         Pageable pageable;
         if( asc.equals("asc")){
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
@@ -87,7 +87,7 @@ public class TicketServiceImpl implements TicketService {
         }else{
             list = ticketRepository.findAllByActive(pageable, Active.valueOf(active));
         }
-        return list.get().toList();
+        return list.map(mapperToObject::mapperToTicketDto).toList();
     }
 
     @Override

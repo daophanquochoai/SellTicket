@@ -1,6 +1,7 @@
 package doctorhoai.learn.user_service.service.impl;
 
 import doctorhoai.learn.user_service.dto.CustomerDto;
+import doctorhoai.learn.user_service.dto.request.AccountCustomer;
 import doctorhoai.learn.user_service.dto.request.CustomerRequest;
 import doctorhoai.learn.user_service.entity.*;
 import doctorhoai.learn.user_service.exception.*;
@@ -74,15 +75,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public CustomerDto updateCustomer(String id, CustomerRequest customer) {
+    public CustomerDto updateCustomer(String id, AccountCustomer account) {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if( !customerOptional.isPresent()){
             throw new CustomerNotFound("Customer not found with id : " + id);
         }
         Customer customerUpdate = customerOptional.get();
-        customerUpdate.setName(customer.getName());
-        customerUpdate.setPhoneNumber(customer.getPhoneNumber());
-        customerUpdate.setEmail(customer.getEmail());
+        customerUpdate.setName(account.getName());
+        customerUpdate.setPhoneNumber(account.getPhoneNumber());
+        customerUpdate.setEmail(account.getEmail());
         customerUpdate.setTimestamp(LocalDate.now());
         Customer customerSaved = customerRepository.save(customerUpdate);
         try{
@@ -136,17 +137,18 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public void updatePassword(String id, String passwordOld, String passwordNew) {
-        Optional<Customer> customerOptional = customerRepository.findById(id);
+        Optional<Customer> customerOptional = customerRepository.getCustomerById(id);
         if( !customerOptional.isPresent()){
             throw new CustomerNotFound("Customer not found with id : " + id);
         }
         if( customerOptional.get().getAccount() == null){
             throw new ErrorException("Customer hasn't account");
         }else{
-            if( customerOptional.get().getAccount().getPassword().equals(passwordOld)){
+            String account = customerOptional.get().getAccount().getPassword();
+            if( customerOptional.get().getAccount().getPassword().equals(bCryptPasswordEncoder.encode(passwordOld))){
                 customerOptional.get().getAccount().setPassword(bCryptPasswordEncoder.encode(passwordNew));
             }else{
-                throw new ErrorException("Password does not match");
+                throw new ErrorException("Mật khẩu không khớp");
             }
         }
         try{

@@ -1,7 +1,9 @@
 package doctorhoai.learn.proxy_client.business.user.service;
 
 import doctorhoai.learn.proxy_client.BaseDomain.Response;
+import doctorhoai.learn.proxy_client.business.user.model.request.AccountCustomer;
 import doctorhoai.learn.proxy_client.business.user.model.request.CustomerRequest;
+import doctorhoai.learn.proxy_client.business.user.model.request.Password;
 import doctorhoai.learn.proxy_client.business.user.service.fallback.CustomerFeignCallBack;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -58,6 +60,16 @@ public interface CustomerFeign {
     @GetMapping("/info/{username}")
     public ResponseEntity<Response> getInfoAccount(
             @PathVariable @Valid @NotBlank String username
+    );
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Response> updateCustomer(
+            @PathVariable @NotBlank String id,
+            @RequestBody @Valid AccountCustomer account
+    );
+    @PutMapping("/update/password/{id}")
+    public ResponseEntity<Response> updatePassword(
+            @PathVariable @Valid @NotBlank String id,
+            @RequestBody @Valid Password password
     );
 
 }

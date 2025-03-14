@@ -1,9 +1,9 @@
 package doctorhoai.learn.user_service.controller;
 
-import doctorhoai.learn.user_service.dto.CustomerDto;
+import doctorhoai.learn.user_service.dto.request.AccountCustomer;
 import doctorhoai.learn.user_service.dto.request.CustomerRequest;
+import doctorhoai.learn.user_service.dto.request.Password;
 import doctorhoai.learn.user_service.dto.response.Response;
-import doctorhoai.learn.user_service.repository.CustomerRepository;
 import doctorhoai.learn.user_service.service.inter.AccountBankService;
 import doctorhoai.learn.user_service.service.inter.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -170,6 +170,34 @@ public class CustomerController {
                         .statusCode(HttpStatus.OK.value())
                         .message("Get info account successfully")
                         .data(customerService.getCustomerByUsername(username))
+                        .build()
+        );
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Response> updateCustomer(
+            @PathVariable @NotBlank String id,
+            @RequestBody @Valid AccountCustomer account
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Update customer successfully")
+                        .data(customerService.updateCustomer(id,account))
+                        .build()
+        );
+    }
+
+    @PutMapping("/update/password/{id}")
+    public ResponseEntity<Response> updatePassword(
+            @PathVariable @Valid @NotBlank String id,
+            @RequestBody @Valid Password password
+            ){
+        customerService.updatePassword(id, password.getPasswordOld(), password.getPasswordNew());
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Update password successfully")
                         .build()
         );
     }

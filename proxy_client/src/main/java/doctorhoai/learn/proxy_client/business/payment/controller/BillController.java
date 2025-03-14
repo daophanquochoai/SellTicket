@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/payment-service/api/bill")
@@ -50,5 +53,9 @@ public class BillController {
     )
     {
         return paymentFeign.activateBill(id);
+    }
+    @PostMapping("/payment")
+    public ResponseEntity<Map<String, Object>> processPayment(@RequestBody Map<String, Object> paymentRequest){
+        return paymentFeign.processPayment(paymentRequest);
     }
 }

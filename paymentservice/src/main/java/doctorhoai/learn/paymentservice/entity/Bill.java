@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -25,6 +26,10 @@ public class Bill {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethodId;
+    @OneToMany(mappedBy = "billChairId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BillChair> billChair;
+    @OneToMany(mappedBy = "billDishId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BillDish> billDish;
     @Enumerated(EnumType.STRING)
     private Active active;
     private LocalDateTime timestamp;

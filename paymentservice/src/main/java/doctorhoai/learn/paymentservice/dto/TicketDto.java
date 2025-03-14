@@ -1,6 +1,7 @@
 package doctorhoai.learn.paymentservice.dto;
 
 import doctorhoai.learn.paymentservice.entity.Active;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,7 +24,11 @@ public class TicketDto {
     @NotNull(message = "Name can't null")
     private String name;
     @Min(value = 0, message = "Price have more than 0đ")
-    private String price;
+    private Integer price;
     @NotBlank(message = "Type Ticket can't blank")
     private String typeTicket;
+    @NotNull(message = "Slot isn't null")
+    @Min( value = 0, message = "Slot should be large than 0")
+    @Max(value = 10, message = "Slot should be less than 10")
+    private Integer slot;
 }

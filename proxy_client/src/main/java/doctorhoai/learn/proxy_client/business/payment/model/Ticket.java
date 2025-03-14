@@ -19,6 +19,7 @@ public class Ticket {
     private Active active;
     private String conditionUse;
     private String name;
-    private String price;
+    private Integer price;
     private String typeTicket;
+    private Integer slot;
 }

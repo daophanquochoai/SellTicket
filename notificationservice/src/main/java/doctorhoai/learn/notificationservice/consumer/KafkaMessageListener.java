@@ -8,6 +8,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import doctorhoai.learn.basedomain.Event.MailOpt;
 import doctorhoai.learn.basedomain.Event.TicketEmail;
+import doctorhoai.learn.notificationservice.controller.Controller;
 import doctorhoai.learn.notificationservice.service.inter.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +25,13 @@ import org.springframework.stereotype.Service;
 public class KafkaMessageListener {
     private final ObjectMapper objectMapper;
     private final MailService mailService;
+    private final Controller controller;
 
     @RetryableTopic(attempts = "4", backoff = @Backoff( delay = 3000, multiplier = 1.5, maxDelay = 15000))
     @KafkaListener(topics = "ticket", groupId = "ticket")
     public void consumerTicket(TicketEmail ticketEmail) throws Exception {
         mailService.sendMail(ticketEmail);
+        controller.sendSSE(ticketEmail.getChairs());
         log.info("Mail sended");
     }
 

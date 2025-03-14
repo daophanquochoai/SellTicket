@@ -69,6 +69,7 @@ public class MailServiceImpl implements MailService {
                     "          <p><strong>Mã giao dịch:</strong> " + ticketEmail.getTransactionCode() + "</p>\n" +
                     "          <p><strong>Phương thức thanh toán:</strong> " + ticketEmail.getPaymentMethod() + "</p>\n" +
                     "          <p><strong>Tổng tiền:</strong> " + ticketEmail.getTotalPrice() + " VND</p>\n" +
+                    "          <p><strong>Địa điểm:</strong> " + ticketEmail.getNameBranch() + " (" + ticketEmail.getAddress() + ")" + "</p>\n" +
                     "          <p><strong>Khách hàng:</strong> " + ticketEmail.getUserName() + "</p>\n" +
                     "          <p><strong>Email:</strong> " + ticketEmail.getEmail() + "</p>\n" +
                     "          <p><strong>Số điện thoại:</strong> " + ticketEmail.getNumberPhone() + "</p>\n" +
@@ -90,7 +91,7 @@ public class MailServiceImpl implements MailService {
                     "        <tbody>");
             ticketEmail.getChairs().forEach( item -> {
                 messageData.append("<tr>\n" +
-                        "                <td>" + item.getChairCode() + "</td>\n" +
+                        "                <td>" + (char)(item.getChairCode().toCharArray()[1] - '0' + 'A') + item.getChairCode()+ "</td>\n" +
                         "                <td> " + item.getName() + "</td>\n" +
                         "                <td>" + item.getPrice() + " VND</td>\n" +
                         "            </tr>");

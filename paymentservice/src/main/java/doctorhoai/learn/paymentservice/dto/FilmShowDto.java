@@ -18,7 +18,7 @@ public class FilmShowDto implements Serializable {
     private int id;
     private Time timeEnd;
     private Time timeStart;
-    private FilmDto filmDto;
+    private String subFilmId;
     private String roomId;
     private LocalDate timestamp;
     private String status;

@@ -1,11 +1,14 @@
 package doctorhoai.learn.proxy_client.business.user.controller;
 
 import doctorhoai.learn.proxy_client.BaseDomain.Response;
+import doctorhoai.learn.proxy_client.business.user.model.request.AccountCustomer;
 import doctorhoai.learn.proxy_client.business.user.model.request.CustomerRequest;
+import doctorhoai.learn.proxy_client.business.user.model.request.Password;
 import doctorhoai.learn.proxy_client.business.user.service.CustomerFeign;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,5 +56,18 @@ public class CustomerController {
     public String getenviroment() {
         return customerFeign.getenviroment();
     }
-
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Response> updateCustomer(
+            @PathVariable @NotBlank String id,
+            @RequestBody @Valid AccountCustomer account
+    ){
+        return customerFeign.updateCustomer(id, account);
+    }
+    @PutMapping("/update/password/{id}")
+    public ResponseEntity<Response> updatePassword(
+            @PathVariable @Valid @NotBlank String id,
+            @RequestBody @Valid Password password
+    ){
+        return customerFeign.updatePassword(id, password);
+    }
 }

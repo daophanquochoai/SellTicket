@@ -13,22 +13,22 @@ import doctorhoai.learn.paymentservice.entity.*;
 import doctorhoai.learn.paymentservice.exception.*;
 import doctorhoai.learn.paymentservice.helper.MapperToObject;
 import doctorhoai.learn.paymentservice.repository.*;
-import doctorhoai.learn.paymentservice.service.feign.DishFeign;
-import doctorhoai.learn.paymentservice.service.feign.FilmFeign;
-import doctorhoai.learn.paymentservice.service.feign.FilmShowTimeFeign;
-import doctorhoai.learn.paymentservice.service.feign.RoomFeign;
+import doctorhoai.learn.paymentservice.service.feign.*;
 import doctorhoai.learn.paymentservice.service.inter.BillService;
 import doctorhoai.learn.paymentservice.service.producer.KafkaMessagePublish;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,11 +48,12 @@ public class BillServiceImpl implements BillService {
     private final RoomFeign roomFeign;
     private final PaymentMethodRepository paymentMethodRepository;
     private final FilmFeign filmFeign;
+    private final SubFilmFeign subFilmFeign;
     private final MapperToObject mapperToObject;
     private final KafkaMessagePublish kafkaMessagePublish;
 
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = { SQLException.class })
     @Override
     public BillDto createBill(BillDto billDto){
         try {
@@ -87,6 +88,7 @@ public class BillServiceImpl implements BillService {
                 log.error("Room not found");
                 throw new RoomNotFound("Room not found");
             }
+
             RoomDto roomDto = objectMapper.convertValue(responseRoom.getBody().getData(), RoomDto.class);
             //call film
             ResponseEntity<Response> responseFilm = filmFeign.getFilmById(billDto.getFilmId());
@@ -113,8 +115,83 @@ public class BillServiceImpl implements BillService {
                     .userName(billDto.getUserName())
                     .email(billDto.getEmail())
                     .numberPhone(billDto.getNumberPhone())
+                    .billChair(new ArrayList<>())
+                    .billDish(new ArrayList<>())
                     .build();
+
+            //convert billdto
+            //list return into billdto
+            List<BillChairDto> billChairReturn = new ArrayList<>();
+            List<BillChairDto> billChairDto = billDto.getChairs();
+            if( !billDto.getChairs().isEmpty()){
+                billChairDto.forEach(item -> {
+                    Optional<Ticket> ticket = ticketRepository.findById(item.getTicket().getId());
+                    if (ticket.isEmpty()) {
+                        throw new TicketNotFound("Ticket not found with id : " + item.getTicket().getId());
+                    }
+                    BillChair billChair = BillChair
+                            .builder()
+                            .chairCode(item.getChairCode())
+                            .price(item.getPrice())
+                            .ticketId(ticket.get())
+                            .active(Active.ACTIVE)
+                            .billChairId(bill)
+                            .build();
+                    TicketDto ticketDto = TicketDto.builder()
+                            .id(ticket.get().getId())
+                            .name(ticket.get().getName())
+                            .active(ticket.get().getActive())
+                            .conditionUse(ticket.get().getConditionUse())
+                            .price(ticket.get().getPrice())
+                            .typeTicket(ticket.get().getTypeTicket())
+                            .slot(ticket.get().getSlot())
+                            .build();
+                    billChairReturn.add(
+                            BillChairDto.builder()
+                                    .active(item.getActive())
+                                    .price(item.getPrice())
+                                    .id(item.getId())
+                                    .chairCode(item.getChairCode())
+                                    .ticket(ticketDto)
+                                    .build()
+                    );
+                    bill.getBillChair().add(billChair);
+                });
+            }
+            // dish
+            List<BillDishDto> billDishReturn = new ArrayList<>();
+            if (!billDto.getDishes().isEmpty()) {
+                List<BillDishDto> billDishes = billDto.getDishes();
+                billDishes.forEach(item -> {
+                    ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishDto().getId());
+                    if (responseDish.getStatusCode() == HttpStatus.OK) {
+                        DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
+                        BillDish billDish = BillDish
+                                .builder()
+                                .active(Active.ACTIVE)
+                                .price(item.getPrice())
+                                .dishId(item.getDishDto().getId())
+                                .amount(item.getAmount())
+                                .billDishId(bill)
+                                .build();
+                        billDishReturn.add(
+                                BillDishDto.builder()
+                                        .active(item.getActive())
+                                        .price(item.getPrice())
+                                        .id(item.getId())
+                                        .amount(item.getAmount())
+                                        .dishDto(dishDto)
+                                        .build()
+                        );
+                        bill.getBillDish().add(billDish);
+                    } else {
+                        throw new DishNotFound("Dish not found with id : " + item.getDishDto().getId());
+                    }
+                });
+            }
+
             Bill billSaved = billRepository.save(bill);
+            billRepository.flush();
             // convert bill dto
             BillDto billConvert = BillDto
                     .builder()
@@ -129,6 +206,8 @@ public class BillServiceImpl implements BillService {
                     .filmShowTimeId(bill.getFilmShowTimeId())
                     .timeEnd(filmShowDto.getTimeEnd())
                     .timeStart(filmShowDto.getTimeStart())
+                    .nameBranch(roomDto.getBranch().getNameBranch())
+                    .address(roomDto.getBranch().getAddress())
                     .timeStampSee(filmShowDto.getTimestamp())
                     .roomId(roomDto.getId())
                     .nameRoom(roomDto.getName())
@@ -138,112 +217,9 @@ public class BillServiceImpl implements BillService {
                     .email(billSaved.getEmail())
                     .numberPhone(billSaved.getNumberPhone())
                     .build();
-            List<BillChairDto> billChairDto = billDto.getChairs();
-            //list return into billdto
-            List<BillChairDto> billChairReturn = new ArrayList<>();
-            billChairDto.forEach(item -> {
-                Optional<Ticket> ticket = ticketRepository.findById(item.getTicket().getId());
-                if (ticket.isEmpty()) {
-                    throw new TicketNotFound("Ticket not found with id : " + item.getTicket().getId());
-                }
-                BillChair billChair = BillChair
-                        .builder()
-                        .chairCode(item.getChairCode())
-                        .price(item.getPrice())
-                        .ticketId(ticket.get())
-                        .active(Active.ACTIVE)
-                        .billChairId(billSaved)
-                        .build();
-                BillChair billChairSaved = billChairRepository.save(billChair);
-                BillChairDto billChairTemp = BillChairDto
-                        .builder()
-                        .id(billChairSaved.getId())
-                        .chairCode(billChairSaved.getChairCode())
-                        .price(billChairSaved.getPrice())
-                        .ticket(mapperToObject.mapperToTicketDto(ticket.get()))
-                        .active(billChairSaved.getActive())
-                        .build();
-                billChairReturn.add(billChairTemp);
-            });
-            //convert billdto
-            billConvert.setChairs(billChairReturn);
 
-            if (!billDto.getDishes().isEmpty()) {
-                List<BillDishDto> billDishes = billDto.getDishes();
-                List<BillDishDto> billDishReturn = new ArrayList<>();
-                billDishes.forEach(item -> {
-                    ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishDto().getId());
-                    if (responseDish.getStatusCode() == HttpStatus.OK) {
-                        DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
-                        BillDish billDish = BillDish
-                                .builder()
-                                .active(Active.ACTIVE)
-                                .price(item.getPrice())
-                                .dishId(item.getDishDto().getId())
-                                .billDishId(billSaved)
-                                .amount(item.getAmount())
-                                .build();
-                        BillDish billDishSaved = billDishRepository.save(billDish);
-                        BillDishDto billDishDto = BillDishDto.builder()
-                                .id(billDishSaved.getId())
-                                .active(billDishSaved.getActive())
-                                .price(billDishSaved.getPrice())
-                                .amount(billDishSaved.getAmount())
-                                .dishDto(dishDto)
-                                .build();
-                        billDishReturn.add(billDishDto);
-                    } else {
-                        throw new DishNotFound("Dish not found with id : " + item.getDishDto().getId());
-                    }
-                });
-                billConvert.setDishes(billDishReturn);
-            }
-            log.info("Create bill dto...");
-            //send email
-            TicketEmail ticketEmail = new TicketEmail(
-                  billConvert.getTotalPrice(),
-                    billConvert.getTransactionCode(),
-                    billConvert.getPaymentMethodId(),
-                    billConvert.getPaymentMethod(),
-                  new ArrayList<>(),
-                  new ArrayList<>(),
-                    billConvert.getTimestamp(),
-                    billConvert.getTimeEnd(),
-                    billConvert.getTimeStart(),
-                    billConvert.getTimeStampSee(),
-                    billConvert.getNameRoom(),
-                    billConvert.getNameFilm(),
-                    billConvert.getUserName(),
-                    billConvert.getEmail(),
-                    billConvert.getNumberPhone()
-            );
-            billConvert.getChairs().forEach( item -> {
-                ticketEmail.getChairs().add(
-                        new BillChairTicket(
-                                item.getChairCode(),
-                                item.getPrice(),
-                                item.getTicket().getConditionUse(),
-                                item.getTicket().getName(),
-                                item.getTicket().getTypeTicket()
-                        )
-                );
-            });
-            billConvert.getDishes().forEach( item -> {
-                ticketEmail.getDishes().add(
-                        new BillDishTicket(
-                                item.getPrice(),
-                                item.getAmount(),
-                                item.getActive().toString(),
-                                item.getDishDto().getName(),
-                                item.getDishDto().getImage(),
-                                item.getDishDto().getTypeDish().getName()
-                        )
-                );
-            });
-            log.info("Send kafka...");
-            kafkaMessagePublish.sendEventToTopic(
-                    ticketEmail
-            );
+            billConvert.setChairs(billChairReturn);
+            billConvert.setDishes(billDishReturn);
             return billConvert;
         }catch (TicketNotFound t){
             log.error(t.getMessage());
@@ -304,12 +280,12 @@ public class BillServiceImpl implements BillService {
             }
             RoomDto roomDto = objectMapper.convertValue(responseRoom.getBody().getData(), RoomDto.class);
             //call film
-            ResponseEntity<Response> responseFilm = filmFeign.getFilmById(filmShowDto.getFilmDto().getId());
-            if (responseFilm.getStatusCode() != HttpStatus.OK) {
+            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmById(filmShowDto.getSubFilmId());
+            if (responseSubFilm.getStatusCode() != HttpStatus.OK) {
                 log.error("Film not found");
                 throw new FilmNotFound("Film not found");
             }
-            FilmDto filmDto = objectMapper.convertValue(responseFilm.getBody().getData(), FilmDto.class);
+            SubFilmDto subFilmDto = objectMapper.convertValue(responseSubFilm.getBody().getData(), SubFilmDto.class);
 
             List<BillChairDto> chairs = new ArrayList<>();
             List<BillDishDto> dishes = new ArrayList<>();
@@ -359,10 +335,15 @@ public class BillServiceImpl implements BillService {
                     .timeEnd(filmShowDto.getTimeEnd())
                     .timeStart(filmShowDto.getTimeStart())
                     .timeStampSee(filmShowDto.getTimestamp())
+                    .nameBranch(roomDto.getBranch().getNameBranch())
+                    .address(roomDto.getBranch().getAddress())
                     .roomId(roomDto.getId())
                     .nameRoom(roomDto.getName())
-                    .filmId(filmDto.getId())
-                    .nameFilm(filmDto.getName())
+                    .filmId(subFilmDto.getFilmDto().getId())
+                    .nameFilm(subFilmDto.getFilmDto().getName())
+                    .userName(bill.getUserName())
+                    .email(bill.getEmail())
+                    .numberPhone(bill.getNumberPhone())
                     .chairs(chairs)
                     .dishes(dishes)
                     .build();
@@ -399,12 +380,12 @@ public class BillServiceImpl implements BillService {
         }
         RoomDto roomDto = objectMapper.convertValue(responseRoom.getBody().getData(), RoomDto.class);
         //call film
-        ResponseEntity<Response> responseFilm = filmFeign.getFilmById(filmShowDto.getFilmDto().getId());
-        if (responseFilm.getStatusCode() != HttpStatus.OK) {
+        ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmById(filmShowDto.getSubFilmId());
+        if (responseSubFilm.getStatusCode() != HttpStatus.OK) {
             log.error("Film not found");
             throw new FilmNotFound("Film not found");
         }
-        FilmDto filmDto = objectMapper.convertValue(responseFilm.getBody().getData(), FilmDto.class);
+        SubFilmDto subFilmDto = objectMapper.convertValue(responseSubFilm.getBody().getData(), SubFilmDto.class);
 
         List<BillChairDto> chairs = new ArrayList<>();
         List<BillDishDto> dishes = new ArrayList<>();
@@ -454,12 +435,17 @@ public class BillServiceImpl implements BillService {
                 .timeEnd(filmShowDto.getTimeEnd())
                 .timeStart(filmShowDto.getTimeStart())
                 .timeStampSee(filmShowDto.getTimestamp())
+                .nameBranch(roomDto.getBranch().getNameBranch())
+                .address(roomDto.getBranch().getAddress())
                 .roomId(roomDto.getId())
                 .nameRoom(roomDto.getName())
-                .filmId(filmDto.getId())
-                .nameFilm(filmDto.getName())
+                .filmId(subFilmDto.getFilmDto().getId())
+                .nameFilm(subFilmDto.getFilmDto().getName())
                 .chairs(chairs)
                 .dishes(dishes)
+                .userName(bill.getUserName())
+                .email(bill.getEmail())
+                .numberPhone(bill.getNumberPhone())
                 .build();
         return billDto;
     }
@@ -484,5 +470,78 @@ public class BillServiceImpl implements BillService {
         }
         billOptional.get().setActive(Active.ACTIVE);
         billRepository.save(billOptional.get());
+    }
+
+    @Override
+    public boolean acceptBill(String id, String transaction) {
+        Optional<Bill> billOptional = billRepository.findById(id);
+        if( billOptional.isEmpty() ){
+            throw new BillNotFound("Bill not found with id : " + id);
+        }
+        Bill bill = billOptional.get();
+        bill.setTransactionCode(transaction);
+        bill.setStatus(Status.SUCCESS);
+        try{
+            Bill billSaved = billRepository.save(bill);
+            billRepository.flush();
+
+            BillDto billConvert = getBillById(id);
+            log.info("Create bill dto...");
+            //send email
+            TicketEmail ticketEmail = new TicketEmail(
+                    billConvert.getTotalPrice(),
+                    billConvert.getTransactionCode(),
+                    billConvert.getPaymentMethodId(),
+                    billConvert.getPaymentMethod(),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
+                    billConvert.getNameBranch(),
+                    billConvert.getAddress(),
+                    billConvert.getTimestamp(),
+                    billConvert.getTimeEnd(),
+                    billConvert.getTimeStart(),
+                    billConvert.getTimeStampSee(),
+                    billConvert.getNameRoom(),
+                    billConvert.getNameFilm(),
+                    billConvert.getUserName(),
+                    billConvert.getEmail(),
+                    billConvert.getNumberPhone()
+            );
+            if( billConvert.getChairs() != null){
+                billConvert.getChairs().forEach( item -> {
+                    ticketEmail.getChairs().add(
+                            new BillChairTicket(
+                                    item.getChairCode(),
+                                    item.getPrice(),
+                                    item.getTicket().getConditionUse(),
+                                    item.getTicket().getName(),
+                                    item.getTicket().getTypeTicket()
+                            )
+                    );
+                });
+            }
+            if( billConvert.getDishes() != null ){
+                billConvert.getDishes().forEach( item -> {
+                    ticketEmail.getDishes().add(
+                            new BillDishTicket(
+                                    item.getPrice(),
+                                    item.getAmount(),
+                                    item.getActive().toString(),
+                                    item.getDishDto().getName(),
+                                    item.getDishDto().getImage(),
+                                    item.getDishDto().getTypeDish().getName()
+                            )
+                    );
+                });
+            }
+            log.info("Send kafka...");
+            kafkaMessagePublish.sendEventToTopic(
+                    ticketEmail
+            );
+            return true;
+        }catch ( Exception e ){
+            log.error("Bill save failed : " + e.getMessage());
+            return false;
+        }
     }
 }

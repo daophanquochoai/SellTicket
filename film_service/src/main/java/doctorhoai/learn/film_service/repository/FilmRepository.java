@@ -22,5 +22,7 @@ public interface FilmRepository extends JpaRepository<Film, String> {
     @Query("SELECT f FROM Film f JOIN f.subFilms sl WHERE sl.id IN :ids AND f.status = 'ACTIVE'")
     List<Film> getFilmBySubFilmsIdIn(List<String> ids);
     List<Film> getFilmByStatus(Status status);
+    @Query("select f from Film f where f.status != 'DELETE'")
+    List<Film> getFilmByOrther();
 
 }

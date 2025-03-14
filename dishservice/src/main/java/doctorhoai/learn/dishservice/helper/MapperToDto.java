@@ -6,13 +6,17 @@ import doctorhoai.learn.dishservice.entity.Dish;
 import doctorhoai.learn.dishservice.entity.Status;
 import doctorhoai.learn.dishservice.entity.TypeDish;
 
+import java.util.List;
+
 public class MapperToDto {
     public static TypeDishDto TypeDishToDto(TypeDish type) {
         if( type == null ) return null;
+        List<DishDto> dishDtos = type.getDish().stream().map(MapperToDto::DishToDto).toList();
         return TypeDishDto.builder()
                 .id(type.getId())
                 .active(type.getActive().toString())
                 .name(type.getName())
+                .dishes(dishDtos)
                 .build();
     }
 
@@ -43,7 +47,6 @@ public class MapperToDto {
                 .active(dish.getActive().toString())
                 .name(dish.getName())
                 .image(dish.getImage())
-                .typeDish(MapperToDto.TypeDishToDto(dish.getTypeDish()))
                 .build();
     }
 }

@@ -45,6 +45,8 @@ public class BillDto {
     @NotNull(message = "Room id can't null")
     private String roomId;
     private String nameRoom;
+    private String nameBranch;
+    private String address;
     @NotBlank(message = "Film id can't not blank")
     @NotNull(message = "Film id can't not null")
     private String filmId;

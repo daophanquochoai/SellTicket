@@ -20,4 +20,5 @@ public class Chair {
     private String description;
     @Enumerated(EnumType.STRING)
     private Status status;
+    private Integer slot;
 }

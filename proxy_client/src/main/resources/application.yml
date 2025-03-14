@@ -10,3 +10,9 @@ spring:
     port: ${SPRING_REDIS_PORT:6379}
 server:
   port: 8888
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000  # 5 giây
+        readTimeout: 10000

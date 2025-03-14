@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.util.Map;
 
 @FeignClient(
         name = "paymentservice",
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
         fallbackFactory = PaymentFeignFallBack.class
 )
 public interface PaymentFeign {
+
     @PostMapping("/add")
     public ResponseEntity<Response> createBill(@RequestBody @Valid BillDto billDto);
 
@@ -33,4 +37,7 @@ public interface PaymentFeign {
 
     @PatchMapping("/active/{id}")
     public ResponseEntity<Response> activateBill(@Valid @PathVariable @NotNull String id);
-}
+    @PostMapping("/payment")
+    public ResponseEntity<Map<String, Object>> processPayment(@RequestBody Map<String, Object> paymentRequest);
+
+    }

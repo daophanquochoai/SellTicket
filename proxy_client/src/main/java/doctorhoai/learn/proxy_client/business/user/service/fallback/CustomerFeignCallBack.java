@@ -1,7 +1,9 @@
 package doctorhoai.learn.proxy_client.business.user.service.fallback;
 
 import doctorhoai.learn.proxy_client.BaseDomain.Response;
+import doctorhoai.learn.proxy_client.business.user.model.request.AccountCustomer;
 import doctorhoai.learn.proxy_client.business.user.model.request.CustomerRequest;
+import doctorhoai.learn.proxy_client.business.user.model.request.Password;
 import doctorhoai.learn.proxy_client.business.user.service.CustomerFeign;
 import doctorhoai.learn.proxy_client.security.FunctionCommon;
 import lombok.RequiredArgsConstructor;
@@ -70,6 +72,17 @@ public class CustomerFeignCallBack implements FallbackFactory<CustomerFeign> {
             public ResponseEntity<Response> getInfoAccount(String username) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> updateCustomer(String id, AccountCustomer account) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Response> updatePassword(String id, Password password) {
+                return functionCommon.process(cause);
+            }
+
         };
     }
 

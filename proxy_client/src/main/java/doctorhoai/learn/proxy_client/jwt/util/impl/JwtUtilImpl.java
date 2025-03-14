@@ -85,6 +85,7 @@ public class JwtUtilImpl implements JwtUtil {
             CustomerDto customerDto = objectMapper.convertValue(data.getBody().getData(), CustomerDto.class);
             claims.put("name", customerDto.getName());
             claims.put("email", customerDto.getEmail());
+            claims.put("phone", customerDto.getPhoneNumber());
             claims.put("id", customerDto.getId());
         }
         claims.put("roles", authorities);

@@ -20,6 +20,7 @@ public class MapperToDto {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .status(Status.valueOf(dto.getStatus().toUpperCase()))
+                .slot(dto.getSlot())
                 .build();
     }
 
@@ -29,6 +30,7 @@ public class MapperToDto {
                 .name(chair.getName())
                 .description(chair.getDescription())
                 .status(chair.getStatus().toString())
+                .slot(chair.getSlot())
                 .build();
     }
 

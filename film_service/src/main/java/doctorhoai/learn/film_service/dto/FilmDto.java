@@ -11,13 +11,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class FilmDto {
+public class FilmDto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     @NotBlank(message = "Name can't blank")
     private String name;

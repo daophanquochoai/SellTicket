@@ -19,5 +19,7 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
     @Query("select c from Customer c where c.email like concat('%', :q, '%') or c.name like concat('%', :q, '%') or c.phoneNumber like concat('%', :q, '%')")
     Page<Customer> findAllCustomer(Pageable pageable, String q);
     Optional<Customer> getCustomerByAccount_UserName(String username);
+    @Query("select c from Customer c join fetch c.account where c.id = :id")
+    Optional<Customer> getCustomerById(String id);
 
 }

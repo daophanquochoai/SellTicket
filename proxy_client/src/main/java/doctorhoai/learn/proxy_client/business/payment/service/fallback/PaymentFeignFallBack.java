@@ -5,17 +5,25 @@ import doctorhoai.learn.proxy_client.business.payment.model.BillDto;
 import doctorhoai.learn.proxy_client.business.payment.service.PaymentFeign;
 import doctorhoai.learn.proxy_client.security.FunctionCommon;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class PaymentFeignFallBack implements FallbackFactory<PaymentFeign> {
     private final FunctionCommon functionCommon;
     @Override
     public PaymentFeign create(Throwable cause) {
         return new PaymentFeign() {
+
+
             @Override
             public ResponseEntity<Response> createBill(BillDto billDto) {
                 return functionCommon.process(cause);
@@ -39,6 +47,16 @@ public class PaymentFeignFallBack implements FallbackFactory<PaymentFeign> {
             @Override
             public ResponseEntity<Response> activateBill(String id) {
                 return functionCommon.process(cause);
+            }
+
+            @Override
+            public ResponseEntity<Map<String, Object>> processPayment(Map<String, Object> paymentRequest) {
+                Map<String, Object> response = new HashMap<>();
+                log.info("{}",cause);
+                return ResponseEntity.badRequest()
+                        .body(
+                                response
+                        );
             }
         };
     }

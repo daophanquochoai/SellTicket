@@ -23,6 +23,8 @@ public class TicketEmail implements Serializable {
     private String paymentMethod;
     private List<BillChairTicket> chairs;
     private List<BillDishTicket> dishes;
+    private String nameBranch;
+    private String address;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")

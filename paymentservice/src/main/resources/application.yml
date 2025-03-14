@@ -14,3 +14,5 @@ spring:
     topic:
       name: ticket
     bootstrap-servers: ${SPRING_URL_KAFKA:localhost:9092}
+
+apikey : sk_test_51QuPM5BcNft3NmLQIaQ2LrDY86NNOoBnFpaNysptacRccKpa0S2zkyXDg8a7EhPUDCvu1ylbwBjWcD0K7YaFQNoN00ZGbBZc0L
