@@ -1,8 +1,11 @@
 package doctorhoai.learn.rateservice.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import doctorhoai.learn.rateservice.dto.CustomerDto;
+import doctorhoai.learn.rateservice.dto.FilmDto;
 import doctorhoai.learn.rateservice.dto.RateFilmDto;
 import doctorhoai.learn.rateservice.dto.request.RateFilmRequest;
+import doctorhoai.learn.rateservice.dto.response.PageObject;
 import doctorhoai.learn.rateservice.dto.response.RateForFilm;
 import doctorhoai.learn.rateservice.dto.response.Response;
 import doctorhoai.learn.rateservice.entity.RateFilm;
@@ -18,6 +21,7 @@ import doctorhoai.learn.rateservice.repository.RateRepository;
 import doctorhoai.learn.rateservice.service.inter.RateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -49,7 +53,8 @@ public class RateServiceImpl implements RateService {
             if(customerResponse.getBody().getData() == null ){
                 throw new CustomerNotFound("Customer not found with id : " + rate.getCustomerId());
             }
-
+            ObjectMapper objectMapper = new ObjectMapper();
+            CustomerDto customerDto = objectMapper.convertValue(customerResponse.getBody().getData(), CustomerDto.class);
             //fetch film
             ResponseEntity<Response> filmResponse = filmFeignClient.getFilmById(filmId);
             if( filmResponse == null ){
@@ -58,6 +63,7 @@ public class RateServiceImpl implements RateService {
             if( filmResponse.getBody().getData() == null ){
                 throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
             }
+            FilmDto filmDto = objectMapper.convertValue(filmResponse.getBody().getData(), FilmDto.class);
 
             RateFilm rateFilm = RateFilm.builder()
                     .filmId(filmId)
@@ -68,7 +74,10 @@ public class RateServiceImpl implements RateService {
                     .active(Status.ACTIVE)
                     .build();
             RateFilm rateFilmSaved = rateRepository.save(rateFilm);
-            return MapperToDto.RateToDto(rateFilmSaved);
+            RateFilmDto rateFilmDto =  MapperToDto.RateToDto(rateFilmSaved);
+            rateFilmDto.setCustomer(customerDto);
+            rateFilmDto.setFilm(filmDto);
+            return rateFilmDto;
         }
         catch (FilmNotFound filmNotFound){
             log.error(filmNotFound.getMessage());
@@ -119,7 +128,7 @@ public class RateServiceImpl implements RateService {
     @Override
     public RateForFilm getRateByFilmId(String filmId, String limit, String page, String asc, String status, String q, String orderBy) {
         try{
-            List<RateFilm> rateFilms;
+            Page<RateFilm> rateFilms;
             Pageable pageable;
             if( asc.equals("asc")){
                 pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
@@ -133,6 +142,7 @@ public class RateServiceImpl implements RateService {
             }
             List<RateFilmDto> returnValue = new ArrayList<>();
             long rateSum = 0;
+            ObjectMapper objectMapper = new ObjectMapper();
             for( RateFilm rate: rateFilms ) {
                 rateSum += rate.getStar();
                 RateFilmDto rateFilmDto = MapperToDto.RateToDto(rate);
@@ -144,36 +154,27 @@ public class RateServiceImpl implements RateService {
                     if (customerResponse.getBody().getStatusCode() != 200) {
                         throw new CustomerNotFound("Customer not found with id : " + rate.getCustomerId());
                     }
-
-                    Object customerData = customerResponse.getBody().getData(); // Dữ liệu có thể là Map, nên không ép kiểu trực tiếp
-
-                    // Kiểm tra nếu customerData là kiểu Map và chuyển nó thành CustomerDto
-                    if (customerData instanceof LinkedHashMap) {
-                        LinkedHashMap<String, Object> dataMap = (LinkedHashMap<String, Object>) customerData;
-                        // Chuyển đổi map thành CustomerDto
-                        CustomerDto customerDto = CustomerDto.builder()
-                                .id((String) dataMap.get("id"))
-                                .name((String) dataMap.get("name"))
-                                .phoneNumber((String) dataMap.get("phoneNumber"))
-                                .email((String) dataMap.get("email"))
-                                .status(Status.valueOf(dataMap.get("status").toString().toUpperCase()))
-                                .build();
-
-                        // Xử lý customerDto
-                        if (customerDto.getStatus() == Status.ACTIVE) {
-                            rateFilmDto.setCustomer(customerDto);
-                        }
-                    } else {
-                        throw new CustomerNotFound("Customer data format is incorrect.");
+                    CustomerDto customerDto = objectMapper.convertValue(customerResponse.getBody().getData(), CustomerDto.class);
+                    ResponseEntity<Response> filmResponse = filmFeignClient.getFilmById(filmId);
+                    if (filmResponse == null) {
+                        throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
                     }
+                    if (filmResponse.getBody().getData() == null) {
+                        throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
+                    }
+                    FilmDto filmDto = objectMapper.convertValue(filmResponse.getBody().getData(), FilmDto.class);
+                    // Xử lý customerDto
+                    rateFilmDto.setCustomer(customerDto);
+                    rateFilmDto.setFilm(filmDto);
 
                     returnValue.add(rateFilmDto);
                 }
-            };
+                ;
+            }
             if( returnValue.isEmpty() ){
                 return new RateForFilm( 0, returnValue);
             }else{
-                double rate = Math.ceil(rateSum/rateFilms.size());
+                double rate = Math.ceil(rateSum/rateFilms.toList().size());
                 return new RateForFilm( rate/10, returnValue);
             }
         }catch (Exception e){
@@ -183,8 +184,8 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public List<RateFilmDto> getRateByCustom(String limit, String page, String asc, String status, String q, String orderBy) {
-        List<RateFilm> rateFilms;
+    public PageObject getRateByCustom(String limit, String page, String asc, String status, String q, String orderBy) {
+        Page<RateFilm> rateFilms;
         Pageable pageable;
         if( asc.equals("asc")){
             pageable = PageRequest.of(Integer.parseInt(page),Integer.parseInt(limit), Sort.by(orderBy));
@@ -197,6 +198,7 @@ public class RateServiceImpl implements RateService {
             rateFilms = rateRepository.getRateFilmByCustom(pageable,q,Status.valueOf(status));
         }
         List<RateFilmDto> returnValue = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
         for( RateFilm rate: rateFilms ) {
             RateFilmDto rateFilmDto = MapperToDto.RateToDto(rate);
             if (rateFilmDto.getActive() == Status.ACTIVE) {
@@ -207,32 +209,25 @@ public class RateServiceImpl implements RateService {
                 if (customerResponse.getBody().getStatusCode() != 200) {
                     throw new CustomerNotFound("Customer not found with id : " + rate.getCustomerId());
                 }
-
-                Object customerData = customerResponse.getBody().getData(); // Dữ liệu có thể là Map, nên không ép kiểu trực tiếp
-
-                // Kiểm tra nếu customerData là kiểu Map và chuyển nó thành CustomerDto
-                if (customerData instanceof LinkedHashMap) {
-                    LinkedHashMap<String, Object> dataMap = (LinkedHashMap<String, Object>) customerData;
-                    // Chuyển đổi map thành CustomerDto
-                    CustomerDto customerDto = CustomerDto.builder()
-                            .id((String) dataMap.get("id"))
-                            .name((String) dataMap.get("name"))
-                            .phoneNumber((String) dataMap.get("phoneNumber"))
-                            .email((String) dataMap.get("email"))
-                            .status(Status.valueOf(dataMap.get("status").toString().toUpperCase()))
-                            .build();
-
-                    // Xử lý customerDto
-                    if (customerDto.getStatus() == Status.ACTIVE) {
-                        rateFilmDto.setCustomer(customerDto);
-                    }
-                } else {
-                    throw new CustomerNotFound("Customer data format is incorrect.");
+                CustomerDto customerDto = objectMapper.convertValue(customerResponse.getBody().getData(), CustomerDto.class);
+                ResponseEntity<Response> filmResponse = filmFeignClient.getFilmById(rate.getFilmId());
+                if (filmResponse == null) {
+                    throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
                 }
+                if (filmResponse.getBody().getData() == null) {
+                    throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
+                }
+                FilmDto filmDto = objectMapper.convertValue(filmResponse.getBody().getData(), FilmDto.class);
+                rateFilmDto.setCustomer(customerDto);
+                rateFilmDto.setFilm(filmDto);
 
                 returnValue.add(rateFilmDto);
             }
         };
-        return rateFilms.stream().map(MapperToDto::RateToDto).toList();
+        return PageObject.builder()
+                .pageCurrent(pageable.getPageNumber() + 1)
+                .totalPage(rateFilms.getTotalPages())
+                .data(returnValue)
+                .build();
     }
 }

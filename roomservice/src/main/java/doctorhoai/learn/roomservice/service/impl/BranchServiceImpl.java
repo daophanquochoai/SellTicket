@@ -9,6 +9,7 @@ import doctorhoai.learn.roomservice.repository.BranchRepository;
 import doctorhoai.learn.roomservice.service.inter.BranchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -105,8 +106,8 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public List<BranchDto> getBranchByCustom(String limit, String page, String q, String orderBy, String asc, String status) {
-        List<Branch> branches;
+    public Page<BranchDto> getBranchByCustom(String limit, String page, String q, String orderBy, String asc, String status) {
+        Page<Branch> branches;
         Pageable pageable;
         if( asc.equals("asc")){
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
@@ -114,10 +115,10 @@ public class BranchServiceImpl implements BranchService {
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
         }
         if( status.equals("none")){
-            branches = branchRepository.getBranchByCustom(pageable,q).toList();
+            branches = branchRepository.getBranchByCustom(pageable,q);
         }else{
-            branches = branchRepository.getBranchByCustom(pageable,q,Status.valueOf(status)).toList();
+            branches = branchRepository.getBranchByCustom(pageable,q,Status.valueOf(status));
         }
-        return branches.stream().map(MapperToDto::BranchToDto).toList();
+        return branches.map(MapperToDto::BranchToDto);
     }
 }

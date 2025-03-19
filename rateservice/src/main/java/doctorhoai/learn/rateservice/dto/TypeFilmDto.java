@@ -7,11 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class TypeFilmDto {
+public class TypeFilmDto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     @NotBlank(message = "Type Film hasn't blank")
     private String name;

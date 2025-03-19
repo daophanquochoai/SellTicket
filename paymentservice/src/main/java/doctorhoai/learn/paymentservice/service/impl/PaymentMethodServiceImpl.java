@@ -91,7 +91,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
         if( paymentMethodOptional.isEmpty() ){
             throw new ErrorException("Service is error");
         }
-        paymentMethodOptional.get().setActive(Active.INACTIVE);
+        paymentMethodOptional.get().setActive(Active.DELETE);
         try{
             PaymentMethod paymentMethodUpdated = paymentMethodRepository.save(paymentMethodOptional.get());
         }catch (Exception e){

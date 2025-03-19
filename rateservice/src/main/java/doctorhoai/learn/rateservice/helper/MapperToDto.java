@@ -11,6 +11,7 @@ public class MapperToDto {
                 .id(dto.getId())
                 .star(dto.getStar())
                 .content(dto.getContent())
+                .active(dto.getActive())
                 .timeStamp(dto.getTimeStamp())
                 .customerId(dto.getCustomer() == null ? null : dto.getCustomer().getId())
                 .filmId(dto.getFilm() == null ? null : dto.getFilm().getId())
@@ -22,6 +23,7 @@ public class MapperToDto {
                 .star(rate.getStar())
                 .content(rate.getContent())
                 .timeStamp(rate.getTimeStamp())
+                .active(rate.getActive())
                 .customer(
                         CustomerDto.builder()
                                 .id(rate.getCustomerId())

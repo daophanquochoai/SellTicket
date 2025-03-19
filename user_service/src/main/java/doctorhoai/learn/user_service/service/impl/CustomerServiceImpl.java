@@ -136,7 +136,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void updatePassword(String id, String passwordOld, String passwordNew) {
+    public void updatePassword(String id,  String passwordNew) {
         Optional<Customer> customerOptional = customerRepository.getCustomerById(id);
         if( !customerOptional.isPresent()){
             throw new CustomerNotFound("Customer not found with id : " + id);
@@ -144,12 +144,7 @@ public class CustomerServiceImpl implements CustomerService {
         if( customerOptional.get().getAccount() == null){
             throw new ErrorException("Customer hasn't account");
         }else{
-            String account = customerOptional.get().getAccount().getPassword();
-            if( customerOptional.get().getAccount().getPassword().equals(bCryptPasswordEncoder.encode(passwordOld))){
-                customerOptional.get().getAccount().setPassword(bCryptPasswordEncoder.encode(passwordNew));
-            }else{
-                throw new ErrorException("Mật khẩu không khớp");
-            }
+            customerOptional.get().getAccount().setPassword(bCryptPasswordEncoder.encode(passwordNew));
         }
         try{
             customerRepository.save(customerOptional.get());

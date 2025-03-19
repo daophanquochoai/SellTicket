@@ -76,6 +76,7 @@ public class JwtUtilImpl implements JwtUtil {
             claims.put("name", employeeDto.getName());
             claims.put("email", employeeDto.getEmail());
             claims.put("id", employeeDto.getId());
+            claims.put("cccd", employeeDto.getCCCD());
         }else{
             data = customerFeign.getInfoAccount(userDetails.getUsername());
             if( data.getStatusCode() != HttpStatusCode.valueOf(200)){

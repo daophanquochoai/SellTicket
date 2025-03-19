@@ -1,6 +1,7 @@
 package doctorhoai.learn.proxy_client.business.user.service.fallback;
 
 import doctorhoai.learn.proxy_client.BaseDomain.Response;
+import doctorhoai.learn.proxy_client.business.user.model.request.EmployeeChange;
 import doctorhoai.learn.proxy_client.business.user.model.request.EmployeeRequest;
 import doctorhoai.learn.proxy_client.business.user.service.EmploymentFeign;
 import doctorhoai.learn.proxy_client.security.FunctionCommon;
@@ -23,7 +24,7 @@ public class EmployeeFeignCallBack implements FallbackFactory<EmploymentFeign> {
             }
 
             @Override
-            public ResponseEntity<Response> updateEmployee(String id, EmployeeRequest employee) {
+            public ResponseEntity<Response> updateEmployee(String id, EmployeeChange employee) {
                 return functionCommon.process(cause);
             }
 

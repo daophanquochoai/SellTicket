@@ -55,4 +55,10 @@ public class RoomController {
     ){
         return roomFeign.getRoomByCustom(page, limit, asc, status, q, orderBy);
     }
+    @GetMapping("/get/branch/{branchId}")
+    public ResponseEntity<Response> getRoomByBranch(
+            @PathVariable @NotBlank String branchId
+    ){
+        return roomFeign.getRoomByBranch(branchId);
+    }
 }

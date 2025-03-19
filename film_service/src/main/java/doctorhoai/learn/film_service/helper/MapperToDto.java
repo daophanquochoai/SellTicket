@@ -1,9 +1,11 @@
 package doctorhoai.learn.film_service.helper;
 
 import doctorhoai.learn.film_service.dto.FilmDto;
+import doctorhoai.learn.film_service.dto.SubDto;
 import doctorhoai.learn.film_service.dto.TypeFilmDto;
 import doctorhoai.learn.film_service.entity.Film;
 import doctorhoai.learn.film_service.entity.Status;
+import doctorhoai.learn.film_service.entity.Sub;
 import doctorhoai.learn.film_service.entity.TypeFilm;
 
 public class MapperToDto {
@@ -56,6 +58,20 @@ public class MapperToDto {
                 .id(film.getId())
                 .name(film.getName())
                 .active(film.getActive().toString())
+                .build();
+    }
+
+    public static SubDto DtoToSub(Sub sub){
+        return SubDto.builder()
+                .id(sub.getId())
+                .name(sub.getSub())
+                .build();
+    }
+
+    public static Sub DtoToSub(SubDto sub){
+        return Sub.builder()
+                .id(sub.getId())
+                .sub(sub.getName())
                 .build();
     }
 }

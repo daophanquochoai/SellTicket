@@ -19,6 +19,7 @@ public class Sub {
     private String id;
     @Column( unique = true)
     private String sub;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "subId")
     private List<SubFilm> subFilms;
 }

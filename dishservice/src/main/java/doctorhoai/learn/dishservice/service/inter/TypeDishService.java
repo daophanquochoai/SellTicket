@@ -1,6 +1,7 @@
 package doctorhoai.learn.dishservice.service.inter;
 
 import doctorhoai.learn.dishservice.dto.TypeDishDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface TypeDishService {
     void activeTypeDish(String id);
     TypeDishDto addTypeDish(TypeDishDto typeDishDto);
     TypeDishDto updateTypeDish(String id,TypeDishDto typeDishDto);
+    Page<TypeDishDto> getTypeDishByCustom(String page, String limit, String q, String asc, String orderBy, String status);
 }

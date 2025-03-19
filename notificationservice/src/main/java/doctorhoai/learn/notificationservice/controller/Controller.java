@@ -3,15 +3,15 @@ package doctorhoai.learn.notificationservice.controller;
 import com.google.gson.Gson;
 import doctorhoai.learn.basedomain.Event.BillChairTicket;
 import doctorhoai.learn.basedomain.Event.TicketEmail;
+import doctorhoai.learn.notificationservice.service.inter.CloudinaryService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class Controller {
 
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
-    private final Gson gson;
+    private final CloudinaryService cloudinaryService;
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -64,6 +64,13 @@ public class Controller {
         });
 
         return emitter;
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> upload(@RequestParam("image") MultipartFile file) throws IOException {
+        return ResponseEntity.ok().body(
+                cloudinaryService.uploadImage(file)
+        );
     }
 
 

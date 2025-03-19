@@ -46,7 +46,7 @@ public class EmployeeController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Response> updateEmployee(
             @PathVariable("id") String id,
-            @RequestBody @Valid EmployeeRequest employee
+            @RequestBody @Valid EmployeeChange employee
             ) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 Response.builder()
@@ -150,7 +150,7 @@ public class EmployeeController {
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("")
-                        .data(employeeService.getEmployee( limit, page, q,asc,status,orderBy))
+                        .data(employeeService.getEmployee( page, limit, q,asc,status,orderBy))
                         .build()
         );
     }

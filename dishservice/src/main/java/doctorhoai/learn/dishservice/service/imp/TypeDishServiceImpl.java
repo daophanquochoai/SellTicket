@@ -10,6 +10,10 @@ import doctorhoai.learn.dishservice.repository.TypeDishRepository;
 import doctorhoai.learn.dishservice.service.inter.TypeDishService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +37,7 @@ public class TypeDishServiceImpl implements TypeDishService {
 
     @Override
     public List<TypeDishDto> getAllTypeDish() {
-        return typeDishRepository.findAll().stream().map(MapperToDto::TypeDishToDto).toList();
+        return typeDishRepository.findAllFetch().stream().map(MapperToDto::TypeDishToDto).toList();
     }
 
     @Override
@@ -99,5 +103,22 @@ public class TypeDishServiceImpl implements TypeDishService {
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());
         }
+    }
+
+    @Override
+    public Page<TypeDishDto> getTypeDishByCustom(String page, String limit, String q, String asc, String orderBy, String status) {
+        Page<TypeDish> list;
+        Pageable pageable;
+        if( asc.equals("asc")){
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
+        }else{
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
+        }
+        if( status.equals("none")){
+            list = typeDishRepository.getTypeDishByCustom(pageable, q);
+        }else{
+            list = typeDishRepository.getTypeDishByCustom(pageable, q, Status.valueOf(status));
+        }
+        return list.map(MapperToDto::TypeDishToDto);
     }
 }

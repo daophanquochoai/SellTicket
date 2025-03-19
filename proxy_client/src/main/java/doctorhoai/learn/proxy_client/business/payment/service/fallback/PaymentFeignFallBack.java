@@ -52,11 +52,15 @@ public class PaymentFeignFallBack implements FallbackFactory<PaymentFeign> {
             @Override
             public ResponseEntity<Map<String, Object>> processPayment(Map<String, Object> paymentRequest) {
                 Map<String, Object> response = new HashMap<>();
-                log.info("{}",cause);
                 return ResponseEntity.badRequest()
                         .body(
                                 response
                         );
+            }
+
+            @Override
+            public ResponseEntity<Response> getAllBills(String page, String limit, String active, String orderBy, String asc, String q) {
+                return functionCommon.process(cause);
             }
         };
     }

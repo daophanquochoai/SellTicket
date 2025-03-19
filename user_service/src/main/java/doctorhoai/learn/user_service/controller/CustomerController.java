@@ -193,7 +193,7 @@ public class CustomerController {
             @PathVariable @Valid @NotBlank String id,
             @RequestBody @Valid Password password
             ){
-        customerService.updatePassword(id, password.getPasswordOld(), password.getPasswordNew());
+        customerService.updatePassword(id, password.getPasswordNew());
         return ResponseEntity.ok(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class TicketController {
     private final TicketService ticketService;
 
-    @GetMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity<Response> addTicket(
             @Valid @RequestBody TicketDto ticketDto
     ){
@@ -64,13 +64,14 @@ public class TicketController {
             @RequestParam(required = false, defaultValue = "0") String page,
             @RequestParam(required = false, defaultValue = "none") String active,
             @RequestParam(required = false, defaultValue = "price") String orderBy,
-            @RequestParam(required = false, defaultValue = "asc") String asc
+            @RequestParam(required = false, defaultValue = "asc") String asc,
+            @RequestParam(required = false, defaultValue = "") String q
     ){
         return ResponseEntity.ok(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Get ticket successfully")
-                        .data(ticketService.getTickets(limit, page, active, orderBy, asc))
+                        .data(ticketService.getTickets(limit, page, active, orderBy, asc,q))
                         .build()
         );
     }

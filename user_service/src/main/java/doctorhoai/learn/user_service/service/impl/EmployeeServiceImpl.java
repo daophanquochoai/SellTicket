@@ -1,5 +1,6 @@
 package doctorhoai.learn.user_service.service.impl;
 
+import doctorhoai.learn.user_service.controller.EmployeeChange;
 import doctorhoai.learn.user_service.dto.EmployeeDto;
 import doctorhoai.learn.user_service.dto.request.EmployeeRequest;
 import doctorhoai.learn.user_service.entity.Account;
@@ -16,6 +17,7 @@ import doctorhoai.learn.user_service.repository.RoleRepository;
 import doctorhoai.learn.user_service.service.inter.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -68,7 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public EmployeeDto updateEmployee(String id, EmployeeRequest employee) {
+    public EmployeeDto updateEmployee(String id, EmployeeChange employee) {
         Optional<Employee> empOp = employeeRepository.findById(id);
         if( empOp.isEmpty()){
             throw new EmployeeNotFound("Employee not found with id : " + id);
@@ -77,6 +79,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         empOld.setName(employee.getName());
         empOld.setEmail(employee.getEmail());
         empOld.setCCCD(employee.getCCCD());
+        if( employee.getPassword().length() > 0){
+            empOld.getAccount().setPassword(bCryptPasswordEncoder.encode(employee.getPassword()));
+        }
         try{
             return MapperToDto.EmployeeToDto(employeeRepository.save(empOld));
         }catch (Exception e){
@@ -157,8 +162,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeDto> getEmployee(String limit, String page, String q, String asc, String status, String orderBy) {
-        List<Employee> employees;
+    public Page<EmployeeDto> getEmployee(String limit, String page, String q, String asc, String status, String orderBy) {
+        Page<Employee> employees;
         Pageable pageable;
         if( asc.equals("asc") ){
             pageable = PageRequest.of(Integer.parseInt(limit), Integer.parseInt(page), Sort.by(orderBy));
@@ -166,11 +171,11 @@ public class EmployeeServiceImpl implements EmployeeService {
             pageable = PageRequest.of(Integer.parseInt(limit), Integer.parseInt(page), Sort.by(orderBy).descending());
         }
         if( status.equals("none") ){
-            employees = employeeRepository.getAllByCustom(pageable,q).toList();
+            employees = employeeRepository.getAllByCustom(pageable,q);
         }else {
-            employees = employeeRepository.getAllByCustom(pageable, q, Status.valueOf(status)).toList();
+            employees = employeeRepository.getAllByCustom(pageable, q, Status.valueOf(status));
         }
-        return employees.stream().map(MapperToDto::EmployeeToDto).toList();
+        return employees.map(MapperToDto::EmployeeToDto);
     }
 
     @Override

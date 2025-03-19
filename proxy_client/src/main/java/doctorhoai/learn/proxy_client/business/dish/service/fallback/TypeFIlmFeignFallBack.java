@@ -46,6 +46,11 @@ public class TypeFIlmFeignFallBack implements FallbackFactory<TypeDishFeign> {
             public ResponseEntity<Response> updateTypeDish(String id, TypeDishDto typeDishDto) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getTypeFilmCustom(String page, String limit, String asc, String status, String orderBy, String q) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

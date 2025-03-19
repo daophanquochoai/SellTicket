@@ -2,8 +2,7 @@ package doctorhoai.learn.user_service.dto;
 
 import doctorhoai.learn.user_service.entity.Role;
 import doctorhoai.learn.user_service.entity.Status;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

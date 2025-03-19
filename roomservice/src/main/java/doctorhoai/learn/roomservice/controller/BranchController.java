@@ -23,7 +23,7 @@ public class BranchController {
             summary = "Add Branch"
     )
     @PostMapping("/add")
-    public ResponseEntity<Response> addBranch(BranchDto branchDto) {
+    public ResponseEntity<Response> addBranch(@RequestBody @Valid BranchDto branchDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 Response.builder()
                         .statusCode(HttpStatus.CREATED.value())

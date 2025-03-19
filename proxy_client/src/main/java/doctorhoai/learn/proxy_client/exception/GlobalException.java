@@ -16,6 +16,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -24,28 +25,12 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
 public class GlobalException extends ResponseEntityExceptionHandler {
 
-//    @ExceptionHandler({
-//            MethodArgumentNotValidException.class,
-//            HttpMessageNotReadableException.class
-//    })
-//    public <T extends BindException> ResponseEntity<ExceptionMsg> handleValidationException(final T e) {
-//
-//        log.info("**ApiExceptionHandler controller, handle validation exception*\n");
-//        final var badRequest = HttpStatus.BAD_REQUEST;
-//
-//        ExceptionMsg exceptionMsg =  ExceptionMsg.builder()
-//                .msg(e.getMessage())
-//                .httpStatus(badRequest)
-//                .timestamp(ZonedDateTime
-//                        .now(ZoneId.systemDefault()))
-//                .build();
-//        return ResponseEntity.status(badRequest).body(exceptionMsg);
-//    }
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();

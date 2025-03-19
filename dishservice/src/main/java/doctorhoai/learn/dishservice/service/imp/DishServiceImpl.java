@@ -104,7 +104,7 @@ public class DishServiceImpl implements DishService {
         dishNew.setName(dishDto.getName());
         dishNew.setImage(dishDto.getImage());
         dishNew.setPrice(dishDto.getPrice());
-        dishNew.setActive(Status.ACTIVE);
+        dishNew.setActive(dishDto.getActive());
         if( !dishDto.getTypeDishId().equals(dishNew.getTypeDish().getId())){
             Optional<TypeDish> typeDish = typeDishRepository.findById(dishDto.getTypeDishId());
             if( typeDish.isEmpty() ){

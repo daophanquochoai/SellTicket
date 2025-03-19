@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
+@Table(name = "sub_film")
 public class SubFilm {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

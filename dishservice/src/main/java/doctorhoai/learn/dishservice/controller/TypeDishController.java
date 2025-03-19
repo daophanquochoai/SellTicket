@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -104,14 +105,32 @@ public class TypeDishController {
             @PathVariable @NotBlank String id,
             @RequestBody @Valid TypeDishDto typeDishDto
     ){
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         Response.builder()
-                                .statusCode(HttpStatus.CREATED.value())
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Add type dish successfully")
                                 .data(typeDishService.updateTypeDish(id,typeDishDto))
                                 .build()
                 );
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<Response> getTypeFilmCustom(
+            @RequestParam(required = false, defaultValue = "0") String page,
+            @RequestParam(required = false, defaultValue = "10") String limit,
+            @RequestParam(required = false, defaultValue = "asc") String asc,
+            @RequestParam(required = false, defaultValue = "none") String status,
+            @RequestParam(required = false, defaultValue = "name") String orderBy,
+            @RequestParam(required = false, defaultValue = "") String q
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get type dish successfully")
+                        .data(typeDishService.getTypeDishByCustom(page,limit,q,asc,orderBy,status))
+                        .build()
+        );
     }
 
 }

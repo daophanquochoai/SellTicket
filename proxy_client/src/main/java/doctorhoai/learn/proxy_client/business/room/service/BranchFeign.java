@@ -6,7 +6,6 @@ import doctorhoai.learn.proxy_client.business.room.service.fallback.BranchFeignF
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public interface BranchFeign {
 
     @PostMapping("/add")
-    public ResponseEntity<Response> addBranch(BranchDto branchDto);
+    public ResponseEntity<Response> addBranch(@RequestBody @Valid BranchDto branchDto);
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Response> updateBranch(@PathVariable @NotBlank String id, @RequestBody @Valid BranchDto branchDto);

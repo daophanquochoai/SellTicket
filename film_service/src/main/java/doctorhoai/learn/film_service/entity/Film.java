@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.security.auth.Subject;
 import java.util.List;
 
 @Entity
@@ -34,6 +35,7 @@ public class Film {
     private List<TypeFilm> typeFilms;
     @Enumerated(EnumType.STRING)
     private Status status;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "filmId")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "filmId")
     private List<SubFilm> subFilms;
 }

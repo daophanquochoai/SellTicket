@@ -34,10 +34,9 @@ public class TicketFallBack implements FallbackFactory<TicketFeign> {
             }
 
             @Override
-            public ResponseEntity<Response> getAllTicket(String limit, String page, String active, String orderBy, String asc) {
+            public ResponseEntity<Response> getAllTicket(String limit, String page, String active, String orderBy, String asc, String q) {
                 return functionCommon.process(cause);
             }
-
             @Override
             public ResponseEntity<Response> deleteTicket(String id) {
                 return functionCommon.process(cause);

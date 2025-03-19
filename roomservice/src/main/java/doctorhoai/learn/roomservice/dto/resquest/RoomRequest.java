@@ -23,6 +23,5 @@ public class RoomRequest {
     private String branchId;
     @NotBlank( message = "Status isn't bank")
     private String status;
-    @NotNull( message = "Slot isn't null")
     private Integer slot;
 }

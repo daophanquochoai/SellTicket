@@ -43,9 +43,10 @@ public class TicketController {
             @RequestParam(required = false, defaultValue = "0") String page,
             @RequestParam(required = false, defaultValue = "none") String active,
             @RequestParam(required = false, defaultValue = "price") String orderBy,
-            @RequestParam(required = false, defaultValue = "asc") String asc
+            @RequestParam(required = false, defaultValue = "asc") String asc,
+            @RequestParam(required = false, defaultValue = "") String q
     ){
-        return ticketFeign.getAllTicket(limit, page, active, orderBy, asc);
+        return ticketFeign.getAllTicket(limit, page, active, orderBy, asc,q);
     }
     @PatchMapping("/delete/{id}")
     public ResponseEntity<Response> deleteTicket(

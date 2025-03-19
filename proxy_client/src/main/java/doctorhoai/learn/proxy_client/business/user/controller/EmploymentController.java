@@ -1,14 +1,23 @@
 package doctorhoai.learn.proxy_client.business.user.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import doctorhoai.learn.proxy_client.BaseDomain.Response;
+import doctorhoai.learn.proxy_client.business.user.model.EmployeeDto;
+import doctorhoai.learn.proxy_client.business.user.model.request.EmployeeChange;
 import doctorhoai.learn.proxy_client.business.user.model.request.EmployeeRequest;
 import doctorhoai.learn.proxy_client.business.user.service.EmploymentFeign;
+import doctorhoai.learn.proxy_client.jwt.service.TokenService;
+import doctorhoai.learn.proxy_client.jwt.util.JwtUtil;
+import doctorhoai.learn.proxy_client.security.AuthenticationConfig;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,14 +26,33 @@ import org.springframework.web.bind.annotation.*;
 public class EmploymentController {
 
     private final EmploymentFeign employmentFeign;
+    private final UserDetailsService userDetailsService;
+    private final JwtUtil jwtUtil;
+    private final TokenService tokenService;
 
     @GetMapping("/all")
     public ResponseEntity<Response> getAllEmployees(){
         return employmentFeign.getAllEmployees();
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<Response> updateEmployee(@PathVariable("id") String id, @RequestBody @Valid EmployeeRequest employee){
-        return employmentFeign.updateEmployee(id, employee);
+    public ResponseEntity<Response> updateEmployee(@PathVariable("id") String id, @RequestBody @Valid EmployeeChange employee){
+        ResponseEntity<Response> response = employmentFeign.updateEmployee(id, employee);
+        if( response.getStatusCode() == HttpStatus.OK){
+            ObjectMapper objectMapper = new ObjectMapper();
+            EmployeeDto employeeDto = objectMapper.convertValue(response.getBody().getData(), EmployeeDto.class);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(employeeDto.getAccount().getUserName());
+            String token = jwtUtil.generateToken(userDetails);
+            tokenService.saveToken(token, employeeDto.getAccount().getUserName());
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .statusCode(200)
+                            .message("Change Info Successfully")
+                            .data(token)
+                            .build()
+            );
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
     }
     @PostMapping("/add")
     public ResponseEntity<Response> addEmployee(@RequestBody @Valid EmployeeRequest employee){

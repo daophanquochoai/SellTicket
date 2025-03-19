@@ -1,6 +1,7 @@
 package doctorhoai.learn.roomservice.service.inter;
 
 import doctorhoai.learn.roomservice.dto.BranchDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface BranchService {
     List<BranchDto> getAllBranch();
     void deleteBranch(String id);
     void activeBranch(String id);
-    List<BranchDto> getBranchByCustom(String limit, String page, String q, String orderBy, String asc, String status);
+    Page<BranchDto> getBranchByCustom(String limit, String page, String q, String orderBy, String asc, String status);
 }

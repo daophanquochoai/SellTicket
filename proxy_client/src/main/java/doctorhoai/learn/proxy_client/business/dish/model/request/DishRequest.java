@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DishRequest {
     private String id;
-    @Min(value = 1000, message = "Price has more than 1000")
-    private float price;
+//    @Min(value = 1000, message = "Price has more than 1000")
+    private Integer price;
     private Status active;
-    @NotBlank(message = "Dish name can't blank")
+//    @NotBlank(message = "Dish name can't blank")
     private String name;
     private String image;
-    @NotBlank(message = "Dish should belong to one group")
+//    @NotBlank(message = "Dish should belong to one group")
     private String typeDishId;
 }

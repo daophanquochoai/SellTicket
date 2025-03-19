@@ -58,4 +58,15 @@ public class BillController {
     public ResponseEntity<Map<String, Object>> processPayment(@RequestBody Map<String, Object> paymentRequest){
         return paymentFeign.processPayment(paymentRequest);
     }
+    @GetMapping("/custom")
+    public ResponseEntity<Response> getAllBills(
+            @RequestParam(required = false, defaultValue = "0") String page,
+            @RequestParam(required = false, defaultValue = "10") String limit,
+            @RequestParam(required = false, defaultValue = "none") String active,
+            @RequestParam(required = false, defaultValue = "timestamp") String orderBy,
+            @RequestParam(required = false, defaultValue = "asc") String asc,
+            @RequestParam(required = false, defaultValue = "") String q
+    ){
+        return paymentFeign.getAllBills(page, limit, active, orderBy, asc, q);
+    }
 }

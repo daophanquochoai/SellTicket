@@ -1,7 +1,5 @@
 package doctorhoai.learn.paymentservice.controller;
 
-import com.google.gson.Gson;
-import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import doctorhoai.learn.paymentservice.dto.BillDto;
@@ -111,7 +109,6 @@ public class BillController {
             String currency = (String) paymentRequest.get("currency");
             String billId = (String) paymentRequest.get("billId");
 
-            // 🔥 Tạo PaymentIntent nhưng CHƯA xác nhận
             Map<String, Object> params = new HashMap<>();
             params.put("amount", amount);
             params.put("currency", currency);

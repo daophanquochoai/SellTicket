@@ -1,5 +1,7 @@
 package doctorhoai.learn.proxy_client.business.user.model.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +15,7 @@ import java.io.Serializable;
 @Builder
 public class Password implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String passwordOld;
+    @Size(min = 8, message = "Mật khẩu có 8 kí tự trở lên")
+    @NotBlank(message = "Mật khẩu không thể trống")
     private String passwordNew;
 }

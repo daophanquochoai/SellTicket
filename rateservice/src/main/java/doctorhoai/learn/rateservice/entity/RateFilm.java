@@ -22,5 +22,6 @@ public class RateFilm {
     private LocalDateTime timeStamp;
     private String customerId;
     private String filmId;
+    @Enumerated(EnumType.STRING)
     private Status active;
 }

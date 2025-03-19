@@ -17,7 +17,7 @@ public class BranchController {
     private final BranchFeign branchFeign;
 
     @PostMapping("/add")
-    public ResponseEntity<Response> addBranch(BranchDto branchDto){
+    public ResponseEntity<Response> addBranch(@RequestBody @Valid BranchDto branchDto){
         return branchFeign.addBranch(branchDto);
     }
 

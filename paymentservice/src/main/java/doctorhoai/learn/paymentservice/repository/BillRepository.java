@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
 
@@ -14,4 +15,6 @@ public interface BillRepository extends JpaRepository<Bill, String> {
     Page<Bill> findAllCustom(Pageable pageable, String q, String active);
     @Query("select b from Bill b where b.userName like concat('%', :q, '%') or b.email like concat('%', :q, '%') or b.numberPhone like concat('%', :q, '%') or b.transactionCode like concat('%', :q, '%') ")
     Page<Bill> findAllCustom(Pageable pageable, String q);
+    @Procedure(name = "getTotalPrice")
+    Long getTotalPrice();
 }

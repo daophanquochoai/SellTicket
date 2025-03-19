@@ -12,7 +12,7 @@ public interface CustomerService {
     void deleteCustomer(String id);
     void activeCustomer(String id);
     List<CustomerDto> getAllCustomers();
-    void updatePassword(String id, String passwordOld, String passwordNew);
+    void updatePassword(String id, String passwordNew);
     CustomerDto getCustomerById(String id);
     List<CustomerDto> getCustomerByCustom(String page, String limit, String status, String orderBy, String asc, String q);
     CustomerDto getCustomerByUsername(String username);

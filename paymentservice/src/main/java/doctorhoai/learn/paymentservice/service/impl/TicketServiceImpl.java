@@ -74,7 +74,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDto> getTickets(String limit, String page, String active, String orderBy, String asc) {
+    public Page<TicketDto> getTickets(String limit, String page, String active, String orderBy, String asc, String q) {
         Pageable pageable;
         if( asc.equals("asc")){
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
@@ -83,11 +83,11 @@ public class TicketServiceImpl implements TicketService {
         }
         Page<Ticket> list;
         if(Objects.equals(active, "none")){
-            list = ticketRepository.findAll(pageable);
+            list = ticketRepository.getTicketByCustom(pageable,q);
         }else{
-            list = ticketRepository.findAllByActive(pageable, Active.valueOf(active));
+            list = ticketRepository.getTicketByCustom(pageable,q, Active.valueOf(active));
         }
-        return list.map(mapperToObject::mapperToTicketDto).toList();
+        return list.map(mapperToObject::mapperToTicketDto);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class TicketServiceImpl implements TicketService {
         if( ticketSaved.isEmpty()){
             throw new TicketNotFound("Ticket not found with id : " + id);
         }
-        ticketSaved.get().setActive(Active.INACTIVE);
+        ticketSaved.get().setActive(Active.DELETE);
         try{
             Ticket ticketUpdated = ticketRepository.save(ticketSaved.get());
         }catch (Exception e){

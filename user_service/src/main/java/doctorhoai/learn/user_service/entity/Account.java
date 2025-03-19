@@ -1,5 +1,6 @@
 package doctorhoai.learn.user_service.entity;
 
+import doctorhoai.learn.user_service.dto.response.ReportAccount;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

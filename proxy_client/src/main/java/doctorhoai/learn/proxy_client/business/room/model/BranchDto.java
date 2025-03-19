@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BranchDto  {
     private String id;
-    @NotBlank(message = "Name branch can't blank")
+    @NotBlank(message = "Tên địa chỉ không thể trống")
     private String nameBranch;
-    @NotBlank(message = "Address can't blank")
+    @NotBlank(message = "Địa chỉ không thể trống")
     private String address;
-    @NotBlank(message = "Active can't blank")
+    @NotBlank(message = "Trạng thái không thể trống")
     private String status;
 }
 

@@ -17,6 +17,7 @@ import doctorhoai.learn.paymentservice.service.feign.*;
 import doctorhoai.learn.paymentservice.service.inter.BillService;
 import doctorhoai.learn.paymentservice.service.producer.KafkaMessagePublish;
 import jakarta.persistence.EntityManager;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -246,19 +247,19 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public List<BillDto> getAllBills(String page, String limit, String active, String orderBy,String asc, String q) {
+    public PageObject getAllBills(String page, String limit, String active, String orderBy, String asc, String q) {
         List<BillDto> list = new ArrayList<>();
         Pageable pageable;
-        List<Bill> bills;
+        Page<Bill> bills;
         if( asc.equals("asc")){
             pageable = PageRequest.of(Integer.parseInt(page),Integer.parseInt(limit), Sort.by(orderBy));
         }else{
             pageable = PageRequest.of(Integer.parseInt(page),Integer.parseInt(limit), Sort.by(orderBy).descending());
         }
         if( active.equals("none")){
-            bills = billRepository.findAllCustom(pageable,q).toList();
+            bills = billRepository.findAllCustom(pageable,q);
         }else{
-            bills = billRepository.findAllCustom(pageable,q,active).toList();
+            bills = billRepository.findAllCustom(pageable,q,active);
         }
         bills.forEach(bill -> {
             //call showtime
@@ -349,7 +350,11 @@ public class BillServiceImpl implements BillService {
                     .build();
             list.add(billDto);
         });
-        return list;
+        return PageObject.builder()
+                .data(list)
+                .pageCurrent(Integer.parseInt(page)+1)
+                .totalPages(bills.getTotalPages())
+                .build();
     }
 
     @Override
@@ -457,7 +462,7 @@ public class BillServiceImpl implements BillService {
             log.error("Bill not found with id : " + id);
             throw new BillNotFound("Bill not found with id : " + id);
         }
-        billOptional.get().setActive(Active.INACTIVE);
+        billOptional.get().setActive(Active.DELETE);
         billRepository.save(billOptional.get());
     }
 

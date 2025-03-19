@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.PUT,"room-service/api/**","/film-service/api/**","/dish-service/api/**","/filmshowtime-service/api/filmshowtime/**", "/payment-service/api/ticket/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PATCH,"room-service/api/**","/film-service/api/**","/dish-service/api/**","/filmshowtime-service/api/filmshowtime/**", "/payment-service/api/ticket/**").hasRole("ADMIN")
                                 .requestMatchers("/rate-service/api/rate/add/**").hasRole("USER")
-                                .requestMatchers("/film-service/api/film/**", "/dish-service/api/dish/**","/dish-service/api/typedish/**","/rate-service/api/rate/delete/**", "/rate-service/api/rate/active/**","/payment-service/api/bill/**","/user-service/api/employment/**","/user-service/api/role/**").hasRole("ADMIN")
+                                .requestMatchers("/film-service/api/film/**", "/dish-service/api/dish/**","/dish-service/api/typedish/**","/rate-service/api/rate/delete/**", "/rate-service/api/rate/active/**","/payment-service/api/bill/**","/payment-service/api/report/**","/user-service/api/employment/**","/user-service/api/role/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement( sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

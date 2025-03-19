@@ -39,4 +39,8 @@ public interface RoomFeign {
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "name", required = false) String orderBy
     );
+    @GetMapping("/get/branch/{branchId}")
+    public ResponseEntity<Response> getRoomByBranch(
+            @PathVariable @NotBlank String branchId
+    );
 }
