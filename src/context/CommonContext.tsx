@@ -1,4 +1,5 @@
-import {createContext, ReactNode, useContext, useState} from "react";
+import {createContext, ReactNode, useContext, useEffect, useState} from "react";
+import { getToken, parseJwt} from "../Helper/Helper.ts";
 
 interface CommonContextType {
     isLogin ?: boolean
@@ -15,7 +16,9 @@ interface User {
     id : string,
     name : string,
     roles : []
-    sub : string
+    sub : string,
+    phone : string,
+    cccd : string
 }
 interface BillDto {
     id : string,
@@ -77,7 +80,9 @@ const initUser : User = {
     id : "",
     name : "",
     roles : [],
-    sub : ""
+    sub : "",
+    phone : "",
+    cccd : ''
 }
 const initBill : BillDto = {
     id : "",
@@ -114,9 +119,14 @@ const CommonProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [info, setInfo ] = useState<User>(initUser);
     const [bill, setBill] = useState<BillDto>(initBill);
 
-    const handleChooseTime : (time : string) => void = () => {
-        setBill({...bill, timeS})
-    }
+    useEffect(() => {
+        const token : string = getToken();
+        if( token != undefined ){
+            const user : User = parseJwt(token);
+            setInfo(user);
+            setIsLogin(true);
+        }
+    }, []);
 
     const contextValue : CommonContextType = {
         isLogin : isLogin,

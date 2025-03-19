@@ -4,3 +4,9 @@
 :where(.css-dev-only-do-not-override-240cud).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector{
     @apply !border-main
 }
+:where(.css-dev-only-do-not-override-240cud).ant-pagination .ant-pagination-item-active a{
+    @apply !text-main
+}
+:where(.css-dev-only-do-not-override-240cud).ant-pagination .ant-pagination-item-active{
+    @apply !border-main
+}

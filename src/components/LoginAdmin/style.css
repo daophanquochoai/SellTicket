@@ -1,0 +1,6 @@
+.loginContainer{
+    background: url("/public/bg_admin.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}

@@ -3,6 +3,7 @@ import {lazy, Suspense} from "react";
 import {useRoutes} from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import DetailFilm from "./components/DetailFilm/DetailFilm.tsx";
+
 const LoginPage = lazy(() => import("./components/LoginPage/LoginPage.tsx"));
 const SignUpPage = lazy(() => import("./components/SignUpPage/SignUp.tsx"));
 const ForgetPasswordPage = lazy(() => import("./components/ForgetPasswordPage/ForgetPassword.tsx"));
@@ -12,6 +13,9 @@ const ContainerPage  = lazy(()  => import("./components/CommonPage/ContainerPage
 const PaymentPage = lazy(() => import("./components/PaymentPage/PaymentPage.tsx"));
 const TheaterMovie = lazy(() => import("./components/TheaterMovie/TheaterMovie.tsx"));
 const Intro = lazy(() => import('./components/Intro/Intro.tsx'));
+const CommonDash = lazy(() => import('./components/Dashboard/CommonDash.tsx'));
+const SecurContainer = lazy(() => import('./components/Dashboard/SecurContainer.tsx'));
+const LoginAdmin = lazy(() => import('./components/LoginAdmin/LoginAdmin.tsx'));
 
 const routes  = [
     {
@@ -37,6 +41,32 @@ const routes  = [
                 <ForgetPasswordPage />
             </Suspense>
         )
+    },
+    {
+        path: "/dashboard",
+        element: (
+            <Suspense fallback={<LoadingPage />}>
+                <SecurContainer />
+            </Suspense>
+        ),
+        children: [
+            {
+                index : true,
+                element: (
+                    <Suspense fallback={<LoadingPage />}>
+                        <CommonDash />
+                    </Suspense>
+                ),
+            },
+            {
+                path : 'login',
+                element: (
+                    <Suspense fallback={<LoadingPage />}>
+                        <LoginAdmin />
+                    </Suspense>
+                ),
+            },
+        ]
     },
     {
         path: "/",

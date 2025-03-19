@@ -5,6 +5,7 @@ import './style.css'
 import {useParams} from "react-router-dom";
 import {fetchComment} from "../../Helper/Helper.ts";
 import {toast} from "react-toastify";
+import ModalRate from "./ModalRate.tsx";
 
 interface RateCommon {
     comments : Rate[],
@@ -35,6 +36,8 @@ const RatePage : React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [rateList, setRateList] = useState<RateCommon>(initRateCommon);
 
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
     useEffect(() => {
         handleFetchRate();
     }, []);
@@ -51,7 +54,7 @@ const RatePage : React.FC = () => {
             toast.error(<p className={'w-full'}>{response.response.data.message}</p>);
             return;
         }
-        setRateList(response.data.data);
+        setRateList(response.data.data.data);
     }
 
     return (
@@ -68,7 +71,7 @@ const RatePage : React.FC = () => {
                                 </div>
                                 <div>
                                     <div className={'cursor-pointer'}>
-                                        <button className={'text-white'}>Xem Thêm</button>
+                                        <button onClick={()=>setIsOpen(true)} className={'text-white'}>Xem Thêm</button>
                                         <div className={'h-[1px] w-full bg-white'}></div>
                                     </div>
                                 </div>
@@ -76,7 +79,7 @@ const RatePage : React.FC = () => {
                             <div className={'h-[1px] w-full bg-main my-4'}></div>
                             <div className={'max-h-[200px] overflow-y-hidden'}>
                                 {
-                                    rateList.comments.map( item => {
+                                    rateList && rateList.comments.map( item => {
                                         return (
                                             <>
                                                 <div
@@ -111,6 +114,7 @@ const RatePage : React.FC = () => {
                     </div>
                 </div>
             </Spin>
+            <ModalRate isOpen={isOpen} setIsOpen={setIsOpen} filmId={param.id}/>
         </>
     )
 }

@@ -1,8 +1,9 @@
 import {useCommonContext} from "../../context/CommonContext.tsx";
 import NavPopUp from "./NavPopUp.tsx";
 import {useEffect, useState} from "react";
-import {getToken, parseJwt} from "../../Helper/Helper.ts";
+import {expireToken, getToken, parseJwt, removeToken} from "../../Helper/Helper.ts";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 interface User {
     email : string,
@@ -17,20 +18,6 @@ const Header : React.FC = () => {
     const {isLogin, setLogin, setInfo, info} = useCommonContext();
     const [propUp, setPropUp] = useState<boolean>(false);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const token = getToken();
-        if( token ){
-            const valueToken : User = parseJwt(token);
-            if (setInfo) {
-                setInfo(valueToken);
-            }
-            if (setLogin) {
-                setLogin(true);
-            }
-        }
-        return () => {}
-    }, []);
 
     const handleSignIn = () => {
         navigate('/login')

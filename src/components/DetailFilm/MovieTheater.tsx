@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {FaChevronDown, FaChevronUp} from "react-icons/fa";
 import { motion } from "framer-motion";
 import {fetchTheater} from "../../Helper/Helper.ts";
@@ -46,33 +46,51 @@ const MovieTheater : React.FC<MovieTheaterProps> = ( props ) => {
     const [listTheater, setListTheater] = useState<Theater[]>([]);
     // const [listAddress, setListAddress] = useState<string[]>([]); /TODO : can phat trien
     const [loading, setLoading] = useState<boolean>(false);
-    const [controller, setController] = useState<Collasp[]>([])
+    const [controller, setController] = useState<Collasp[]>([]);
+    const theaterRef = useRef(null);
 
     // bat param render
     const getQueryParams = () => {
         return new URLSearchParams(window.location.search);
     };
 
-    useEffect(() => {
-        const query = getQueryParams();
-        const filmId = query.get("film");
-        if( filmId != null ){
-            handleOpen(filmId);
-        }
-    }, []);
 
     useEffect(() => {
         handleFetchTheater();
     }, []);
     useEffect(() => {
-        const list : Collasp[] = [];
+        let list : Collasp[] = [];
         listTheater.forEach( (item, index) => {
             list[index] = {
                 id : item.id,
                 open : false
             }
         })
+        const query = getQueryParams();
+        const branchId = query.get("branchId");
+        console.log(branchId)
+        if( branchId != null ){
+            list =list.map( (item) => {
+                if( item.id == branchId ){
+                    return {
+                        id : branchId,
+                        open : true
+                    }
+                }
+                return item;
+            })
+        }
         setController(list);
+        const subId = query.get("subId");
+        const namebranch = query.get("namebranch");
+        if( subId != null && namebranch != null && branchId != null ){
+            props.setSelect({
+                subId: subId,
+                nameBranch : namebranch,
+                branchId: branchId
+            })
+            theaterRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
     }, [listTheater]);
 
     const handleFetchTheater = async () => {
@@ -88,7 +106,9 @@ const MovieTheater : React.FC<MovieTheaterProps> = ( props ) => {
 
     const handleOpen = ( id : string) => {
         const item : Collasp = controller.filter(i => i.id ===id)[0];
-        setController([...controller.filter(i => i.id !==id), {...item, open: !item.open}]);
+        if( item !== undefined){
+            setController([...controller.filter(i => i.id !==id), {...item, open: !item.open}]);
+        }
     }
 
     const handleSelectFilmId = (id : number) => {
@@ -101,7 +121,7 @@ const MovieTheater : React.FC<MovieTheaterProps> = ( props ) => {
     return (
         <>
             <Spin tip={"Đang tải..."} spinning={loading} size={"default"}>
-                <div className={'flex justify-center items-center mt-[60px]'}>
+                <div ref={theaterRef} className={'flex justify-center items-center mt-[60px]'}>
                     <div className={'container'}>
                         <div>
                             <div className={'flex justify-center'}>

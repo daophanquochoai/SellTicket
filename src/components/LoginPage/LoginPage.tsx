@@ -19,7 +19,8 @@ interface User {
     id : string,
     name : string,
     roles : []
-    sub : string
+    sub : string,
+    phone : string
 }
 
 const initAccount = {
@@ -41,7 +42,8 @@ const LoginPage : React.FC = () => {
         const response = await handleLoginByUsernameAndPassword(account.username, account.password);
         setProcessLogin(true);
         if( response.status != 200){
-            toast.warning(<p className={"w-full"}>Account not found?</p>);
+            toast.warning(<p className={"w-full"}>Tài khoản không tồn tại</p>);
+            setProcessLogin(false);
             return;
         }
         setProcessLogin(false);

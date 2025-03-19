@@ -218,7 +218,7 @@ const TheaterMovie : React.FC = () => {
                                                                                     <p className={'text-textCol text-medium'}>{s.name}</p>
                                                                                 </div>
                                                                             </div>
-                                                                            <FilmShow time={selectTime} filmId={selectFilm} branchId={selectBranch} subId={s.id}/>
+                                                                            <FilmShow time={selectTime} nameBranch={branchs.find(i=>i.id==selectBranch).nameBranch} filmId={selectFilm} branchId={selectBranch} subId={s.id}/>
                                                                         </div>
                                                                     )
                                                                 })

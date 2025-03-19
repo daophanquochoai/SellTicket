@@ -1,0 +1,30 @@
+:where(.css-dev-only-do-not-override-240cud).ant-menu-dark,
+:where(.css-dev-only-do-not-override-240cud).ant-layout-sider .ant-layout-sider-children
+{
+    @apply !bg-border
+}
+:where(.css-dev-only-do-not-override-240cud).ant-menu-dark .ant-menu-item-selected{
+    @apply !bg-main
+}
+:where(.css-dev-only-do-not-override-240cud).ant-menu-inline.ant-menu-root .ant-menu-item >.ant-menu-title-content{
+    @apply !text-textCol !font-bold
+}
+
+:where(.css-dev-only-do-not-override-240cud).ant-btn-variant-outlined{
+    @apply !outline-0
+}
+
+:where(.css-dev-only-do-not-override-240cud).ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover,
+:where(.css-dev-only-do-not-override-240cud).ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover
+{
+    @apply !text-main !border-main
+}
+:where(.css-dev-only-do-not-override-240cud).ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector{
+    @apply !border-0 !outline-0
+}
+:where(.css-dev-only-do-not-override-240cud).ant-pagination .ant-pagination-item-active a{
+    @apply !text-main
+}
+:where(.css-dev-only-do-not-override-240cud).ant-pagination .ant-pagination-item-active{
+    @apply !border-main
+}
