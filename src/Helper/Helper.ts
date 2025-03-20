@@ -1,7 +1,6 @@
 import axios from "axios";
 import {env} from "./Contanst.ts";
 import Cookies from "js-cookie";
-import {toast} from "react-toastify";
 
 export const handleLoginByUsernameAndPassword : (username : string, password : string) => Promise<any> = async (username, password) => {
     try{
@@ -74,7 +73,7 @@ export const fetchCommentByFull
         return e;
     }
 }
-
+// ----------------- room ---------------
 export const fetchTheater :
     () => Promise<any> = async () => {
     try {
@@ -84,11 +83,30 @@ export const fetchTheater :
         return e;
     }
 }
-
+export const fetchRoomAll :
+    () => Promise<any> = async () => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/room/all`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
 export const fetchFilmShow :
     (branchId : string, subId : string, filmId : string, time : string) => Promise<any> = async ( branchId, subId, filmId, time) => {
     try{
         const response = await axios.get(`${env.url.API_BASE_URL}/filmshowtime-service/api/filmshowtime/get/` + branchId + `/` + time + `/` + filmId + `/` + subId);
+        return response;
+    }catch ( e ){
+        return e;
+    }
+}
+
+export const fetchFilmShowByRoomAndTime
+    : (roomId : string , time : string)  => Promise<any>
+    = async (roomId, time) => {
+    try{
+        const response = await axios.get(`${env.url.API_BASE_URL}/filmshowtime-service/api/filmshowtime/${roomId}/all?date=${time}`);
         return response;
     }catch ( e ){
         return e;
@@ -125,6 +143,17 @@ export const fetchRoomBooked :
     }
 }
 
+// ------------------- subfilm -----------------
+export const fetchSubFilmAll :
+    () => Promise<any> = async () => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/subfilm/get/all`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
 export const fetchDish : () => Promise<any> = async () => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/dish-service/api/typedish/all`);
@@ -152,6 +181,42 @@ export const fetchFilmAll : () => Promise<any> = async () => {
     }
 }
 
+// ---------------- show time ------------
+export const addShowTime
+    : (timeStart : string, timeEnd : string, timestamp : string, subFilmId : string, roomId : string, token : string) => Promise<any>
+    = async ( timeStart, timeEnd, timestamp, subFilmId, roomId, token) => {
+    try{
+    const response = await  axios.post(`${env.url.API_BASE_URL}/filmshowtime-service/api/filmshowtime/add`,{
+        timeStart : timeStart,
+        timeEnd : timeEnd,
+        timestamp : timestamp,
+        subFilmId : subFilmId,
+        roomId : roomId,
+        status : 'ACTIVE'
+    },{
+        headers : {
+            Authorization : 'Bearer ' + token
+        }
+    });
+    return response;
+    }catch (e){
+        return e;
+    }
+}
+export const deleteShowTime
+    : (filmShowId : string, token : string) => Promise<any>
+    = async ( filmShowId, token) => {
+    try{
+        const response = await  axios.put(`${env.url.API_BASE_URL}/filmshowtime-service/api/filmshowtime/delete/${filmShowId}`,{},{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
 interface BillDto {
     id : string,
     totalPrice : number,
@@ -757,6 +822,110 @@ export const getSubCustom
     = async (page, limit,asc,orderBy,q) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/sub/custom?page=${page}&limit=${limit}&asc=${asc}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const deleteSubById
+    : (id : string, token : string) => Promise<any>
+    = async (id, token) => {
+    try{
+        const response = await  axios.delete(`${env.url.API_BASE_URL}/film-service/api/sub/delete/${id}`,{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+export const createSub
+    : (name : string, token : string) => Promise<any>
+    = async (name, token) => {
+    try{
+        const response = await  axios.post(`${env.url.API_BASE_URL}/film-service/api/sub/add`, {
+            id : '',
+            name : name
+        },{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const updateSub
+    : (id : string,name : string, token : string) => Promise<any>
+    = async (id,name, token) => {
+    try{
+        const response = await  axios.put(`${env.url.API_BASE_URL}/film-service/api/sub/update/${id}`, {
+            id : id,
+            name : name
+        },{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const getSubFilmCustom
+    : (subId : string, page : number, limit : string, asc : string,  token : string) => Promise<any>
+    = async (subId, page, limit, asc, token) => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/subfilm/get/sub/${subId}?page=${page}&limit=${limit}&asc=${asc}`,{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const getFilmNotInSub
+    : (subId : string) => Promise<any>
+    = async (subId) => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/film/get/sub/${subId}`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const addFilmIntoSub
+    : (subId : string, filmId : string, token : string) => Promise<any>
+    = async (subId, filmId, token) => {
+    try{
+        const response = await  axios.post(`${env.url.API_BASE_URL}/film-service/api/subfilm/add`,{
+            subId : subId,
+            filmId : filmId
+        },{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const deleteSubFilm
+    : (filmId : string,subId : string, token : string ) => Promise<any>
+    = async (filmId, subId,token) => {
+    try{
+        const response = await  axios.delete(`${env.url.API_BASE_URL}/film-service/api/subfilm/delete/${filmId}/${subId}`,{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
         return response;
     }catch (e){
         return e;

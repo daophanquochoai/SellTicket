@@ -6,7 +6,7 @@ import {
 import { Button, Layout, Menu, theme } from 'antd';
 const { Header, Sider, Content } = Layout;
 import './style.css';
-import {FaChartLine} from "react-icons/fa";
+import {FaCalendarAlt, FaChartLine} from "react-icons/fa";
 import {BsPersonVideo2} from "react-icons/bs";
 import {PiFilmSlateDuotone} from "react-icons/pi";
 import {GiFilmSpool, GiTheater} from "react-icons/gi";
@@ -18,6 +18,7 @@ import {useCommonContext} from "../../context/CommonContext.tsx";
 import NavAdmin from "./NavAdmin.tsx";
 import Sub from "./Sub/Sub.tsx";
 
+const ShowTime = lazy(()=>import('./ShowTime/ShowTime.tsx'));
 const Bill = lazy(()=>import('./Bill/Bill.tsx'));
 const Dish = lazy(()=>import('./Dish/Dish.tsx'));
 const Film = lazy(()=>import('./Film.tsx'));
@@ -81,26 +82,31 @@ const CommonDash : React.FC = () => {
                             },
                             {
                                 key: '5',
+                                icon: <FaCalendarAlt />,
+                                label: 'Lịch chiếu',
+                            },
+                            {
+                                key: '6',
                                 icon: <GiTheater />,
                                 label: 'Rạp chiếu',
                             },
                             {
-                                key: '6',
+                                key: '7',
                                 icon: <BiSolidDish />,
                                 label: 'Đồ ăn / vé',
                             },
                             {
-                                key: '7',
+                                key: '8',
                                 icon: <FaMoneyBillTrendUp />,
                                 label: 'Hóa đơn',
                             },
                             {
-                                key: '8',
+                                key: '9',
                                 icon: <MdOutlineRateReview />,
                                 label: 'Đánh giá',
                             },
                             {
-                                key: '9',
+                                key: '10',
                                 icon: <IoSettingsSharp />,
                                 label: 'Cài đặt',
                             },
@@ -163,18 +169,22 @@ const CommonDash : React.FC = () => {
                         }
                         {
                             select[0] == '5' &&
-                            <Theater />
+                            <ShowTime />
                         }
                         {
                             select[0] == '6' &&
-                            <Dish />
+                            <Theater />
                         }
                         {
                             select[0] == '7' &&
-                            <Bill />
+                            <Dish />
                         }
                         {
                             select[0] == '8' &&
+                            <Bill />
+                        }
+                        {
+                            select[0] == '9' &&
                             <Rate />
                         }
                     </Content>
