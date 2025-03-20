@@ -63,6 +63,11 @@ public class FilmFeignFallBack implements FallbackFactory<FilmFeign> {
             public ResponseEntity<Response> getFilmByStatus(String status) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getFilmNotInSub(String subId) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

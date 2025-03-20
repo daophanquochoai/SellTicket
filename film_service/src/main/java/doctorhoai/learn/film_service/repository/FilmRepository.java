@@ -25,5 +25,7 @@ public interface FilmRepository extends JpaRepository<Film, String> {
     List<Film> getFilmByStatus(Status status);
     @Query("select f from Film f where f.status != 'DELETE'")
     List<Film> getFilmByOrther();
+    @Query("select f from Film f where f.id not in (select s.filmId.id from SubFilm s where s.subId.id = :subId)")
+    List<Film> getFilmByNotInSub(String subId);
 
 }

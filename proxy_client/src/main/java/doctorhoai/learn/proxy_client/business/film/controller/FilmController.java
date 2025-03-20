@@ -72,4 +72,10 @@ public class FilmController {
     ){
         return filmFeign.getFilmByStatus(status);
     }
+    @GetMapping("/get/sub/{subId}")
+    public ResponseEntity<Response> getFilmNotInSub(
+            @PathVariable String subId
+    ){
+        return filmFeign.getFilmNotInSub(subId);
+    }
 }

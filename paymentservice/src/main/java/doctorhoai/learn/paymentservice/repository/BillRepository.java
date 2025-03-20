@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, String> {
@@ -17,4 +19,5 @@ public interface BillRepository extends JpaRepository<Bill, String> {
     Page<Bill> findAllCustom(Pageable pageable, String q);
     @Procedure(name = "getTotalPrice")
     Long getTotalPrice();
+    List<Bill> findByFilmShowTimeId(Integer filmShowId);
 }

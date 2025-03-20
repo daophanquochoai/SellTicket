@@ -1,6 +1,9 @@
 package doctorhoai.learn.rateservice.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import doctorhoai.learn.rateservice.dto.CustomerDto;
 import doctorhoai.learn.rateservice.dto.FilmDto;
 import doctorhoai.learn.rateservice.dto.RateFilmDto;
@@ -53,7 +56,10 @@ public class RateServiceImpl implements RateService {
             if(customerResponse.getBody().getData() == null ){
                 throw new CustomerNotFound("Customer not found with id : " + rate.getCustomerId());
             }
-            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper()
+                    .registerModule(new ParameterNamesModule())
+                    .registerModule(new Jdk8Module())
+                    .registerModule(new JavaTimeModule());
             CustomerDto customerDto = objectMapper.convertValue(customerResponse.getBody().getData(), CustomerDto.class);
             //fetch film
             ResponseEntity<Response> filmResponse = filmFeignClient.getFilmById(filmId);
@@ -126,7 +132,7 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public RateForFilm getRateByFilmId(String filmId, String limit, String page, String asc, String status, String q, String orderBy) {
+    public PageObject getRateByFilmId(String filmId, String limit, String page, String asc, String status, String q, String orderBy) {
         try{
             Page<RateFilm> rateFilms;
             Pageable pageable;
@@ -142,7 +148,10 @@ public class RateServiceImpl implements RateService {
             }
             List<RateFilmDto> returnValue = new ArrayList<>();
             long rateSum = 0;
-            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper()
+                    .registerModule(new ParameterNamesModule())
+                    .registerModule(new Jdk8Module())
+                    .registerModule(new JavaTimeModule());
             for( RateFilm rate: rateFilms ) {
                 rateSum += rate.getStar();
                 RateFilmDto rateFilmDto = MapperToDto.RateToDto(rate);
@@ -172,10 +181,19 @@ public class RateServiceImpl implements RateService {
                 ;
             }
             if( returnValue.isEmpty() ){
-                return new RateForFilm( 0, returnValue);
+                return PageObject.builder()
+                        .pageCurrent(pageable.getPageNumber() + 1)
+                        .totalPage(rateFilms.getTotalPages())
+                        .data(new RateForFilm( 0, returnValue))
+                        .build();
             }else{
-                double rate = Math.ceil(rateSum/rateFilms.toList().size());
-                return new RateForFilm( rate/10, returnValue);
+                long a = rateFilms.getTotalElements();
+                double rate = Math.ceil(rateSum/rateFilms.getTotalElements());
+                return PageObject.builder()
+                        .pageCurrent(pageable.getPageNumber() + 1)
+                        .totalPage(rateFilms.getTotalPages())
+                        .data( new RateForFilm( rate, returnValue))
+                        .build();
             }
         }catch (Exception e){
             log.error(e.getMessage());
@@ -198,31 +216,32 @@ public class RateServiceImpl implements RateService {
             rateFilms = rateRepository.getRateFilmByCustom(pageable,q,Status.valueOf(status));
         }
         List<RateFilmDto> returnValue = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper()
+                .registerModule(new ParameterNamesModule())
+                .registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
         for( RateFilm rate: rateFilms ) {
             RateFilmDto rateFilmDto = MapperToDto.RateToDto(rate);
-            if (rateFilmDto.getActive() == Status.ACTIVE) {
-                ResponseEntity<Response> customerResponse = userFeignClient.getCustomerById(rate.getCustomerId());
-                if (customerResponse == null) {
-                    throw new CustomerNotFound("Customer not found with id : " + rate.getCustomerId());
-                }
-                if (customerResponse.getBody().getStatusCode() != 200) {
-                    throw new CustomerNotFound("Customer not found with id : " + rate.getCustomerId());
-                }
-                CustomerDto customerDto = objectMapper.convertValue(customerResponse.getBody().getData(), CustomerDto.class);
-                ResponseEntity<Response> filmResponse = filmFeignClient.getFilmById(rate.getFilmId());
-                if (filmResponse == null) {
-                    throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
-                }
-                if (filmResponse.getBody().getData() == null) {
-                    throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
-                }
-                FilmDto filmDto = objectMapper.convertValue(filmResponse.getBody().getData(), FilmDto.class);
-                rateFilmDto.setCustomer(customerDto);
-                rateFilmDto.setFilm(filmDto);
-
-                returnValue.add(rateFilmDto);
+            ResponseEntity<Response> customerResponse = userFeignClient.getCustomerById(rate.getCustomerId());
+            if (customerResponse == null) {
+                throw new CustomerNotFound("Customer not found with id : " + rate.getCustomerId());
             }
+            if (customerResponse.getBody().getStatusCode() != 200) {
+                throw new CustomerNotFound("Customer not found with id : " + rate.getCustomerId());
+            }
+            CustomerDto customerDto = objectMapper.convertValue(customerResponse.getBody().getData(), CustomerDto.class);
+            ResponseEntity<Response> filmResponse = filmFeignClient.getFilmById(rate.getFilmId());
+            if (filmResponse == null) {
+                throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
+            }
+            if (filmResponse.getBody().getData() == null) {
+                throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
+            }
+            FilmDto filmDto = objectMapper.convertValue(filmResponse.getBody().getData(), FilmDto.class);
+            rateFilmDto.setCustomer(customerDto);
+            rateFilmDto.setFilm(filmDto);
+
+            returnValue.add(rateFilmDto);
         };
         return PageObject.builder()
                 .pageCurrent(pageable.getPageNumber() + 1)

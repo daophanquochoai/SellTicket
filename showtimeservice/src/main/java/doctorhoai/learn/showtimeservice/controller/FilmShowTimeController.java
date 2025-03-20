@@ -46,7 +46,7 @@ public class FilmShowTimeController {
         );
     }
 
-    @PatchMapping("/delete/{id}")
+    @PutMapping("/delete/{id}")
     public ResponseEntity<Response> deleteFilmShow(
             @PathVariable @NotNull Integer id
     ){
@@ -58,7 +58,7 @@ public class FilmShowTimeController {
                         .build()
         );
     }
-    @PatchMapping("/active/{id}")
+    @PutMapping("/active/{id}")
     public ResponseEntity<Response> activeFilmShow(
             @PathVariable @NotNull Integer id
     ){
@@ -122,6 +122,19 @@ public class FilmShowTimeController {
                         .statusCode(200)
                         .message("Get film show by param successful")
                         .data(filmShowService.getFilmShowsByBranch(branchId, time, filmId, subId))
+                        .build()
+        );
+    }
+
+    @GetMapping("/get/sub_film/{subfilmId}")
+    public ResponseEntity<Response> getFilmShowBySubFilm(
+            @PathVariable @Valid @NotBlank String subfilmId
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .message("Get film show by param successful")
+                        .data(filmShowService.getFilmShowBySubFilm(subfilmId))
                         .build()
         );
     }

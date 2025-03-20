@@ -23,8 +23,8 @@ public class FilmShowRequest {
     private Time timeStart;
     private LocalDate timestamp;
     private String status;
-    @NotNull
+    @NotNull(message = "Xuất chiếu không thể trống")
     private String subFilmId;
-    @NotNull
+    @NotNull(message = "Phòng không thể trống")
     private String roomId;
 }

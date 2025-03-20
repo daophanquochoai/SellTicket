@@ -151,4 +151,17 @@ public class BillController {
         }
     }
 
+    @GetMapping("/get/showtime/{filmShowId}")
+    public ResponseEntity<Response> getBillByFilmShowId(
+            @PathVariable @NotNull Integer filmShowId
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .message("Get Bill By Film Show Id")
+                        .data(billService.getAllBillByFilmShow(filmShowId))
+                        .build()
+        );
+    }
+
 }

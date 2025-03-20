@@ -322,4 +322,21 @@ public class FilmServiceImpl implements FilmService {
                 }
         ).toList();
     }
+
+    @Override
+    public List<FilmDto> getFilmNotInSub(String subId) {
+        List<Film> list = filmRepository.getFilmByNotInSub(subId);
+        return list.stream().map(
+                film -> {
+                    FilmDto filmDto = MapperToDto.FilmToDto(film);
+                    List<SubDto> subDtos= new ArrayList<>();
+                    film.getSubFilms().forEach( item -> {
+                        SubDto temp = new SubDto(item.getSubId().getId(), item.getSubId().getSub());
+                        subDtos.add(temp);
+                    });
+                    filmDto.setSub(subDtos);
+                    return filmDto;
+                }
+        ).toList();
+    }
 }

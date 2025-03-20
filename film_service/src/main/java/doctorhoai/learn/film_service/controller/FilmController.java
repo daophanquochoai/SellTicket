@@ -164,4 +164,17 @@ public class FilmController {
                         .build()
         );
     }
+
+    @GetMapping("/get/sub/{subId}")
+    public ResponseEntity<Response> getFilmNotInSub(
+            @PathVariable String subId
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .message("Get film successfully")
+                        .data(filmService.getFilmNotInSub(subId))
+                        .build()
+        );
+    }
 }

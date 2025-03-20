@@ -20,4 +20,9 @@ public interface FilmShowFeign {
             @PathVariable @Valid @NotBlank String branchId,
             @PathVariable @Valid @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate time
     );
+    @GetMapping("/get/sub_film/{subfilmId}")
+    public ResponseEntity<Response> getFilmShowBySubFilm(
+            @PathVariable @Valid @NotBlank String subfilmId
+    );
+
 }

@@ -29,7 +29,7 @@ public class RateController {
             @RequestBody @Valid RateFilmRequest rate
             ){
         rateService.addRateFilm(userid, filmId, rate);
-        return ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Response.builder().build());
     }
 
@@ -59,7 +59,7 @@ public class RateController {
     @Operation(
             summary = "Delete (hidden) rate"
     )
-    @PatchMapping("/delete/{id}")
+    @PutMapping("/delete/{id}")
     public ResponseEntity<Response> deleteRate(
             @PathVariable @NotBlank String id
     ){
@@ -74,7 +74,7 @@ public class RateController {
     @Operation(
             summary = "Active rate"
     )
-    @PatchMapping("/active/{id}")
+    @PutMapping("/active/{id}")
     public ResponseEntity<Response> activeRate(
             @PathVariable @NotBlank String id
     ){

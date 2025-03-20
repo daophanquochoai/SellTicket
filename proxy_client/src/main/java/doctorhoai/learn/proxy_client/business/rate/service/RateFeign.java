@@ -26,10 +26,10 @@ public interface RateFeign {
             @RequestParam(defaultValue = "", required = false) String status
     );
 
-    @PatchMapping("/delete/{id}")
+    @PutMapping("/delete/{id}")
     public ResponseEntity<Response> deleteRate(@PathVariable @NotBlank String id);
 
-    @PatchMapping("/active/{id}")
+    @PutMapping("/active/{id}")
     public ResponseEntity<Response> activeRate(@PathVariable @NotBlank String id);
     @GetMapping("/get/rate")
     public ResponseEntity<Response> getRate(

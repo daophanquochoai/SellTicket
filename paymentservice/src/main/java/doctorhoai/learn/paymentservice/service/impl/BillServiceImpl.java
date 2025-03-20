@@ -549,4 +549,100 @@ public class BillServiceImpl implements BillService {
             return false;
         }
     }
+
+    @Override
+    public List<BillDto> getAllBillByFilmShow(Integer filmShow) {
+        List<Bill> bills = billRepository.findByFilmShowTimeId(filmShow);
+        List<BillDto> list = new ArrayList<>();
+        bills.forEach(bill -> {
+            //call showtime
+            ResponseEntity<Response> responseShowTime = filmShowTimeFeign.getFilmShowTime(bill.getFilmShowTimeId());
+            if (responseShowTime.getStatusCode() != HttpStatus.OK) {
+                log.error("Room or Show Time not found");
+                throw new ShowTimNotFound("Show Time not found");
+            }
+            ObjectMapper objectMapper = new ObjectMapper()
+                    .registerModule(new ParameterNamesModule())
+                    .registerModule(new Jdk8Module())
+                    .registerModule(new JavaTimeModule());
+            FilmShowDto filmShowDto = objectMapper.convertValue(responseShowTime.getBody().getData(), FilmShowDto.class);
+            //call room
+            ResponseEntity<Response> responseRoom = roomFeign.getRoomById(filmShowDto.getRoomId());
+            if (responseRoom.getStatusCode() != HttpStatus.OK) {
+                log.error("Room not found");
+                throw new RoomNotFound("Room not found");
+            }
+            RoomDto roomDto = objectMapper.convertValue(responseRoom.getBody().getData(), RoomDto.class);
+            //call film
+            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmById(filmShowDto.getSubFilmId());
+            if (responseSubFilm.getStatusCode() != HttpStatus.OK) {
+                log.error("Film not found");
+                throw new FilmNotFound("Film not found");
+            }
+            SubFilmDto subFilmDto = objectMapper.convertValue(responseSubFilm.getBody().getData(), SubFilmDto.class);
+
+            List<BillChairDto> chairs = new ArrayList<>();
+            List<BillDishDto> dishes = new ArrayList<>();
+
+            List<BillChair> listChair = billChairRepository.getBillChairByBillChairId_Id(bill.getId());
+            listChair.forEach( item -> {
+                BillChairDto temp = BillChairDto
+                        .builder()
+                        .id(item.getId())
+                        .chairCode(item.getChairCode())
+                        .price(item.getPrice())
+                        .ticket(mapperToObject.mapperToTicketDto(item.getTicketId()))
+                        .active(item.getActive())
+                        .build();
+                chairs.add(temp);
+            });
+            List<BillDish> listDish = billDishRepository.getBillDishByBillDishId_Id(bill.getId());
+            listDish.forEach( item -> {
+                ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishId());
+                if (responseDish.getStatusCode() == HttpStatus.OK) {
+                    DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
+                    BillDishDto temp = BillDishDto
+                            .builder()
+                            .id(item.getId())
+                            .active(item.getActive())
+                            .price(item.getPrice())
+                            .amount(item.getAmount())
+                            .dishDto(dishDto)
+                            .build();
+                    dishes.add(temp);
+                }else {
+                    throw new DishNotFound("Dish not found with id : " + item.getId());
+                }
+            });
+
+            BillDto billDto = BillDto
+                    .builder()
+                    .id(bill.getId())
+                    .totalPrice(bill.getTotalPrice())
+                    .transactionCode(bill.getTransactionCode())
+                    .paymentMethodId(bill.getPaymentMethodId().getId())
+                    .paymentMethod(bill.getPaymentMethodId().getMethod())
+                    .active(bill.getActive())
+                    .timestamp(bill.getTimestamp())
+                    .status(bill.getStatus().toString())
+                    .filmShowTimeId(bill.getFilmShowTimeId())
+                    .timeEnd(filmShowDto.getTimeEnd())
+                    .timeStart(filmShowDto.getTimeStart())
+                    .timeStampSee(filmShowDto.getTimestamp())
+                    .nameBranch(roomDto.getBranch().getNameBranch())
+                    .address(roomDto.getBranch().getAddress())
+                    .roomId(roomDto.getId())
+                    .nameRoom(roomDto.getName())
+                    .filmId(subFilmDto.getFilmDto().getId())
+                    .nameFilm(subFilmDto.getFilmDto().getName())
+                    .userName(bill.getUserName())
+                    .email(bill.getEmail())
+                    .numberPhone(bill.getNumberPhone())
+                    .chairs(chairs)
+                    .dishes(dishes)
+                    .build();
+            list.add(billDto);
+        });
+        return list;
+    }
 }

@@ -15,4 +15,5 @@ public class SubFilmDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
     private FilmDto filmDto;
+    private SubDto subDto;
 }

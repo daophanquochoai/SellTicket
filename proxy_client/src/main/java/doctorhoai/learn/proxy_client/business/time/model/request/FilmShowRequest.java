@@ -22,8 +22,8 @@ public class FilmShowRequest {
     private Time timeStart;
     private LocalDate timestamp;
     private String status;
-    @NotNull
-    private String filmId;
-    @NotNull
+    @NotNull(message = "Xuất chiếu không thể trống")
+    private String subFilmId;
+    @NotNull(message = "Phòng không thể trống")
     private String roomId;
 }

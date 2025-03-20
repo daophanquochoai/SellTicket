@@ -30,12 +30,12 @@ public class FilmShowTimeController {
         return filmShowTimeFeign.updateFilmShow(id, filmShowRequest);
     }
 
-    @PatchMapping("/delete/{id}")
+    @PutMapping("/delete/{id}")
     public ResponseEntity<Response> deleteFilmShow(@PathVariable @NotNull Integer id){
         return filmShowTimeFeign.deleteFilmShow(id);
     }
 
-    @PatchMapping("/active/{id}")
+    @PutMapping("/active/{id}")
     public ResponseEntity<Response> activeFilmShow(@PathVariable @NotNull Integer id){
         return filmShowTimeFeign.activeFilmShow(id);
     }

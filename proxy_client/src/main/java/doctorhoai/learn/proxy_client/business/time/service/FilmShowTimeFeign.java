@@ -23,10 +23,10 @@ public interface FilmShowTimeFeign {
     @PutMapping("/update/{id}")
     public ResponseEntity<Response> updateFilmShow(@PathVariable @NotNull Integer id, @RequestBody @Valid FilmShowRequest filmShowRequest);
 
-    @PatchMapping("/delete/{id}")
+    @PutMapping("/delete/{id}")
     public ResponseEntity<Response> deleteFilmShow(@PathVariable @NotNull Integer id);
 
-    @PatchMapping("/active/{id}")
+    @PutMapping("/active/{id}")
     public ResponseEntity<Response> activeFilmShow(@PathVariable @NotNull Integer id);
 
     @GetMapping("/{roomId}/all")

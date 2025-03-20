@@ -34,12 +34,12 @@ public class RateController {
         return rateFeign.getRateByFilmId(filmId, page, limit, asc, q, orderBy, status);
     }
 
-    @PatchMapping("/delete/{id}")
+    @PutMapping("/delete/{id}")
     public ResponseEntity<Response> deleteRate(@PathVariable @NotBlank String id){
         return rateFeign.deleteRate(id);
     }
 
-    @PatchMapping("/active/{id}")
+    @PutMapping("/active/{id}")
     public ResponseEntity<Response> activeRate(@PathVariable @NotBlank String id){
         return rateFeign.activeRate(id);
     }

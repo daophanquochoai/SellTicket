@@ -107,7 +107,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public List<RoomDto> getRooms() {
-        return roomRepository.findAll().stream().map(MapperToDto::RoomToDto).toList();
+        return roomRepository.getRoomsByStatus(Status.ACTIVE).stream().map(MapperToDto::RoomToDto).toList();
     }
 
     @Override

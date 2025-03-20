@@ -52,4 +52,8 @@ public interface FilmFeign {
     public ResponseEntity<Response> getFilmByStatus(
             @PathVariable @Valid @NotBlank String status
     );
+    @GetMapping("/get/sub/{subId}")
+    public ResponseEntity<Response> getFilmNotInSub(
+            @PathVariable String subId
+    );
 }

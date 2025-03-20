@@ -61,7 +61,7 @@ public class MapperToDto {
                 .build();
     }
 
-    public static SubDto DtoToSub(Sub sub){
+    public static SubDto SubtoDto(Sub sub){
         return SubDto.builder()
                 .id(sub.getId())
                 .name(sub.getSub())

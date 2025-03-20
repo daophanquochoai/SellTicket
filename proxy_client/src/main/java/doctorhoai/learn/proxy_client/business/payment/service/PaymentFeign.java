@@ -32,10 +32,10 @@ public interface PaymentFeign {
     @GetMapping("/{id}")
     public ResponseEntity<Response> getBillById(@Valid @PathVariable @NotNull String id);
 
-    @PatchMapping("/delete/{id}")
+    @PutMapping("/delete/{id}")
     public ResponseEntity<Response> deleteBills(@Valid @PathVariable @NotNull String id);
 
-    @PatchMapping("/active/{id}")
+    @PutMapping("/active/{id}")
     public ResponseEntity<Response> activateBill(@Valid @PathVariable @NotNull String id);
     @PostMapping("/payment")
     public ResponseEntity<Map<String, Object>> processPayment(@RequestBody Map<String, Object> paymentRequest);

@@ -13,7 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface FilmShowRepository extends JpaRepository<FilmShowTime, Integer> {
-    List<FilmShowTime> getFilmShowTimeByRoomIdAndTimestamp(String roomId, LocalDate timestamp);
+    List<FilmShowTime> getFilmShowTimeByRoomIdAndTimestampAndStatus(String roomId, LocalDate timestamp, Status status);
     Optional<FilmShowTime> getFilmShowTimeByRoomIdAndIdAndStatus(@NotNull String roomId, Integer filmId, Status status );
     List<FilmShowTime> getShowTimeByTimestampAndSubFilmIdAndStatus( LocalDate time, String filmId, Status status );
+    List<FilmShowTime> getFilmShowTimeBySubFilmId(String SubFilmIs);
 }
