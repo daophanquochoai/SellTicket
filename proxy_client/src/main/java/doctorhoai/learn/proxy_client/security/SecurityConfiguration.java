@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                         auth -> auth
                                 .requestMatchers("/api/authenticate", "/api/**", "/actuator/**","/swagger-ui/**", "/v3/api-docs/**", "/user-service/api/customer/enviroment").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/room-service/api/**","/film-service/api/typefilm/**", "/film-service/api/**","/dish-service/api/**","/filmshowtime-service/api/filmshowtime/**", "/rate-service/api/rate/film/**", "/payment-service/api/ticket/**", "/payment-service/api/billchair/**").permitAll()
-                                .requestMatchers(HttpMethod.POST,"/payment-service/api/bill/payment","/payment-service/api/bill/add","/user-service/api/customer/add").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/payment-service/api/bill/payment","/payment-service/api/bill/add","/user-service/api/customer/add", "/user-service/api/customer/change/customer/**", "/user-service/api/customer/forget/customer/**").permitAll()
                                 .requestMatchers("/user-service/api/account/bank/**","/user-service/api/customer/**").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers(HttpMethod.POST,"room-service/api/**","/film-service/api/**","/dish-service/api/**","/filmshowtime-service/api/filmshowtime/**", "/payment-service/api/ticket/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT,"room-service/api/**","/film-service/api/**","/dish-service/api/**","/filmshowtime-service/api/filmshowtime/**", "/payment-service/api/ticket/**").hasRole("ADMIN")

@@ -31,6 +31,6 @@ public class FilmRequest {
     private String content;
     private String trailer;
     private List<TypeFilmDto> typeFilms;
-    @Pattern(regexp = "^(ACTIVE|DELETE)$", message = "Active should value 'ACTIVE' or 'DELETE'")
+    @Pattern(regexp = "^(ACTIVE|DELETE|COMMING_SOON)$", message = "Active should value 'ACTIVE' or 'DELETE' or 'COMMING SOON'")
     private String status;
 }

@@ -60,4 +60,8 @@ public class TicketController {
     ){
         return ticketFeign.activateTicket(id);
     }
+    @GetMapping("/get/active")
+    public ResponseEntity<Response> getTicketByActive(){
+        return ticketFeign.getTicketByActive();
+    }
 }

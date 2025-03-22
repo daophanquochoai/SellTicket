@@ -48,4 +48,6 @@ public interface TicketFeign {
     public ResponseEntity<Response> activateTicket(
             @Valid @PathVariable @NotNull @NotBlank String id
     );
+    @GetMapping("/get/active")
+    public ResponseEntity<Response> getTicketByActive();
 }

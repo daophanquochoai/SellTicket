@@ -1,6 +1,8 @@
 package doctorhoai.learn.paymentservice.repository;
 
+import doctorhoai.learn.paymentservice.entity.Active;
 import doctorhoai.learn.paymentservice.entity.BillChair;
+import doctorhoai.learn.paymentservice.entity.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +14,5 @@ import java.util.Optional;
 public interface BillChairRepository extends JpaRepository<BillChair, String> {
     Optional<BillChair> getBillChairByChairCode(String chairCode);
     List<BillChair> getBillChairByBillChairId_Id(String id);
-    List<BillChair> getBillChairByBillChairId_FilmShowTimeId(Integer filmShowTimeId);
+    List<BillChair> getBillChairByBillChairId_FilmShowTimeIdAndBillChairId_Status(Integer filmShowTimeId, Status status);
 }

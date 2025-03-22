@@ -48,6 +48,7 @@
             <artifactId>lombok</artifactId>
             <scope>annotationProcessor</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -108,7 +109,7 @@
                 <version>3.4.1</version>
                 <configuration>
                     <to>
-                        <image>doctorhoai/huongdichvu_notificationservice:f7</image>
+                        <image>doctorhoai/huongdichvu_notificationservice:f10</image>
                     </to>
                 </configuration>
             </plugin>

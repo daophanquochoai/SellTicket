@@ -130,7 +130,7 @@ public class CustomerController {
             @PathVariable @Valid @NotBlank @Email String email,
             @PathVariable @Valid @NotBlank @Length(min = 4) String opt
     ){
-        accountBankService.changePasswordCustomer(opt, email, password);
+        accountBankService.changePasswordCustomer(password, opt, email);
         return ResponseEntity.ok(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())

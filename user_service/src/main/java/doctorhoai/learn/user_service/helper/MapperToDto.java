@@ -84,29 +84,4 @@ public class MapperToDto {
                 .status(customer.getStatus().toString())
                 .build();
     }
-    public static AccountBankingDto AccountBankToDto(AccountBanking accountBanking){
-        return AccountBankingDto
-                .builder()
-                .id(accountBanking.getId())
-                .cvv(accountBanking.getCvv())
-                .active(accountBanking.getActive())
-                .cardCode(accountBanking.getCardCode())
-                .dayStart(accountBanking.getDayStart())
-                .dayEnd(accountBanking.getDayEnd())
-                .name(accountBanking.getName())
-                .build();
-    }
-    public static AccountBanking DtoToAccountBanking(AccountBankingDto accountBankingDto){
-        return AccountBanking
-                .builder()
-                .id(accountBankingDto.getId())
-                .cvv(accountBankingDto.getCvv())
-                .active(accountBankingDto.getActive())
-                .cardCode(accountBankingDto.getCardCode())
-                .dayStart(accountBankingDto.getDayStart())
-                .dayEnd(accountBankingDto.getDayEnd())
-                .name(accountBankingDto.getName())
-                .build();
-
-    }
 }

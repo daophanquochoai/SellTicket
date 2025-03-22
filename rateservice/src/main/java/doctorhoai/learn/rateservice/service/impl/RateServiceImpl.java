@@ -142,9 +142,9 @@ public class RateServiceImpl implements RateService {
                 pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy).descending());
             }
             if( status.equals("none")){
-                rateFilms = rateRepository.getRateFilmByCustom(pageable, q);
+                rateFilms = rateRepository.getRateFilmByCustom(pageable, q, filmId);
             }else{
-                rateFilms = rateRepository.getRateFilmByCustom(pageable, q, Status.valueOf(status));
+                rateFilms = rateRepository.getRateFilmByCustom(pageable, q, Status.valueOf(status), filmId);
             }
             List<RateFilmDto> returnValue = new ArrayList<>();
             long rateSum = 0;
@@ -180,21 +180,27 @@ public class RateServiceImpl implements RateService {
                 }
                 ;
             }
-            if( returnValue.isEmpty() ){
-                return PageObject.builder()
-                        .pageCurrent(pageable.getPageNumber() + 1)
-                        .totalPage(rateFilms.getTotalPages())
-                        .data(new RateForFilm( 0, returnValue))
-                        .build();
-            }else{
-                long a = rateFilms.getTotalElements();
-                double rate = Math.ceil(rateSum/rateFilms.getTotalElements());
-                return PageObject.builder()
-                        .pageCurrent(pageable.getPageNumber() + 1)
-                        .totalPage(rateFilms.getTotalPages())
-                        .data( new RateForFilm( rate, returnValue))
-                        .build();
-            }
+//            if( returnValue.isEmpty() ){
+//                return PageObject.builder()
+//                        .pageCurrent(pageable.getPageNumber() + 1)
+//                        .totalPage(rateFilms.getTotalPages())
+//                        .data(new RateForFilm( 0, returnValue))
+//                        .build();
+//            }else{
+//                long a = rateFilms.getTotalElements();
+//                double rate = Math.ceil(rateSum/rateFilms.getTotalElements());
+//                return PageObject.builder()
+//                        .pageCurrent(pageable.getPageNumber() + 1)
+//                        .totalPage(rateFilms.getTotalPages())
+//                        .data( new RateForFilm( rate, returnValue))
+//                        .build();
+//            }
+            Integer rateStar = rateRepository.getRate(filmId);
+            return PageObject.builder()
+                    .pageCurrent(pageable.getPageNumber() + 1)
+                    .totalPage(rateFilms.getTotalPages())
+                    .data(new RateForFilm( rateStar == null ? 0 : rateStar , returnValue))
+                    .build();
         }catch (Exception e){
             log.error(e.getMessage());
             throw new ErrorException(e.getMessage());

@@ -13,4 +13,5 @@ public interface TicketService {
     Page<TicketDto> getTickets(String limit, String page, String active, String orderBy, String asc, String q);
     void deleteTicket(String id);
     void activeTicket(String id);
+    List<TicketDto> getTicketByActive();
 }

@@ -119,4 +119,9 @@ public class TicketServiceImpl implements TicketService {
             throw new ErrorException(e.getMessage());
         }
     }
+
+    @Override
+    public List<TicketDto> getTicketByActive() {
+        return ticketRepository.getTicketByActive(Active.ACTIVE).stream().map(mapperToObject::mapperToTicketDto).toList();
+    }
 }

@@ -99,4 +99,15 @@ public class TicketController {
                         .build()
         );
     }
+
+    @GetMapping("/get/active")
+    public ResponseEntity<Response> getTicketByActive(){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .message("Get Ticket Successfully")
+                        .data(ticketService.getTicketByActive())
+                        .build()
+        );
+    }
 }

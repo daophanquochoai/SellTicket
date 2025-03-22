@@ -19,7 +19,7 @@
         </processorPath>
         <module name="eurekaserver" />
       </profile>
-      <profile name="Annotation profile for apigateway" enabled="true">
+      <profile name="Annotation profile for paymentservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -28,23 +28,15 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="apigateway" />
+        <module name="proxy_client" />
         <module name="user_service" />
         <module name="roomservice" />
         <module name="showtimeservice" />
         <module name="BaseDomain" />
         <module name="dishservice" />
-        <module name="rateservice" />
-      </profile>
-      <profile name="Annotation profile for film_service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
-        </processorPath>
-        <module name="proxy_client" />
-        <module name="film_service" />
         <module name="paymentservice" />
+        <module name="rateservice" />
+        <module name="film_service" />
         <module name="notificationservice" />
       </profile>
     </annotationProcessing>

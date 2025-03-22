@@ -46,6 +46,11 @@ public class TicketFallBack implements FallbackFactory<TicketFeign> {
             public ResponseEntity<Response> activateTicket(String id) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getTicketByActive() {
+                return functionCommon.process(cause);
+            }
         };
     }
 }
