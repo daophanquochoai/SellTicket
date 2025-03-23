@@ -1,10 +1,9 @@
 package doctorhoai.learn.user_service.service.inter;
 
-import doctorhoai.learn.user_service.controller.EmployeeChange;
+import doctorhoai.learn.user_service.dto.request.EmployeeChange;
 import doctorhoai.learn.user_service.dto.EmployeeDto;
 import doctorhoai.learn.user_service.dto.request.EmployeeRequest;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,4 +16,5 @@ public interface EmployeeService {
     void updatePassword(String id, String password, String newPassword);
     Page<EmployeeDto> getEmployee(String limit, String page, String q, String asc, String status, String orderBy);
     EmployeeDto getEmployeeByUsername(String username);
+    EmployeeDto resetAccount(String id);
 }

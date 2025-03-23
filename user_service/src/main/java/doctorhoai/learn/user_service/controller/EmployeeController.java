@@ -1,5 +1,6 @@
 package doctorhoai.learn.user_service.controller;
 
+import doctorhoai.learn.user_service.dto.request.EmployeeChange;
 import doctorhoai.learn.user_service.service.inter.AccountBankService;
 import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -164,6 +165,19 @@ public class EmployeeController {
                         .statusCode(HttpStatus.OK.value())
                         .message("Get info account successfully")
                         .data(employeeService.getEmployeeByUsername(username))
+                        .build()
+        );
+    }
+
+    @PutMapping("/reset/{id}")
+    public ResponseEntity<Response> resetAccount(
+            @PathVariable @Valid @NotBlank String id
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Reset account successfully")
+                        .data(employeeService.resetAccount(id))
                         .build()
         );
     }

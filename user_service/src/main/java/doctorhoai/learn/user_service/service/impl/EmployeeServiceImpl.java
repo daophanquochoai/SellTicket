@@ -1,6 +1,6 @@
 package doctorhoai.learn.user_service.service.impl;
 
-import doctorhoai.learn.user_service.controller.EmployeeChange;
+import doctorhoai.learn.user_service.dto.request.EmployeeChange;
 import doctorhoai.learn.user_service.dto.EmployeeDto;
 import doctorhoai.learn.user_service.dto.request.EmployeeRequest;
 import doctorhoai.learn.user_service.entity.Account;
@@ -185,5 +185,22 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EmployeeNotFound("Employee not found with username : " + username);
         }
         return MapperToDto.EmployeeToDto(employeeOptional.get());
+    }
+
+    @Override
+    public EmployeeDto resetAccount(String id) {
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+        if( employeeOptional.isEmpty() ){
+            throw new EmployeeNotFound("Employee not found with id : " + id);
+        }
+        employeeOptional.get().getAccount().setPassword(bCryptPasswordEncoder.encode("123456"));
+        try{
+            Employee employeeSaved = employeeRepository.save(employeeOptional.get());
+            return MapperToDto.EmployeeToDto(employeeSaved);
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+            throw new ErrorException(e.getMessage());
+        }
     }
 }

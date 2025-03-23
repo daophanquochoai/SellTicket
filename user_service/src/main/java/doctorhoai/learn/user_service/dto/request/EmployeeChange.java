@@ -1,9 +1,7 @@
-package doctorhoai.learn.user_service.controller;
+package doctorhoai.learn.user_service.dto.request;
 
-import doctorhoai.learn.user_service.entity.Status;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

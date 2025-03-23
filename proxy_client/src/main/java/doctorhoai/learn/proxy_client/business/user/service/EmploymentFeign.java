@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,5 +54,9 @@ public interface EmploymentFeign {
     @GetMapping("/info/{username}")
     public ResponseEntity<Response> getInfoAccount(
             @PathVariable @Valid @NotBlank String username
+    );
+    @PutMapping("/reset/{id}")
+    public ResponseEntity<Response> resetAccount(
+            @PathVariable @Valid @NotBlank String id
     );
 }

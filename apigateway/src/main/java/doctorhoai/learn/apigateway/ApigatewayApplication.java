@@ -6,9 +6,13 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class ApigatewayApplication {
@@ -98,6 +102,7 @@ public class ApigatewayApplication {
                                                         config ->config.setName("proxySupport")
                                                                 .setFallbackUri("forward:/proxySupport")
                                                 )
+                                                .preserveHostHeader()
                                 )
                                 .uri("lb://PROXYCLIENT")
                 )

@@ -62,6 +62,11 @@ public class EmployeeFeignCallBack implements FallbackFactory<EmploymentFeign> {
             public ResponseEntity<Response> getInfoAccount(String username) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> resetAccount(String id) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

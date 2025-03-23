@@ -1,12 +1,10 @@
 package doctorhoai.learn.proxy_client.business.film.service;
 
 import doctorhoai.learn.proxy_client.BaseDomain.Response;
-import doctorhoai.learn.proxy_client.business.film.model.SubDto;
 import doctorhoai.learn.proxy_client.business.film.model.request.SubRequest;
 import doctorhoai.learn.proxy_client.business.film.service.fallback.SubFeignFallBack;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

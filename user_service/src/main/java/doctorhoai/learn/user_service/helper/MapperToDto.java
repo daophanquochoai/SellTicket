@@ -84,4 +84,25 @@ public class MapperToDto {
                 .status(customer.getStatus().toString())
                 .build();
     }
+
+    public static Contact DtoToContact(ContactDto contact){
+        return Contact.builder()
+                .id(contact.getId())
+                .name(contact.getName())
+                .numberPhone(contact.getNumberPhone())
+                .content(contact.getContent())
+                .status(Status.valueOf(contact.getStatus().toUpperCase()))
+                .timestamp(contact.getTimestamp())
+                .build();
+    }
+    public static ContactDto ContactToDto(Contact contact){
+        return ContactDto.builder()
+                .id(contact.getId())
+                .name(contact.getName())
+                .numberPhone(contact.getNumberPhone())
+                .content(contact.getContent())
+                .status(contact.getStatus().toString())
+                .timestamp(contact.getTimestamp())
+                .build();
+    }
 }

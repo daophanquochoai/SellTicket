@@ -93,5 +93,11 @@ public class EmploymentController {
     ){
         return employmentFeign.getEmployee(page, limit, asc, status, orderBy, q);
     }
+    @PutMapping("/reset/{id}")
+    public ResponseEntity<Response> resetAccount(
+            @PathVariable @Valid @NotBlank String id
+    ){
+        return employmentFeign.resetAccount(id);
+    }
 
 }

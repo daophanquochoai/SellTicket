@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/api/authenticate", "/api/**", "/actuator/**","/swagger-ui/**", "/v3/api-docs/**", "/user-service/api/customer/enviroment").permitAll()
+                                .requestMatchers("/api/authenticate", "/api/**", "/actuator/**","/swagger-ui/**", "/v3/api-docs/**", "/user-service/api/customer/enviroment","/film-service/api/slider/**", "/user-service/api/contact/add/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/room-service/api/**","/film-service/api/typefilm/**", "/film-service/api/**","/dish-service/api/**","/filmshowtime-service/api/filmshowtime/**", "/rate-service/api/rate/film/**", "/payment-service/api/ticket/**", "/payment-service/api/billchair/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/payment-service/api/bill/payment","/payment-service/api/bill/add","/user-service/api/customer/add", "/user-service/api/customer/change/customer/**", "/user-service/api/customer/forget/customer/**").permitAll()
                                 .requestMatchers("/user-service/api/account/bank/**","/user-service/api/customer/**").hasAnyRole("USER", "ADMIN")
@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.PUT,"room-service/api/**","/film-service/api/**","/dish-service/api/**","/filmshowtime-service/api/filmshowtime/**", "/payment-service/api/ticket/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PATCH,"room-service/api/**","/film-service/api/**","/dish-service/api/**","/filmshowtime-service/api/filmshowtime/**", "/payment-service/api/ticket/**").hasRole("ADMIN")
                                 .requestMatchers("/rate-service/api/rate/add/**").hasRole("USER")
-                                .requestMatchers("/film-service/api/film/**", "/dish-service/api/dish/**","/dish-service/api/typedish/**","/rate-service/api/rate/delete/**", "/rate-service/api/rate/active/**","/payment-service/api/bill/**","/payment-service/api/report/**","/user-service/api/employment/**","/user-service/api/role/**").hasRole("ADMIN")
+                                .requestMatchers("/film-service/api/film/**", "/dish-service/api/dish/**","/dish-service/api/typedish/**","/rate-service/api/rate/delete/**", "/rate-service/api/rate/active/**","/payment-service/api/bill/**","/payment-service/api/report/**","/user-service/api/employment/**","/user-service/api/role/**", "/user-service/api/contact/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement( sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
