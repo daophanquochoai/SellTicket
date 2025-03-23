@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {expireToken, getEmployee, getToken} from "../../Helper/Helper.ts";
+import {createAccountEmployee, expireToken, getEmployee, getToken, resetEmployee} from "../../Helper/Helper.ts";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {Modal, Table} from "antd";
+import {Modal, Spin, Table} from "antd";
 import { Pagination } from 'antd';
 import { FaSearch } from "react-icons/fa";
 
@@ -45,6 +45,13 @@ interface Page {
     pageCurrent : number,
     pageTotal : number
 }
+interface CreateAccount {
+    name : string,
+    email : string,
+    userName : string,
+    password : string,
+    cccd : string
+}
 const initCustom = {
     page : 0,
     limit : 10,
@@ -57,7 +64,13 @@ const initPage : Page = {
     pageCurrent : 1,
     pageTotal : 1
 }
-
+const initCreateAccount = {
+    name : '',
+    email : '',
+    userName : '',
+    password : '',
+    cccd : ''
+}
 const columns = [
     {
         title: 'Id',
@@ -107,10 +120,17 @@ const Staff : React.FC = () => {
     const [params, setParams] = useState<Custom>(initCustom);
     const navigate = useNavigate();
     const [data,setData] = useState<Employee[]>([]);
+    //modal xem account
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [loadingSee, setLoadingSee] = useState<boolean>(false);
+
     const [dataModal, setDataModal] = useState<DataType>();
     const [page, setPage] = useState<Page>(initPage);
     const [q, setQ] = useState<string>('');
+
+    const [createAccount, setCreateAccount] = useState<CreateAccount>(initCreateAccount);
+    const [loadingCreateAccout, setLoadingCreateAccount] = useState<boolean>(false);
+    const [isOpenCreateAccount, setIsOpenCreateAccount] = useState<boolean>(false);
 
     useEffect(() => {
         handleFetchEmployee();
@@ -164,10 +184,58 @@ const Staff : React.FC = () => {
         })
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const token : string | undefined = getToken();
+        if( token == undefined || expireToken(token)){
+            toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
+            navigate('/dashboard/login')
+            return;
+        }
+        setLoadingCreateAccount(true);
+        const response = await createAccountEmployee(createAccount.name,createAccount.email,createAccount.cccd,createAccount.userName,token);
+        setLoadingCreateAccount(false);
+        console.log(response);
+        if( response.status != 201){
+            toast.warning(<p className={'w-full'}>Không thể tạo tài khoản</p>);
+            return;
+        }
+        toast.success(<p>Tạo tài khoản thành công</p>)
+        setIsOpenCreateAccount(false);
+        const account : Employee = response.data.data;
+        setData([
+            account,
+            ...data
+        ])
+        setCreateAccount(initCreateAccount);
+    }
+
+    const handleResetAccount = async (id : string) => {
+        const token : string | undefined = getToken();
+        if( token == undefined || expireToken(token)){
+            toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
+            navigate('/dashboard/login')
+            return;
+        }
+        setLoadingSee(true);
+        const response = await resetEmployee(id, token);
+        setLoadingSee(false);
+        console.log(response);
+        if( response.status != 200){
+            toast.warning(<p className={'w-full'}>Không thể thiết lập lại</p>);
+            return;
+        }
+        toast.success(<p>Thiết lập thành công</p>)
+        setIsModalOpen(false);
+    }
+
     return (
         <>
             <div className={'bg-white p-[20px]'}>
                 <div className={'flex justify-end mb-[20px] gap-4'}>
+                    <div onClick={()=>setIsOpenCreateAccount(true)} className={'flex gap-2 items-center border-[1px] border-textAdmin text-white cursor-pointer px-2 py-1 bg-textAdmin'}>
+                        Tạo tài khoản
+                    </div>
                     <div className={'flex gap-2 items-center border-[1px] border-textAdmin bg-white px-2 py-1'}>
                         <p>Sắp xếp theo :</p>
                         <select className={'bg-transparent outline-0'} defaultValue={'name'}
@@ -190,7 +258,9 @@ const Staff : React.FC = () => {
                             className={'text-2xl text-main'}/></button>
                     </div>
                 </div>
-                <Table<DataType> columns={columns} dataSource={
+                <Table<DataType> columns={columns}
+                                rowKey={r=>r.id}
+                                 dataSource={
                     data.map(item => {
                         return {
                             id: item.id,
@@ -220,45 +290,101 @@ const Staff : React.FC = () => {
             <Modal
                 title={<p className={'text-main text-xl uppercase font-bold'}>Nhân viên</p>}
                 open={isModalOpen}
+                loading={loadingSee}
                 onCancel={() => handleCancelModal()}
-                footer={[]}
+                footer={[
+                    <button onClick={()=>handleResetAccount(dataModal?.id)} className={'bg-red-500 text-white px-4 py-2'}>Thiết lập lại</button>
+                ]}
             >
                 <div className={'flex gap-4 flex-col mt-[20px]'}>
-                    <div className={'flex flex-col'}>
+                <div className={'flex flex-col'}>
                         <label className={'text-main'}>Mã nhân viên <span className={'text-red-500'}>*</span></label>
-                        <input value={dataModal?.id} className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
+                        <input value={dataModal?.id} readOnly={true} className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
                     </div>
                     <div className={'flex flex-col'}>
                         <label className={'text-main'}>Họ và tên <span className={'text-red-500'}>*</span></label>
-                        <input value={dataModal?.name} className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
+                        <input value={dataModal?.name} readOnly={true} className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
                     </div>
                     <div className={'flex flex-col'}>
                         <label className={'text-main'}>Địa chỉ email <span className={'text-red-500'}>*</span></label>
-                        <input value={dataModal?.email}
+                        <input value={dataModal?.email} readOnly={true}
                                className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
                     </div>
                     <div className={'flex gap-4 items-center justify-between'}>
                         <div className={'flex flex-col flex-1'}>
                             <label className={'text-main'}>CCCD <span className={'text-red-500'}>*</span></label>
-                            <input value={dataModal?.cccd}
+                            <input value={dataModal?.cccd} readOnly={true}
+                                   minLength={10}
+                                   maxLength={12}
                                    className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
                         </div>
                         <div className={'flex flex-col flex-1'}>
                             <label className={'text-main'}>Tài khoản <span
                                 className={'text-red-500'}>*</span></label>
-                            <input value={dataModal?.username}
+                            <input value={dataModal?.username} readOnly={true}
                                    className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
                         </div>
                     </div>
                     <div className={'flex flex-col flex-1 w-1/2'}>
                         <label className={'text-main'}>Tài khoản <span
                             className={'text-red-500'}>*</span></label>
-                        <select className={'outline-0 border-textAdmin border-[1px] px-2 py-1'} value={dataModal?.active}>
+                        <select className={'outline-0 border-textAdmin border-[1px] px-2 py-1'} value={dataModal?.active} disabled={true}>
                             <option className={'text-green-600'}>ACTIVE</option>
                             <option className={'text-red-500'}>DELETE</option>
                         </select>
                     </div>
                 </div>
+            </Modal>
+            <Modal
+                open={isOpenCreateAccount}
+                title={<p className={'font-bold text-main uppercase'}>Tạo Tài Khoản</p>}
+                footer={[
+                ]}
+                onCancel={()=>setIsOpenCreateAccount(false)}
+            >
+                <Spin tip={"Đang xử lý..."} spinning={loadingCreateAccout}>
+                    <form onSubmit={(e) => handleSubmit(e)}>
+                        <div className={'flex flex-col'}>
+                            <label className={'text-main'}>Họ và tên <span className={'text-red-500'}>*</span></label>
+                            <input value={createAccount.name}
+                                   required={true}
+                                   minLength={10}
+                                   className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}
+                                   onChange={(e) => setCreateAccount({...createAccount, name: e.target.value})}/>
+                        </div>
+                        <div className={'flex flex-col'}>
+                            <label className={'text-main'}>Địa chỉ email <span
+                                className={'text-red-500'}>*</span></label>
+                            <input value={createAccount.email}
+                                   type={"email"}
+                                   required={true}
+                                   className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}
+                                   onChange={(e) => setCreateAccount({...createAccount, email: e.target.value})}/>
+                        </div>
+                        <div className={'flex flex-col'}>
+                            <label className={'text-main'}>Căn cước công dân <span
+                                className={'text-red-500'}>*</span></label>
+                            <input value={createAccount.cccd}
+                                   minLength={10}
+                                   maxLength={12}
+                                   required={true}
+                                   onChange={(e) => setCreateAccount({...createAccount, cccd: e.target.value})}
+                                   className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
+                        </div>
+                        <div className={'flex flex-col'}>
+                            <label className={'text-main'}>Tài khoản <span className={'text-red-500'}>*</span></label>
+                            <input value={createAccount.userName}
+                                   minLength={8}
+                                   required={true}
+                                   onChange={(e) => setCreateAccount({...createAccount, userName: e.target.value})}
+                                   className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
+                        </div>
+                        <div className={'flex justify-center mt-[20px]'}>
+                            <button className={'px-4 py-1 bg-main text-white font-bold uppercase min-w-[150px]'}>Tạo
+                            </button>
+                        </div>
+                    </form>
+                </Spin>
             </Modal>
         </>
     )

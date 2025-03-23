@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Spin} from "antd";
 import {fetchFilmShow} from "../../Helper/Helper.ts";
-import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
 interface Props {

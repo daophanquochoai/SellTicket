@@ -1,8 +1,40 @@
-import React from "react";
+import React, {useState} from "react";
 import {IoLocationSharp, IoMailSharp} from "react-icons/io5";
 import {FaPhoneAlt} from "react-icons/fa";
+import {Spin} from "antd";
+import {addContact} from "../../Helper/Helper.ts";
+import {toast} from "react-toastify";
+
+interface Contact {
+    name : string,
+    numberPhone : string,
+    content : string
+}
+
+const initContact : Contact = {
+    name : '',
+    numberPhone : '',
+    content : ''
+}
 
 const Contact : React.FC = () => {
+
+    const [data, setData] = useState<Contact>(initContact);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const response = await addContact(data.name, data.numberPhone, data.content);
+        setLoading(false);
+        if( response.status != 201 ){
+            toast.warning(<p className={'w-full'}>Không thể gửi contact</p>)
+            return;
+        }
+        toast.success(<p>Gửi contact thành công</p>)
+        setData(initContact);
+    }
+
     return(
         <>
             <div className={'flex items-center justify-center mt-[80px]'}>
@@ -16,7 +48,7 @@ const Contact : React.FC = () => {
                                 <div
                                     className={'flex-1 justify-center flex relative bg-main pl-[100px] pr-[30px] py-[15px] ml-[100px] rounded-tr-2xl rounded-br-2xl'}>
                                     <div>
-                                        <img src={'/public/facebook.png'} alt={'facebook icon'}
+                                        <img src={'/facebook.png'} alt={'facebook icon'}
                                              className={'w-[150px] h-auto object-cover absolute top-[-50px] left-[-40px]'}/>
                                     </div>
                                     <div className={'text-white font-bold text-3xl'}>
@@ -30,7 +62,7 @@ const Contact : React.FC = () => {
                                         <p>Zalo Chat</p>
                                     </div>
                                     <div>
-                                        <img src={'/public/zalo.png'} alt={'facebook icon'}
+                                        <img src={'/zalo.png'} alt={'facebook icon'}
                                              className={'w-[150px] h-auto object-cover absolute top-[-15px] right-[-40px]'}/>
                                     </div>
                                 </div>
@@ -66,14 +98,28 @@ const Contact : React.FC = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <form className={'flex flex-col gap-6 mt-[40px]'}>
-                                    <input className={'px-4 py-3 outline-0 border-none'} placeholder={"Họ và Tên"}/>
-                                    <input className={'px-4 py-3 outline-0 border-none'} placeholder={"Số điện thoại"}/>
-                                    <textarea className={'h-[150px] px-4 py-3 outline-0 border-none'} placeholder={'Nội dung chi tiết...'}/>
-                                </form>
-                                <div className={'mt-[30px]'}>
-                                    <button className={'bg-black text-white px-4 py-2 hover:text-main transition-all duration-300'}>Gửi ngay</button>
-                                </div>
+                                <Spin tip={"Đang gửi..."} spinning={loading}>
+                                    <form className={'flex flex-col gap-6 mt-[40px]'} onSubmit={(e) => handleSubmit(e)}>
+                                        <input value={data.name}
+                                               onChange={(e) => setData({...data, name: e.target.value})} minLength={10}
+                                               className={'px-4 py-3 outline-0 border-none'} placeholder={"Họ và Tên"}/>
+                                        <input value={data.numberPhone}
+                                               onChange={(e) => setData({...data, numberPhone: e.target.value})}
+                                               className={'px-4 py-3 outline-0 border-none'} minLength={10}
+                                               maxLength={12} placeholder={"Số điện thoại"}/>
+                                        <textarea className={'h-[150px] px-4 py-3 outline-0 border-none'}
+                                                  placeholder={'Nội dung chi tiết...'}
+                                                  value={data.content}
+                                                  onChange={(e) => setData({...data, content: e.target.value})}
+                                        />
+                                        <div>
+                                            <button
+                                                className={'bg-black text-white px-4 py-2 hover:text-main transition-all duration-300'}>Gửi
+                                                ngay
+                                            </button>
+                                        </div>
+                                    </form>
+                                </Spin>
                             </div>
                         </div>
                     </div>

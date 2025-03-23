@@ -34,8 +34,13 @@ const initTrailer = {
     active : false,
     url : ''
 }
+interface Props {
+    film : Film,
+    bookRef : NodeJS.Timeout | null
+}
+const Description : React.FC<Props> = ( props ) => {
 
-const Description : React.FC<Film> = ( props ) => {
+    const {film} = props;
 
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const [isTrailer, setIsTrailer] = useState<Trailer>(initTrailer);
@@ -44,9 +49,13 @@ const Description : React.FC<Film> = ( props ) => {
     useEffect(() => {
         setIsTrailer({
             active : false,
-            url : props.trailer
+            url : film.trailer
             })
-    }, [props]);
+    }, [film]);
+
+    const handleBook = () => {
+        props.bookRef.current.scrollIntoView({ behavior: "smooth" });
+    }
 
     return(
         <>
@@ -54,22 +63,22 @@ const Description : React.FC<Film> = ( props ) => {
                 <div className={'container flex gap-6'}>
                     <div className={'w-2/5'}>
                         <img
-                            src={props.image || null}
+                            src={film.image || null}
                             alt={'icon'}
                             className={'w-full h-auto object-contain'}
                         />
                     </div>
                     <div className={'w-3/5 py-[20px] px-[40px]'}>
-                        <h3 className={'text-[36px] text-white font-bold'}>{props.name}</h3>
+                        <h3 className={'text-[36px] text-white font-bold'}>{film.name}</h3>
                         <div className={'gap-[10px] flex flex-col mt-[20px]'}>
                             {
-                                props.sub.length > 0 &&
+                                film.sub.length > 0 &&
                                 <>
                                     <div className={'flex gap-2'}>
                                         <div className={'text-main text-[18px]'}><PushpinOutlined/></div>
                                         <div className={'text-[18px]'}>
                                             {
-                                                props.sub.map( item => {
+                                                film.sub.map( item => {
                                                     return (
                                                         <div key={item.id}>
                                                             <p className={'text-white uppercase'}>{item.sub}</p>
@@ -82,46 +91,47 @@ const Description : React.FC<Film> = ( props ) => {
                                 </>
                             }
                             {
-                                props.duration &&
+                                film.duration &&
                                 <>
                                     <div className={'flex gap-2 items-center'}>
                                         <div className={'text-main text-[18px]'}><ClockCircleOutlined/></div>
-                                        <p className={'text-white text-[18px]'}>{props.duration}</p>
+                                        <p className={'text-white text-[18px]'}>{film.duration}</p>
                                     </div>
                                 </>
                             }
                             {
-                                props.nation &&
+                                film.nation &&
                                 <>
                                     <div className={'flex gap-2 items-center'}>
                                         <div className={'text-main text-[18px]'}><FaEarthAmericas/></div>
-                                        <p className={'text-white text-[18px]'}>{props.nation}</p>
+                                        <p className={'text-white text-[18px]'}>{film.nation}</p>
                                     </div>
                                 </>
                             }
                         </div>
                         {
-                            props.content &&
+                            film.content &&
                             <>
                                 <div className={'mt-[20px]'}>
                                     <h4 className={'text-[32px] font-bold text-main uppercase'}>Mô tả</h4>
-                                    <p className={'text-[16px] text-white'}>
-                                        {props.content}
-                                    </p>
+                                    <p className={'text-[16px] text-white'}
+                                       dangerouslySetInnerHTML={{__html : film.content}}
+                                    />
                                 </div>
                             </>
                         }
                         {
-                            props.description &&
+                            film.description &&
                             <>
                                 <div className={'mt-[20px]'}>
                                     <h4 className={'text-[32px] font-bold text-main uppercase'}>Nội dung</h4>
                                     <div>
-                                        <p className={'text-[16px] text-white'}>
-                                            {isExpanded ? props.description : props.description.length < limit ? props.description : props.description.substring(0, props.description.lastIndexOf(" ", limit)) + "..."}
-                                        </p>
+                                        <p
+                                            className="text-[16px] text-white"
+                                            dangerouslySetInnerHTML={{__html: isExpanded ? film.description : film.description.length < limit ? film.description : film.description.substring(0, film.description.lastIndexOf(" ", limit)) + "..."}}
+                                        />
                                         <div>
-                                            {props.description.length > limit && (
+                                            {film.description.length > limit && (
                                                 <span
                                                     className="text-main underline cursor-pointer"
                                                     onClick={() => setIsExpanded(!isExpanded)}
@@ -141,6 +151,7 @@ const Description : React.FC<Film> = ( props ) => {
                             </div>
                             <div
                                 className="relative flex justify-center overflow-hidden group rounded-xl border-2 border-main text-main cursor-pointer"
+                                onClick={()=>handleBook()}
                             >
                                 <span
                                     className="absolute inset-0 w-full h-full bg-main -left-full transition-all duration-500 ease-in-out group-hover:left-0"></span>

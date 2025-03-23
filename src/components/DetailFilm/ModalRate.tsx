@@ -184,25 +184,24 @@ const ModalRate : React.FC<Props> = (props) => {
                     {
                         data && data.comments.map( item => {
                             return (
-                                <>
-                                    <div
-                                        className={'flex justify-between items-center px-[40px] border-[1px] border-dashed border-textAdmin py-[10px]'}>
+                                <div
+                                    key={item.id}
+                                    className={'flex justify-between items-center px-[40px] border-[1px] border-dashed border-textAdmin py-[10px]'}>
+                                    <div>
                                         <div>
-                                            <div>
-                                                <Rate className={'text-xs'} value={5} disabled/>
-                                            </div>
-                                            <div>
-                                                <p className={'text-main text-[16px]'}>{item.content}</p>
-                                            </div>
-                                            <div>
-                                                <p className={'text-xs text-white'}>{item.timeStamp}</p>
-                                            </div>
+                                            <Rate className={'text-xs'} value={5} disabled/>
                                         </div>
                                         <div>
-                                            <p className={'text-border'}>{item.customer.name}</p>
+                                            <p className={'text-main text-[16px]'}>{item.content}</p>
+                                        </div>
+                                        <div>
+                                            <p className={'text-xs text-white'}>{item.timeStamp}</p>
                                         </div>
                                     </div>
-                                </>
+                                    <div>
+                                        <p className={'text-border'}>{item.customer.name}</p>
+                                    </div>
+                                </div>
                             )
                         })
                     }

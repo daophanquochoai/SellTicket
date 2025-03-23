@@ -458,7 +458,7 @@ const ShowTime : React.FC = () => {
                         onSelectSlot={handleSelectSlot} // Xử lý khi chọn ngày
                         selectable // Cho phép chọn ngày
                         style={{height: 500}}
-                        eventPropGetter={(event) => {
+                        eventPropGetter={() => {
                             // Hàm tạo màu ngẫu nhiên
                             const getRandomColor = () => {
                                 const letters = "0123456789ABCDEF";

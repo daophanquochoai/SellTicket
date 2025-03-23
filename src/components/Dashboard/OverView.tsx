@@ -42,7 +42,6 @@ const OverView : React.FC = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [loadingYear, setLoadingYear] = useState<boolean>(false);
-    const [loadingNum,setLoadingNum] = useState<boolean>(false);
     const [dataYear, setDataYear] = useState<Year[]>([]);
     const [selectYear, setSelectYear] = useState<string>('2025');
     const navigate = useNavigate();
@@ -128,9 +127,7 @@ const OverView : React.FC = () => {
             navigate('/dashboard/login')
             return;
         }
-        setLoadingNum(true);
         const response = await getNumCustomerAndEmployee(token);
-        setLoadingNum(false);
         if( response.status != 200 ){
             toast.warning(<p className={'w-full'}>Không thể tải dữ liệu biểu đồ</p>)
             return;
@@ -214,6 +211,7 @@ const OverView : React.FC = () => {
                                 defaultValue={selectYear}
                                 style={{width: 120}}
                                 options={dataYear}
+                                onChange={e=>setSelectYear(e)}
                             />
                         </Spin>
                     </div>

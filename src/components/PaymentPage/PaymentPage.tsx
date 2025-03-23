@@ -1,8 +1,9 @@
-import React, {lazy, useRef, useState} from "react";
+import React, {lazy, useEffect, useRef, useState} from "react";
 import {useCommonContext} from "../../context/CommonContext.tsx";
 import {toast} from "react-toastify";
 import {paymentBill} from "../../Helper/Helper.ts";
 import {Spin} from "antd";
+import {useNavigate} from "react-router-dom";
 
 const Step_2 = lazy(() => import("./Step_2.tsx"));
 const Step_3 = lazy(() => import("./Step_3.tsx"));
@@ -36,23 +37,28 @@ const PaymentPage : React.FC = () => {
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const [user, setUser] = useState<User>(initUser);
     const [loadingForm, setLoadingForm] = useState<boolean>(false);
+    const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     handleOClock();
-    // });
+    useEffect(() => {
+        handleOClock();
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
+    });
 
     const handleOClock = () => {
         intervalRef.current = setInterval(() => {
             setOClock((prev) => {
                 const min = parseInt(prev.minute, 10);
                 const sec = parseInt(prev.second, 10);
-
-                if (min === 0 && sec === 0) {
+                if(  min == 0 && sec == 0 ){
                     toast.warning(<p>Đã hết thời gian giữ chỗ</p>);
                     clearInterval(intervalRef.current!);
-                    return prev;
+                    navigate("/")
+                    return { minute: '05', second: '00'};
                 }
-
                 if (sec === 0) {
                     return { minute: (min - 1).toString().padStart(2, "0"), second: "59" };
                 } else {
@@ -60,12 +66,6 @@ const PaymentPage : React.FC = () => {
                 }
             });
         }, 1000);
-
-        return () => {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-            }
-        };
     }
     const handleSubmit = async (e) => {
          e.preventDefault();
@@ -82,8 +82,6 @@ const PaymentPage : React.FC = () => {
         if( bill == undefined ){
             toast.error(<p className={'w-full'}>Thanh toán thất bại</p>)
         }else{
-            console.log(bill.id == '');
-            console.log(bill.id);
             if( bill.id == '' ){
                 setLoadingForm(true);
                 const response = await paymentBill({...bill, userName : user.userName,email : user.email, numberPhone : user.phoneNumber, paymentMethodId : "1"});
@@ -104,7 +102,7 @@ const PaymentPage : React.FC = () => {
 
     return (
         <>
-            <div ref={intervalRef} className={'flex justify-center items-center mt-[60px]'}>
+            <div className={'flex justify-center items-center mt-[60px]'}>
                 <div className={'container'}>
                     <div className={'flex flex-col'}>
                         <div>
@@ -232,7 +230,7 @@ const PaymentPage : React.FC = () => {
                                                     <div className={'flex gap-4 items-center'}>
                                                         <p className={'text-white font-bold'}>Thời gian giữ vé :</p>
                                                         <div className={'bg-foreground px-2 py-1'}>
-                                                            <p className={'text-white font-bold'}>
+                                                            <p ref={intervalRef} className={'text-white font-bold'}>
                                                                 <span>{oclock.minute}</span>:<span>{oclock.second}</span>
                                                             </p>
                                                         </div>

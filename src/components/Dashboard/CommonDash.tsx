@@ -10,14 +10,13 @@ import {FaCalendarAlt, FaChartLine} from "react-icons/fa";
 import {BsPersonVideo2} from "react-icons/bs";
 import {PiFilmSlateDuotone} from "react-icons/pi";
 import {GiFilmSpool, GiTheater} from "react-icons/gi";
-import {MdOutlineRateReview} from "react-icons/md";
+import {MdConnectWithoutContact, MdOutlineRateReview} from "react-icons/md";
 import {BiSolidDish} from "react-icons/bi";
 import {FaMoneyBillTrendUp} from "react-icons/fa6";
 import {IoSettingsSharp} from "react-icons/io5";
 import {useCommonContext} from "../../context/CommonContext.tsx";
-import NavAdmin from "./NavAdmin.tsx";
-import Sub from "./Sub/Sub.tsx";
 
+const Setting = lazy(()=> import('./Setting/Setting.tsx'));
 const ShowTime = lazy(()=>import('./ShowTime/ShowTime.tsx'));
 const Bill = lazy(()=>import('./Bill/Bill.tsx'));
 const Dish = lazy(()=>import('./Dish/Dish.tsx'));
@@ -26,6 +25,9 @@ const OverView = lazy(() => import('./OverView.tsx'));
 const Staff = lazy(() => import('./Staff.tsx'));
 const Theater = lazy(() => import('./Theater.tsx'));
 const Rate = lazy(()=>import('./Rate/Rate.tsx'));
+const Sub = lazy(()=> import("./Sub/Sub.tsx"));
+const NavAdmin = lazy(()=>import("./NavAdmin.tsx"));
+const Contact = lazy(()=> import("./Contact/Contact.tsx"));
 
 const CommonDash : React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -107,6 +109,11 @@ const CommonDash : React.FC = () => {
                             },
                             {
                                 key: '10',
+                                icon: <MdConnectWithoutContact />,
+                                label: 'Hợp tác',
+                            },
+                            {
+                                key: '11',
                                 icon: <IoSettingsSharp />,
                                 label: 'Cài đặt',
                             },
@@ -131,7 +138,7 @@ const CommonDash : React.FC = () => {
                                 className="flex items-center justify-center gap-2 px-[20px]"
                                  >
                                 <img
-                                    src="/public/loading.png"
+                                    src="/loading.png"
                                     className="w-[40px] bg-red-500 p-2 rounded-full cursor-pointer"
                                 />
                                 <p className="text-[16px] hover:text-main cursor-pointer">
@@ -186,6 +193,14 @@ const CommonDash : React.FC = () => {
                         {
                             select[0] == '9' &&
                             <Rate />
+                        }
+                        {
+                            select[0] == '10' &&
+                            <Contact />
+                        }
+                        {
+                            select[0] == '11' &&
+                            <Setting />
                         }
                     </Content>
                 </Layout>

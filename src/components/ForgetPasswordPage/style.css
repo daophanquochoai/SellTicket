@@ -1,0 +1,6 @@
+.bg_forget{
+    background: url("/public/img.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

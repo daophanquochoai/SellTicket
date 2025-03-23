@@ -2,7 +2,7 @@ import React from "react";
 import {FaFacebook, FaYoutube} from "react-icons/fa";
 import {AiFillTikTok} from "react-icons/ai";
 import {useCommonContext} from "../../context/CommonContext.tsx";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {removeToken} from "../../Helper/Helper.ts";
 
 const Footer : React.FC = () => {
@@ -49,10 +49,11 @@ const Footer : React.FC = () => {
                                 </div>
                             </div>
                             <div className={'mt-[20px]'}>
-                                <button
+                                <Link
+                                    to={"/theater"}
                                     className={'bg-main text-white px-5 py-2 rounded-[10px] hover:bg-white hover:text-main border-2 border-main transition-all duration-300'}>Đặt
                                     vé ngay
-                                </button>
+                                </Link>
                             </div>
                         </div>
                         <div className={'flex-3 h-[40px] w-2/3'}>

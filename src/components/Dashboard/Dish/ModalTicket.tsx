@@ -1,5 +1,5 @@
 import {Modal} from "antd";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {createTicket, expireToken, getToken, updateTicket} from "../../../Helper/Helper.ts";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";

@@ -5,11 +5,11 @@ import {Outlet} from "react-router-dom";
 
 const ContainerPage : React.FC = () => {
     return(
-        <>
+        <div>
             <Header/>
             <Outlet />
             <Footer/>
-        </>
+        </div>
     )
 }
 export default ContainerPage;

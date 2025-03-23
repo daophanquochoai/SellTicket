@@ -2,7 +2,12 @@ import axios from "axios";
 import {env} from "./Contanst.ts";
 import Cookies from "js-cookie";
 
-export const handleLoginByUsernameAndPassword : (username : string, password : string) => Promise<any> = async (username, password) => {
+interface Response {
+    data : object,
+    status : number
+}
+
+export const handleLoginByUsernameAndPassword : (username : string, password : string) => Promise<Response> = async (username, password) => {
     try{
         const response = await axios.post(`${env.url.API_BASE_URL}/api/authenticate`,
             {
@@ -10,14 +15,67 @@ export const handleLoginByUsernameAndPassword : (username : string, password : s
                 password : password
             }
             );
+
         return response;
     }catch( e){
         return e;
     }
 }
 
+export const handleForgetPassword : ( email : string) => Promise<Response> = async (email) => {
+    try{
+        const response = await axios.post(`${env.url.API_BASE_URL}/user-service/api/customer/forget/customer?email=${email}`,
+            {
+            },
+            {
+            }
+        );
+
+        return response;
+    }catch( e){
+        return e;
+    }
+}
+export const handleAcceptOpt
+    : (opt : string, password : string, email : string) => Promise<Response>
+    = async (opt, password, email) => {
+    try{
+        console.log(password);
+        const response = await axios.post(`${env.url.API_BASE_URL}/user-service/api/customer/change/customer/${opt}/${email}`,
+             password ,
+            { headers: { "Content-Type": "application/json" } }
+        );
+        return response;
+    }catch( e){
+        return e;
+    }
+}
+
+export const createAccountEmployee
+    : ( name : string, email : string, cccd : string, username : string, token : string) => Promise<Response>
+    = async ( name, email, cccd, username, token) => {
+    try{
+        const response = await  axios.post(`${env.url.API_BASE_URL}/user-service/api/employment/add`,{
+            name : name,
+            email : email,
+            cccd : cccd,
+            userName : username,
+            password : '123456',
+            status : 'ACTIVE',
+
+        },{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
 export const handleSignUpByAccount :
-    (name : string, phoneNumber : string, email : string, username : string, password : string) => Promise<any> =  async ( name, phoneNumber, email, username,password) => {
+    (name : string, phoneNumber : string, email : string, username : string, password : string) => Promise<Response> =  async ( name, phoneNumber, email, username,password) => {
     try{
         const response = await axios.post(`${env.url.API_BASE_URL}/user-service/api/customer/add`, {
             name : name,
@@ -35,7 +93,7 @@ export const handleSignUpByAccount :
 }
 
 export const handleSlide :
-    (status : string) => Promise<any> = async ( status ) => {
+    (status : string) => Promise<Response> = async ( status ) => {
     try{
         const reponse = await axios.get(`${env.url.API_BASE_URL}/film-service/api/film/get/status/` + status)
         return reponse;
@@ -45,7 +103,7 @@ export const handleSlide :
 }
 
 export const fetchFilmById :
-    ( filmId : string) => Promise<any> = async ( filmId ) => {
+    ( filmId : string) => Promise<Response> = async ( filmId ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/film/` + filmId);
         return response;
@@ -55,7 +113,7 @@ export const fetchFilmById :
 }
 
 export const fetchComment :
-    ( filmId : string ) => Promise<any> = async ( filmId ) => {
+    ( filmId : string ) => Promise<Response> = async ( filmId ) => {
     try {
         const response = await axios.get(`${env.url.API_BASE_URL}/rate-service/api/rate/film/` + filmId + `?page=0&limit=3&asc=asc&orderBy=timeStamp&status=ACTIVE`)
         return response
@@ -64,7 +122,7 @@ export const fetchComment :
     }
 }
 export const fetchCommentByFull
-    : ( filmId : string,page : number, limit : number, asc : string, orderBy : string, q : string) => Promise<any>
+    : ( filmId : string,page : number, limit : number, asc : string, orderBy : string, q : string) => Promise<Response>
     = async ( filmId, page, limit, asc, orderBy, q ) => {
     try {
         const response = await axios.get(`${env.url.API_BASE_URL}/rate-service/api/rate/film/` + filmId + `?page=${page}&limit=${limit}&asc=${asc}&status=ACTIVE&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`)
@@ -75,7 +133,7 @@ export const fetchCommentByFull
 }
 // ----------------- room ---------------
 export const fetchTheater :
-    () => Promise<any> = async () => {
+    () => Promise<Response> = async () => {
     try {
         const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/branch/all`);
         return response;
@@ -84,7 +142,7 @@ export const fetchTheater :
     }
 }
 export const fetchRoomAll :
-    () => Promise<any> = async () => {
+    () => Promise<Response> = async () => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/room/all`);
         return response;
@@ -93,7 +151,7 @@ export const fetchRoomAll :
     }
 }
 export const fetchFilmShow :
-    (branchId : string, subId : string, filmId : string, time : string) => Promise<any> = async ( branchId, subId, filmId, time) => {
+    (branchId : string, subId : string, filmId : string, time : string) => Promise<Response> = async ( branchId, subId, filmId, time) => {
     try{
         const response = await axios.get(`${env.url.API_BASE_URL}/filmshowtime-service/api/filmshowtime/get/` + branchId + `/` + time + `/` + filmId + `/` + subId);
         return response;
@@ -103,7 +161,7 @@ export const fetchFilmShow :
 }
 
 export const fetchFilmShowByRoomAndTime
-    : (roomId : string , time : string)  => Promise<any>
+    : (roomId : string , time : string)  => Promise<Response>
     = async (roomId, time) => {
     try{
         const response = await axios.get(`${env.url.API_BASE_URL}/filmshowtime-service/api/filmshowtime/${roomId}/all?date=${time}`);
@@ -112,8 +170,17 @@ export const fetchFilmShowByRoomAndTime
         return e;
     }
 }
+export const fetchTicketByActive :
+    () => Promise<Response> = async () => {
+    try{
+        const response = await axios.get(`${env.url.API_BASE_URL}/payment-service/api/ticket/get/active`)
+        return response;
+    }catch ( e){
+        return e;
+    }
+}
 export const fetchTicket :
-    () => Promise<any> = async () => {
+    () => Promise<Response> = async () => {
     try{
         const response = await axios.get(`${env.url.API_BASE_URL}/payment-service/api/ticket/all?limit=100&page=0&active=none&orderBy=price&asc=asc`)
         return response;
@@ -122,8 +189,9 @@ export const fetchTicket :
     }
 }
 
+
 export const fetchRoomById :
-    (id : string) => Promise<any> = async (id) =>
+    (id : string) => Promise<Response> = async (id) =>
 {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/room/` + id);
@@ -134,7 +202,7 @@ export const fetchRoomById :
 }
 
 export const fetchRoomBooked :
-    (id : number) => Promise<any> = async (id) => {
+    (id : number) => Promise<Response> = async (id) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/payment-service/api/billchair/` + id);
         return response;
@@ -145,7 +213,7 @@ export const fetchRoomBooked :
 
 // ------------------- subfilm -----------------
 export const fetchSubFilmAll :
-    () => Promise<any> = async () => {
+    () => Promise<Response> = async () => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/subfilm/get/all`);
         return response;
@@ -154,7 +222,7 @@ export const fetchSubFilmAll :
     }
 }
 
-export const fetchDish : () => Promise<any> = async () => {
+export const fetchDish : () => Promise<Response> = async () => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/dish-service/api/typedish/all`);
         return response;
@@ -163,7 +231,7 @@ export const fetchDish : () => Promise<any> = async () => {
     }
 }
 
-export const fetchBranch : () => Promise<any> = async () => {
+export const fetchBranch : () => Promise<Response> = async () => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/branch/all`);
         return response;
@@ -172,7 +240,7 @@ export const fetchBranch : () => Promise<any> = async () => {
     }
 }
 
-export const fetchFilmAll : () => Promise<any> = async () => {
+export const fetchFilmAll : () => Promise<Response> = async () => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/film/all`);
         return response;
@@ -183,7 +251,7 @@ export const fetchFilmAll : () => Promise<any> = async () => {
 
 // ---------------- show time ------------
 export const addShowTime
-    : (timeStart : string, timeEnd : string, timestamp : string, subFilmId : string, roomId : string, token : string) => Promise<any>
+    : (timeStart : string, timeEnd : string, timestamp : string, subFilmId : string, roomId : string, token : string) => Promise<Response>
     = async ( timeStart, timeEnd, timestamp, subFilmId, roomId, token) => {
     try{
     const response = await  axios.post(`${env.url.API_BASE_URL}/filmshowtime-service/api/filmshowtime/add`,{
@@ -204,7 +272,7 @@ export const addShowTime
     }
 }
 export const deleteShowTime
-    : (filmShowId : string, token : string) => Promise<any>
+    : (filmShowId : string, token : string) => Promise<Response>
     = async ( filmShowId, token) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/filmshowtime-service/api/filmshowtime/delete/${filmShowId}`,{},{
@@ -273,7 +341,7 @@ interface TypeDishDto{
 }
 
 export const paymentBill :
-    (bill : BillDto) => Promise<any>
+    (bill : BillDto) => Promise<Response>
     = async ( bill ) => {
     try{
         const response = await  axios.post(`${env.url.API_BASE_URL}/payment-service/api/bill/add`,{
@@ -286,7 +354,7 @@ export const paymentBill :
 }
 
 export const updateAccountCustomer
-    : (name : string,email : string, phone : string, id : string, token : string) => Promise<any>
+    : (name : string,email : string, phone : string, id : string, token : string) => Promise<Response>
     = async ( name, email, phone, id, token) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/user-service/api/customer/update/` + id,{
@@ -305,7 +373,7 @@ export const updateAccountCustomer
 }
 
 export const updatePassword :
-    (passwordNew : string, id : string, token : string) => Promise<any>
+    (passwordNew : string, id : string, token : string) => Promise<Response>
     = async ( passwordNew, id, token ) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/user-service/api/customer/update/password/` + id,{
@@ -322,7 +390,7 @@ export const updatePassword :
 }
 
 export const getReport
-    : ( year : string, token : string) => Promise<any>
+    : ( year : string, token : string) => Promise<Response>
     = async ( year, token ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/payment-service/api/report/year/` + year,{
@@ -337,7 +405,7 @@ export const getReport
 }
 
 export const getYearForBill
-    : ( token : string) => Promise<any>
+    : ( token : string) => Promise<Response>
     = async ( token ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/payment-service/api/report/year`,{
@@ -352,7 +420,7 @@ export const getYearForBill
 }
 
 export const getNumCustomerAndEmployee
-    : ( token : string) => Promise<any>
+    : ( token : string) => Promise<Response>
     = async ( token ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/user-service/api/account/num`,{
@@ -366,9 +434,9 @@ export const getNumCustomerAndEmployee
     }
 }
 
-// get employee
+//  ------------------------------- get employe ---------------------
 export  const getEmployee
-    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<any>
+    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<Response>
 = async ( page, limit, asc, status, orderBy, q, token  ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/user-service/api/employment/get/employee?page=${page}&limit=${limit}&asc=${asc}&status=${status}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`,{
@@ -382,8 +450,24 @@ export  const getEmployee
     }
 }
 
+export const resetEmployee
+    : (id : string, token : string ) => Promise<any>
+    = async (id, token) => {
+    try{
+        const response = await  axios.put(`${env.url.API_BASE_URL}/user-service/api/employment/reset/${id}`,{},{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+//---------------------------------- film -------------------------
 export const getFilm
-    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<any>
+    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<Response>
     = async ( page, limit, asc, status, orderBy, q, token  ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/film/get/custom?page=${page}&limit=${limit}&asc=${asc}&status=${status}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`,{
@@ -398,7 +482,7 @@ export const getFilm
 }
 
 export const getSub
-    : () => Promise<any>
+    : () => Promise<Response>
     = async ( ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/sub/all`);
@@ -409,7 +493,7 @@ export const getSub
 }
 
 export const getTypeFilm
-    : () => Promise<any>
+    : () => Promise<Response>
     = async ( ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/typefilm/get/all`);
@@ -445,7 +529,7 @@ interface TypeFilm {
 }
 
 export const createFilm
-    : (film : Film, token : string) => Promise<any>
+    : (film : Film, token : string) => Promise<Response>
     = async ( film , token) => {
     try{
         const response = await  axios.post(`${env.url.API_BASE_URL}/film-service/api/film/add`,{
@@ -462,7 +546,7 @@ export const createFilm
 }
 
 export const updateFilm
-    : (film : Film, token : string) => Promise<any>
+    : (film : Film, token : string) => Promise<Response>
     = async ( film , token) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/film-service/api/film/update/` + film.id,{
@@ -479,7 +563,7 @@ export const updateFilm
 }
 // Branch
 export const getBranch
-    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<any>
+    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<Response>
     = async ( page, limit, asc, status, orderBy, q, token  ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/branch/get/branch?page=${page}&limit=${limit}&asc=${asc}&status=${status}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`,{
@@ -493,7 +577,7 @@ export const getBranch
     }
 }
 export const getRoomByBranchId
-    : ( branchId : string) => Promise<any>
+    : ( branchId : string) => Promise<Response>
     = async ( branchId ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/room-service/api/room/get/branch/${branchId}`);
@@ -503,7 +587,7 @@ export const getRoomByBranchId
     }
 }
 export const updateBranch
-    : ( branch : Branch, token : string) => Promise<any>
+    : ( branch : Branch, token : string) => Promise<Response>
     = async ( branch, token ) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/room-service/api/branch/update/${branch.id}`,{
@@ -532,7 +616,7 @@ interface Room{
     status : string
 }
 export const updateRoom
-    : ( room : Room, token : string) => Promise<any>
+    : ( room : Room, token : string) => Promise<Response>
     = async ( room, token ) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/room-service/api/room/update/${room.id}`,{
@@ -558,7 +642,7 @@ interface Branch {
     status : string
 }
 export const createBranch
-    : ( branch : Branch, token : string) => Promise<any>
+    : ( branch : Branch, token : string) => Promise<Response>
     = async ( branch , token) => {
     try{
         const response = await  axios.post(`${env.url.API_BASE_URL}/room-service/api/branch/add`,{
@@ -576,7 +660,7 @@ export const createBranch
 
 //-------------------------- fetch dish ------------------------------
 export const getTypeFilmByCustom
-    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<any>
+    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<Response>
     = async ( page, limit, asc, status, orderBy, q, token  ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/dish-service/api/typedish/get?page=${page}&limit=${limit}&asc=${asc}&status=${status}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`,{
@@ -590,7 +674,7 @@ export const getTypeFilmByCustom
     }
 }
 export const updateDish
-    : (id : string,price : number, active : string, name : string, image : string, typeDishId : string, token : string) => Promise<any>
+    : (id : string,price : number, active : string, name : string, image : string, typeDishId : string, token : string) => Promise<Response>
     = async (id, price, active, name, image, typeDishId, token) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/dish-service/api/dish/update/${id}`,{
@@ -611,7 +695,7 @@ export const updateDish
     }
 }
 export const createDish
-    : (id : string,price : number, active : string, name : string, image : string, typeDishId : string, token : string) => Promise<any>
+    : (id : string,price : number, active : string, name : string, image : string, typeDishId : string, token : string) => Promise<Response>
     = async (id, price, active, name, image, typeDishId, token) => {
     try{
         const response = await  axios.post(`${env.url.API_BASE_URL}/dish-service/api/dish/add`,{
@@ -632,7 +716,7 @@ export const createDish
     }
 }
 export const updateTypeDish
-    : (id : string, active : string, name : string, token : string) => Promise<any>
+    : (id : string, active : string, name : string, token : string) => Promise<Response>
     = async (id, active, name, token) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/dish-service/api/typedish/update/${id}`,{
@@ -652,7 +736,7 @@ export const updateTypeDish
 
 // ------------------- ticket ---------------------------------------------\
 export const getTicketByCustom
-    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<any>
+    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<Response>
     = async ( page, limit, asc, status, orderBy, q, token  ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/payment-service/api/ticket/all?page=${page}&limit=${limit}&asc=${asc}&status=${status}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`,{
@@ -667,7 +751,7 @@ export const getTicketByCustom
 }
 
 export const updateTicket
-    : (id : string, active : string, conditionUse : string, name : string, price : string, typeTicket : string, slot : string , token : string) => Promise<any>
+    : (id : string, active : string, conditionUse : string, name : string, price : string, typeTicket : string, slot : string , token : string) => Promise<Response>
     = async (id, active, conditionUse, name, price,typeTicket,slot,token) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/payment-service/api/ticket/update/${id}`,{
@@ -690,8 +774,8 @@ export const updateTicket
 }
 
 export const createTicket
-    : (id : string, active : string, conditionUse : string, name : string, price : string, typeTicket : string, slot : string , token : string) => Promise<any>
-    = async (id, active, conditionUse, name, price,typeTicket,slot,token) => {
+    : ( active : string, conditionUse : string, name : string, price : string, typeTicket : string, slot : string , token : string) => Promise<Response>
+    = async ( active, conditionUse, name, price,typeTicket,slot,token) => {
     try{
         const response = await  axios.post(`${env.url.API_BASE_URL}/payment-service/api/ticket/add`,{
             active : active,
@@ -713,7 +797,7 @@ export const createTicket
 
 // --------------- bill ------------------
 export const getBillByCustom
-    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<any>
+    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<Response>
     = async ( page, limit, asc, status, orderBy, q, token  ) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/payment-service/api/bill/custom?page=${page}&limit=${limit}&asc=${asc}&status=${status}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`,{
@@ -730,7 +814,7 @@ export const getBillByCustom
 
 // -------------- employee --------
 export const updateEmploye
-    : ( name : string , email : string , pass : string, cccd : string, id : string , token : string) => Promise<any>
+    : ( name : string , email : string , pass : string, cccd : string, id : string , token : string) => Promise<Response>
     = async (name, email, pass, cccd, id , token ) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/user-service/api/employment/update/${id}`,{
@@ -751,7 +835,7 @@ export const updateEmploye
 
 // --------------- rate ------------------
 export const getRateCustom
-    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<any>
+    : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<Response>
     = async (page, limit,asc,status,orderBy,q,token) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/rate-service/api/rate/get/rate?page=${page}&limit=${limit}&asc=${asc}&status=${status}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`,{
@@ -765,7 +849,7 @@ export const getRateCustom
     }
 }
 export const deleteRate
-    : (id : string, token : string) => Promise<any>
+    : (id : string, token : string) => Promise<Response>
     = async (id, token) => {
     try{
         console.log(token);
@@ -780,7 +864,7 @@ export const deleteRate
     }
 }
 export const activeRate
-    : (id : string, token : string) => Promise<any>
+    : (id : string, token : string) => Promise<Response>
     = async (id, token) => {
     try{
         console.log(token);
@@ -795,7 +879,7 @@ export const activeRate
     }
 }
 export const uploadComment
-    :(star : number, content : string, customerId : string, filmId : string, token : string) => Promise<any>
+    :(star : number, content : string, customerId : string, filmId : string, token : string) => Promise<Response>
     = async (star, content,customerId,filmId, token) => {
     try{
         const response = await  axios.post(`${env.url.API_BASE_URL}/rate-service/api/rate/add/${customerId}/${filmId}`,{
@@ -818,7 +902,7 @@ export const uploadComment
 
 // ---------------- sub -----------------------------
 export const getSubCustom
-    : (page : number, limit : number, asc : string, orderBy : string, q : string) => Promise<any>
+    : (page : number, limit : number, asc : string, orderBy : string, q : string) => Promise<Response>
     = async (page, limit,asc,orderBy,q) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/sub/custom?page=${page}&limit=${limit}&asc=${asc}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`);
@@ -828,7 +912,7 @@ export const getSubCustom
     }
 }
 export const deleteSubById
-    : (id : string, token : string) => Promise<any>
+    : (id : string, token : string) => Promise<Response>
     = async (id, token) => {
     try{
         const response = await  axios.delete(`${env.url.API_BASE_URL}/film-service/api/sub/delete/${id}`,{
@@ -843,7 +927,7 @@ export const deleteSubById
 }
 
 export const createSub
-    : (name : string, token : string) => Promise<any>
+    : (name : string, token : string) => Promise<Response>
     = async (name, token) => {
     try{
         const response = await  axios.post(`${env.url.API_BASE_URL}/film-service/api/sub/add`, {
@@ -860,7 +944,7 @@ export const createSub
     }
 }
 export const updateSub
-    : (id : string,name : string, token : string) => Promise<any>
+    : (id : string,name : string, token : string) => Promise<Response>
     = async (id,name, token) => {
     try{
         const response = await  axios.put(`${env.url.API_BASE_URL}/film-service/api/sub/update/${id}`, {
@@ -877,7 +961,7 @@ export const updateSub
     }
 }
 export const getSubFilmCustom
-    : (subId : string, page : number, limit : string, asc : string,  token : string) => Promise<any>
+    : (subId : string, page : number, limit : string, asc : string,  token : string) => Promise<Response>
     = async (subId, page, limit, asc, token) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/subfilm/get/sub/${subId}?page=${page}&limit=${limit}&asc=${asc}`,{
@@ -891,7 +975,7 @@ export const getSubFilmCustom
     }
 }
 export const getFilmNotInSub
-    : (subId : string) => Promise<any>
+    : (subId : string) => Promise<Response>
     = async (subId) => {
     try{
         const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/film/get/sub/${subId}`);
@@ -901,7 +985,7 @@ export const getFilmNotInSub
     }
 }
 export const addFilmIntoSub
-    : (subId : string, filmId : string, token : string) => Promise<any>
+    : (subId : string, filmId : string, token : string) => Promise<Response>
     = async (subId, filmId, token) => {
     try{
         const response = await  axios.post(`${env.url.API_BASE_URL}/film-service/api/subfilm/add`,{
@@ -918,7 +1002,7 @@ export const addFilmIntoSub
     }
 }
 export const deleteSubFilm
-    : (filmId : string,subId : string, token : string ) => Promise<any>
+    : (filmId : string,subId : string, token : string ) => Promise<Response>
     = async (filmId, subId,token) => {
     try{
         const response = await  axios.delete(`${env.url.API_BASE_URL}/film-service/api/subfilm/delete/${filmId}/${subId}`,{
@@ -967,5 +1051,86 @@ export const expireToken = ( token : string ) =>{
         return true;
     } else {
         return false;
+    }
+}
+
+// ----------------- slider ----------------------------
+export const getSlider
+    : () => Promise<any>
+    = async () => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/slider/get`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const uploadSlider
+    : (name : string,image : string, token : string) => Promise<any>
+    = async (name,image, token) => {
+    try{
+        const response = await  axios.post(`${env.url.API_BASE_URL}/film-service/api/slider/add/slider`,
+            {
+                name : name,
+                image : image
+            }, {
+                headers : {
+                    Authorization : 'Bearer ' + token
+                }
+            });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const removeSlider
+    : (uid : string, token) => Promise<any>
+    = async (uid, token) => {
+    try{
+        const response = await  axios.delete(`${env.url.API_BASE_URL}/film-service/api/slider/remove/${uid}`,
+            {
+                headers : {
+                    Authorization : 'Bearer ' + token
+                }
+            });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+// -------------- contact -------------
+export const addContact
+    : (name : string, numberPhone : string, content : string) => Promise<any>
+    = async (name, numberPhone, content) => {
+    try{
+        const response = await  axios.post(`${env.url.API_BASE_URL}/user-service/api/contact/add`
+        ,{
+            id: '',
+            name : name,
+            numberPhone : numberPhone,
+            content : content,
+            status : "ACTIVE",
+            timestamp : new Date().toISOString()
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const getAllContact
+    : (page : number, limit : string, q: string, asc : string , orderBy : string, status : string, token : string) => Promise<any>
+    = async (page,limit,q,asc,orderBy,status,token) => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/user-service/api/contact/get/contact?page=${page}&limit=${limit}&asc=${asc}&orderBy=${orderBy}&status=${status}` + `${q == '' ? '' : '&q=' + q}`
+        ,  {
+                headers : {
+                    Authorization : 'Bearer ' + token
+                }
+            }
+        );
+        return response;
+    }catch (e){
+        return e;
     }
 }

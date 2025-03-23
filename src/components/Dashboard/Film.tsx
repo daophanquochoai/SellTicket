@@ -125,9 +125,9 @@ const columns = [
             if (!text) return <p className="text-gray-400">Không có miêu tả</p>; // ✅ Xử lý khi text bị null hoặc undefined
 
             return (
-                <p title={text}>
-                    {text.length > 50 ? text.slice(0, 50) + '...' : text}
-                </p>
+                <p title={text}
+                   dangerouslySetInnerHTML={{ __html: text.length > 50 ? text.slice(0, 50) + '...' : text }}
+                />
             );
         }
     },
@@ -139,9 +139,9 @@ const columns = [
             if (!text) return <p className="text-gray-400">Không có miêu tả</p>; // ✅ Xử lý khi text bị null hoặc undefined
 
             return (
-                <p title={text}>
-                    {text.length > 50 ? text.slice(0, 50) + '...' : text}
-                </p>
+                <p title={text}
+                   dangerouslySetInnerHTML={{ __html: text.length > 50 ? text.slice(0, 50) + '...' : text }}
+                />
             );
         }
     },
@@ -448,8 +448,8 @@ const Film : React.FC = () => {
         action: 'http://localhost:8080/upload',
         maxCount : 1,
         onChange(info) {
-            if (info.file.status !== 'uploading') {
-            }
+            // if (info.file.status !== 'uploading') {
+            // }
             if (info.file.status === 'done') {
                 setDataModel({
                     ...dataModal,

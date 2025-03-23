@@ -16,6 +16,7 @@ const Intro = lazy(() => import('./components/Intro/Intro.tsx'));
 const CommonDash = lazy(() => import('./components/Dashboard/CommonDash.tsx'));
 const SecurContainer = lazy(() => import('./components/Dashboard/SecurContainer.tsx'));
 const LoginAdmin = lazy(() => import('./components/LoginAdmin/LoginAdmin.tsx'));
+const OPT = lazy(()=> import('./components/ForgetPasswordPage/OPT.tsx'));
 
 const routes  = [
     {
@@ -39,6 +40,14 @@ const routes  = [
         element: (
             <Suspense fallback={<LoadingPage />}>
                 <ForgetPasswordPage />
+            </Suspense>
+        )
+    },
+    {
+        path: "/opt",
+        element: (
+            <Suspense fallback={<LoadingPage />}>
+                <OPT />
             </Suspense>
         )
     },

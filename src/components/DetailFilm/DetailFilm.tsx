@@ -173,13 +173,8 @@ const DetailFilm : React.FC = () => {
     //usecontext
     const {bill, setBill} = useCommonContext();
     const [loadingAgain, setLoadingAgain] = useState<boolean>(false);
-
-    const handleInit = () => {
-        setStep(0);
-        setTime("");
-        setOClock(initTime);
-        setRunOClock(false);
-    }
+    //ref
+    const bookTicketRef = useRef<NodeJS.Timeout | null>(null);
 
 
     useEffect(() => {
@@ -217,6 +212,11 @@ const DetailFilm : React.FC = () => {
         if( runOClock ) {
             handleOClock();
         }
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
     }, [runOClock]);
 
     useEffect(() => {
@@ -249,7 +249,6 @@ const DetailFilm : React.FC = () => {
             }else
                 return item;
         })
-        console.log(temp);
         setTicketSlot(temp);
     }
 
@@ -273,14 +272,15 @@ const DetailFilm : React.FC = () => {
             setOClock((prev) => {
                 const min = parseInt(prev.minute, 10);
                 const sec = parseInt(prev.second, 10);
-
-                if (min === 0 && sec === 0) {
+                if(  min == 0 && sec == 0 ){
+                    console.log("return")
                     toast.warning(<p>Đã hết thời gian giữ chỗ</p>);
-                    handleInit();
                     clearInterval(intervalRef.current!);
-                    return prev;
+                    setStep(0);
+                    setTime("");
+                    setRunOClock(false);
+                    return { minute: '05', second: '00'};
                 }
-
                 if (sec === 0) {
                     return { minute: (min - 1).toString().padStart(2, "0"), second: "59" };
                 } else {
@@ -289,11 +289,6 @@ const DetailFilm : React.FC = () => {
             });
         }, 1000);
 
-        return () => {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-            }
-        };
     }
 
     const handlePayment = () => {
@@ -371,9 +366,9 @@ const DetailFilm : React.FC = () => {
                     <LoadingPage />
                     :
                     <>
-                        <Description {...film}/>
+                        <Description film={film} bookRef={bookTicketRef}/>
                         <RatePage />
-                        <BookTicket setStep={setStep} setTime={setTime}/>
+                        <BookTicket setStep={setStep} setTime={setTime} bookRef={bookTicketRef}/>
                         {
                             step >= 2 &&
                             <MovieTheater

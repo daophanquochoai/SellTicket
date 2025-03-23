@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {FaMinus, FaPlus} from "react-icons/fa";
-import {fetchRoomBooked, fetchRoomById, fetchTicket} from "../../Helper/Helper.ts";
+import {fetchRoomBooked, fetchRoomById, fetchTicket, fetchTicketByActive} from "../../Helper/Helper.ts";
 import {Spin} from "antd";
 import {toast} from "react-toastify";
 
@@ -104,7 +104,7 @@ const ChooseChair : React.FC<Props> = ( props ) => {
     //fetch du lieu ve
     const handleFetchTicket = async () => {
         setLoadingTicket(true);
-        const response = await fetchTicket();
+        const response = await fetchTicketByActive();
         setLoadingTicket(false);
         if( response.status !== 200  ){
             toast.error(<p>Không thể tài vé phim</p>);
@@ -178,7 +178,7 @@ const ChooseChair : React.FC<Props> = ( props ) => {
                             <Spin tip={"Đang tải..."} spinning={loadingTicket} size={"default"}>
                                 <div className={'grid grid-cols-3 gap-4 mt-[40px]'}>
                                     {
-                                        ticket.map( (item, index) => {
+                                        ticket && ticket.map( (item, index) => {
                                             const countFind = ticketSlot.find(i=>i.id === item.id);
                                             const valueCount = countFind === undefined ? 0 : countFind.count;
                                             return (

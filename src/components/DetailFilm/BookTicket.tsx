@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {useLocation, useParams} from "react-router-dom";
 
 interface Time {
     date : string,
@@ -7,7 +6,8 @@ interface Time {
 }
 interface Props {
     setStep : ( arg : number ) => void,
-    setTime : (arg : string) => void
+    setTime : (arg : string) => void,
+    bookRef : NodeJS.Timeout | null
 }
 
 const BookTicket : React.FC<Props> = (props) => {
@@ -49,10 +49,10 @@ const BookTicket : React.FC<Props> = (props) => {
         const list:Time[] = [];
 
         for (let i = 0; i < 4; i++) {
-            let nextDay = new Date();
+            const nextDay = new Date();
             nextDay.setDate(today.getDate() + i);
-            let dayOfWeek = nextDay.toLocaleDateString('vi-VN', { weekday: 'long' });
-            let dayMonth = nextDay.toLocaleDateString('vi-VN', { day: 'numeric', month: 'numeric', year :'numeric' });
+            const dayOfWeek = nextDay.toLocaleDateString('vi-VN', { weekday: 'long' });
+            const dayMonth = nextDay.toLocaleDateString('vi-VN', { day: 'numeric', month: 'numeric', year :'numeric' });
             list[i] = {
                 date : dayMonth,
                 dateString : dayOfWeek
@@ -71,7 +71,7 @@ const BookTicket : React.FC<Props> = (props) => {
 
     return(
         <>
-            <div className={'flex justify-center items-center mt-[60px]'}>
+            <div ref={props.bookRef} className={'flex justify-center items-center mt-[60px]'}>
                 <div className={'container'}>
                     <div className={'flex items-center justify-center'}>
                         <p className={'text-white uppercase text-3xl font-bold'}>Lịch Chiếu</p>

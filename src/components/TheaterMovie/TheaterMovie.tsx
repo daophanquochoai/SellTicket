@@ -77,10 +77,10 @@ const TheaterMovie : React.FC = () => {
         const list:Time[] = [];
 
         for (let i = 0; i < 4; i++) {
-            let nextDay = new Date();
+            const nextDay = new Date();
             nextDay.setDate(today.getDate() + i);
             let dayOfWeek = nextDay.toLocaleDateString('vi-VN', { weekday: 'long' });
-            let dayMonth = nextDay.toLocaleDateString('vi-VN', { day: 'numeric', month: 'numeric', year :'numeric' });
+            const dayMonth = nextDay.toLocaleDateString('vi-VN', { day: 'numeric', month: 'numeric', year :'numeric' });
             const [day, month, year] = dayMonth.split("/");
             const formattedDate = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
             if( i === 0 ) dayOfWeek = "Hôm nay"

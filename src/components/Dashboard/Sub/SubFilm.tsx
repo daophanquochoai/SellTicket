@@ -45,20 +45,6 @@ const initCustom : Custom = {
     pageCurrent : 1,
     totalPage : 1
 }
-const initFilm : Film = {
-    id : '',
-    name : '',
-    age : 0,
-    image : '',
-    sub : '',
-    nation : '',
-    duration : '',
-    description : '',
-    content : '',
-    trailer : '',
-    typeFilms : '',
-    status : ''
-}
 const columns = [
     {
         title: 'ID',
@@ -135,8 +121,8 @@ const SubFilm : React.FC<Props> = (props) => {
     }
 
     const handleAddFilmInSub = async () => {
-        const token : string = getToken();
-        if( expireToken(token)){
+        const token : string | undefined = getToken();
+        if(  token == undefined || expireToken(token)){
             toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
             navigate('/dashboard/login')
             return;

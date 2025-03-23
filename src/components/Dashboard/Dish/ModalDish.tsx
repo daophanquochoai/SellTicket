@@ -220,8 +220,8 @@ const ModalDish : React.FC<Props> = ( props ) => {
         action: 'http://localhost:8080/upload',
         maxCount : 1,
         onChange(info) {
-            if (info.file.status !== 'uploading') {
-            }
+            // if (info.file.status !== 'uploading') {
+            // }
             if (info.file.status === 'done') {
                 setDishSelected({
                     ...dishSelected,

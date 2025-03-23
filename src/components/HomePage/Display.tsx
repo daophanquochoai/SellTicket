@@ -95,6 +95,7 @@ const Display : React.FC<Props> = ({title,active}) => {
                             640: { slidesPerView: 2, spaceBetween: 20 }, // >= 640px: 2 slides
                             768: { slidesPerView: 3, spaceBetween: 20 }, // >= 768px: 3 slides
                             1024: { slidesPerView: 4, spaceBetween: 30 }, // >= 1024px: 4 slides
+                            1536 : { slidesPerView: 5, spaceBetween: 30 },
                         }}
                         >
                         {

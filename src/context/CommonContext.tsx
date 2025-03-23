@@ -120,7 +120,7 @@ const CommonProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [bill, setBill] = useState<BillDto>(initBill);
 
     useEffect(() => {
-        const token : string = getToken();
+        const token : string|undefined = getToken() ;
         if( token != undefined ){
             const user : User = parseJwt(token);
             setInfo(user);

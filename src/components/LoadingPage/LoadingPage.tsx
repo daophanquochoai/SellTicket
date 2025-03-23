@@ -7,7 +7,7 @@ const LoadingPage : React.FC = () => {
     return <>
         <div className={'flex w-full h-dvh items-center justify-center'}>
             <div className={'flex flex-col items-center'}>
-                <img src={'/public/loading.png'} className={'w-[70px] h-[70px] animate-iconAni'}/>
+                <img src={'/loading.png'} className={'w-[70px] h-[70px] animate-iconAni'}/>
                 <p className="text-main text-xl flex space-x-1">
                     {text.map((char, index) => (
                         <motion.span

@@ -1,6 +1,7 @@
-import {Outlet, useNavigate} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import React, {lazy, useEffect, useState} from "react";
 import {getToken, parseJwt} from "../../Helper/Helper.ts";
+import {useCommonContext} from "../../context/CommonContext.tsx";
 
 const LoginAdmin = lazy(() => import('../LoginAdmin/LoginAdmin.tsx'));
 
@@ -16,16 +17,15 @@ interface User {
 
 const SecurContainer: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
-    const navigate = useNavigate();
+    const {isLogin} = useCommonContext();
     const data: string | undefined = getToken();
 
     useEffect(() => {
         if (data !== undefined) {
             const parsedUser = parseJwt(data);
             setUser(parsedUser);
-            console.log(parsedUser);
         }
-    }, [data]);
+    }, [data, isLogin]);
 
     if (!data) {
         return <LoginAdmin />;

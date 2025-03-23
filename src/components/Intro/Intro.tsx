@@ -6,8 +6,8 @@ const Intro : React.FC = () => {
             <div className={'flex justify-center items-center mt-[40px]'}>
                 <div className={'container'}>
                     <div>
-                        <div className={'relative bg-url("/public/intro.png")'}>
-                            <img src={'/public/intro.png'} className={'w-full h-full'}/>
+                        <div className={'relative bg-url("/intro.png")'}>
+                            <img src={'/intro.png'} className={'w-full h-full'}/>
                             <div className={'bg-border absolute bottom-0 w-full h-full opacity-70 z-[5] flex flex-col justify-center items-center px-[40px]'}>
                              </div>
                             <div className={'absolute top-0 left-0 z-[6] flex justify-center items-center flex-col h-full'}>
@@ -45,12 +45,12 @@ const Intro : React.FC = () => {
                                         </div>
                                     </div>
                                     <div className={'flex-1'}>
-                                        <img src={'/public/sk_1.png'} className={'w-full'}/>
+                                        <img src={'/sk_1.png'} className={'w-full'}/>
                                     </div>
                                 </div>
                                 <div className={'flex items-center'}>
                                     <div className={'flex-1'}>
-                                        <img src={'/public/sk_2.png'} className={'w-full'}/>
+                                        <img src={'/sk_2.png'} className={'w-full'}/>
                                     </div>
                                     <div className={'w-1/2 flex flex-col text-start gap-4 px-[40px]'}>
                                         <h5 className={'text-textCol text-2xl font-bold uppercase'}>Ra Mắt Chương Trình, Họp Nôị Bộ, Music Video, Ra
@@ -90,7 +90,7 @@ const Intro : React.FC = () => {
                                         </div>
                                     </div>
                                     <div className={'flex-1'}>
-                                        <img src={'/public/sk_3.png'} className={'w-full'}/>
+                                        <img src={'/sk_3.png'} className={'w-full'}/>
                                     </div>
                                 </div>
                             </div>

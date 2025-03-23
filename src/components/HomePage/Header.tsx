@@ -1,21 +1,11 @@
 import {useCommonContext} from "../../context/CommonContext.tsx";
 import NavPopUp from "./NavPopUp.tsx";
-import {useEffect, useState} from "react";
-import {expireToken, getToken, parseJwt, removeToken} from "../../Helper/Helper.ts";
+import { useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
-
-interface User {
-    email : string,
-    id : string,
-    name : string,
-    roles : []
-    sub : string
-}
 
 const Header : React.FC = () => {
 
-    const {isLogin, setLogin, setInfo, info} = useCommonContext();
+    const {isLogin, info} = useCommonContext();
     const [propUp, setPropUp] = useState<boolean>(false);
     const navigate = useNavigate();
 
@@ -78,7 +68,7 @@ const Header : React.FC = () => {
                                     <div className="flex items-center justify-center gap-2"
                                          onClick={() => setPropUp(true)}>
                                         <img
-                                            src="/public/loading.png"
+                                            src="/loading.png"
                                             className="w-[40px] bg-red-500 p-2 rounded-full cursor-pointer"
                                         />
                                         <p className="text-[14px] hover:text-main cursor-pointer text-white">

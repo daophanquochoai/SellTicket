@@ -14,7 +14,8 @@ export default {
         bodyBg : "#181a1b",
         border : "#172338",
         textCol : "#d6e3ee",
-        textAdmin : "#7D7A7A"
+        textAdmin : "#7D7A7A",
+        forget : "#9cbaf3"
       },
       fontSize : {
         medium : "18px"
