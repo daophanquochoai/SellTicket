@@ -5,66 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/k8s/6.app.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/apigateway-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/apigateway-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/dishservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/dishservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/eurekaserver-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/eurekaserver-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/filmservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/filmservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/paymentservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/paymentservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/proxyclient-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/proxyclient-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/rateservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/rateservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/roomservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/roomservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/showtimeservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/showtimeservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/userservice-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/dishservice-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/dishservice-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-cache/selectors/218c6d1f31985fcd98ce7df985b025fb6494fe8a57c053e395ad600555ca4d42" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-cache/selectors/2724566562635bf73a1262924bb5cd50fe3d582d079dc863804d0350a2dc10ba" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-cache/selectors/f56c69bd281f2fc8b2dc0d76957f911815aad8408fd8e7b25878c7dac8ef995e" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/jib-image.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eurekaserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/eurekaserver/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/film_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/2.configserver-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/2.configserver-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/3.eurekaservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/3.eurekaservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.dishservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.dishservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.filmservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.filmservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.noficationservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.noficationservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.paymentservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.paymentservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.rateservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.rateservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.roomservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.roomservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.showtimeservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.showtimeservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.userservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.userservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/5.apigateway-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/5.apigateway-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/5.proxyclient-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/5.proxyclient-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/note.yml" beforeDir="false" afterPath="$PROJECT_DIR$/note.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notificationservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notificationservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/14de1cdd5a87b0583bbe09618ff350b9b2046bea5f3bd0c815226b464809dba6" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/860c06178176c5514fa136de38fd83292f3e691c04daf38576cf112e0f7ce122" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/f75a02423d7362639185c7ef155d2502c581dbe93f519c57316d09736acd12af" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-image.digest" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-image.digest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-image.id" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-image.id" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-image.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/proxy_client-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/proxy_client-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rateservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-cache/selectors/5aeb95a2ff669a28942860a7b7f9cccbb77def472d1ff8e56d926d2ce466c9e8" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-cache/selectors/8afe22de8cbf29e67ca41e9761645c9ee37842898d3534fad9a521bbb4e57484" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-cache/selectors/c75fde1a853914b85f66f70d7e7a217fcb2feafea7e0d24a3a736bb4e0db9be9" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/jib-image.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/roomservice-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/roomservice-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/showtimeservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -550,6 +492,8 @@
       <workItem from="1742735033964" duration="1333000" />
       <workItem from="1742736710830" duration="2063000" />
       <workItem from="1742863286282" duration="2697000" />
+      <workItem from="1742918508323" duration="243000" />
+      <workItem from="1742918802140" duration="908000" />
     </task>
     <servers />
   </component>
