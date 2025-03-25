@@ -57,11 +57,11 @@ const OverView : React.FC = () => {
         handleFetchNumCustomerAndEmployee();
     }, []);
     useEffect(() => {
-        if( data.length == 0 ) return;
+        if( data?.length == 0 ) return;
         const month = new Date(Date.now()).getMonth() + 1;
         let pastMonth : Report = null;
         let recentMonth : Report = null;
-        data.forEach( item => {
+        data && data.forEach( item => {
             if( item.month == month){
                 recentMonth = item;
             }
@@ -112,7 +112,7 @@ const OverView : React.FC = () => {
         }
         const data : string[] = response.data.data;
         const temp : Year[] = [];
-        data.forEach( item => {
+        data && data.forEach( item => {
             temp.push({
                 value : item,
                 label : item
@@ -169,7 +169,7 @@ const OverView : React.FC = () => {
                         <div
                             className={'flex flex-col flex-1 items-center justify-center'}>
                             <div className={'flex gap-2'}>
-                                <p className={'text-3xl '}>{dataNum.numCustomer.toLocaleString()}</p>
+                                <p className={'text-3xl '}>{dataNum?.numCustomer.toLocaleString()}</p>
                                 <div className={'text-4xl text-red-800'}>
                                     <IoPersonCircle/>
                                 </div>
@@ -182,7 +182,7 @@ const OverView : React.FC = () => {
                         <div
                             className={'flex flex-col flex-1 items-center justify-center'}>
                             <div className={'flex gap-2'}>
-                                <p className={'text-3xl '}>{dataNum.numEmployee.toLocaleString()}</p>
+                                <p className={'text-3xl '}>{dataNum?.numEmployee.toLocaleString()}</p>
                                 <div className={'text-4xl text-yellow-600'}>
                                     <FaPersonWalkingLuggage />
                                 </div>
@@ -195,7 +195,7 @@ const OverView : React.FC = () => {
                         <div
                             className={'flex flex-col flex-1 items-center justify-center'}>
                             <div className={'flex gap-2'}>
-                                <p className={'text-3xl '}>{dataNum.numBranch.toLocaleString()}</p>
+                                <p className={'text-3xl '}>{dataNum?.numBranch.toLocaleString()}</p>
                                 <div className={'text-4xl text-pink-400'}>
                                     <GiFamilyHouse/>
                                 </div>

@@ -584,7 +584,7 @@ const Film : React.FC = () => {
                                 value={dataModal?.sub?.map(item => item.id) || []}
                                 onChange={(value) => handleSub(value)}
                                 style={{ width: '100%' }}
-                                options={dataSub.map(item => ({
+                                options={dataSub && dataSub.map(item => ({
                                     value: item.id,
                                     label: item.name
                                 }))}
@@ -654,7 +654,7 @@ const Film : React.FC = () => {
                                 value={dataModal?.typeFilms?.map(item => item.id) || []}
                                 onChange={(value) => handleTypeFilm(value)}
                                 style={{width: '100%'}}
-                                options={dataTypeFilm.map(item => {
+                                options={dataTypeFilm && dataTypeFilm.map(item => {
                                     return {
                                         value: item.id,
                                         label: item.name

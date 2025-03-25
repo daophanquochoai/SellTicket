@@ -66,6 +66,7 @@ const Display : React.FC<Props> = ({title,active}) => {
             toast.error("Không thể kết nối với máy chủ");
             return;
         }
+        console.log(response);
         const data : Film[] = await response.data.data;
         setFilmList(data);
         console.log(data)
@@ -99,7 +100,7 @@ const Display : React.FC<Props> = ({title,active}) => {
                         }}
                         >
                         {
-                            filmList.map((item) => (
+                            filmList && filmList.map((item) => (
                                 <SwiperSlide key={item.id}>
                                         <div className={'relative group overflow-hidden cursor-pointer'}>
                                             {

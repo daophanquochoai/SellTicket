@@ -176,7 +176,7 @@ const ShowTime : React.FC = () => {
             return;
         }
         setBranchs(response.data.data);
-        setSelectBranch(response.data.data[0].id);
+        setSelectBranch(response.data.data != null ? response.data.data[0].id : 0);
     }
 
     const handleFetchRoomByBranch = async () => {
@@ -299,7 +299,7 @@ const ShowTime : React.FC = () => {
                     <label className={'text-main uppercase'}>Danh sách rạp :</label>
                     <Spin tip={'Đang tải...'} spinning={loadingBranch}>
                         {
-                            branchs.length > 0 ?
+                            branchs && branchs.length > 0 ?
                                 <select className={'outline-0 px-4 py-2 bg-textAdmin text-white uppercase'}
                                         value={selectBranch} onChange={e => setSelectBranch(e.target.value)}>
                                     {
@@ -399,7 +399,7 @@ const ShowTime : React.FC = () => {
                             </div>
                             <Spin tip={'Đang tải...'} spinning={loadingRoomModal}>
                                 {
-                                    roomModal.length > 0 ?
+                                    roomModal && roomModal.length > 0 ?
                                         <select
                                             ref={roomRef}
                                             className={'px-2 py-1 outline-0 border-[1px] border-textAdmin'}>
@@ -422,7 +422,7 @@ const ShowTime : React.FC = () => {
                             </div>
                             <Spin tip={'Đang tải...'} spinning={loadingSubFilm}>
                                 {
-                                    subFilms.length > 0 ?
+                                    subFilms && subFilms.length > 0 ?
                                         <select
                                             ref={subFilmRef}
                                             className={'px-2 py-1 outline-0 border-[1px] border-textAdmin'}>

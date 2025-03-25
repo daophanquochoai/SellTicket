@@ -56,7 +56,7 @@ const Slider :React.FC = () => {
                                 className="mySwiper min-h-[400px]"
                         >
                             {
-                                data.map( (item, index) => {
+                                data && data.map( (item, index) => {
                                     return (
                                         <SwiperSlide className={'overflow-hidden'} key={index}>
                                             <img src={item.url} alt={'slide'} className={'w-full h-full object-cover '}/>

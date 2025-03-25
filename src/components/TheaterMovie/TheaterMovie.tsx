@@ -142,7 +142,7 @@ const TheaterMovie : React.FC = () => {
                                         >
                                             {selectBranch == '-1' && <option >Chọn chi nhánh</option>}
                                             {
-                                                branchs.map( (branch) => {
+                                                branchs && branchs.map( (branch) => {
                                                     return (
                                                         <option key={branch.id} value={branch.id}>{branch.nameBranch}</option>
                                                     )
@@ -163,7 +163,7 @@ const TheaterMovie : React.FC = () => {
                                         >
                                             {selectFilm == '-1' && <option >Chọn phim</option>}
                                             {
-                                                films.map( (film) => {
+                                                films && films.map( (film) => {
                                                     return (
                                                         <option key={film.id} value={film.id}>{film.name}</option>
                                                     )

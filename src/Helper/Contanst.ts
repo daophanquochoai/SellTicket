@@ -1,6 +1,9 @@
+
 export const env = {
     url : {
-        API_BASE_URL: 'http://localhost:6380/doctorhoai/proxy',
+        API_BASE_URL: import.meta.env.VITE_REACT_APP_API_BASE_URL,
     }
 }
-export const PUBLIC_KEY = "pk_test_51QuPM5BcNft3NmLQZVIJ785cTDy9t8KaqQ7jwCb5GbPOe263Fq6mRrsWrN6TMYt0VKSoYsayw5ODzJSKCIjVfuGX00MHglpjYu";
+export const PUBLIC_KEY = import.meta.env.VITE_REACT_APP_PUBLIC_KEY;
+console.log("API_BASE_URL:", env.url.API_BASE_URL);
+console.log("PUBLIC_KEY:", PUBLIC_KEY);
