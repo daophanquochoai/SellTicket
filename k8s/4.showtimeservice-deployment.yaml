@@ -33,7 +33,7 @@ spec:
               value: root
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_showwtimeservice:f4
+          image: doctorhoai/huongdichvu_showwtimeservice:f11
           resources:
             requests:
               memory: 512Mi

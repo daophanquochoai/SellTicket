@@ -28,7 +28,7 @@ spec:
               value: root
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_configserver:f4
+          image: doctorhoai/huongdichvu_configserver:f12
           livenessProbe:
             exec:
               command:

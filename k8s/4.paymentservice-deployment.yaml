@@ -35,7 +35,7 @@ spec:
               value: kafka:29092
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_paymentservice:f4
+          image: doctorhoai/huongdichvu_paymentservice:f11
           imagePullPolicy: IfNotPresent
           resources:
             requests:

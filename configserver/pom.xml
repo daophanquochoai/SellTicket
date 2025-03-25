@@ -94,7 +94,7 @@
                 <version>3.4.1</version>
                 <configuration>
                     <to>
-                        <image>doctorhoai/huongdichvu_configserver:f10</image>
+                        <image>doctorhoai/huongdichvu_configserver:f12</image>
                     </to>
                 </configuration>
             </plugin>

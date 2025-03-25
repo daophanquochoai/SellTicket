@@ -7,6 +7,10 @@ eureka:
     service-url:
       default: http://${eureka.instance.hostname}:${server.port}/eureka/
 
+spring:
+  zipkin:
+    enabled: true
+    baseUrl: ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/api/v2/spans}
 server:
   port: 8070
 management:

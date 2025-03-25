@@ -122,3 +122,8 @@
   
   # Áp dụng các file khác (ví dụ hpa.yml) nếu cần
   kubectl apply -f hpa.yml
+  
+  kubectl apply -f 6.app.yaml
+
+  #delete file 
+  kubectl delete -f .

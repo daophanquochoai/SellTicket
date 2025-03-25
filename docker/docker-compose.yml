@@ -85,7 +85,7 @@ services:
       - huongdichvu
 
   configserver:
-    image: doctorhoai/huongdichvu_configserver:f10
+    image: doctorhoai/huongdichvu_configserver:f12
     container_name: configserver
     ports:
       - "8071:8071"
@@ -105,7 +105,7 @@ services:
     networks:
       - huongdichvu
   eurekaservice:
-    image: doctorhoai/huongdichvu_eurekaservice:f10
+    image: doctorhoai/huongdichvu_eurekaservice:f11
     container_name: eurekaservice
     ports:
       - "8070:8070"
@@ -127,7 +127,7 @@ services:
     networks:
       - huongdichvu
   userservice:
-    image: doctorhoai/huongdichvu_userservice:f10
+    image: doctorhoai/huongdichvu_userservice:f11
     container_name: userservice
     ports:
       - "9000:9000"
@@ -160,7 +160,7 @@ services:
     networks:
       - huongdichvu
   showtimeservice:
-    image: doctorhoai/huongdichvu_showwtimeservice:f10
+    image: doctorhoai/huongdichvu_showwtimeservice:f11
     container_name: showtimeservice
     ports:
       - "8084:8084"
@@ -189,7 +189,7 @@ services:
     networks:
       - huongdichvu
   roomservice:
-    image: doctorhoai/huongdichvu_roomservice:f10
+    image: doctorhoai/huongdichvu_roomservice:f11
     container_name: roomservice
     ports:
       - "8085:8085"
@@ -218,7 +218,7 @@ services:
     networks:
       - huongdichvu
   rateservice:
-    image: doctorhoai/huongdichvu_rateservice:f10
+    image: doctorhoai/huongdichvu_rateservice:f11
     container_name: rateservice
     ports:
       - "8082:8082"
@@ -247,7 +247,7 @@ services:
     networks:
       - huongdichvu
   paymentservice:
-    image: doctorhoai/huongdichvu_paymentservice:f10
+    image: doctorhoai/huongdichvu_paymentservice:f11
     container_name: paymentservice
     ports:
       - "8086:8086"
@@ -277,7 +277,7 @@ services:
     networks:
       - huongdichvu
   noficationservice:
-    image: doctorhoai/huongdichvu_notificationservice:f10
+    image: doctorhoai/huongdichvu_notificationservice:f11
     container_name: noficationservice
     ports:
       - "8080:8080"
@@ -299,35 +299,8 @@ services:
       - DINARY_API_SECRET=MDpABd4odJ9f9XSrbY5kbkxPCWw
     networks:
       - huongdichvu
-  apigateway:
-    image: doctorhoai/huongdichvu_apigateway:f10
-    container_name: apigateway
-    ports:
-      - "6380:6380"
-    healthcheck:
-      test: "curl --fail --silent http://localhost:6380/actuator/healthy/readiness | grep UP || exit 1"
-      interval: 20s
-      timeout: 5s
-      retries: 20
-      start_period: 10s
-    depends_on:
-      mysql-container:
-        condition: service_healthy
-      zipkin:
-        condition: service_healthy
-      configserver:
-        condition: service_healthy
-      eurekaservice:
-        condition: service_healthy
-    environment:
-      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
-      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
-      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
-      - EUREKA_INSTANCE=eureka
-    networks:
-      - huongdichvu
   filmservice:
-    image: doctorhoai/huongdichvu_filmservice:f10
+    image: doctorhoai/huongdichvu_filmservice:f11
     container_name: filmservice
     ports:
       - "8081:8081"
@@ -356,7 +329,7 @@ services:
     networks:
       - huongdichvu
   dishservice:
-    image: doctorhoai/huongdichvu_dishservice:f10
+    image: doctorhoai/huongdichvu_dishservice:f11
     container_name: dishservice
     ports:
       - "8083:8083"
@@ -385,7 +358,7 @@ services:
     networks:
       - huongdichvu
   proxyclient:
-    image: doctorhoai/huongdichvu_proxyservice:f10
+    image: doctorhoai/huongdichvu_proxyservice:f11
     container_name: proxyclient
     ports:
       - "8888:8888"
@@ -417,6 +390,44 @@ services:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
       - SPRING_REDIS_HOST=redis
       - SPRING_REDIS_PORT=6379
+    networks:
+      - huongdichvu
+  apigateway:
+    image: doctorhoai/huongdichvu_apigateway:f12
+    container_name: apigateway
+    ports:
+      - "6380:6380"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:6380/actuator/healthy/readiness | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaservice:
+        condition: service_healthy
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/api/v2/spans
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eurekaservice:8070/eureka/
+      - EUREKA_INSTANCE=eureka
+      - SPRING_CQRS_URL=http://localhost:5173
+    networks:
+      - huongdichvu
+  react-app:
+    image: doctorhoai/movieticket:f13
+    ports:
+      - "5173:80"
+    environment:
+      VITE_REACT_APP_API_BASE_URL: "http://localhost:6380/doctorhoai/proxy"
+      VITE_REACT_APP_PUBLIC_KEY: "pk_test_51QuPM5BcNft3NmLQZVIJ785cTDy9t8KaqQ7jwCb5GbPOe263Fq6mRrsWrN6TMYt0VKSoYsayw5ODzJSKCIjVfuGX00MHglpjYu"
+    restart: always
     networks:
       - huongdichvu
 volumes:

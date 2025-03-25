@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-app
+  template:
+    metadata:
+      labels:
+        app: react-app
+    spec:
+      containers:
+        - name: react-app
+          image: doctorhoai/movieticket:f13
+          ports:
+            - containerPort: 80
+          env:
+            - name: VITE_REACT_APP_API_BASE_URL
+              value: "http://localhost:6380/doctorhoai/proxy"
+            - name: VITE_REACT_APP_PUBLIC_KEY
+              value: "pk_test_51QuPM5BcNft3NmLQZVIJ785cTDy9t8KaqQ7jwCb5GbPOe263Fq6mRrsWrN6TMYt0VKSoYsayw5ODzJSKCIjVfuGX00MHglpjYu"
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-app-service
+spec:
+  selector:
+    app: react-app
+  ports:
+    - protocol: TCP
+      name: "5173"
+      port: 5173
+      targetPort: 80
+  type: LoadBalancer
