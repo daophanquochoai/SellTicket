@@ -191,6 +191,10 @@ const DetailFilm : React.FC = () => {
             })
             if( state.checked ){
                 toast.warning(<p className={'w-full'}>Chỗ đã được đặt</p>)
+                if (intervalRef.current) {
+                    clearInterval(intervalRef.current);
+                    setOClock(initTime);
+                }
             }
         });
         eventSource.onerror = (event) => {
@@ -227,6 +231,8 @@ const DetailFilm : React.FC = () => {
 
     const handleFetchFilmShow = async () => {
         const response = await  fetchFilmShow(selectMovie.branchId, selectMovie.subId, film.id, time);
+        console.log(selectMovie.branchId + ' ' + selectMovie.subId + ' ' + film.id + ' ' + time)
+        console.log(response);
         if( response.status !== 200 ){
             toast.error(<p className={'w-full'}>Không thể tải thời gian chiếu</p>)
             return;

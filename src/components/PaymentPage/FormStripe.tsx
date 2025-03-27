@@ -53,8 +53,6 @@ const FormStripe : React.FC = () => {
 
         try {
             const { id } = paymentMethod;
-            console.log( bill?.totalPrice);
-            console.log( bill?.id);
             setLoading(true);
             const response = await axios.post(`${env.url.API_BASE_URL}/payment-service/api/bill/payment`, {
                 id: id,
@@ -63,7 +61,7 @@ const FormStripe : React.FC = () => {
                 billId : bill?.id
             });
             setLoading(false);
-            if (response.data.success) {
+            if (response.data.data.success) {
                 scroll(0,0);
                 navigation('/');
                 setBill(initBill);
@@ -73,6 +71,7 @@ const FormStripe : React.FC = () => {
             }
         } catch (error) {
             setErrorMessage("Error processing payment: " + error.message);
+            console.log( error);
             setLoading(false);
         }
     };

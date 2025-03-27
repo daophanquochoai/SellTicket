@@ -35,12 +35,12 @@ const RatePage : React.FC = () => {
     const param = useParams();
     const [loading, setLoading] = useState<boolean>(false);
     const [rateList, setRateList] = useState<RateCommon>(initRateCommon);
-
+    const [reload, setReload] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     useEffect(() => {
         handleFetchRate();
-    }, []);
+    }, [reload]);
 
     const handleFetchRate = async () => {
         if( param.id === undefined ){
@@ -81,8 +81,8 @@ const RatePage : React.FC = () => {
                                 {
                                     rateList && rateList.comments.map( item => {
                                         return (
-                                            <>
                                                 <div
+                                                    key={item.id}
                                                     className={'flex justify-between items-center px-[40px] border-b-2 border-gray-800 pb-4'}>
                                                     <div>
                                                         <div>
@@ -99,7 +99,6 @@ const RatePage : React.FC = () => {
                                                         <p className={'text-white'}>{item.customer.name}</p>
                                                     </div>
                                                 </div>
-                                            </>
                                         )
                                     })
                                 }
@@ -114,7 +113,7 @@ const RatePage : React.FC = () => {
                     </div>
                 </div>
             </Spin>
-            <ModalRate isOpen={isOpen} setIsOpen={setIsOpen} filmId={param.id}/>
+            <ModalRate reload={reload} setReload={setReload} isOpen={isOpen} setIsOpen={setIsOpen} filmId={param.id}/>
         </>
     )
 }

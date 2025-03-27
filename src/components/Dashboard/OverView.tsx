@@ -1,5 +1,5 @@
 import { Column } from '@ant-design/plots';
-import React, {useEffect, useState} from 'react';
+import React, {lazy, useEffect, useState} from 'react';
 import {Select, Spin} from "antd";
 import {expireToken, getNumCustomerAndEmployee, getReport, getToken, getYearForBill} from "../../Helper/Helper.ts";
 import {toast} from "react-toastify";
@@ -9,6 +9,9 @@ import {IoIosTrendingDown} from "react-icons/io";
 import { IoPersonCircle } from "react-icons/io5";
 import { FaPersonWalkingLuggage } from 'react-icons/fa6';
 import { GiFamilyHouse } from 'react-icons/gi';
+
+const RevenueFilm = lazy(()=> import("./Home/RevenueFilm.tsx"));
+const SortRevenueFilm = lazy(() => import("./Home/SortRevenueFilm.tsx"));
 
 interface Report{
     month : number,
@@ -141,11 +144,12 @@ const OverView : React.FC = () => {
         xField: 'month',
         yField: 'totalPrice',
         colorField: 'month',
+        tooltip: (item ) => ({name : `Tháng ${item.month}`, value : `${item.totalPrice.toLocaleString()}VND`})
     };
     return (
         <>
             <div>
-                <div className={'flex items-center gap-[40px] bg-white p-[20px]'}>
+                <div className={'flex items-center gap-[40px] bg-white rounded-xl p-[20px]'}>
                     <div className={'flex-1 flex h-[100px] shadow'}>
                         <div className={'bg-green-800 h-[100%] w-[20px]'}></div>
                         <div
@@ -204,8 +208,9 @@ const OverView : React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className={'bg-white mt-[40px] p-[20px]'}>
-                    <div className={'flex justify-end'}>
+                <div className={'bg-white rounded-xl mt-[40px] p-[20px]'}>
+                    <div className={'flex justify-between'}>
+                        <p className={'text-xl font-bold text-green-400'}>DOANH THU</p>
                         <Spin tip={'Đang tải...'} spinning={loadingYear}>
                             <Select
                                 defaultValue={selectYear}
@@ -218,6 +223,14 @@ const OverView : React.FC = () => {
                     <Spin tip={"Đang tải..."} spinning={loading}>
                         <Column {...config} />
                     </Spin>
+                </div>
+                <div className={'flex mt-[20px] gap-[20px]'}>
+                    <div className={'flex-1 bg-white rounded-xl p-[20px] h-full max-h-[400px] overflow-x-scroll'}>
+                        <SortRevenueFilm />
+                    </div>
+                    <div className={'flex-1 bg-white rounded-xl p-[20px]'}>
+                        <RevenueFilm />
+                    </div>
                 </div>
             </div>
         </>

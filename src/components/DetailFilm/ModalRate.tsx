@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Modal, Pagination} from "antd";
 import {FaSearch} from "react-icons/fa";
-import {expireToken, fetchCommentByFull, getToken, uploadComment} from "../../Helper/Helper.ts";
+import {checkCommented, expireToken, fetchCommentByFull, getToken, uploadComment} from "../../Helper/Helper.ts";
 import {toast} from "react-toastify";
 import {Rate} from "antd";
 import {useCommonContext} from "../../context/CommonContext.tsx";
@@ -52,7 +52,9 @@ const initCustom = {
 interface Props {
     isOpen : boolean,
     setIsOpen : (arg:boolean)=>void,
-    filmId : string
+    filmId : string,
+    reload : boolean,
+    setReload : (arg:boolean) => void
 }
 interface Content {
     star : number,
@@ -86,7 +88,7 @@ const ModalRate : React.FC<Props> = (props) => {
 
     //upload
     const [content, setContent] = useState<Content>(initContent);
-    const [reload, setReload] = useState<boolean>(false);
+    const [isComment, setIsComment] = useState<boolean>(false);
 
     useEffect(() => {
         setContent({
@@ -95,6 +97,9 @@ const ModalRate : React.FC<Props> = (props) => {
             filmId : filmId
         })
     }, [filmId,info]);
+    useEffect(() => {
+        handleComment();
+    }, [props.reload]);
 
     const handleCancel = () => {
         setIsOpen(false);
@@ -102,19 +107,21 @@ const ModalRate : React.FC<Props> = (props) => {
 
     useEffect(() => {
         handleFetchRate()
-    }, [param, page, reload]);
+    }, [param, page, props.reload]);
 
     const handleFetchRate = async () => {
         setLoading(true);
         const response = await fetchCommentByFull(filmId,page.pageCurrent-1,param.limit,param.asc,param.orderBy,param.q);
         setLoading(false);
-        console.log(response);
         if( response.status != 200) {
             toast.warning(<p className={'w-full'}>Không thể tải dữ liệu</p>)
             return;
         }
+        console.log(response)
         setData(response.data.data.data);
         if( page.pageCurrent != response.data.data.pageCurrent || page.pageTotal != response.data.data.totalPage){
+            console.log(page.pageCurrent + " " + response.data.data.pageCurrent);
+            console.log(page.pageTotal + " " + response.data.data.totalPage);
             setPage({
                 pageCurrent : response.data.data.pageCurrent + 1,
                 pageTotal : response.data.data.totalPage
@@ -127,12 +134,11 @@ const ModalRate : React.FC<Props> = (props) => {
         const token : string = getToken();
         if( expireToken(token)){
             toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
-            navigate('/dashboard/login')
+            navigate('/login')
             return;
         }
         setLoading(true);
         const response = await uploadComment(content.star,content.content,content.customerId,content.filmId,token);
-        console.log(response)
         setLoading(false);
         if( response.status != 201){
             toast.error(<p className={'w-full'}>Không thể đăng bình luận</p>)
@@ -140,7 +146,20 @@ const ModalRate : React.FC<Props> = (props) => {
         }
         toast.success(<p className={'w-full'}>Đăng tải thành công</p>)
         setContent(initContent);
-        setReload(!reload);
+        props.setReload(!props.reload);
+    }
+
+    const handleComment = async () => {
+        const token : string | undefined = getToken();
+        if(token == undefined || expireToken(token) || info == undefined){
+            toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
+            navigate('/login')
+            return;
+        }
+        const response = await checkCommented(filmId,info?.id,token);
+        if( response.status == 200){
+            setIsComment(true);
+        }
     }
     return (
         <>
@@ -218,7 +237,7 @@ const ModalRate : React.FC<Props> = (props) => {
                                 onChange={(e) => setPage({...page, pageCurrent: e})}/>
                 </div>
                 {
-                    isLogin && info?.roles[0] == 'ROLE_USER' &&
+                    isComment && isLogin && info?.roles[0] == 'ROLE_USER' &&
                     <div className={'mt-[20px] border-[1px] p-4 border-textAdmin'}>
                         <div className={'flex items-end gap-2'}>
                             <p className={'uppercase font-bold'}>Đánh giá :</p>

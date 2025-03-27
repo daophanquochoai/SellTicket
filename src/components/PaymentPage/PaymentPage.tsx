@@ -19,7 +19,7 @@ interface User{
     dieuKhoan : boolean
 }
 const initTime = {
-    minute : "05",
+    minute : "5",
     second : "00"
 }
 const initUser = {

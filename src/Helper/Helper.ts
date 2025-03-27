@@ -848,6 +848,21 @@ export const getRateCustom
         return e;
     }
 }
+
+export const checkCommented
+    : (filmId : string, customerId : string, token : string ) => Promise<Response>
+    = async (filmId, customerId, token) => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/rate-service/api/rate/check/${filmId}/${customerId}`,{
+            headers : {
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
 export const deleteRate
     : (id : string, token : string) => Promise<Response>
     = async (id, token) => {
@@ -1129,6 +1144,28 @@ export const getAllContact
                 }
             }
         );
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+// ------------------------ Revenue ------------------------
+export const getRevenueFilm
+    : () => Promise<Response>
+    = async () => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/revenue/film`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const getRevenueFilmAll
+    : () => Promise<Response>
+    = async () => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/revenue/film/all`);
         return response;
     }catch (e){
         return e;

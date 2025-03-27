@@ -161,7 +161,7 @@ const MovieTheater : React.FC<MovieTheaterProps> = ( props ) => {
                                                         {
                                                             props.subs.length === 0 &&
                                                             <div>
-                                                                <p className={'text-white text-medium'}>Sẽ ra mắt sơm thôi !</p>
+                                                                <p className={'text-white text-medium'}>Sẽ ra mắt sớm thôi !</p>
                                                             </div>
                                                         }
                                                         {
