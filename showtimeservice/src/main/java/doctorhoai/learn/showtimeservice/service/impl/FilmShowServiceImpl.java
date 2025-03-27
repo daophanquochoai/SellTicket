@@ -186,20 +186,21 @@ public class FilmShowServiceImpl implements FilmShowService {
     @Override
     public List<FilmShowDto> getFilmShowsByBranch(String branchId, LocalDate date, String filmId, String subId) {
         try{
+            ObjectMapper objectMapper = new ObjectMapper()
+                    .registerModule(new ParameterNamesModule())
+                    .registerModule(new Jdk8Module())
+                    .registerModule(new JavaTimeModule());
             ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmByFilmIdAndSubId(filmId, subId);
             if( responseSubFilm.getStatusCode() != HttpStatusCode.valueOf(200)){
                 throw new ErrorException("Film service down");
             }
-            List<FilmShowTime> list = filmShowRepository.getShowTimeByTimestampAndSubFilmIdAndStatus(date, filmId, Status.ACTIVE);
+            SubFilmDto subFilmDto = objectMapper.convertValue(responseSubFilm.getBody().getData(), SubFilmDto.class);
+            List<FilmShowTime> list = filmShowRepository.getShowTimeByTimestampAndSubFilmIdAndStatus(date, subFilmDto.getId(), Status.ACTIVE);
             List<RoomDto> listRoom;
             ResponseEntity<Response> response = roomFeign.getRoomByBranch(branchId);
             if( response.getStatusCode() != HttpStatusCode.valueOf(200)){
                 throw new ErrorException("Room service down");
             }
-            ObjectMapper objectMapper = new ObjectMapper()
-                    .registerModule(new ParameterNamesModule())
-                    .registerModule(new Jdk8Module())
-                    .registerModule(new JavaTimeModule());
             String json = objectMapper.writeValueAsString(response.getBody().getData());
             listRoom = objectMapper.readValue(json, objectMapper.getTypeFactory().constructCollectionType(List.class, RoomDto.class));
             list = list.stream().filter( item -> {

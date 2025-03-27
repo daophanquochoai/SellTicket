@@ -40,5 +40,9 @@ public interface RateFeign {
             @RequestParam(defaultValue = "timeStamp",required = false) String orderBy,
             @RequestParam(defaultValue = "none", required = false) String status
     );
-
+    @GetMapping("/check/{filmId}/{customerId}")
+    public ResponseEntity<Response> checkComment(
+            @PathVariable String filmId,
+            @PathVariable String customerId
+    );
 }

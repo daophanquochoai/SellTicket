@@ -50,12 +50,8 @@ public class PaymentFeignFallBack implements FallbackFactory<PaymentFeign> {
             }
 
             @Override
-            public ResponseEntity<Map<String, Object>> processPayment(Map<String, Object> paymentRequest) {
-                Map<String, Object> response = new HashMap<>();
-                return ResponseEntity.badRequest()
-                        .body(
-                                response
-                        );
+            public ResponseEntity<Response> processPayment(Map<String, Object> paymentRequest) {
+                return functionCommon.process(cause);
             }
 
             @Override

@@ -102,7 +102,7 @@ public class BillController {
     }
 
     @PostMapping("/payment")
-    public ResponseEntity<Map<String, Object>> processPayment(@RequestBody Map<String, Object> paymentRequest) {
+    public ResponseEntity<Response> processPayment(@RequestBody Map<String, Object> paymentRequest) {
         try {
             int amount = (int) paymentRequest.get("amount");
             String paymentMethodId = (String) paymentRequest.get("id");
@@ -140,14 +140,34 @@ public class BillController {
                     "amount", paymentIntent.getAmount(),
                     "currency", paymentIntent.getCurrency()
             ));
-
-            return ResponseEntity.ok(response);
+            log.info("{}",response);
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .statusCode(200)
+                            .message("Payment Successfully")
+                            .data(response)
+                            .build()
+            );
 
         } catch (StripeException e) {
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("message", "Payment failed: " + e.getMessage());
             errorResponse.put("success", false);
-            return ResponseEntity.badRequest().body(errorResponse);
+            return ResponseEntity.badRequest().body( Response.builder()
+                    .statusCode(200)
+                    .message("Payment Successfully")
+                    .data(errorResponse)
+                    .build());
+        } catch( Exception e){
+            log.error("{}",e.getMessage());
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Payment failed: " + e.getMessage());
+            errorResponse.put("success", false);
+            return ResponseEntity.badRequest().body(Response.builder()
+                    .statusCode(200)
+                    .message("Payment Successfully")
+                    .data(errorResponse)
+                    .build());
         }
     }
 

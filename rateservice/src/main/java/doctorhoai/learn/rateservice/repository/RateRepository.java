@@ -23,4 +23,5 @@ public interface RateRepository extends JpaRepository<RateFilm, String> {
     Page<RateFilm> getRateFilmByCustom(Pageable pageable, String q);
     @Query("select avg(r.star) from RateFilm r where r.filmId = :filmId")
     Integer getRate(String filmId);
+    Optional<RateFilm> getRateByFilmIdAndCustomerId(String filmId, String customerId);
 }

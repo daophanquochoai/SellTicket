@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface BillChairRepository extends JpaRepository<BillChair, String> {
-    Optional<BillChair> getBillChairByChairCode(String chairCode);
+    Optional<BillChair> getBillChairByChairCodeAndBillChairId_FilmShowTimeId(String chairCode, Integer filmShowId);
     List<BillChair> getBillChairByBillChairId_Id(String id);
     List<BillChair> getBillChairByBillChairId_FilmShowTimeIdAndBillChairId_Status(Integer filmShowTimeId, Status status);
 }

@@ -35,4 +35,11 @@ public class FallBackController {
                 .message("Dish service not available")
                 .build());
     }
+    @RequestMapping("/proxySupport")
+    public Mono<Response> proxySupport() {
+        return Mono.just(Response.builder()
+                .statusCode(500)
+                .message("Proxy not available")
+                .build());
+    }
 }

@@ -33,7 +33,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -198,7 +197,7 @@ public class RateServiceImpl implements RateService {
             Integer rateStar = rateRepository.getRate(filmId);
             return PageObject.builder()
                     .pageCurrent(pageable.getPageNumber() + 1)
-                    .totalPage(rateFilms.getTotalPages())
+                    .totalPage(rateFilms.getTotalPages() == 0 ? 1 : rateFilms.getTotalPages())
                     .data(new RateForFilm( rateStar == null ? 0 : rateStar , returnValue))
                     .build();
         }catch (Exception e){
@@ -254,5 +253,14 @@ public class RateServiceImpl implements RateService {
                 .totalPage(rateFilms.getTotalPages())
                 .data(returnValue)
                 .build();
+    }
+
+    @Override
+    public Boolean checkComment(String filmId, String userId) {
+        Optional<RateFilm> rateOptional = rateRepository.getRateByFilmIdAndCustomerId(filmId, userId);
+        if( rateOptional.isPresent() ) {
+            return true;
+        }
+        return false;
     }
 }

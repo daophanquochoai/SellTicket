@@ -60,12 +60,13 @@ public class BillServiceImpl implements BillService {
         try {
             // kiem tra truoc khi tao
             billDto.getChairs().forEach( item -> {
-                Optional<BillChair> billChair = billChairRepository.getBillChairByChairCode(item.getChairCode());
+                Optional<BillChair> billChair = billChairRepository.getBillChairByChairCodeAndBillChairId_FilmShowTimeId(item.getChairCode(),billDto.getFilmShowTimeId());
                 if( billChair.isPresent() ){
                     Bill bill = billChair.get().getBillChairId();
                     if(bill.getTimestamp().toLocalDate().isEqual(LocalDate.now())
                             && bill.getFilmShowTimeId().equals(billDto.getFilmShowTimeId())
                             && bill.getActive() == Active.ACTIVE
+                            && bill.getStatus() == Status.SUCCESS
                     ){
                         throw new ErrorException("Bill existed");
                     }

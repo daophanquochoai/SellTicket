@@ -103,4 +103,17 @@ public class RateController {
                         .build()
         );
     }
+
+    @GetMapping("/check/{filmId}/{customerId}")
+    public ResponseEntity<Response> checkComment(
+            @PathVariable String filmId,
+            @PathVariable String customerId
+    ){
+        Boolean check = rateService.checkComment(filmId, customerId);
+        if( check ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+    }
 }

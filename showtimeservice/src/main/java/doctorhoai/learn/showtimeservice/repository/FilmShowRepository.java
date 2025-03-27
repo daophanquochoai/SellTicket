@@ -15,6 +15,6 @@ import java.util.Optional;
 public interface FilmShowRepository extends JpaRepository<FilmShowTime, Integer> {
     List<FilmShowTime> getFilmShowTimeByRoomIdAndTimestampAndStatus(String roomId, LocalDate timestamp, Status status);
     Optional<FilmShowTime> getFilmShowTimeByRoomIdAndIdAndStatus(@NotNull String roomId, Integer filmId, Status status );
-    List<FilmShowTime> getShowTimeByTimestampAndSubFilmIdAndStatus( LocalDate time, String filmId, Status status );
+    List<FilmShowTime> getShowTimeByTimestampAndSubFilmIdAndStatus( LocalDate time, String subFilmId, Status status );
     List<FilmShowTime> getFilmShowTimeBySubFilmId(String SubFilmIs);
 }

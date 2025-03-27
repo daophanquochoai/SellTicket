@@ -5,8 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/controller/RevenueController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/entity/RevenueFilm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/repository/RevenueRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/RevenueFilmServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/inter/RevenueFilmService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/controller/RevenueController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/service/RevenueFeign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/film/service/fallback/RevenueFeignFallBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/ApigatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/ApigatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/FallBack/FallBackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/FallBack/FallBackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configserver/src/main/resources/config/apigateway-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/src/main/resources/config/apigateway-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/entity/Film.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/entity/Film.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/controller/BillController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillChairRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillChairRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/service/PaymentFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/service/PaymentFeign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/service/fallback/PaymentFeignFallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/service/fallback/PaymentFeignFallBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/rate/controller/RateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/rate/controller/RateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/rate/service/RateFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/rate/service/RateFeign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/rate/service/fallback/RateFeignFallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/rate/service/fallback/RateFeignFallBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/controller/BillController.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/controller/BillController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/service/PaymentFeign.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/service/PaymentFeign.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/service/fallback/PaymentFeignFallBack$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/service/fallback/PaymentFeignFallBack$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/rate/controller/RateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/rate/controller/RateController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/rate/service/RateFeign.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/rate/service/RateFeign.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/rate/service/fallback/RateFeignFallBack$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/rate/service/fallback/RateFeignFallBack$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/controller/RateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/controller/RateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/repository/RateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/repository/RateRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/impl/RateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/impl/RateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/inter/RateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/inter/RateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/repository/FilmShowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/repository/FilmShowRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +54,8 @@
         <option value="spring-beans.schema" />
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="Exception" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -331,10 +366,10 @@
       <item itemvalue="Docker.docker: Compose Deployment" />
       <item itemvalue="Docker.docker/docker-compose2.yml: Compose Deployment" />
       <item itemvalue="JUnit.AccountBankingServiceImplTest.randomOpt" />
+      <item itemvalue="Spring Boot.DishserviceApplication" />
       <item itemvalue="Spring Boot.ApigatewayApplication" />
       <item itemvalue="Spring Boot.BaseDomainApplication" />
       <item itemvalue="Spring Boot.ConfigserverApplication" />
-      <item itemvalue="Spring Boot.DishserviceApplication" />
       <item itemvalue="Spring Boot.FilmServiceApplication" />
       <item itemvalue="Spring Boot.NotificationserviceApplication" />
       <item itemvalue="Spring Boot.PaymentserviceApplication" />
@@ -347,8 +382,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker: Compose Deployment" />
         <item itemvalue="Spring Boot.EurekaserverApplication" />
+        <item itemvalue="Docker.docker: Compose Deployment" />
         <item itemvalue="Docker.docker/docker-compose2.yml: Compose Deployment" />
         <item itemvalue="JUnit.AccountBankingServiceImplTest.randomOpt" />
       </list>
@@ -493,7 +528,11 @@
       <workItem from="1742736710830" duration="2063000" />
       <workItem from="1742863286282" duration="2697000" />
       <workItem from="1742918508323" duration="243000" />
-      <workItem from="1742918802140" duration="908000" />
+      <workItem from="1742918802140" duration="947000" />
+      <workItem from="1742981768692" duration="148000" />
+      <workItem from="1743044559224" duration="9684000" />
+      <workItem from="1743060059003" duration="12089000" />
+      <workItem from="1743085213692" duration="4189000" />
     </task>
     <servers />
   </component>
@@ -542,6 +581,26 @@
           <url>file://$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/SubFilmServiceImpl.java</url>
           <line>176</line>
           <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/impl/RateServiceImpl.java</url>
+          <line>259</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/impl/RateServiceImpl.java</url>
+          <line>263</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java</url>
+          <line>189</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java</url>
+          <line>210</line>
+          <option name="timeStamp" value="71" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

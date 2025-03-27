@@ -41,6 +41,11 @@ public class RateFeignFallBack implements FallbackFactory<RateFeign> {
             public ResponseEntity<Response> getRate(String page, String limit, String q, String asc, String orderBy, String status) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> checkComment(String filmId, String customerId) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

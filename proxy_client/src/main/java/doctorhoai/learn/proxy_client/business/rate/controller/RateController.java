@@ -54,4 +54,11 @@ public class RateController {
     ){
         return rateFeign.getRate(page, limit, q, asc, orderBy, status);
     }
+    @GetMapping("/check/{filmId}/{customerId}")
+    public ResponseEntity<Response> checkComment(
+            @PathVariable String filmId,
+            @PathVariable String customerId
+    ){
+        return rateFeign.checkComment(filmId, customerId);
+    }
 }

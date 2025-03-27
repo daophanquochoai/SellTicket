@@ -38,7 +38,7 @@ public interface PaymentFeign {
     @PutMapping("/active/{id}")
     public ResponseEntity<Response> activateBill(@Valid @PathVariable @NotNull String id);
     @PostMapping("/payment")
-    public ResponseEntity<Map<String, Object>> processPayment(@RequestBody Map<String, Object> paymentRequest);
+    public ResponseEntity<Response> processPayment(@RequestBody Map<String, Object> paymentRequest);
     @GetMapping("/all")
     public ResponseEntity<Response> getAllBills(
             @RequestParam(required = false, defaultValue = "0") String page,
