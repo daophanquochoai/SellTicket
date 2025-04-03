@@ -62,4 +62,5 @@ public class BillDto {
     @NotBlank(message = "Number phone can't blank")
     @Length(min = 10, max = 12, message = "Number Phone isn't format")
     private String numberPhone;
+    private String qrCode;
 }

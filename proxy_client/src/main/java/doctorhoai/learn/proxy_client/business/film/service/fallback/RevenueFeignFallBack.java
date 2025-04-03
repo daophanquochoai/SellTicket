@@ -18,12 +18,12 @@ public class RevenueFeignFallBack implements FallbackFactory<RevenueFeign> {
     public RevenueFeign create(Throwable cause) {
         return new RevenueFeign() {
             @Override
-            public ResponseEntity<Response> getRevenueFilm() {
+            public ResponseEntity<Response> getRevenueFilm(String filmId) {
                 return functionCommon.process(cause);
             }
 
             @Override
-            public ResponseEntity<Response> getRevenueFilmAll() {
+            public ResponseEntity<Response> getRevenueFilmAll(Integer month, Integer year) {
                 return functionCommon.process(cause);
             }
         };

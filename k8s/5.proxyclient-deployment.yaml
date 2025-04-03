@@ -20,9 +20,18 @@ spec:
         io.kompose.service: proxyclient
     spec:
       containers:
-        - env:
+        - name: proxyclient
+          image: doctorhoai/huongdichvu_proxyservice:f15
+          imagePullPolicy: IfNotPresent
+          env:
             - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
               value: http://eurekaservice:8070/eureka/
+            - name: EUREKA_INSTANCE
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+              value: "true"
             - name: SPRING_CONFIG_IMPORT
               value: configserver:http://configserver:8071
             - name: SPRING_DATASOURCE_PASSWORD
@@ -37,8 +46,9 @@ spec:
               value: "6379"
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_proxyservice:f11
-          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8888
+              protocol: TCP
           resources:
             requests:
               memory: 512Mi
@@ -47,17 +57,21 @@ spec:
               memory: 1024Mi
               cpu: 1000m
           livenessProbe:
-            exec:
-              command:
-                - curl --fail --silent http://localhost:8888/actuator/healthy/readiness | grep UP || exit 1
-            failureThreshold: 20
+            httpGet:
+              path: /actuator/health
+              port: 8888
+            failureThreshold: 3
             initialDelaySeconds: 10
-            periodSeconds: 20
+            periodSeconds: 10
             timeoutSeconds: 5
-          name: proxyclient
-          ports:
-            - containerPort: 8888
-              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8888
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -72,6 +86,6 @@ spec:
     - name: "8888"
       port: 8888
       targetPort: 8888
-  sessionAffinity: None
+  sessionAffinity: ClientIP
   selector:
     io.kompose.service: proxyclient

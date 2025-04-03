@@ -33,7 +33,7 @@ spec:
               value: root
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_roomservice:f11
+          image: doctorhoai/huongdichvu_roomservice:f15
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -50,6 +50,14 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 20
             timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8085
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
           name: roomservice
           ports:
             - containerPort: 8085

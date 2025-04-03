@@ -151,7 +151,7 @@
                 <version>3.4.1</version>
                 <configuration>
                     <to>
-                        <image>doctorhoai/huongdichvu_roomservice:f11</image>
+                        <image>doctorhoai/huongdichvu_roomservice:f15</image>
                     </to>
                 </configuration>
             </plugin>

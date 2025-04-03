@@ -17,13 +17,13 @@ public class RevenueFilmServiceImpl implements RevenueFilmService {
 
     @Override
     @Transactional
-    public List<RevenueFilm> getRevenueInFilm() {
-        return revenueRepository.revenueInFilm();
+    public List<RevenueFilm> getRevenueByFilmId(String filmId) {
+        return revenueRepository.revenueInFilmByFilmId(filmId);
     }
 
     @Override
     @Transactional
-    public List<RevenueFilm> getRevenueInFilmAll() {
-        return revenueRepository.revenueAllInFilm();
+    public List<RevenueFilm> getRevenueInFilmAll(Integer month, Integer year) {
+        return revenueRepository.revenueInFilm(month, year);
     }
 }

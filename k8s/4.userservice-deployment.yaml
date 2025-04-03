@@ -41,7 +41,7 @@ spec:
               value: "6379"
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_userservice:f11
+          image: doctorhoai/huongdichvu_userservice:f15
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -58,6 +58,14 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 20
             timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 9000
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
           name: userservice
           ports:
             - containerPort: 9000

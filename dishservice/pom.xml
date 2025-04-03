@@ -127,7 +127,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>doctorhoai/huongdichvu_dishservice:f11</image>
+						<image>doctorhoai/huongdichvu_dishservice:f15</image>
 					</to>
 				</configuration>
 			</plugin>

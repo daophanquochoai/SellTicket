@@ -120,9 +120,9 @@ public class BillController {
             PaymentIntent paymentIntent = PaymentIntent.create(params);
 
             // ⏳ Xử lý đặt vé
-            boolean bookingSuccess = billService.acceptBill(billId, paymentIntent.getId());
+            BillDto bookingSuccess = billService.acceptBill(billId, paymentIntent.getId());
 
-            if (bookingSuccess) {
+            if (bookingSuccess.getStatus().equals("SUCCESS")) {
                 // ✅ Nếu đặt vé thành công, xác nhận thanh toán
                 paymentIntent = paymentIntent.confirm();
             } else {
@@ -132,7 +132,7 @@ public class BillController {
 
             // Trả về kết quả
             Map<String, Object> response = new HashMap<>();
-            response.put("message", bookingSuccess ? "Payment successful" : "Booking failed, payment canceled");
+            response.put("message", bookingSuccess.getStatus().equals("SUCCESS") ? "Payment successful" : "Booking failed, payment canceled");
             response.put("success", bookingSuccess);
             response.put("payment", Map.of(
                     "id", paymentIntent.getId(),
@@ -140,6 +140,7 @@ public class BillController {
                     "amount", paymentIntent.getAmount(),
                     "currency", paymentIntent.getCurrency()
             ));
+            response.put("bill", bookingSuccess);
             log.info("{}",response);
             return ResponseEntity.ok(
                     Response.builder()

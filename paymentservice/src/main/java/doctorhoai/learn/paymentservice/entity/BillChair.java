@@ -17,7 +17,7 @@ public class BillChair {
     private String id;
     private String chairCode;
     private Float price;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id")
     private Ticket ticketId;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

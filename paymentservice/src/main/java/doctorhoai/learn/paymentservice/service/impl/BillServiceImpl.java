@@ -1,9 +1,14 @@
 package doctorhoai.learn.paymentservice.service.impl;
 
+import com.cloudinary.Cloudinary;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
 import doctorhoai.learn.basedomain.Event.BillChairTicket;
 import doctorhoai.learn.basedomain.Event.BillDishTicket;
 import doctorhoai.learn.basedomain.Event.TicketEmail;
@@ -11,6 +16,10 @@ import doctorhoai.learn.paymentservice.dto.*;
 import doctorhoai.learn.paymentservice.dto.response.Response;
 import doctorhoai.learn.paymentservice.entity.*;
 import doctorhoai.learn.paymentservice.exception.*;
+import doctorhoai.learn.paymentservice.facade.FilmAsync;
+import doctorhoai.learn.paymentservice.facade.FilmShowAsync;
+import doctorhoai.learn.paymentservice.facade.RoomAsync;
+import doctorhoai.learn.paymentservice.facade.SubFilmAsync;
 import doctorhoai.learn.paymentservice.helper.MapperToObject;
 import doctorhoai.learn.paymentservice.repository.*;
 import doctorhoai.learn.paymentservice.service.feign.*;
@@ -29,15 +38,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class BillServiceImpl implements BillService {
 
     private final BillRepository billRepository;
@@ -52,6 +66,16 @@ public class BillServiceImpl implements BillService {
     private final SubFilmFeign subFilmFeign;
     private final MapperToObject mapperToObject;
     private final KafkaMessagePublish kafkaMessagePublish;
+
+    //async
+    private final FilmShowAsync filmShowAsync;
+    private final RoomAsync roomAsync;
+    private final FilmAsync filmAsync;
+    private final Executor executor;
+    private final SubFilmAsync subFilmAsync;
+
+    //cloudinary
+    private final Cloudinary cloudinary;
 
 
     @Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = { SQLException.class })
@@ -74,7 +98,23 @@ public class BillServiceImpl implements BillService {
             });
 
             //call showtime
-            ResponseEntity<Response> responseShowTime = filmShowTimeFeign.getFilmShowByRoomAndId(billDto.getRoomId(), billDto.getFilmShowTimeId());
+//            ResponseEntity<Response> responseShowTime = filmShowTimeFeign.getFilmShowByRoomAndId(billDto.getRoomId(), billDto.getFilmShowTimeId());
+            //call room
+//            ResponseEntity<Response> responseRoom = roomFeign.getRoomById(billDto.getRoomId());
+            //call film
+//            ResponseEntity<Response> responseFilm = filmFeign.getFilmById(billDto.getFilmId());
+
+            //async
+            CompletableFuture<ResponseEntity<Response>> responseAsyncShowTime = filmShowAsync.getFilmShowByRoomAndId(billDto.getRoomId(),billDto.getFilmShowTimeId());
+            CompletableFuture<ResponseEntity<Response>> responseAsyncRoom = roomAsync.getRoomById(billDto.getRoomId());
+            CompletableFuture<ResponseEntity<Response>> responseAsyncFilm = filmAsync.getFilmById(billDto.getFilmId());
+
+            CompletableFuture.allOf(responseAsyncRoom,responseAsyncFilm,responseAsyncShowTime);
+
+            ResponseEntity<Response> responseShowTime = responseAsyncShowTime.join();
+            ResponseEntity<Response> responseRoom = responseAsyncRoom.join();
+            ResponseEntity<Response> responseFilm = responseAsyncFilm.join();
+
             if (responseShowTime.getStatusCode() != HttpStatus.OK) {
                 log.error("Room or Show Time not found");
                 throw new ShowTimNotFound("Show Time not found");
@@ -84,16 +124,14 @@ public class BillServiceImpl implements BillService {
                     .registerModule(new Jdk8Module())
                     .registerModule(new JavaTimeModule());
             FilmShowDto filmShowDto = objectMapper.convertValue(responseShowTime.getBody().getData(), FilmShowDto.class);
-            //call room
-            ResponseEntity<Response> responseRoom = roomFeign.getRoomById(billDto.getRoomId());
+
             if (responseRoom.getStatusCode() != HttpStatus.OK) {
                 log.error("Room not found");
                 throw new RoomNotFound("Room not found");
             }
 
             RoomDto roomDto = objectMapper.convertValue(responseRoom.getBody().getData(), RoomDto.class);
-            //call film
-            ResponseEntity<Response> responseFilm = filmFeign.getFilmById(billDto.getFilmId());
+
             if (responseFilm.getStatusCode() != HttpStatus.OK) {
                 log.error("Film not found");
                 throw new FilmNotFound("Film not found");
@@ -125,75 +163,97 @@ public class BillServiceImpl implements BillService {
             //list return into billdto
             List<BillChairDto> billChairReturn = new ArrayList<>();
             List<BillChairDto> billChairDto = billDto.getChairs();
-            if( !billDto.getChairs().isEmpty()){
-                billChairDto.forEach(item -> {
-                    Optional<Ticket> ticket = ticketRepository.findById(item.getTicket().getId());
-                    if (ticket.isEmpty()) {
-                        throw new TicketNotFound("Ticket not found with id : " + item.getTicket().getId());
-                    }
-                    BillChair billChair = BillChair
-                            .builder()
-                            .chairCode(item.getChairCode())
-                            .price(item.getPrice())
-                            .ticketId(ticket.get())
-                            .active(Active.ACTIVE)
-                            .billChairId(bill)
-                            .build();
-                    TicketDto ticketDto = TicketDto.builder()
-                            .id(ticket.get().getId())
-                            .name(ticket.get().getName())
-                            .active(ticket.get().getActive())
-                            .conditionUse(ticket.get().getConditionUse())
-                            .price(ticket.get().getPrice())
-                            .typeTicket(ticket.get().getTypeTicket())
-                            .slot(ticket.get().getSlot())
-                            .build();
-                    billChairReturn.add(
-                            BillChairDto.builder()
-                                    .active(item.getActive())
-                                    .price(item.getPrice())
-                                    .id(item.getId())
-                                    .chairCode(item.getChairCode())
-                                    .ticket(ticketDto)
-                                    .build()
-                    );
-                    bill.getBillChair().add(billChair);
-                });
-            }
-            // dish
-            List<BillDishDto> billDishReturn = new ArrayList<>();
-            if (!billDto.getDishes().isEmpty()) {
-                List<BillDishDto> billDishes = billDto.getDishes();
-                billDishes.forEach(item -> {
-                    ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishDto().getId());
-                    if (responseDish.getStatusCode() == HttpStatus.OK) {
-                        DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
-                        BillDish billDish = BillDish
+            CompletableFuture<Void> billAsync = CompletableFuture.supplyAsync(()-> {
+                if( !billDto.getChairs().isEmpty()){
+                    billChairDto.forEach(item -> {
+                        Optional<Ticket> ticket = ticketRepository.findById(item.getTicket().getId());
+                        if (ticket.isEmpty()) {
+                            throw new TicketNotFound("Ticket not found with id : " + item.getTicket().getId());
+                        }
+                        BillChair billChair = BillChair
                                 .builder()
-                                .active(Active.ACTIVE)
+                                .chairCode(item.getChairCode())
                                 .price(item.getPrice())
-                                .dishId(item.getDishDto().getId())
-                                .amount(item.getAmount())
-                                .billDishId(bill)
+                                .ticketId(ticket.get())
+                                .active(Active.ACTIVE)
+                                .billChairId(bill)
                                 .build();
-                        billDishReturn.add(
-                                BillDishDto.builder()
+                        TicketDto ticketDto = TicketDto.builder()
+                                .id(ticket.get().getId())
+                                .name(ticket.get().getName())
+                                .active(ticket.get().getActive())
+                                .conditionUse(ticket.get().getConditionUse())
+                                .price(ticket.get().getPrice())
+                                .typeTicket(ticket.get().getTypeTicket())
+                                .slot(ticket.get().getSlot())
+                                .build();
+                        billChairReturn.add(
+                                BillChairDto.builder()
                                         .active(item.getActive())
                                         .price(item.getPrice())
                                         .id(item.getId())
-                                        .amount(item.getAmount())
-                                        .dishDto(dishDto)
+                                        .chairCode(item.getChairCode())
+                                        .ticket(ticketDto)
                                         .build()
                         );
-                        bill.getBillDish().add(billDish);
-                    } else {
-                        throw new DishNotFound("Dish not found with id : " + item.getDishDto().getId());
-                    }
-                });
-            }
+                        bill.getBillChair().add(billChair);
+                    });
+                }
+                return null;
+            },executor);
+            // dish
+            List<BillDishDto> billDishReturn = new ArrayList<>();
+            CompletableFuture<Void> billDishAsync = CompletableFuture.supplyAsync(() -> {
+                if (!billDto.getDishes().isEmpty()) {
+                    List<BillDishDto> billDishes = billDto.getDishes();
+                    billDishes.forEach(item -> {
+                        ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishDto().getId());
+                        if (responseDish.getStatusCode() == HttpStatus.OK) {
+                            DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
+                            BillDish billDish = BillDish
+                                    .builder()
+                                    .active(Active.ACTIVE)
+                                    .price(item.getPrice())
+                                    .dishId(item.getDishDto().getId())
+                                    .amount(item.getAmount())
+                                    .billDishId(bill)
+                                    .build();
+                            billDishReturn.add(
+                                    BillDishDto.builder()
+                                            .active(item.getActive())
+                                            .price(item.getPrice())
+                                            .id(item.getId())
+                                            .amount(item.getAmount())
+                                            .dishDto(dishDto)
+                                            .build()
+                            );
+                            bill.getBillDish().add(billDish);
+                        } else {
+                            throw new DishNotFound("Dish not found with id : " + item.getDishDto().getId());
+                        }
+                    });
+                }
+                return null;
+            }, executor);
 
+            CompletableFuture.allOf(billAsync,billDishAsync).join();
             Bill billSaved = billRepository.save(bill);
             billRepository.flush();
+            try{
+                BufferedImage qrImage = generateQRCodeImage(billSaved.toString());
+                // chuyen thanh mang byte
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(qrImage, "png", baos);
+                byte[] imageBytes = baos.toByteArray();
+                // upload
+                String url = cloudinary.uploader()
+                        .upload(imageBytes, Map.of("public_id", UUID.randomUUID().toString()))
+                        .get("url").toString();
+                billSaved.setQrcode(url);
+                billRepository.save(billSaved);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             // convert bill dto
             BillDto billConvert = BillDto
                     .builder()
@@ -222,6 +282,7 @@ public class BillServiceImpl implements BillService {
 
             billConvert.setChairs(billChairReturn);
             billConvert.setDishes(billDishReturn);
+            billDto.setQrCode(billConvert.getQrCode());
             return billConvert;
         }catch (TicketNotFound t){
             log.error(t.getMessage());
@@ -247,6 +308,13 @@ public class BillServiceImpl implements BillService {
         }
     }
 
+    private static BufferedImage generateQRCodeImage(String data) throws Exception {
+        int width = 300;
+        int height = 300;
+        BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, width, height);
+        return MatrixToImageWriter.toBufferedImage(matrix);
+    }
+
     @Override
     public PageObject getAllBills(String page, String limit, String active, String orderBy, String asc, String q) {
         List<BillDto> list = new ArrayList<>();
@@ -265,6 +333,8 @@ public class BillServiceImpl implements BillService {
         bills.forEach(bill -> {
             //call showtime
             ResponseEntity<Response> responseShowTime = filmShowTimeFeign.getFilmShowTime(bill.getFilmShowTimeId());
+
+
             if (responseShowTime.getStatusCode() != HttpStatus.OK) {
                 log.error("Room or Show Time not found");
                 throw new ShowTimNotFound("Show Time not found");
@@ -274,54 +344,77 @@ public class BillServiceImpl implements BillService {
                     .registerModule(new Jdk8Module())
                     .registerModule(new JavaTimeModule());
             FilmShowDto filmShowDto = objectMapper.convertValue(responseShowTime.getBody().getData(), FilmShowDto.class);
+
+            List<BillChairDto> chairs = new ArrayList<>();
+            List<BillDishDto> dishes = new ArrayList<>();
+
+            List<BillDish> listDish = billDishRepository.getBillDishByBillDishId_Id(bill.getId());
+
+
+            List<BillChair> listChair = billChairRepository.getBillChairByBillChairId_Id(bill.getId());
+
+            //async
+            CompletableFuture<ResponseEntity<Response>> responseRoomAsync = roomAsync.getRoomById(filmShowDto.getRoomId());
+            CompletableFuture<ResponseEntity<Response>> responseSubFilmAsync = subFilmAsync.getSubFilmById(filmShowDto.getSubFilmId());
+            CompletableFuture<Void> dishAsync = CompletableFuture.supplyAsync(()-> {
+                System.out.println("Thread: " + Thread.currentThread().getName());
+                listDish.forEach( item -> {
+                    ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishId());
+                    if (responseDish.getStatusCode() == HttpStatus.OK) {
+                        DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
+                        BillDishDto temp = BillDishDto
+                                .builder()
+                                .id(item.getId())
+                                .active(item.getActive())
+                                .price(item.getPrice())
+                                .amount(item.getAmount())
+                                .dishDto(dishDto)
+                                .build();
+                        dishes.add(temp);
+                    }else {
+                        throw new DishNotFound("Dish not found with id : " + item.getId());
+                    }
+                });
+                return null;
+            },executor);
+            CompletableFuture<Void> chairAsync = CompletableFuture.supplyAsync(()-> {
+                System.out.println("Thread: " + Thread.currentThread().getName());
+                listChair.forEach( item -> {
+                    BillChairDto temp = BillChairDto
+                            .builder()
+                            .id(item.getId())
+                            .chairCode(item.getChairCode())
+                            .price(item.getPrice())
+                            .ticket(mapperToObject.mapperToTicketDto(item.getTicketId()))
+                            .active(item.getActive())
+                            .build();
+                    chairs.add(temp);
+                });
+                return null;
+            },executor);
+
+            CompletableFuture.allOf(responseRoomAsync,responseSubFilmAsync,dishAsync);
+
+            ResponseEntity<Response> responseRoom = responseRoomAsync.join();
+            ResponseEntity<Response> responseSubFilm = responseSubFilmAsync.join();
+
             //call room
-            ResponseEntity<Response> responseRoom = roomFeign.getRoomById(filmShowDto.getRoomId());
+//            ResponseEntity<Response> responseRoom = roomFeign.getRoomById(filmShowDto.getRoomId());
+            //call film
+//            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmById(filmShowDto.getSubFilmId());
+
+
             if (responseRoom.getStatusCode() != HttpStatus.OK) {
                 log.error("Room not found");
                 throw new RoomNotFound("Room not found");
             }
             RoomDto roomDto = objectMapper.convertValue(responseRoom.getBody().getData(), RoomDto.class);
-            //call film
-            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmById(filmShowDto.getSubFilmId());
             if (responseSubFilm.getStatusCode() != HttpStatus.OK) {
                 log.error("Film not found");
                 throw new FilmNotFound("Film not found");
             }
             SubFilmDto subFilmDto = objectMapper.convertValue(responseSubFilm.getBody().getData(), SubFilmDto.class);
 
-            List<BillChairDto> chairs = new ArrayList<>();
-            List<BillDishDto> dishes = new ArrayList<>();
-
-            List<BillChair> listChair = billChairRepository.getBillChairByBillChairId_Id(bill.getId());
-            listChair.forEach( item -> {
-                BillChairDto temp = BillChairDto
-                        .builder()
-                        .id(item.getId())
-                        .chairCode(item.getChairCode())
-                        .price(item.getPrice())
-                        .ticket(mapperToObject.mapperToTicketDto(item.getTicketId()))
-                        .active(item.getActive())
-                        .build();
-                chairs.add(temp);
-            });
-            List<BillDish> listDish = billDishRepository.getBillDishByBillDishId_Id(bill.getId());
-            listDish.forEach( item -> {
-                ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishId());
-                if (responseDish.getStatusCode() == HttpStatus.OK) {
-                    DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
-                    BillDishDto temp = BillDishDto
-                            .builder()
-                            .id(item.getId())
-                            .active(item.getActive())
-                            .price(item.getPrice())
-                            .amount(item.getAmount())
-                            .dishDto(dishDto)
-                            .build();
-                    dishes.add(temp);
-                }else {
-                    throw new DishNotFound("Dish not found with id : " + item.getId());
-                }
-            });
 
             BillDto billDto = BillDto
                     .builder()
@@ -348,6 +441,7 @@ public class BillServiceImpl implements BillService {
                     .numberPhone(bill.getNumberPhone())
                     .chairs(chairs)
                     .dishes(dishes)
+                    .qrCode(bill.getQrcode())
                     .build();
             list.add(billDto);
         });
@@ -452,6 +546,7 @@ public class BillServiceImpl implements BillService {
                 .userName(bill.getUserName())
                 .email(bill.getEmail())
                 .numberPhone(bill.getNumberPhone())
+                .qrCode(bill.getQrcode())
                 .build();
         return billDto;
     }
@@ -479,7 +574,7 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public boolean acceptBill(String id, String transaction) {
+    public BillDto acceptBill(String id, String transaction) {
         Optional<Bill> billOptional = billRepository.findById(id);
         if( billOptional.isEmpty() ){
             throw new BillNotFound("Bill not found with id : " + id);
@@ -511,7 +606,8 @@ public class BillServiceImpl implements BillService {
                     billConvert.getNameFilm(),
                     billConvert.getUserName(),
                     billConvert.getEmail(),
-                    billConvert.getNumberPhone()
+                    billConvert.getNumberPhone(),
+                    billConvert.getQrCode()
             );
             if( billConvert.getChairs() != null){
                 billConvert.getChairs().forEach( item -> {
@@ -544,10 +640,10 @@ public class BillServiceImpl implements BillService {
             kafkaMessagePublish.sendEventToTopic(
                     ticketEmail
             );
-            return true;
+            return billConvert;
         }catch ( Exception e ){
             log.error("Bill save failed : " + e.getMessage());
-            return false;
+            throw new ErrorException("Can't accept bill");
         }
     }
 
@@ -641,6 +737,7 @@ public class BillServiceImpl implements BillService {
                     .numberPhone(bill.getNumberPhone())
                     .chairs(chairs)
                     .dishes(dishes)
+                    .qrCode(bill.getQrcode())
                     .build();
             list.add(billDto);
         });

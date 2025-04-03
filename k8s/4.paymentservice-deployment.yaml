@@ -35,7 +35,7 @@ spec:
               value: kafka:29092
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_paymentservice:f11
+          image: doctorhoai/huongdichvu_paymentservice:f15
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -52,6 +52,14 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 20
             timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8086
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
           name: paymentservice
           ports:
             - containerPort: 8086

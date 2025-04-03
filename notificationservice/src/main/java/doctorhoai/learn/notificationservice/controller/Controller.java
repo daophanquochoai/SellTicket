@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -74,7 +75,7 @@ public class Controller {
     }
 
 
-
+    @Async("taskExecutor")
     public void sendSSE(List<BillChairTicket> billChairTicket) {
         for (SseEmitter emitter : new ArrayList<>(emitters)) { // Tránh lỗi ConcurrentModificationException
             executor.execute(() -> {

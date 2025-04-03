@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface RevenueRepository extends JpaRepository<RevenueFilm, String> {
     @Procedure(name = "revenueInFilm")
-    List<RevenueFilm> revenueInFilm();
-    @Procedure(name = "revenueAllInFilm")
-    List<RevenueFilm> revenueAllInFilm();
+    List<RevenueFilm> revenueInFilm(Integer monthNow, Integer yearNow);
+    @Procedure(name = "revenueInFilmByFilmId")
+    List<RevenueFilm> revenueInFilmByFilmId(String filmId);
 }

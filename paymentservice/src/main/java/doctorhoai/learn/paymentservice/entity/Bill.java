@@ -41,4 +41,22 @@ public class Bill {
     private String email;
     @Column(nullable = false)
     private String numberPhone;
+    private String qrcode;
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "id='" + id + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", transactionCode='" + transactionCode + '\'' +
+                ", filmShowTimeId=" + filmShowTimeId +
+                ", paymentMethodId=" + paymentMethodId +
+                ", active=" + active +
+                ", timestamp=" + timestamp +
+                ", status=" + status +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", numberPhone='" + numberPhone + '\'' +
+                '}';
+    }
 }

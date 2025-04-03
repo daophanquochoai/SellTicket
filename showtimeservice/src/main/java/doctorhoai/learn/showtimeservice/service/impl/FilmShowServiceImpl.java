@@ -12,6 +12,8 @@ import doctorhoai.learn.showtimeservice.entity.FilmShowTime;
 import doctorhoai.learn.showtimeservice.entity.Status;
 import doctorhoai.learn.showtimeservice.exception.ErrorException;
 import doctorhoai.learn.showtimeservice.exception.FilmShowTimeNotFound;
+import doctorhoai.learn.showtimeservice.facade.RoomAsync;
+import doctorhoai.learn.showtimeservice.facade.SubFilmAsync;
 import doctorhoai.learn.showtimeservice.helper.MapperObject;
 import doctorhoai.learn.showtimeservice.repository.FilmShowRepository;
 import doctorhoai.learn.showtimeservice.service.FilmShowService;
@@ -29,6 +31,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,11 +44,15 @@ public class FilmShowServiceImpl implements FilmShowService {
     private final RoomFeign roomFeign;
     private final SubFilmFeign subFilmFeign;
     private final PaymentFeign paymentFeign;
+    private final RoomAsync roomAsync;
+    private final SubFilmAsync subFilmAsync;
 
     @Override
     public FilmShowDto addFilmShow(FilmShowRequest filmShowRequest) {
 
-        Response responseRoom = roomFeign.getRoomById(filmShowRequest.getRoomId()).getBody();
+//        Response responseRoom = roomFeign.getRoomById(filmShowRequest.getRoomId()).getBody();
+        //async
+        CompletableFuture<ResponseEntity<Response>> responseAsync = roomAsync.getRoomById(filmShowRequest.getRoomId());
 
         FilmShowTime filmShowTime = FilmShowTime.builder()
                 .timeEnd(filmShowRequest.getTimeEnd())
@@ -53,6 +60,11 @@ public class FilmShowServiceImpl implements FilmShowService {
                 .timestamp(filmShowRequest.getTimestamp())
                 .status(Status.valueOf(filmShowRequest.getStatus().toUpperCase()))
                 .build();
+
+        //wait
+        CompletableFuture.allOf(responseAsync);
+
+        Response responseRoom = responseAsync.join().getBody();
         if( responseRoom.getStatusCode() == 200 ){
             filmShowTime.setRoomId(filmShowRequest.getRoomId());
         }else{
@@ -190,18 +202,26 @@ public class FilmShowServiceImpl implements FilmShowService {
                     .registerModule(new ParameterNamesModule())
                     .registerModule(new Jdk8Module())
                     .registerModule(new JavaTimeModule());
-            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmByFilmIdAndSubId(filmId, subId);
+            //async
+            CompletableFuture<ResponseEntity<Response>> responseAsyncSubFilm = subFilmAsync.getSubFilmByFilmIdAndSubId(filmId,subId);
+            CompletableFuture<ResponseEntity<Response>> responseAsyncRoom = roomAsync.getRoomByBranch(branchId);
+//            ResponseEntity<Response> response = roomFeign.getRoomByBranch(branchId);
+//            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmByFilmIdAndSubId(filmId, subId);
+            //wait
+            CompletableFuture.allOf(responseAsyncSubFilm, responseAsyncRoom);
+            ResponseEntity<Response> responseSubFilm = responseAsyncSubFilm.join();
+            ResponseEntity<Response> responseRoom = responseAsyncRoom.join();
+
             if( responseSubFilm.getStatusCode() != HttpStatusCode.valueOf(200)){
                 throw new ErrorException("Film service down");
             }
             SubFilmDto subFilmDto = objectMapper.convertValue(responseSubFilm.getBody().getData(), SubFilmDto.class);
             List<FilmShowTime> list = filmShowRepository.getShowTimeByTimestampAndSubFilmIdAndStatus(date, subFilmDto.getId(), Status.ACTIVE);
             List<RoomDto> listRoom;
-            ResponseEntity<Response> response = roomFeign.getRoomByBranch(branchId);
-            if( response.getStatusCode() != HttpStatusCode.valueOf(200)){
+            if( responseRoom.getStatusCode() != HttpStatusCode.valueOf(200)){
                 throw new ErrorException("Room service down");
             }
-            String json = objectMapper.writeValueAsString(response.getBody().getData());
+            String json = objectMapper.writeValueAsString(responseRoom.getBody().getData());
             listRoom = objectMapper.readValue(json, objectMapper.getTypeFactory().constructCollectionType(List.class, RoomDto.class));
             list = list.stream().filter( item -> {
                 for (RoomDto roomDto : listRoom) {

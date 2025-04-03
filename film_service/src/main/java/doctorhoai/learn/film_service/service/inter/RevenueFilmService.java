@@ -5,6 +5,6 @@ import doctorhoai.learn.film_service.entity.RevenueFilm;
 import java.util.List;
 
 public interface RevenueFilmService {
-    List<RevenueFilm> getRevenueInFilm();
-    List<RevenueFilm> getRevenueInFilmAll();
+    List<RevenueFilm> getRevenueByFilmId(String filmId);
+    List<RevenueFilm> getRevenueInFilmAll(Integer month, Integer year);
 }

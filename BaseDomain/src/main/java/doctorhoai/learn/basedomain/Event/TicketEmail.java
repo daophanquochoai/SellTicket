@@ -38,4 +38,5 @@ public class TicketEmail implements Serializable {
     private String userName;
     private String email;
     private String numberPhone;
+    private String qrCode;
 }

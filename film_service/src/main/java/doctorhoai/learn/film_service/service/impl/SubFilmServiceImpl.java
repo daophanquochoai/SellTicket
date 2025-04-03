@@ -16,6 +16,7 @@ import doctorhoai.learn.film_service.entity.Sub;
 import doctorhoai.learn.film_service.entity.SubFilm;
 import doctorhoai.learn.film_service.exception.ErrorException;
 import doctorhoai.learn.film_service.exception.SubFilmNotFound;
+import doctorhoai.learn.film_service.facade.FilmShowAsyncFacade;
 import doctorhoai.learn.film_service.repository.FilmRepository;
 import doctorhoai.learn.film_service.repository.SubFilmRepository;
 import doctorhoai.learn.film_service.repository.SubRepository;
@@ -32,6 +33,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +44,7 @@ public class SubFilmServiceImpl implements SubFilmService {
     private final SubRepository subRepository;
     private final FilmRepository filmRepository;
     private final FilmShowFeign filmShowFeign;
+    private final FilmShowAsyncFacade filmShowAsyncFacade;
 
     @Override
     public SubFilmDto getSubFilmById(String id) {
@@ -159,7 +162,11 @@ public class SubFilmServiceImpl implements SubFilmService {
         if( subFilm.isEmpty() ){
             throw new SubFilmNotFound("Sub film not found");
         }
-        ResponseEntity<Response> response = filmShowFeign.getFilmShowBySubFilm(subFilm.get().getId());
+        //async
+        CompletableFuture<ResponseEntity<Response>> responseAsync = filmShowAsyncFacade.getFilmShowBySubFilm(subFilm.get().getId());
+        //wait
+        CompletableFuture.allOf(responseAsync).join();
+        ResponseEntity<Response> response = responseAsync.join();
         if( response.getStatusCode() != HttpStatus.OK){
             throw new ErrorException("Server Down!");
         }

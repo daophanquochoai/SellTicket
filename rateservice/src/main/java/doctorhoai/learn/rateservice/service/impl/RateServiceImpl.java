@@ -17,6 +17,8 @@ import doctorhoai.learn.rateservice.exception.CustomerNotFound;
 import doctorhoai.learn.rateservice.exception.ErrorException;
 import doctorhoai.learn.rateservice.exception.FilmNotFound;
 import doctorhoai.learn.rateservice.exception.RateNotFound;
+import doctorhoai.learn.rateservice.facade.FilmAsync;
+import doctorhoai.learn.rateservice.facade.UserAsync;
 import doctorhoai.learn.rateservice.feignclient.FilmFeignClient;
 import doctorhoai.learn.rateservice.feignclient.UserFeignClient;
 import doctorhoai.learn.rateservice.helper.MapperToDto;
@@ -35,6 +37,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -43,12 +46,28 @@ public class RateServiceImpl implements RateService {
     private final RateRepository rateRepository;
     private final UserFeignClient userFeignClient;
     private final FilmFeignClient filmFeignClient;
+    private final FilmAsync filmAsync;
+    private final UserAsync userAsync;
 
     @Override
     public RateFilmDto addRateFilm(String userId, String filmId,RateFilmRequest rate) {
         try{
             //fetch customer
-            ResponseEntity<Response> customerResponse = userFeignClient.getCustomerById(userId);
+//            ResponseEntity<Response> customerResponse = userFeignClient.getCustomerById(userId);
+            //fetch film
+//            ResponseEntity<Response> filmResponse = filmFeignClient.getFilmById(filmId);
+
+            //async
+            CompletableFuture<ResponseEntity<Response>> customerAsyncResponse = userAsync.getCustomerById(userId);
+            CompletableFuture<ResponseEntity<Response>> filmAsyncResponse = filmAsync.getFilmId(filmId);
+
+            //wait
+            CompletableFuture.allOf(customerAsyncResponse, filmAsyncResponse);
+
+            //reponse
+            ResponseEntity<Response> customerResponse = customerAsyncResponse.join();
+            ResponseEntity<Response> filmResponse = filmAsyncResponse.join();
+
             if( customerResponse == null ){
                 throw new CustomerNotFound("Customer not found with id : " + rate.getCustomerId());
             }
@@ -60,8 +79,6 @@ public class RateServiceImpl implements RateService {
                     .registerModule(new Jdk8Module())
                     .registerModule(new JavaTimeModule());
             CustomerDto customerDto = objectMapper.convertValue(customerResponse.getBody().getData(), CustomerDto.class);
-            //fetch film
-            ResponseEntity<Response> filmResponse = filmFeignClient.getFilmById(filmId);
             if( filmResponse == null ){
                 throw new FilmNotFound("Film not found with id : " + rate.getFilmId());
             }

@@ -85,7 +85,7 @@ services:
       - huongdichvu
 
   configserver:
-    image: doctorhoai/huongdichvu_configserver:f12
+    image: doctorhoai/huongdichvu_configserver:f15
     container_name: configserver
     ports:
       - "8071:8071"
@@ -105,7 +105,7 @@ services:
     networks:
       - huongdichvu
   eurekaservice:
-    image: doctorhoai/huongdichvu_eurekaservice:f11
+    image: doctorhoai/huongdichvu_eurekaservice:f15
     container_name: eurekaservice
     ports:
       - "8070:8070"
@@ -127,7 +127,7 @@ services:
     networks:
       - huongdichvu
   userservice:
-    image: doctorhoai/huongdichvu_userservice:f11
+    image: doctorhoai/huongdichvu_userservice:f15
     container_name: userservice
     ports:
       - "9000:9000"
@@ -160,7 +160,7 @@ services:
     networks:
       - huongdichvu
   showtimeservice:
-    image: doctorhoai/huongdichvu_showwtimeservice:f11
+    image: doctorhoai/huongdichvu_showwtimeservice:f15
     container_name: showtimeservice
     ports:
       - "8084:8084"
@@ -189,7 +189,7 @@ services:
     networks:
       - huongdichvu
   roomservice:
-    image: doctorhoai/huongdichvu_roomservice:f11
+    image: doctorhoai/huongdichvu_roomservice:f15
     container_name: roomservice
     ports:
       - "8085:8085"
@@ -218,7 +218,7 @@ services:
     networks:
       - huongdichvu
   rateservice:
-    image: doctorhoai/huongdichvu_rateservice:f11
+    image: doctorhoai/huongdichvu_rateservice:f15
     container_name: rateservice
     ports:
       - "8082:8082"
@@ -247,7 +247,7 @@ services:
     networks:
       - huongdichvu
   paymentservice:
-    image: doctorhoai/huongdichvu_paymentservice:f11
+    image: doctorhoai/huongdichvu_paymentservice:f15
     container_name: paymentservice
     ports:
       - "8086:8086"
@@ -277,7 +277,7 @@ services:
     networks:
       - huongdichvu
   noficationservice:
-    image: doctorhoai/huongdichvu_notificationservice:f11
+    image: doctorhoai/huongdichvu_notificationservice:f15
     container_name: noficationservice
     ports:
       - "8080:8080"
@@ -300,7 +300,7 @@ services:
     networks:
       - huongdichvu
   filmservice:
-    image: doctorhoai/huongdichvu_filmservice:f11
+    image: doctorhoai/huongdichvu_filmservice:f15
     container_name: filmservice
     ports:
       - "8081:8081"
@@ -329,7 +329,7 @@ services:
     networks:
       - huongdichvu
   dishservice:
-    image: doctorhoai/huongdichvu_dishservice:f11
+    image: doctorhoai/huongdichvu_dishservice:f15
     container_name: dishservice
     ports:
       - "8083:8083"
@@ -358,7 +358,7 @@ services:
     networks:
       - huongdichvu
   proxyclient:
-    image: doctorhoai/huongdichvu_proxyservice:f11
+    image: doctorhoai/huongdichvu_proxyservice:f15
     container_name: proxyclient
     ports:
       - "8888:8888"
@@ -393,7 +393,7 @@ services:
     networks:
       - huongdichvu
   apigateway:
-    image: doctorhoai/huongdichvu_apigateway:f12
+    image: doctorhoai/huongdichvu_apigateway:f15
     container_name: apigateway
     ports:
       - "6380:6380"
@@ -421,7 +421,7 @@ services:
     networks:
       - huongdichvu
   react-app:
-    image: doctorhoai/movieticket:f13
+    image: doctorhoai/movieticket:f15
     ports:
       - "5173:80"
     environment:

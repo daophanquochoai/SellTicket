@@ -33,7 +33,7 @@ spec:
               value: root
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_showwtimeservice:f11
+          image: doctorhoai/huongdichvu_showwtimeservice:f15
           resources:
             requests:
               memory: 512Mi
@@ -50,6 +50,14 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 20
             timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8084
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
           name: showtimeservice
           ports:
             - containerPort: 8084

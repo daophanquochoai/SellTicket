@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -35,18 +36,9 @@ public class MailServiceImpl implements MailService {
     private final Cloudinary cloudinary;
 
     @Override
+    @Async("taskExecutor")
     public void sendMail(TicketEmail ticketEmail) {
         try{
-            BufferedImage qrImage = generateQRCodeImage(ticketEmail.toString());
-            // chuyen thanh mang byte
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(qrImage, "png", baos);
-            byte[] imageBytes = baos.toByteArray();
-
-            // upload
-            String url = cloudinary.uploader()
-                    .upload(imageBytes, Map.of("public_id", UUID.randomUUID().toString()))
-                    .get("url").toString();
 
             //tao string message
             StringBuilder messageData = new StringBuilder("<!DOCTYPE html>\n" +
@@ -75,7 +67,7 @@ public class MailServiceImpl implements MailService {
                     "          <p><strong>Số điện thoại:</strong> " + ticketEmail.getNumberPhone() + "</p>\n" +
                     "          <div class=\"flex items-end gap-4\">\n" +
                     "             <p><strong>QRcode:</strong></p>\n" +
-                    "             <img src=\"" + url +  "\"/>\n" +
+                    "             <img src=\"" + ticketEmail.getQrCode() +  "\"/>\n" +
                     "          </div>\n" +
                     "    </div>\n" +
                     "    \n" +
@@ -162,12 +154,5 @@ public class MailServiceImpl implements MailService {
             log.error(e.getMessage());
         }
 
-    }
-
-    private static BufferedImage generateQRCodeImage(String data) throws Exception {
-        int width = 300;
-        int height = 300;
-        BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, width, height);
-        return MatrixToImageWriter.toBufferedImage(matrix);
     }
 }

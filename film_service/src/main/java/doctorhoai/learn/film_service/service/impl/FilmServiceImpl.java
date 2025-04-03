@@ -14,6 +14,7 @@ import doctorhoai.learn.film_service.exception.ErrorException;
 import doctorhoai.learn.film_service.exception.FilmNotFound;
 import doctorhoai.learn.film_service.exception.SubNotFound;
 import doctorhoai.learn.film_service.exception.TypeFilmNotFound;
+import doctorhoai.learn.film_service.facade.FilmShowAsyncFacade;
 import doctorhoai.learn.film_service.helper.MapperToDto;
 import doctorhoai.learn.film_service.repository.FilmRepository;
 import doctorhoai.learn.film_service.repository.SubFilmRepository;
@@ -37,6 +38,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +51,7 @@ public class FilmServiceImpl implements FilmService {
     private final SubRepository subRepository;
     private final FilmShowFeign filmShowFeign;
     private final SubFilmRepository subFilmRepository;
+    private final FilmShowAsyncFacade filmShowAsyncFacade;
 
     @Override
     @Transactional
@@ -258,7 +261,11 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<FilmDto> getFilmBySearch(String branchId, LocalDate time) {
         try{
-            ResponseEntity<Response> response = filmShowFeign.getFilmShowTimeByParam(branchId,time);
+            // async
+            CompletableFuture<ResponseEntity<Response>> responseAsync = filmShowAsyncFacade.getFilmShowTimeByParam(branchId, time);
+            //wait
+            CompletableFuture.allOf(responseAsync);
+            ResponseEntity<Response> response = responseAsync.join();
             if( response.getStatusCode() != HttpStatusCode.valueOf(200)){
                 throw new ErrorException("Show time service down");
             }

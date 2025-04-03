@@ -33,7 +33,7 @@ spec:
               value: root
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411
-          image: doctorhoai/huongdichvu_rateservice:f11
+          image: doctorhoai/huongdichvu_rateservice:f15
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -50,6 +50,14 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 20
             timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
           name: rateservice
           ports:
             - containerPort: 8082

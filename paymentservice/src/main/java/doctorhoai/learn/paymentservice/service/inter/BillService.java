@@ -11,6 +11,6 @@ public interface BillService {
     BillDto getBillById(String id);
     void deleteBill(String id);
     void activeBill(String id);
-    boolean acceptBill(String id, String transaction);
+    BillDto acceptBill(String id, String transaction);
     List<BillDto> getAllBillByFilmShow(Integer filmShow);
 }
