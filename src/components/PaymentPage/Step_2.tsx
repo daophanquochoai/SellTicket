@@ -22,7 +22,7 @@ const Step_2 : React.FC<Props> = ( props ) => {
                         <p className={`text-xl uppercase transition-all duration-300 ${select === 1 ? '' : 'text-white group-hover:text-main'}`}>Thanh toán thẻ visa</p>
                     </div>
                     <div>
-                        <Stripe />
+                        <Stripe setStep={props.setStep}/>
                     </div>
                 </motion.div>
                 <div className={'mt-[20px] flex justify-between'}>

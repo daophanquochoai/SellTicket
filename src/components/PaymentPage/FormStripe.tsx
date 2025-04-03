@@ -4,7 +4,6 @@ import axios from "axios";
 import {env} from "../../Helper/Contanst.ts";
 import {useCommonContext} from "../../context/CommonContext.tsx";
 import {Spin} from "antd";
-import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 
 const CARD_OPTION = {
@@ -27,14 +26,16 @@ const CARD_OPTION = {
     },
 };
 
-const FormStripe : React.FC = () => {
+interface Props {
+    setStep : (arg : number) => void
+}
+const FormStripe : React.FC<Props> = ( props : Props ) => {
 
     const [errorMessage, setErrorMessage] = useState("");
     const stripe = useStripe();
     const elements = useElements();
     const {bill,setBill, initBill} = useCommonContext();
     const [loading, setLoading] = useState<boolean>(false);
-    const navigation = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -62,9 +63,8 @@ const FormStripe : React.FC = () => {
             });
             setLoading(false);
             if (response.data.data.success) {
-                scroll(0,0);
-                navigation('/');
-                setBill(initBill);
+                props.setStep(3);
+                setBill(response.data.data.bill);
                 toast.success(<p className={'w-full'}>Đặt vé thành công</p>)
             } else {
                 setErrorMessage("Payment failed. Please try again.");

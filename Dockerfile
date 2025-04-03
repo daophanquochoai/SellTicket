@@ -1,7 +1,7 @@
 # --- BUILD REACT APP ---
 FROM node:18 AS build
 WORKDIR /app
-
+export DOCKER_BUILDKIT=1
 # Copy package.json và package-lock.json trước để cache dependencies
 COPY package.json package-lock.json ./
 RUN npm install --frozen-lockfile

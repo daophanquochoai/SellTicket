@@ -5,13 +5,17 @@ import React, {lazy} from "react";
 
 const FormStripe = lazy(()=>import('./FormStripe.tsx'));
 
-const Stripe : React.FC = () => {
+interface Props {
+    setStep : (arg : number) => void
+}
+
+const Stripe : React.FC<Props> = ( props : Props) => {
 
     const stripeTestMode = loadStripe(PUBLIC_KEY);
 
     return (
         <Elements stripe={stripeTestMode}>
-            <FormStripe />
+            <FormStripe setStep={props.setStep}/>
         </Elements>
     )
 };

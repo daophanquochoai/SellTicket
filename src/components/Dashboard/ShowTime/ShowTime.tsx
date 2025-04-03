@@ -187,8 +187,9 @@ const ShowTime : React.FC = () => {
             toast.warning(<p className={'w-full'}>Không thể tải dữ liệu</p>)
             return;
         }
-        settRooms(response.data.data);
-        setSelecteRoom(response.data.data[0].id);
+        const roomsData = response.data.data.filter(r => r.status == 'ACTIVE')
+        settRooms(roomsData);
+        setSelecteRoom(roomsData[0].id);
     }
 
     const handleFetchShowTimeByRoomAndTime = async () => {
@@ -321,7 +322,7 @@ const ShowTime : React.FC = () => {
                     </Spin>
                 </div>
                 <div className={'flex gap-2 flex-col flex-1'}>
-                    <label className={'text-main uppercase'}>Danh sách rạp :</label>
+                    <label className={'text-main uppercase'}>Danh sách phòng :</label>
                     <Spin tip={'Đang tải...'} spinning={loadingBranch}>
                         {
                             rooms.length > 0 ?

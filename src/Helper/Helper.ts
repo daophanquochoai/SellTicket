@@ -635,6 +635,32 @@ export const updateRoom
         return e;
     }
 }
+export const createRoom
+    : (room : Room,branch : Branch, token : string) => Promise<Response>
+    = async (room,branch, token) => {
+    try{
+        console.log({
+            branchId : branch.id,
+            name : room.name,
+            positionChair :room.positionChair,
+            status : room.status
+        });
+        const response = await  axios.post(`${env.url.API_BASE_URL}/room-service/api/room/add`,{
+            branchId : branch.id,
+            name : room.name,
+            positionChair :room.positionChair,
+            status : room.status
+        },{
+            headers : {
+                "Content-Type": "application/json",
+                Authorization : 'Bearer ' + token
+            }
+        });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
 interface Branch {
     id : string,
     nameBranch : string,
@@ -1149,23 +1175,40 @@ export const getAllContact
         return e;
     }
 }
-
-// ------------------------ Revenue ------------------------
-export const getRevenueFilm
-    : () => Promise<Response>
-    = async () => {
+export const checkContact
+    :( id : number, token : string) => Promise<Response>
+    = async  (id,token) => {
     try{
-        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/revenue/film`);
+        const response = await  axios.put(`${env.url.API_BASE_URL}/user-service/api/contact/check/${id}`,{}
+            ,  {
+                headers : {
+                    Authorization : 'Bearer ' + token
+                }
+            }
+        );
         return response;
     }catch (e){
         return e;
     }
 }
-export const getRevenueFilmAll
-    : () => Promise<Response>
-    = async () => {
+
+// ------------------------ Revenue ------------------------
+export const getRevenueFilm
+    : (month: string | number, year : string | number) => Promise<Response>
+    = async (month, year) => {
     try{
-        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/revenue/film/all`);
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/revenue/film/all/${month}/${year}`);
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+
+export const getRevenueFilmByFilmId
+    : (filmId : string) => Promise<Response>
+    = async (filmId) => {
+    try{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/film-service/api/revenue/film/${filmId}`);
         return response;
     }catch (e){
         return e;

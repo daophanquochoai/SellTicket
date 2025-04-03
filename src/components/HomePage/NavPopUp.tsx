@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {lazy, useEffect, useState} from "react";
 import {CloseOutlined} from "@ant-design/icons";
 import {removeToken} from "../../Helper/Helper.ts";
 import {useNavigate} from "react-router-dom";
 import {useCommonContext} from "../../context/CommonContext.tsx";
 import { motion } from "framer-motion";
 import Info from "../Info/Info.tsx";
+
 
 
 interface NavPropUps {
@@ -41,7 +42,7 @@ const NavPopUp : React.FC<NavPropUps> = ({propUp, setPropUp}) => {
                             <>
                                 <motion.div
                                     initial={{height: 120}}
-                                    animate={{height: open  ? 120 : 0}}
+                                    animate={{height: open  ? 170 : 0}}
                                     transition={{duration: 0.2, ease: "easeInOut"}}
                                     className={'overflow-hidden'}
                                 >

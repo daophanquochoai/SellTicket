@@ -39,8 +39,8 @@ const LoginPage : React.FC = () => {
 
     const handleLogin : (e: React.FormEvent) => void = async (e) => {
         e.preventDefault();
-        const response = await handleLoginByUsernameAndPassword(account.username, account.password);
         setProcessLogin(true);
+        const response = await handleLoginByUsernameAndPassword(account.username, account.password);
         if( response.status != 200){
             toast.warning(<p className={"w-full"}>Tài khoản không tồn tại</p>);
             setProcessLogin(false);

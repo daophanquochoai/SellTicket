@@ -4,6 +4,7 @@ import { isEqual } from 'lodash-es';
 import {getRevenueFilm} from "../../../Helper/Helper.ts";
 import {toast} from "react-toastify";
 import {Spin} from "antd";
+
 const DemoPie = memo(
     ({ data, onReady }) => {
         var config = {
@@ -28,7 +29,11 @@ interface Data {
     total_revenue : number
 }
 
-const RevenueFilm : React.FC = () => {
+interface Props {
+    month : string | number,
+    year : string | number
+}
+const RevenueFilm : React.FC<Props> = ( props ) => {
 
 
     const [data, setData] = useState<Data[]>([]);
@@ -36,17 +41,16 @@ const RevenueFilm : React.FC = () => {
 
     useEffect(() => {
         handleFetchRevenueFilm();
-    }, []);
+    }, [props.month, props.year]);
 
     const handleFetchRevenueFilm = async () => {
         setLoading(true);
-        const response = await getRevenueFilm();
+        const response = await getRevenueFilm(props.month, props.year);
         setLoading(false);
         if( response.status != 200 ){
             toast.warning(<p className={'w-full'}>Không thể tải biểu đồ</p>)
             return;
         }
-        console.log(response);
         setData(response.data?.data);
     }
 
@@ -56,7 +60,7 @@ const RevenueFilm : React.FC = () => {
                 <p className={'font-bold text-green-400 text-xl'}>DOANH THU PHIM TRONG THÁNG</p>
             </div>
             <Spin tip={'Đang tải...'} spinning={loading}>
-                <DemoPie data={data.map(item =>{
+                <DemoPie data={data?.map(item =>{
                     return {
                         type : item.name,
                         value : item.total_revenue

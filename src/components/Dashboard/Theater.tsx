@@ -108,13 +108,27 @@ const initRoom = {
         status : 'ACTIVE'
     },
     status : 'ACTIVE',
-    positionChair: [
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
+    positionChair : [
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0),
+        Array(20).fill(0)
     ]
 }
 const Theater: React.FC = () => {
@@ -145,6 +159,10 @@ const Theater: React.FC = () => {
     }, [params, pageBranch]);
 
     useEffect(() => {
+        console.log(dataRoomSelect)
+        console.log(dataRoom)
+    }, [dataRoom]);
+    useEffect(() => {
         if( selectBranch.length == 0) return;
         const temp : Branch = dataBranch.find(i=>i.id==selectBranch);
         if( temp == undefined){
@@ -154,6 +172,7 @@ const Theater: React.FC = () => {
         setBranchSelect(temp);
         handleFetchRoomByBranch();
     }, [selectBranch]);
+
 
     const handleFetchBranch = async () => {
         const token : string = getToken();
@@ -281,6 +300,11 @@ const Theater: React.FC = () => {
         })
     }
 
+    const handleCreateRoom = () => {
+        setDataRoomSelect(initRoom);
+        setActiveRoom('CREATE');
+        setIsModalOpenRoom(true);
+    }
 
     return (
         <>
@@ -379,15 +403,20 @@ const Theater: React.FC = () => {
                             </button>
                         </div>
                     </div>
-                    <div className={'flex-[2]'}>
-                        <p className={'text-[16px] font-bold uppercase mb-[10px]'}>Danh sách phòng</p>
+                    <div className={'flex-[2] '}>
+                        <div className={'flex justify-between items-end mb-[10px]'}>
+                            <p className={'text-[16px] font-bold uppercase mb-[10px]'}>Danh sách phòng</p>
+                            <button onClick={() => handleCreateRoom()} className={'px-4 py-2 bg-textAdmin text-white'}>
+                                Tạo phòng
+                            </button>
+                        </div>
                         <Table<Room> columns={columnRoom}
                                      dataSource={dataRoom}
                                      pagination={false}
                                      loading={loadingRoom}
                                      onRow={(record) => ({
                                          onClick: () => {
-                                             setDataRoomSelect(record);
+                                             setDataRoomSelect(JSON.parse(JSON.stringify(record))); // dêp copy
                                              setActiveRoom('UPDATE');
                                              setIsModalOpenRoom(true);
                                          }
@@ -438,6 +467,7 @@ const Theater: React.FC = () => {
                 active={activeRoom}
                 dataRoomAll={dataRoom}
                 setDataRoomAll={setDataRoom}
+                branchSelect={branchSelect}
             />
         </>
     )

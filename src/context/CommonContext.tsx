@@ -42,7 +42,8 @@ interface BillDto {
     email : string,
     numberPhone : string,
     nameBranch : string,
-    address : string
+    address : string,
+    qrCode : string
 }
 interface BillChairDto{
     id : string,

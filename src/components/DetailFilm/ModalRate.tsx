@@ -147,6 +147,7 @@ const ModalRate : React.FC<Props> = (props) => {
         toast.success(<p className={'w-full'}>Đăng tải thành công</p>)
         setContent(initContent);
         props.setReload(!props.reload);
+        setIsComment(false);
     }
 
     const handleComment = async () => {

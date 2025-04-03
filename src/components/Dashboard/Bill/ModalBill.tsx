@@ -25,7 +25,8 @@ interface Bill {
     nameFilm : string,
     userName : string,
     email : string,
-    numberPhone : string
+    numberPhone : string,
+    qrCode : string
 }
 interface Chair {
     id: string,
@@ -160,6 +161,16 @@ const ModalBill : React.FC<Props> = ( props ) => {
                             <label className={'text-main'}>Địa chỉ email <span
                                 className={'text-red-500'}>*</span></label>
                             <p>{data.email}</p>
+                        </div>
+                        <div>
+                            <label className={'text-main'}>Qrcode <span
+                                className={'text-red-500'}>*</span></label>
+                            {
+                                !data.qrCode ?
+                                    <div className={"w-[100px] h-[100px] bg-border"}></div>
+                                    :
+                                    <img alt={'qrcode'} src={data.qrCode} className={'w-[100px] h-[100px]'}/>
+                            }
                         </div>
                     </div>
                 </div>

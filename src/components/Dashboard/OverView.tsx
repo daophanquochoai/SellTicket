@@ -31,6 +31,10 @@ interface Month{
     increment : boolean
 }
 
+interface RevenueParam {
+    month : string | number ,
+    year : string | number
+}
 const initMonth : Month = {
     revenue : 0,
     increment : false
@@ -40,7 +44,10 @@ const initNumber = {
     numEmployee : 0,
     numBranch : 0
 }
-
+const initRevenueParam : RevenueParam = {
+    month : new Date(Date.now()).getMonth() + 1,
+    year : new Date(Date.now()).getFullYear()
+}
 const OverView : React.FC = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -50,6 +57,9 @@ const OverView : React.FC = () => {
     const navigate = useNavigate();
     const [data ,setData] = useState<Report[]>([]);
     const [dataNum, setDataNum] = useState<NumberAccount>(initNumber);
+
+    //revenue detail
+    const [revenueParam, setRevenueParam] = useState<RevenueParam>(initRevenueParam);
 
     //detail
     const [month, setMonth] = useState<Month>(initMonth);
@@ -144,8 +154,35 @@ const OverView : React.FC = () => {
         xField: 'month',
         yField: 'totalPrice',
         colorField: 'month',
+        onReady: ( {chart }) => {
+            chart.on('element:click', (event) => {
+                setRevenueParam({
+                    ...revenueParam,
+                    month : event.data.data.month
+                })
+            });
+        },
+        axis: {
+            x: {
+                size: 40,
+                labelFormatter: (datum) => `Tháng ${datum}`,
+            },
+            y : {
+                labelFormatter: (datum) => `${datum.toLocaleString()}`,
+            }
+        },
+        legend: false,
+        theme: "academy",
         tooltip: (item ) => ({name : `Tháng ${item.month}`, value : `${item.totalPrice.toLocaleString()}VND`})
     };
+
+    const handleChangeYear = (e) => {
+        setSelectYear(e);
+        setRevenueParam({
+            ...revenueParam,
+            year : e
+        })
+    }
     return (
         <>
             <div>
@@ -216,7 +253,7 @@ const OverView : React.FC = () => {
                                 defaultValue={selectYear}
                                 style={{width: 120}}
                                 options={dataYear}
-                                onChange={e=>setSelectYear(e)}
+                                onChange={e=>handleChangeYear(e)}
                             />
                         </Spin>
                     </div>
@@ -224,12 +261,15 @@ const OverView : React.FC = () => {
                         <Column {...config} />
                     </Spin>
                 </div>
+                <div className={'flex justify-center p-[20px] bg-white my-[20px] rounded-xl text-green-600 font-bold text-xl'}>
+                    <p>Tháng {revenueParam.month}</p>
+                </div>
                 <div className={'flex mt-[20px] gap-[20px]'}>
                     <div className={'flex-1 bg-white rounded-xl p-[20px] h-full max-h-[400px] overflow-x-scroll'}>
-                        <SortRevenueFilm />
+                        <SortRevenueFilm month={revenueParam.month} year={revenueParam.year}/>
                     </div>
                     <div className={'flex-1 bg-white rounded-xl p-[20px]'}>
-                        <RevenueFilm />
+                        <RevenueFilm month={revenueParam.month} year={revenueParam.year}/>
                     </div>
                 </div>
             </div>

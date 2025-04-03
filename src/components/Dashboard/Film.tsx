@@ -1,4 +1,13 @@
-import {createFilm, expireToken, getFilm, getSub, getToken, getTypeFilm, updateFilm} from "../../Helper/Helper.ts";
+import {
+    createFilm,
+    expireToken,
+    getFilm,
+    getRevenueFilmByFilmId,
+    getSub,
+    getToken,
+    getTypeFilm,
+    updateFilm
+} from "../../Helper/Helper.ts";
 import {toast} from "react-toastify";
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -9,6 +18,7 @@ import type { UploadProps } from 'antd';
 import { Button, Upload } from 'antd';
 import './style.css';
 import { Editor } from '@tinymce/tinymce-react';
+import { Liquid } from "@ant-design/plots";
 
 
 interface Film {
@@ -199,6 +209,7 @@ const Film : React.FC = () => {
     const contentRef = useRef(null);
     const [active, setActive] = useState<string>("CREATE");
 
+    const [revenue, setRevenue] = useState<number>(0);
     //modal
     const [loadingModal, setLoadingModal] = useState<boolean>(false);
 
@@ -214,6 +225,20 @@ const Film : React.FC = () => {
     useEffect(() => {
         handleFetchTypeFilm();
     }, []);
+    useEffect(() => {
+        if( dataModal.id == '') return;
+        handleGetRevenueByFilm();
+    },[dataModal])
+
+    //load revenue
+    const handleGetRevenueByFilm = async () => {
+        const response = await getRevenueFilmByFilmId(dataModal?.id);
+        if( response.status != 200 ){
+            toast.warning(<p className={'w-full'}>Không thể tải dữ liệu</p>)
+            return;
+        }
+        setRevenue(response.data?.data.length > 0 ? response.data.data[0].total_revenue : 0);
+    }
 
     const handleFetchFilm = async () => {
         const token : string = getToken();
@@ -678,6 +703,9 @@ const Film : React.FC = () => {
                             </select>
                         </div>
                     </div>
+                </div>
+                <div className={'mt-[20px]'}>
+                    <p className={'text-green-600 font-bold text-xl'}><span className={'uppercase text-xl font-bold text-border'}>Doanh thu đạt được </span>: {revenue.toLocaleString()} VND </p>
                 </div>
             </Modal>
         </>

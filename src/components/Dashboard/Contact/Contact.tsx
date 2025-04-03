@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {expireToken, getAllContact, getToken} from "../../../Helper/Helper.ts";
+import {checkContact, expireToken, getAllContact, getToken} from "../../../Helper/Helper.ts";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {Modal, Pagination, Spin, Table} from "antd";
@@ -38,51 +38,6 @@ const initPage : Page = {
     totalPage : 1
 }
 
-const columns = [
-    {
-        title: 'ID',
-        dataIndex: 'id',
-        key: 'id'
-    },
-    {
-        title: 'Tên người gửi',
-        dataIndex: 'name',
-        key: 'name'
-    },
-    {
-        title: 'Số điện thoại',
-        dataIndex: 'numberPhone',
-        key: 'numberPhone'
-    },
-    {
-        title: 'Nội dung',
-        dataIndex: 'content',
-        key: 'content'
-    },
-    {
-        title: 'Thời gian',
-        dataIndex: 'timestamp',
-        key: 'timestamp'
-    },
-    {
-        title: 'Trạng thái',
-        dataIndex: 'status',
-        key: 'status',
-        render : (text)=> (
-            text == 'ACTIVE' ?
-                <p className={'text-green-200 uppercase'}>Chưa đọc</p>
-                :
-                <p className={'text-red-600 uppercase'}>Đã đọc</p>
-        )
-    },
-    {
-        title: 'Hành động',
-        key: 'action',
-        render : () => (
-            <button className={'px-4 py-2 text-white bg-main'}>Đánh dấu đọc</button>
-        )
-    },
-]
 
 const initContact: Contact = {
     id : 0,
@@ -94,6 +49,52 @@ const initContact: Contact = {
 }
 
 const Contact: React.FC = () => {
+
+    const columns = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            key: 'id'
+        },
+        {
+            title: 'Tên người gửi',
+            dataIndex: 'name',
+            key: 'name'
+        },
+        {
+            title: 'Số điện thoại',
+            dataIndex: 'numberPhone',
+            key: 'numberPhone'
+        },
+        {
+            title: 'Nội dung',
+            dataIndex: 'content',
+            key: 'content'
+        },
+        {
+            title: 'Thời gian',
+            dataIndex: 'timestamp',
+            key: 'timestamp'
+        },
+        {
+            title: 'Trạng thái',
+            dataIndex: 'status',
+            key: 'status',
+            render : (text)=> (
+                text == 'ACTIVE' ?
+                    <p className={'text-green-200 uppercase'}>Chưa đọc</p>
+                    :
+                    <p className={'text-red-600 uppercase'}>Đã đọc</p>
+            )
+        },
+        {
+            title: 'Hành động',
+            key: 'action',
+            render : (item) => (
+                item.status == 'ACTIVE' && <button onClick={()=>handleCheckContact(item.id)} className={'px-4 py-2 text-white bg-main'}>Đánh dấu đọc</button>
+            )
+        },
+    ]
 
     const [data, setData] = useState<Contact[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -125,7 +126,8 @@ const Contact: React.FC = () => {
         setLoading(false);
         console.log(response)
         if( response.status != 200){
-            toast.warning(<p>Không thể tải được dữ liệu</p>)
+            toast.warning(<p>Không thể tải được dữ liệu</p>);
+            return;
         }
         setData(response.data.data.content);
         if(page.currentPage != response.data.data.pageable.pageNumber + 1 || page.totalPage !=  response.data.data.totalPages){
@@ -134,6 +136,31 @@ const Contact: React.FC = () => {
                 totalPage : response.data.data.totalPages
             })
         }
+    }
+    const handleCheckContact = async (id : number) => {
+        const token : string | undefined = getToken();
+        if(  token == undefined || expireToken(token)){
+            toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
+            navigate('/dashboard/login')
+            return;
+        }
+        setLoading(true);
+        const response = await checkContact(id,token);
+        setLoading(false);
+        if( response.status != 200){
+            toast.warning(<p>Không thể thực hiện thành công</p>)
+            return;
+        }
+        setData(data.map(i => {
+            if( i.id == id){
+                return {
+                    ...i,
+                    status : 'DELETE'
+                }
+            }
+            return i;
+        }));
+        toast.success(<p className={'w-full'}>Cập nhật thành công</p>)
     }
 
     const handleStatusTypeFilm = (e) => {
@@ -216,7 +243,7 @@ const Contact: React.FC = () => {
                     rowClassName={(record) => {
                         switch (record.status) {
                             case 'ACTIVE' :
-                                return 'bg-textAdmin text-white';
+                                return 'bg-gray-200 text-white';
                             case 'DELETE' :
                                 return 'bg-white';
                             default:
@@ -225,7 +252,8 @@ const Contact: React.FC = () => {
                     }}
                     rowHoverable={false}
                     onRow={(record)=> ({
-                        onClick : () => {
+                        onClick : (event) => {
+                            if (event.target.tagName.toLowerCase() === 'button') return;
                             setSelected(record);
                             setIsOpen(true);
                     }

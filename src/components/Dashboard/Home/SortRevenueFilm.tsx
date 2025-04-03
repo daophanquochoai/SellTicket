@@ -8,21 +8,25 @@ interface Data {
     name : string,
     total_revenue : number
 }
+interface Props{
+    month : string | year,
+    year : string | year
+}
 
-
-const SortRevenueFilm : React.FC = () => {
+const SortRevenueFilm : React.FC<Props> = (props) => {
 
     const [data, setData] = useState<Data[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         handleFetchRevenueFilm();
-    }, []);
+    }, [props.month, props.year]);
 
     const handleFetchRevenueFilm = async () => {
         setLoading(true);
-        const response = await getRevenueFilm();
+        const response = await getRevenueFilm(props.month, props.year);
         setLoading(false);
+        console.log(response)
         if( response.status != 200 ){
             toast.warning(<p className={'w-full'}>Không thể tải biểu đồ</p>)
             return;

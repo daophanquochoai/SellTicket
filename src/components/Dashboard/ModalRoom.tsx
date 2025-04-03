@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import {Modal} from "antd";
 import {toast} from "react-toastify";
-import {expireToken, getToken, updateRoom} from "../../Helper/Helper.ts";
+import {createRoom, expireToken, getToken, updateRoom} from "../../Helper/Helper.ts";
 import {useNavigate} from "react-router-dom";
 
 interface Branch {
@@ -26,7 +26,8 @@ interface Props{
     setDataRoom : (arg:Room) => void,
     active : string,
     dataRoomAll : Room[],
-    setDataRoomAll : (arg :Room[]) => void
+    setDataRoomAll : (arg :Room[]) => void,
+    branchSelect : Branch
 }
 
 const initRoom = {
@@ -58,7 +59,7 @@ const ModalRoom : React.FC<Props> = ( props ) => {
     const handleCreateChair = (rowIndex, colIndex) => {
         const position : number[][] = dataRoom.positionChair;
         if( selectTypeChair == 2){
-            if( colIndex + 1 > 9){
+            if( colIndex + 1 > 19){
                 toast.warning(<p className={'w-full'}>Không đủ khoảng trống</p>)
                 return;
             }
@@ -92,8 +93,8 @@ const ModalRoom : React.FC<Props> = ( props ) => {
     }
 
     const handleUpdate = async () => {
-        const token : string = getToken();
-        if( expireToken(token)){
+        const token : string | undefined = getToken();
+        if( token == undefined || expireToken(token)){
             toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
             navigate('/dashboard/login')
             return;
@@ -101,8 +102,6 @@ const ModalRoom : React.FC<Props> = ( props ) => {
         setLoading(true);
         const response = await updateRoom(dataRoom, token);
         setLoading(false);
-        console.log(dataRoom);
-        console.log(response);
         if( response.status != 200 ){
             toast.warning(<p className={'w-full'}>Không thể cập nhật dữ liệu</p>)
             return;
@@ -114,9 +113,35 @@ const ModalRoom : React.FC<Props> = ( props ) => {
             }
             return item;
         }))
-        setIsModalOpen(false);
     }
 
+    const handleCreateRoom = async () => {
+        if( dataRoom.name == ''){
+            toast.success(<p className={'w-full'}>Vui lòng điển tên phòng</p>)
+            return;
+        }
+        const token : string | undefined = getToken();
+        if( token == undefined || expireToken(token)){
+            toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
+            navigate('/dashboard/login')
+            return;
+        }
+        setLoading(true);
+        const response = await createRoom(dataRoom, props.branchSelect, token);
+        setLoading(false);
+        if( response.status != 201 ){
+            toast.warning(<p className={'w-full'}>Tạo phòng không thành công</p>)
+            return;
+        }
+        toast.success(<p className={'w-full'}>Tạo phòng thành công</p>)
+        setDataRoomAll([
+            dataRoom,
+            ...dataRoomAll
+        ])
+        setIsModalOpen(false);
+        setDataRoom(initRoom);
+
+    }
     return (
         <>
             <Modal
@@ -126,24 +151,28 @@ const ModalRoom : React.FC<Props> = ( props ) => {
                 title={<p className={'text-main font-bold uppercase text-xl'}>Phòng</p>}
                 footer={
                     active == 'CREATE' ?
-                        <button className={'text-white px-4 py-1 bg-main'}>Tạo phòng</button>
+                        <button onClick={()=> handleCreateRoom()} className={'text-white px-4 py-1 bg-main'}>Tạo phòng</button>
                         :
                         <button
                             onClick={() => handleUpdate()}
                             className={'text-white px-4 py-1 bg-main'}>Cập nhật</button>
                 }
+                width={1000}
             >
-                <div className={'flex flex-col flex-1'}>
-                    <label className={'text-main'}>ID <span className={'text-red-500'}>*</span></label>
-                    <input value={dataRoom.id} required
-                           disabled={active=='UPDATE'}
-                           onChange={(e) => setDataRoom({...dataRoom, id: e.target.value})}
-                           className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
-                </div>
+                {
+                    active != 'CREATE' &&
+                    <div className={'flex flex-col flex-1'}>
+                        <label className={'text-main'}>ID <span className={'text-red-500'}>*</span></label>
+                        <input value={dataRoom.id} required
+                               disabled={active == 'UPDATE'}
+                               onChange={(e) => setDataRoom({...dataRoom, id: e.target.value})}
+                               className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
+                    </div>
+                }
                 <div className={'flex flex-col flex-1'}>
                     <label className={'text-main'}>Tên phòng <span className={'text-red-500'}>*</span></label>
                     <input value={dataRoom.name} required
-                           onChange={(e) => setDataRoom({...dataRoom, name : e.target.value})}
+                           onChange={(e) => setDataRoom({...dataRoom, name: e.target.value})}
                            className={'outline-0 border-textAdmin border-[1px] px-2 py-1'}/>
                 </div>
                 <div className={'flex items-center gap-2'}>
@@ -175,7 +204,7 @@ const ModalRoom : React.FC<Props> = ( props ) => {
                         <div>
                             <div className="h-[4px] w-full bg-border rounded-t-full text-center">Màn hình</div>
                         </div>
-                        <table border={10} cellPadding={5} className={'mt-[20px] w-full'}>
+                        <table border={2} cellPadding={2} className={'mt-[20px] w-full'}>
                             <tbody>
                             {dataRoom.positionChair.map((row, rowIndex) => {
                                 let temp: number = 0;

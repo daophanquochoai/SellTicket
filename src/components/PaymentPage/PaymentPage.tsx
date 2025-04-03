@@ -31,8 +31,8 @@ const initUser = {
 }
 const PaymentPage : React.FC = () => {
 
-    const [step, setStep] = useState<number>(1);
-    const {bill, setBill} = useCommonContext();
+    const [step, setStep] = useState<number>(3);
+    const {bill, setBill, info} = useCommonContext();
     const [oclock, setOClock] = useState<Time>(initTime);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const [user, setUser] = useState<User>(initUser);
@@ -47,6 +47,16 @@ const PaymentPage : React.FC = () => {
             }
         };
     });
+    useEffect(() => {
+        if( info != undefined){
+            setUser({
+                ...user,
+                userName : info.name,
+                phoneNumber : info.phone,
+                email : info.email
+            })
+        }
+    }, []);
 
     const handleOClock = () => {
         intervalRef.current = setInterval(() => {

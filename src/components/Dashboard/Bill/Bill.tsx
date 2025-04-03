@@ -30,7 +30,8 @@ interface Bill {
     nameFilm : string,
     userName : string,
     email : string,
-    numberPhone : string
+    numberPhone : string,
+    qrCode : string
 }
 interface Chair {
     id: string,
@@ -78,7 +79,7 @@ interface Page {
 const initParam : Custom= {
     page : 0,
     limit : 10,
-    asc : 'asc',
+    asc : 'des',
     status : 'none',
     orderBy : 'timestamp',
     q : ''
@@ -115,6 +116,14 @@ const colums = [
         key: 'timestamp',
     },
     {
+        title: 'QRcode',
+        dataIndex: 'qrCode',
+        key: 'qrCode',
+        render : (text : string) => (
+            <img  alt={'qrcode'} src={text} className={'w-[50px] h-[50px]'}/>
+        )
+    },
+    {
         title: 'Trạng thái',
         dataIndex: 'status',
         key: 'status',
@@ -149,7 +158,8 @@ const initBill : Bill = {
     nameFilm : "",
     userName : "",
     email : "",
-    numberPhone : ""
+    numberPhone : "",
+    qrCode : ""
 }
 const Bill : React.FC = () => {
 
@@ -247,6 +257,7 @@ const Bill : React.FC = () => {
                     pagination={false}
                     columns={colums}
                     loading={loading}
+                    rowKey={col => col.id}
                     dataSource={bills}
                     onRow={(record) => ({
                         onClick: () => {
