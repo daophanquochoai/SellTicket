@@ -158,6 +158,7 @@ const TheaterMovie : React.FC = () => {
                                     </div>
                                     <div className={'mt-[10px]'}>
                                         <select
+                                            disabled={selectBranch == -1}
                                             className={'w-full outline-0 rounded py-1 px-4 bg-foreground text-white font-bold cursor-pointer'}
                                             onChange={(e) => setSelectFilm(e.target.value)}
                                         >

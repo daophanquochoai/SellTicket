@@ -40,7 +40,7 @@ const SignUp : React.FC = () => {
     const handleSignUp = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if( info.password !== info.prepassword){
-            toast.warning(<p className={'w-full'}>Password not equals password again.</p>)
+            toast.warning(<p className={'w-full'}>Mật khẩu chưa khớp </p>)
             return;
         }
         setProcessSignUp(true);
@@ -53,19 +53,19 @@ const SignUp : React.FC = () => {
         }
 
         navigate('/login')
-        toast.success("Create account successfully.")
+        toast.success("Tạo tài khoản thành công")
     }
     return(
         <>
-            <Spin tip={<span className={"text-xl"}>Sign Up...</span>} spinning={processSingUp} size={"large"} className={'text-main'}>
+            <Spin tip={<span className={"text-xl"}>Đang đăng ký...</span>} spinning={processSingUp} size={"large"} className={'text-main'}>
                 <div className={"boxImageSignUp w-full h-dvh flex"}>
                 <div className={'flex-1 flex items-center justify-center'}>
                     <form onSubmit={(e) => handleSignUp(e)}>
                         <div className={'flex flex-col gap-y-4'}>
                             <div className={"flex flex-col"}>
-                                <label htmlFor={"name"} className={"text-xl"}>Full name :</label>
+                                <label htmlFor={"name"}>Họ và Tên :</label>
                                 <input name={"name"} className={"w-[350px] px-4 py-2 outline-0"}
-                                       placeholder={"Enter Full Name"}
+                                       placeholder={"Nhập họ và tên"}
                                        value={info.name}
                                        onChange={(e) => setInfo({...info, name : e.target.value})}
                                        required
@@ -73,9 +73,9 @@ const SignUp : React.FC = () => {
                                 />
                             </div>
                             <div className={"flex flex-col"}>
-                                <label htmlFor={"phoneNumber"} className={"text-xl"}>Phone number :</label>
+                                <label htmlFor={"phoneNumber"} >Số điện thoại :</label>
                                 <input name={"phoneNumber"} className={"px-4 py-2 outline-0"}
-                                       placeholder={"Enter Phone Number"}
+                                       placeholder={"Nhập số điện thoại"}
                                        type={"tel"}
                                        required
                                        pattern={"[0-9]{10,11}"}
@@ -86,9 +86,9 @@ const SignUp : React.FC = () => {
                                 />
                             </div>
                             <div className={"flex flex-col"}>
-                                <label htmlFor={"email"} className={"text-xl"}>Email :</label>
+                                <label htmlFor={"email"}>Email :</label>
                                 <input name={"email"} className={"w-350px px-4 py-2 outline-0"}
-                                       placeholder={"Enter Email"}
+                                       placeholder={"Nhập email"}
                                        required
                                        type={"email"}
                                        value={info.email}
@@ -96,8 +96,8 @@ const SignUp : React.FC = () => {
                                 />
                             </div>
                             <div className={"flex flex-col"}>
-                                <label htmlFor={"username"} className={"text-xl"}>Username :</label>
-                                <input name={"username"} placeholder={"Enter Username"}
+                                <label htmlFor={"username"}>Tài khoản :</label>
+                                <input name={"username"} placeholder={"Nhập tài khoản"}
                                        className={"px-4 py-2 outline-0"}
                                        required
                                        minLength={6}
@@ -106,10 +106,10 @@ const SignUp : React.FC = () => {
                                 />
                             </div>
                             <div>
-                                <label form={"password"} className={"text-xl"}>Password :</label>
+                                <label form={"password"}>Mật khẩu :</label>
                                 <Input.Password
                                     className={"px-4 py-2 rounded-none border-none outline-0"}
-                                    placeholder="Enter Password"
+                                    placeholder="Nhập mật khẩu"
                                     iconRender={(visible) => (visible ? <EyeTwoTone/> : <EyeInvisibleOutlined/>)}
                                     value={info.password}
                                     minLength={6}
@@ -118,10 +118,10 @@ const SignUp : React.FC = () => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor={"repassword"} className={'text-xl'}>Password again:</label>
+                                <label htmlFor={"repassword"}>Nhập lại mật khẩu:</label>
                                 <Input.Password
                                     className={"px-4 py-2 rounded-none border-none"}
-                                    placeholder="Enter Password Again"
+                                    placeholder="Nhập lại mật khẩu"
                                     required
                                     iconRender={(visible) => (visible ? <EyeTwoTone/> : <EyeInvisibleOutlined/>)}
                                     value={info.prepassword}
@@ -129,10 +129,9 @@ const SignUp : React.FC = () => {
                                 />
                             </div>
                         </div>
-                        <p className={'underline my-2 cursor-pointer'} onClick={()=> handleLogin()}>You already have an account ?</p>
+                        <p className={'underline my-2 cursor-pointer'} onClick={()=> handleLogin()}>Đã có tài khoản ?</p>
                         <button
-                            className="min-w-[350px] bg-black text-main px-4 py-3 transition-all duration-300">Sign
-                            Up
+                            className="min-w-[350px] bg-black text-main px-4 py-3 transition-all duration-300">Đăng ký
                         </button>
                     </form>
                 </div>

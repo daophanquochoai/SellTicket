@@ -4,6 +4,7 @@ import {toast} from "react-toastify";
 import {paymentBill} from "../../Helper/Helper.ts";
 import {Spin} from "antd";
 import {useNavigate} from "react-router-dom";
+import {useQueryClient} from "@tanstack/react-query";
 
 const Step_2 = lazy(() => import("./Step_2.tsx"));
 const Step_3 = lazy(() => import("./Step_3.tsx"));
@@ -30,8 +31,8 @@ const initUser = {
     dieuKhoan : false
 }
 const PaymentPage : React.FC = () => {
-
-    const [step, setStep] = useState<number>(3);
+    const queryClient = useQueryClient();
+    const [step, setStep] = useState<number>(1);
     const {bill, setBill, info} = useCommonContext();
     const [oclock, setOClock] = useState<Time>(initTime);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -87,21 +88,21 @@ const PaymentPage : React.FC = () => {
              toast.warning(<p className={'w-full'}>Vui lòng điền đầy đủ các thông tin</p>);
              return;
          }
-         setBill({...bill, userName : user.userName,email : user.email, numberPhone : user.phoneNumber, paymentMethodId : "1"})
+         setBill({...bill, userName : user.userName,email : user.email, numberPhone : user.phoneNumber, paymentMethodId : "1", customerId : info?.id})
 
         if( bill == undefined ){
             toast.error(<p className={'w-full'}>Thanh toán thất bại</p>)
         }else{
             if( bill.id == '' ){
                 setLoadingForm(true);
-                const response = await paymentBill({...bill, userName : user.userName,email : user.email, numberPhone : user.phoneNumber, paymentMethodId : "1"});
+                const response = await paymentBill({...bill, userName : user.userName,email : user.email, numberPhone : user.phoneNumber, paymentMethodId : "1", customerId : info?.id});
                 setLoadingForm(false)
-                console.log(response);
                 if( response.status !== 201){
                     toast.warning(<p className={'w-full'}>Lỗi thông tin hóa đơn</p>)
                     return;
                 }
                 setBill({...bill, id: response.data.data.id})
+                await queryClient.invalidateQueries({queryKey: ["billById"], exact: true})
                 scroll(0,0);
             }
             scroll(0,0);

@@ -339,14 +339,23 @@ interface TypeDishDto{
     id : string,
     name : string
 }
-
+// ---------- BILL -----------------------
 export const paymentBill :
     (bill : BillDto) => Promise<Response>
     = async ( bill ) => {
     try{
+        console.log(bill);
         const response = await  axios.post(`${env.url.API_BASE_URL}/payment-service/api/bill/add`,{
             ...bill
         });
+        return response;
+    }catch (e){
+        return e;
+    }
+}
+export const getBillsByCustomer = async (customerId : string | undefined) => {
+    try{
+        const response = await axios.get(`${env.url.API_BASE_URL}/payment-service/api/bill/get/${customerId}`);
         return response;
     }catch (e){
         return e;
@@ -826,7 +835,7 @@ export const getBillByCustom
     : (page : number, limit : number, asc : string, status : string, orderBy : string, q : string, token : string) => Promise<Response>
     = async ( page, limit, asc, status, orderBy, q, token  ) => {
     try{
-        const response = await  axios.get(`${env.url.API_BASE_URL}/payment-service/api/bill/custom?page=${page}&limit=${limit}&asc=${asc}&status=${status}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`,{
+        const response = await  axios.get(`${env.url.API_BASE_URL}/payment-service/api/bill/custom?page=${page}&limit=${limit}&asc=${asc}&active=${status}&orderBy=${orderBy}` + `${q == '' ? '' : '&q=' + q}`,{
             headers : {
                 Authorization : 'Bearer ' + token
             }
@@ -1213,4 +1222,9 @@ export const getRevenueFilmByFilmId
     }catch (e){
         return e;
     }
+}
+
+// ---------------- login social -------------------
+export const getSocialLogin = (name : string) => {
+    return `${env.url.API_BASE_URL}/oauth2/authorization/${name}?redirect_uri=${env.url.OAUTH2_REDIRECT_URI}`
 }

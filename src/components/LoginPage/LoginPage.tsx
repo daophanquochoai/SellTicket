@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {EyeInvisibleOutlined, EyeTwoTone} from "@ant-design/icons";
 import {Input, Spin} from "antd";
-import { handleLoginByUsernameAndPassword, parseJwt, saveToken} from "../../Helper/Helper.ts";
+import {getSocialLogin, handleLoginByUsernameAndPassword, parseJwt, saveToken} from "../../Helper/Helper.ts";
 import {toast} from "react-toastify";
 
 interface Account {
@@ -69,16 +69,16 @@ const LoginPage : React.FC = () => {
     }
     return(
         <>
-            <Spin tip={<span className={"text-xl"}>Login...</span>} spinning={processLogin} size={"large"} className={'text-main'}>
+            <Spin tip={<span className={"text-xl"}>Đang đăng nhập...</span>} spinning={processLogin} className={'text-main'}>
                 <div
                     className={"boxImage w-full h-dvh bg-cover flex"}
                 >
                     <div className="flex-1"></div>
-                    <div className="flex flex-1 items-center justify-center">
+                    <div className="flex flex-1 items-center justify-center flex-col">
                             <form onSubmit={(e) => handleLogin(e)} className="flex flex-col">
                                 <div className="flex flex-col mb-5">
-                                    <label className="text-xl mb-2">Email :</label>
-                                    <Input placeholder="Enter Email"
+                                    <label className="mb-2">Tài khoản :</label>
+                                    <Input placeholder="Nhâp tai khoản"
                                            className="px-4 py-3 outline-0 border-b-2 min-w-[350px] rounded-none border-none"
                                            required
                                            value={account.username}
@@ -86,10 +86,10 @@ const LoginPage : React.FC = () => {
                                     />
                                 </div>
                                 <div className="flex flex-col mb-2">
-                                    <label className="text-xl mb-2">Password :</label>
+                                    <label className="mb-2">Mật khẩu :</label>
                                     <Input.Password
                                         className={"px-4 py-3 rounded-none border-none"}
-                                        placeholder="Enter Password Again"
+                                        placeholder="Nhập mật khẩu"
                                         iconRender={(visible) => (visible ? <EyeTwoTone/> : <EyeInvisibleOutlined/>)}
                                         required
                                         value={account.password}
@@ -97,15 +97,21 @@ const LoginPage : React.FC = () => {
                                     />
                                 </div>
                                 <div className={"mb-2 flex justify-between"}>
-                                    <p onClick={() => handleSignUp()} className={'underline cursor-pointer'}>Create new
-                                        Account ?</p>
-                                    <p onClick={() => handleForgetPassword()} className={'underline cursor-pointer'}>Forget
-                                        password ?</p>
+                                    <p onClick={() => handleSignUp()} className={'underline cursor-pointer'}>Tạo tài khoản ?</p>
+                                    <p onClick={() => handleForgetPassword()} className={'underline cursor-pointer'}>Quên mật khẩu?</p>
                                 </div>
                                 <button
-                                    className="min-w-[350px] bg-black text-main px-4 py-3 transition-all duration-300">Login
+                                    className="min-w-[350px] bg-black text-main px-4 py-3 transition-all duration-300">Đăng nhập
                                 </button>
                             </form>
+                            <div className={'my-[20px]'}>--hoặc--</div>
+                            <div>
+                                <a href={getSocialLogin("github")}>
+                                    <div className={'cursor-pointer bg-white w-[50px] p-[5px] h-[50px] rounded'}>
+                                        <img src={'/github.png'} className={'w-full h-full'}/>
+                                    </div>
+                                </a>
+                            </div>
                     </div>
                 </div>
             </Spin>

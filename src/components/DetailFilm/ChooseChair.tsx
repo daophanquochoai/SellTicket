@@ -213,7 +213,7 @@ const ChooseChair : React.FC<Props> = ( props ) => {
                             </div>
                             <div className={'mt-[40px] flex flex-col justify-center items-center '}>
                                 <div>
-                                    <img src={'/public/screen.png'} alt={'screen'}
+                                    <img src={'/screen.png'} alt={'screen'}
                                          className={'w-[500px] h-auto text-black'}/>
                                 </div>
                                 <Spin tip={"Đang tải..."} spinning={loadingRoom} size={"default"}>

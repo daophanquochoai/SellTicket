@@ -1,7 +1,7 @@
 # --- BUILD REACT APP ---
 FROM node:18 AS build
 WORKDIR /app
-export DOCKER_BUILDKIT=1
+
 # Copy package.json và package-lock.json trước để cache dependencies
 COPY package.json package-lock.json ./
 RUN npm install --frozen-lockfile
@@ -12,8 +12,12 @@ COPY . .
 # Truyền biến môi trường
 ARG REACT_APP_API_BASE_URL
 ARG REACT_APP_PUBLIC_KEY
+ARG REACT_APP_OAUTH2_REDIRECT_URI
+ENV REACT_APP_OAUTH2_REDIRECT_URI=${REACT_APP_OAUTH2_REDIRECT_URI}
 ENV REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
 ENV REACT_APP_PUBLIC_KEY=${REACT_APP_PUBLIC_KEY}
+ENV DOCKER_BUILDKIT=1
+
 
 # Build React App
 RUN npm run build

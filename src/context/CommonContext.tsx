@@ -18,7 +18,8 @@ interface User {
     roles : []
     sub : string,
     phone : string,
-    cccd : string
+    cccd : string,
+    provider : string
 }
 interface BillDto {
     id : string,
@@ -43,7 +44,8 @@ interface BillDto {
     numberPhone : string,
     nameBranch : string,
     address : string,
-    qrCode : string
+    qrCode : string,
+    customerId : string
 }
 interface BillChairDto{
     id : string,
@@ -83,7 +85,8 @@ const initUser : User = {
     roles : [],
     sub : "",
     phone : "",
-    cccd : ''
+    cccd : '',
+    provider : ''
 }
 const initBill : BillDto = {
     id : "",
@@ -107,7 +110,8 @@ const initBill : BillDto = {
     email : "",
     numberPhone : "",
     nameBranch : "",
-    address : ""
+    address : "",
+    customerId : ""
 }
 
 const defaultValue: CommonContextType = {};

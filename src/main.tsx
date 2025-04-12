@@ -3,11 +3,17 @@ import './index.css'
 import App from './App.tsx'
 import {BrowserRouter} from "react-router-dom";
 import CommonProvider from "./context/CommonContext.tsx";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')!).render(
-    <BrowserRouter>
-        <CommonProvider>
-            <App/>
-        </CommonProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+            <CommonProvider>
+                <App/>
+                <ReactQueryDevtools initialIsOpen={false} />
+            </CommonProvider>
+        </BrowserRouter>
+    </QueryClientProvider>
 )

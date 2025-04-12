@@ -2,7 +2,6 @@ import * as React from "react";
 import {lazy, Suspense} from "react";
 import {useRoutes} from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
-import DetailFilm from "./components/DetailFilm/DetailFilm.tsx";
 
 const LoginPage = lazy(() => import("./components/LoginPage/LoginPage.tsx"));
 const SignUpPage = lazy(() => import("./components/SignUpPage/SignUp.tsx"));
@@ -17,6 +16,8 @@ const CommonDash = lazy(() => import('./components/Dashboard/CommonDash.tsx'));
 const SecurContainer = lazy(() => import('./components/Dashboard/SecurContainer.tsx'));
 const LoginAdmin = lazy(() => import('./components/LoginAdmin/LoginAdmin.tsx'));
 const OPT = lazy(()=> import('./components/ForgetPasswordPage/OPT.tsx'));
+const DetailFilm = lazy(()=> import("./components/DetailFilm/DetailFilm.tsx"));
+const OAuth2RedirectHandler = lazy(()=>import("./components/LoginPage/OAuth2RedirectHandler.tsx"));
 
 const routes  = [
     {
@@ -48,6 +49,14 @@ const routes  = [
         element: (
             <Suspense fallback={<LoadingPage />}>
                 <OPT />
+            </Suspense>
+        )
+    },
+    {
+        path: "/oauth2/redirect",
+        element: (
+            <Suspense fallback={<LoadingPage />}>
+                <OAuth2RedirectHandler />
             </Suspense>
         )
     },

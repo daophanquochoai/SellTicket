@@ -56,31 +56,29 @@ const Info : React.FC<Props> = ( props ) => {
         }
     }, [info]);
 
-    const handleChangeAccount = async () => {
+    const handleChangeAccount = async (e) => {
+        e.preventDefault();
+        if( !edit){
+            setEdit(!edit);
+            return;
+        }
         const token : string = getToken();
         if( token == null ){
             toast.warning(<p className={'w-full'}>Tài khoản đăng nhập đã hết hạn</p>)
             navigation("/login");
             return;
         }
-        console.log(infoTemp.name + '  ' + infoTemp.email + '  ' + infoTemp.phone,info?.id + '  ' + token)
         setLoading(true);
         const response = await updateAccountCustomer(infoTemp.name, infoTemp.email, infoTemp.phone,info?.id, token);
         setLoading(false);
-        setEdit(false);
         if( response.status != 200){
+            setInfoTemp(info);
             toast.warning(<p className={'w-full'}>Tài khoản không thể thay đổi được</p>)
             return;
         }else{
+            setEdit(false);
             const data =  await response.data.data;
             setInfo({
-                ...info,
-                email : data.email,
-                id : data.id,
-                name : data.name,
-                phone : data.phoneNumber,
-            })
-            console.log({
                 ...info,
                 email : data.email,
                 id : data.id,
@@ -126,47 +124,56 @@ const Info : React.FC<Props> = ( props ) => {
         <>
             <Spin tip={"Đang tải..."} spinning={loading}>
                 <div className={'w-full h-[100%] px-[10px]'}>
-                    <div className={'flex flex-col'}>
-                        <label className={'text-medium text-border'}>Họ và tên <span
-                            className={'text-red-700'}>*</span></label>
-                        <input
-                            onChange={(e) => setInfoTemp({...infoTemp, name: e.target.value})}
-                            disabled={!edit} value={infoTemp.name} className={'px-2 py-1 text-textCol bg-border'}/>
-                    </div>
-                    <div className={'flex flex-col'}>
-                        <label className={'text-medium text-border'}>Email <span
-                            className={'text-red-700'}>*</span></label>
-                        <input
-                            onChange={(e) => setInfoTemp({...infoTemp, email: e.target.value})}
-                            disabled={!edit} value={infoTemp.email} className={'px-2 py-1 text-textCol bg-border'}/>
-                    </div>
-                    <div className={'flex flex-col'}>
-                        <label className={'text-medium text-border'}>Số điện thoại <span
-                            className={'text-red-700'}>*</span></label>
-                        <input
-                            onChange={(e) => setInfoTemp({...infoTemp, phone: e.target.value})}
-                            disabled={!edit} value={infoTemp.phone} className={'px-2 py-1 text-textCol bg-border'}/>
-                    </div>
-                    <div className={'flex justify-between items-center mt-[10px]'}>
-                        <button
-                            onClick={() => props.setOpen(true)}
-                            className={'hover:text-main text-textCol bg-border px-4 py-2'}><TbArrowBackUp/></button>
-                        <button
-                            onClick={() => setPassword(!password)}
-                            className={`hover:text-main ${!password ? 'bg-border text-textCol' : 'bg-textCol text-main'} border-2 border-border px-4 py-2`}><MdAccountBox /></button>
-                        {
-                            edit ?
-                                <button
-                                    onClick={() => handleChangeAccount()}
-                                    className={'hover:text-main text-textCol bg-border px-4 py-2'}><IoIosSave/>
-                                </button>
-                                :
-                                <button
-                                    onClick={() => setEdit(true)}
-                                    className={'hover:text-main text-textCol bg-border px-4 py-2'}><LuPencilLine/>
-                                </button>
-                        }
-                    </div>
+                    <form onSubmit={(e)=> handleChangeAccount(e)}>
+                        <div className={'flex flex-col'}>
+                            <label className={'text-medium text-border'}>Họ và tên <span
+                                className={'text-red-700'}>*</span></label>
+                            <input
+                                onChange={(e) => setInfoTemp({...infoTemp, name: e.target.value})}
+                                disabled={!edit} value={infoTemp.name} className={'px-2 py-1 text-textCol bg-border'}/>
+                        </div>
+                        <div className={'flex flex-col'}>
+                            <label className={'text-medium text-border'}>Email <span
+                                className={'text-red-700'}>*</span></label>
+                            <input
+                                onChange={(e) => setInfoTemp({...infoTemp, email: e.target.value})}
+                                disabled={!edit} value={infoTemp.email} className={'px-2 py-1 text-textCol bg-border'}/>
+                        </div>
+                        <div className={'flex flex-col'}>
+                            <label className={'text-medium text-border'}>Số điện thoại <span
+                                className={'text-red-700'}>*</span></label>
+                            <input
+                                onChange={(e) => setInfoTemp({...infoTemp, phone: e.target.value})}
+                                disabled={!edit} value={infoTemp.phone} className={'px-2 py-1 text-textCol bg-border'}/>
+                        </div>
+                        <div className={'flex justify-between items-center mt-[10px]'}>
+                            <button
+                                onClick={() => props.setOpen(true)}
+                                className={'hover:text-main text-textCol bg-border px-4 py-2'}><TbArrowBackUp/>
+                            </button>
+                            {
+                                info?.provider == "LOCAL" &&
+                                <>
+                                    <div
+                                        onClick={() => setPassword(!password)}
+                                        className={`hover:text-main ${!password ? 'bg-border text-textCol' : 'bg-textCol text-main'} border-2 border-border px-4 py-2`}>
+                                        <MdAccountBox/></div>
+                                    {
+                                        edit ?
+                                            <button
+                                                className={'hover:text-main text-textCol bg-border px-4 py-2'}>
+                                                <IoIosSave/>
+                                            </button>
+                                            :
+                                            <button
+                                                className={'hover:text-main text-textCol bg-border px-4 py-2'}>
+                                                <LuPencilLine/>
+                                            </button>
+                                    }
+                                </>
+                            }
+                        </div>
+                    </form>
                     {
                         password &&
                         <form onSubmit={(e) => handleChangePassword(e)} className={'mt-[10px]'}>

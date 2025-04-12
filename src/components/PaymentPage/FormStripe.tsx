@@ -5,6 +5,7 @@ import {env} from "../../Helper/Contanst.ts";
 import {useCommonContext} from "../../context/CommonContext.tsx";
 import {Spin} from "antd";
 import {toast} from "react-toastify";
+import {useQueryClient} from "@tanstack/react-query";
 
 const CARD_OPTION = {
     iconStyle: "solid",
@@ -31,6 +32,7 @@ interface Props {
 }
 const FormStripe : React.FC<Props> = ( props : Props ) => {
 
+    const queryClient = useQueryClient();
     const [errorMessage, setErrorMessage] = useState("");
     const stripe = useStripe();
     const elements = useElements();
@@ -66,6 +68,7 @@ const FormStripe : React.FC<Props> = ( props : Props ) => {
                 props.setStep(3);
                 setBill(response.data.data.bill);
                 toast.success(<p className={'w-full'}>Đặt vé thành công</p>)
+                await queryClient.invalidateQueries({queryKey: ["billById"], exact: true})
             } else {
                 setErrorMessage("Payment failed. Please try again.");
             }
