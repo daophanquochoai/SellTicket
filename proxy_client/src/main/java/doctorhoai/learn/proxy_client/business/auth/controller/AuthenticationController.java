@@ -1,7 +1,7 @@
 package doctorhoai.learn.proxy_client.business.auth.controller;
 
+import doctorhoai.learn.proxy_client.BaseDomain.Response;
 import doctorhoai.learn.proxy_client.business.auth.model.request.AuthenticationRequest;
-import doctorhoai.learn.proxy_client.business.auth.model.request.Response;
 import doctorhoai.learn.proxy_client.business.auth.model.response.AuthenticationResponse;
 import doctorhoai.learn.proxy_client.business.auth.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,7 +42,7 @@ public class AuthenticationController {
         authenticationService.logout(token);
         return ResponseEntity.ok(
                 Response.builder()
-                        .status(HttpStatus.OK)
+                        .statusCode(200)
                         .message("* Logout success! *")
                         .build()
         );

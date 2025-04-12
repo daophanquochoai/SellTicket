@@ -152,7 +152,7 @@
                 <version>3.4.1</version>
                 <configuration>
                     <to>
-                        <image>doctorhoai/huongdichvu_filmservice:f15</image>
+                        <image>doctorhoai/huongdichvu_filmservice:f16</image>
                     </to>
                 </configuration>
             </plugin>

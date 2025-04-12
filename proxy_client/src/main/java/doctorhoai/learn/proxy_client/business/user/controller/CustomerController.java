@@ -2,6 +2,7 @@ package doctorhoai.learn.proxy_client.business.user.controller;
 
 import doctorhoai.learn.proxy_client.BaseDomain.Response;
 import doctorhoai.learn.proxy_client.business.user.model.request.AccountCustomer;
+import doctorhoai.learn.proxy_client.business.user.model.request.Constrain.LocalLogin;
 import doctorhoai.learn.proxy_client.business.user.model.request.CustomerRequest;
 import doctorhoai.learn.proxy_client.business.user.model.request.Password;
 import doctorhoai.learn.proxy_client.business.user.service.CustomerFeign;
@@ -10,8 +11,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,7 +37,7 @@ public class CustomerController {
         return customerFeign.getCustomerById(id);
     }
     @PostMapping("/add")
-    public ResponseEntity<Response> addCustomer(@RequestBody @Valid CustomerRequest customerRequest){
+    public ResponseEntity<Response> addCustomer(@RequestBody @Validated({LocalLogin.class}) CustomerRequest customerRequest){
         return customerFeign.addCustomer(customerRequest);
     }
     @PostMapping("/forget/customer")

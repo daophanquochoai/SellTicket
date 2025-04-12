@@ -1,1 +1,1 @@
-{"image":"doctorhoai/huongdichvu_proxyservice:f15","imageId":"sha256:a784b70f216f2bf1b251a9b49aa7f970e41f4bb0bd3adef7bfbef9ed867845c9","imageDigest":"sha256:476c986dac18b4c74e6d044b78f6528c0e792ff5b5be3ff0f9deada9ba0ac9c3","tags":["f15"],"imagePushed":true}
+{"image":"doctorhoai/huongdichvu_proxyservice:f16","imageId":"sha256:291ed4cda5b21da9192b8b5cd3c92be5d492a4e65deefaae84ffea6db4acaf2e","imageDigest":"sha256:f29c051c94766ff297106aa59254bc870ab81c32d0ce3c688c77db1d501b2c04","tags":["f16"],"imagePushed":true}

@@ -1,6 +1,7 @@
 package doctorhoai.learn.user_service.repository;
 
 import doctorhoai.learn.user_service.entity.Customer;
+import doctorhoai.learn.user_service.entity.Provider;
 import doctorhoai.learn.user_service.entity.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,8 +13,9 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
-    Optional<Customer> findByEmailOrPhoneNumber(String email, String phoneNumber);
-    Optional<Customer> findByEmail(String email);
+    Optional<Customer> findByEmailOrPhoneNumberAndProvider(String email, String phoneNumber, Provider provider);
+    Optional<Customer> findByEmailOrPhoneNumberAndProviderNot(String email, String phoneNumber, Provider provider);
+    Optional<Customer> findByEmailAndProvider(String email, Provider provider);
     @Query("select c from Customer c where c.status = :status and ( c.email like concat('%', :q, '%') or c.name like concat('%', :q, '%') or c.phoneNumber like concat('%', :q, '%'))")
     Page<Customer> findAllCustomer(Pageable pageable, String q, Status status);
     @Query("select c from Customer c where c.email like concat('%', :q, '%') or c.name like concat('%', :q, '%') or c.phoneNumber like concat('%', :q, '%')")

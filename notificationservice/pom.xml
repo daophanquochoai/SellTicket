@@ -109,7 +109,7 @@
                 <version>3.4.1</version>
                 <configuration>
                     <to>
-                        <image>doctorhoai/huongdichvu_notificationservice:f15</image>
+                        <image>doctorhoai/huongdichvu_notificationservice:f16</image>
                     </to>
                 </configuration>
             </plugin>

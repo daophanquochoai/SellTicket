@@ -157,6 +157,7 @@ public class BillServiceImpl implements BillService {
                     .numberPhone(billDto.getNumberPhone())
                     .billChair(new ArrayList<>())
                     .billDish(new ArrayList<>())
+                    .customerId(billDto.getCustomerId())
                     .build();
 
             //convert billdto
@@ -654,6 +655,8 @@ public class BillServiceImpl implements BillService {
         bills.forEach(bill -> {
             //call showtime
             ResponseEntity<Response> responseShowTime = filmShowTimeFeign.getFilmShowTime(bill.getFilmShowTimeId());
+
+
             if (responseShowTime.getStatusCode() != HttpStatus.OK) {
                 log.error("Room or Show Time not found");
                 throw new ShowTimNotFound("Show Time not found");
@@ -663,54 +666,199 @@ public class BillServiceImpl implements BillService {
                     .registerModule(new Jdk8Module())
                     .registerModule(new JavaTimeModule());
             FilmShowDto filmShowDto = objectMapper.convertValue(responseShowTime.getBody().getData(), FilmShowDto.class);
+
+            List<BillChairDto> chairs = new ArrayList<>();
+            List<BillDishDto> dishes = new ArrayList<>();
+
+            List<BillDish> listDish = billDishRepository.getBillDishByBillDishId_Id(bill.getId());
+
+
+            List<BillChair> listChair = billChairRepository.getBillChairByBillChairId_Id(bill.getId());
+
+            //async
+            CompletableFuture<ResponseEntity<Response>> responseRoomAsync = roomAsync.getRoomById(filmShowDto.getRoomId());
+            CompletableFuture<ResponseEntity<Response>> responseSubFilmAsync = subFilmAsync.getSubFilmById(filmShowDto.getSubFilmId());
+            CompletableFuture<Void> dishAsync = CompletableFuture.supplyAsync(()-> {
+                System.out.println("Thread: " + Thread.currentThread().getName());
+                listDish.forEach( item -> {
+                    ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishId());
+                    if (responseDish.getStatusCode() == HttpStatus.OK) {
+                        DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
+                        BillDishDto temp = BillDishDto
+                                .builder()
+                                .id(item.getId())
+                                .active(item.getActive())
+                                .price(item.getPrice())
+                                .amount(item.getAmount())
+                                .dishDto(dishDto)
+                                .build();
+                        dishes.add(temp);
+                    }else {
+                        throw new DishNotFound("Dish not found with id : " + item.getId());
+                    }
+                });
+                return null;
+            },executor);
+            CompletableFuture<Void> chairAsync = CompletableFuture.supplyAsync(()-> {
+                System.out.println("Thread: " + Thread.currentThread().getName());
+                listChair.forEach( item -> {
+                    BillChairDto temp = BillChairDto
+                            .builder()
+                            .id(item.getId())
+                            .chairCode(item.getChairCode())
+                            .price(item.getPrice())
+                            .ticket(mapperToObject.mapperToTicketDto(item.getTicketId()))
+                            .active(item.getActive())
+                            .build();
+                    chairs.add(temp);
+                });
+                return null;
+            },executor);
+
+            CompletableFuture.allOf(responseRoomAsync,responseSubFilmAsync,dishAsync);
+
+            ResponseEntity<Response> responseRoom = responseRoomAsync.join();
+            ResponseEntity<Response> responseSubFilm = responseSubFilmAsync.join();
+
             //call room
-            ResponseEntity<Response> responseRoom = roomFeign.getRoomById(filmShowDto.getRoomId());
+//            ResponseEntity<Response> responseRoom = roomFeign.getRoomById(filmShowDto.getRoomId());
+            //call film
+//            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmById(filmShowDto.getSubFilmId());
+
+
             if (responseRoom.getStatusCode() != HttpStatus.OK) {
                 log.error("Room not found");
                 throw new RoomNotFound("Room not found");
             }
             RoomDto roomDto = objectMapper.convertValue(responseRoom.getBody().getData(), RoomDto.class);
-            //call film
-            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmById(filmShowDto.getSubFilmId());
             if (responseSubFilm.getStatusCode() != HttpStatus.OK) {
                 log.error("Film not found");
                 throw new FilmNotFound("Film not found");
             }
             SubFilmDto subFilmDto = objectMapper.convertValue(responseSubFilm.getBody().getData(), SubFilmDto.class);
 
+
+            BillDto billDto = BillDto
+                    .builder()
+                    .id(bill.getId())
+                    .totalPrice(bill.getTotalPrice())
+                    .transactionCode(bill.getTransactionCode())
+                    .paymentMethodId(bill.getPaymentMethodId().getId())
+                    .paymentMethod(bill.getPaymentMethodId().getMethod())
+                    .active(bill.getActive())
+                    .timestamp(bill.getTimestamp())
+                    .status(bill.getStatus().toString())
+                    .filmShowTimeId(bill.getFilmShowTimeId())
+                    .timeEnd(filmShowDto.getTimeEnd())
+                    .timeStart(filmShowDto.getTimeStart())
+                    .timeStampSee(filmShowDto.getTimestamp())
+                    .nameBranch(roomDto.getBranch().getNameBranch())
+                    .address(roomDto.getBranch().getAddress())
+                    .roomId(roomDto.getId())
+                    .nameRoom(roomDto.getName())
+                    .filmId(subFilmDto.getFilmDto().getId())
+                    .nameFilm(subFilmDto.getFilmDto().getName())
+                    .userName(bill.getUserName())
+                    .email(bill.getEmail())
+                    .numberPhone(bill.getNumberPhone())
+                    .chairs(chairs)
+                    .dishes(dishes)
+                    .qrCode(bill.getQrcode())
+                    .build();
+            list.add(billDto);
+        });
+        return list;
+    }
+
+    @Override
+    public List<BillDto> getAllBillByCustomerId(String customerId) {
+        List<Bill> bills =  billRepository.findByCustomerIdOrderByTimestampDesc(customerId);
+        List<BillDto> list = new ArrayList<>();
+        bills.forEach(bill -> {
+            //call showtime
+            ResponseEntity<Response> responseShowTime = filmShowTimeFeign.getFilmShowTime(bill.getFilmShowTimeId());
+
+
+            if (responseShowTime.getStatusCode() != HttpStatus.OK) {
+                log.error("Room or Show Time not found");
+                throw new ShowTimNotFound("Show Time not found");
+            }
+            ObjectMapper objectMapper = new ObjectMapper()
+                    .registerModule(new ParameterNamesModule())
+                    .registerModule(new Jdk8Module())
+                    .registerModule(new JavaTimeModule());
+            FilmShowDto filmShowDto = objectMapper.convertValue(responseShowTime.getBody().getData(), FilmShowDto.class);
+
             List<BillChairDto> chairs = new ArrayList<>();
             List<BillDishDto> dishes = new ArrayList<>();
 
-            List<BillChair> listChair = billChairRepository.getBillChairByBillChairId_Id(bill.getId());
-            listChair.forEach( item -> {
-                BillChairDto temp = BillChairDto
-                        .builder()
-                        .id(item.getId())
-                        .chairCode(item.getChairCode())
-                        .price(item.getPrice())
-                        .ticket(mapperToObject.mapperToTicketDto(item.getTicketId()))
-                        .active(item.getActive())
-                        .build();
-                chairs.add(temp);
-            });
             List<BillDish> listDish = billDishRepository.getBillDishByBillDishId_Id(bill.getId());
-            listDish.forEach( item -> {
-                ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishId());
-                if (responseDish.getStatusCode() == HttpStatus.OK) {
-                    DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
-                    BillDishDto temp = BillDishDto
+
+
+            List<BillChair> listChair = billChairRepository.getBillChairByBillChairId_Id(bill.getId());
+
+            //async
+            CompletableFuture<ResponseEntity<Response>> responseRoomAsync = roomAsync.getRoomById(filmShowDto.getRoomId());
+            CompletableFuture<ResponseEntity<Response>> responseSubFilmAsync = subFilmAsync.getSubFilmById(filmShowDto.getSubFilmId());
+            CompletableFuture<Void> dishAsync = CompletableFuture.supplyAsync(()-> {
+                System.out.println("Thread: " + Thread.currentThread().getName());
+                listDish.forEach( item -> {
+                    ResponseEntity<Response> responseDish = dishFeign.getDishById(item.getDishId());
+                    if (responseDish.getStatusCode() == HttpStatus.OK) {
+                        DishDto dishDto = objectMapper.convertValue(responseDish.getBody().getData(), DishDto.class);
+                        BillDishDto temp = BillDishDto
+                                .builder()
+                                .id(item.getId())
+                                .active(item.getActive())
+                                .price(item.getPrice())
+                                .amount(item.getAmount())
+                                .dishDto(dishDto)
+                                .build();
+                        dishes.add(temp);
+                    }else {
+                        throw new DishNotFound("Dish not found with id : " + item.getId());
+                    }
+                });
+                return null;
+            },executor);
+            CompletableFuture<Void> chairAsync = CompletableFuture.supplyAsync(()-> {
+                System.out.println("Thread: " + Thread.currentThread().getName());
+                listChair.forEach( item -> {
+                    BillChairDto temp = BillChairDto
                             .builder()
                             .id(item.getId())
-                            .active(item.getActive())
+                            .chairCode(item.getChairCode())
                             .price(item.getPrice())
-                            .amount(item.getAmount())
-                            .dishDto(dishDto)
+                            .ticket(mapperToObject.mapperToTicketDto(item.getTicketId()))
+                            .active(item.getActive())
                             .build();
-                    dishes.add(temp);
-                }else {
-                    throw new DishNotFound("Dish not found with id : " + item.getId());
-                }
-            });
+                    chairs.add(temp);
+                });
+                return null;
+            },executor);
+
+            CompletableFuture.allOf(responseRoomAsync,responseSubFilmAsync,dishAsync);
+
+            ResponseEntity<Response> responseRoom = responseRoomAsync.join();
+            ResponseEntity<Response> responseSubFilm = responseSubFilmAsync.join();
+
+            //call room
+//            ResponseEntity<Response> responseRoom = roomFeign.getRoomById(filmShowDto.getRoomId());
+            //call film
+//            ResponseEntity<Response> responseSubFilm = subFilmFeign.getSubFilmById(filmShowDto.getSubFilmId());
+
+
+            if (responseRoom.getStatusCode() != HttpStatus.OK) {
+                log.error("Room not found");
+                throw new RoomNotFound("Room not found");
+            }
+            RoomDto roomDto = objectMapper.convertValue(responseRoom.getBody().getData(), RoomDto.class);
+            if (responseSubFilm.getStatusCode() != HttpStatus.OK) {
+                log.error("Film not found");
+                throw new FilmNotFound("Film not found");
+            }
+            SubFilmDto subFilmDto = objectMapper.convertValue(responseSubFilm.getBody().getData(), SubFilmDto.class);
+
 
             BillDto billDto = BillDto
                     .builder()

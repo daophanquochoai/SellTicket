@@ -33,7 +33,7 @@ spec:
               value: root
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_showwtimeservice:f15
+          image: doctorhoai/huongdichvu_showwtimeservice:f16
           resources:
             requests:
               memory: 512Mi
@@ -43,21 +43,19 @@ spec:
               cpu: 1000m
           imagePullPolicy: IfNotPresent
           livenessProbe:
-            exec:
-              command:
-                - curl --fail --silent http://localhost:8084/actuator/healthy/readiness | grep UP || exit 1
-            failureThreshold: 20
-            initialDelaySeconds: 10
-            periodSeconds: 20
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8084
+            initialDelaySeconds: 60
+            periodSeconds: 10
             timeoutSeconds: 5
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: 8084
-            failureThreshold: 3
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            timeoutSeconds: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
           name: showtimeservice
           ports:
             - containerPort: 8084

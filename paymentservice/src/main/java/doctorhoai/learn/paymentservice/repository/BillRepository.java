@@ -20,4 +20,5 @@ public interface BillRepository extends JpaRepository<Bill, String> {
     @Procedure(name = "getTotalPrice")
     Long getTotalPrice();
     List<Bill> findByFilmShowTimeId(Integer filmShowId);
+    List<Bill> findByCustomerIdOrderByTimestampDesc(String customerId);
 }

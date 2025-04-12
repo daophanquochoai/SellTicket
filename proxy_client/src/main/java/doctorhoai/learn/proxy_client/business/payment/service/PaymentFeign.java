@@ -48,4 +48,8 @@ public interface PaymentFeign {
             @RequestParam(required = false, defaultValue = "asc") String asc,
             @RequestParam(required = false, defaultValue = "") String q
     );
+    @GetMapping("/get/{customerId}")
+    public ResponseEntity<Response> getBillByCustomerId(
+            @PathVariable @NotNull String customerId
+    );
 }

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: react-app
-          image: doctorhoai/movieticket:f15
+          image: doctorhoai/movieticket:f16
           ports:
             - containerPort: 80
           env:

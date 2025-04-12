@@ -41,7 +41,7 @@ spec:
               value: "6379"
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_userservice:f15
+          image: doctorhoai/huongdichvu_userservice:f16
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -51,21 +51,19 @@ spec:
               memory: 1024Mi
               cpu: 1000m
           livenessProbe:
-            exec:
-              command:
-                - curl --fail --silent http://localhost:9000/actuator/healthy/readiness | grep UP || exit 1
-            failureThreshold: 20
-            initialDelaySeconds: 10
-            periodSeconds: 20
+            httpGet:
+              path: /actuator/health/liveness
+              port: 9000
+            initialDelaySeconds: 60
+            periodSeconds: 10
             timeoutSeconds: 5
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: 9000
-            failureThreshold: 3
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            timeoutSeconds: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
           name: userservice
           ports:
             - containerPort: 9000
@@ -83,6 +81,7 @@ spec:
     - name: "9000"
       port: 9000
       targetPort: 9000
+  type: LoadBalancer
   sessionAffinity: None
   selector:
     io.kompose.service: userservice

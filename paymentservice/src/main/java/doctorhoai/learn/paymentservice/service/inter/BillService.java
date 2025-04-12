@@ -3,6 +3,7 @@ package doctorhoai.learn.paymentservice.service.inter;
 import doctorhoai.learn.paymentservice.dto.BillDto;
 import doctorhoai.learn.paymentservice.dto.PageObject;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 public interface BillService {
@@ -13,4 +14,5 @@ public interface BillService {
     void activeBill(String id);
     BillDto acceptBill(String id, String transaction);
     List<BillDto> getAllBillByFilmShow(Integer filmShow);
+    List<BillDto> getAllBillByCustomerId(String customerId);
 }

@@ -23,6 +23,7 @@ public class BillController {
             @RequestBody @Valid BillDto billDto
     )
     {
+        System.out.println(123);
         return paymentFeign.createBill(billDto);
     }
 
@@ -67,5 +68,12 @@ public class BillController {
             @RequestParam(required = false, defaultValue = "") String q
     ){
         return paymentFeign.getAllBills(page, limit, active, orderBy, asc, q);
+    }
+
+    @GetMapping("/get/{customerId}")
+    public ResponseEntity<Response> getBillByCustomerId(
+            @PathVariable @NotNull String customerId
+    ){
+        return paymentFeign.getBillByCustomerId(customerId);
     }
 }

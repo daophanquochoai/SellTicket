@@ -4,6 +4,7 @@ import doctorhoai.learn.basedomain.Event.MailOpt;
 import doctorhoai.learn.user_service.entity.Active;
 import doctorhoai.learn.user_service.entity.Customer;
 import doctorhoai.learn.user_service.entity.Employee;
+import doctorhoai.learn.user_service.entity.Provider;
 import doctorhoai.learn.user_service.exception.AccountBankNotFound;
 import doctorhoai.learn.user_service.exception.CustomerNotFound;
 import doctorhoai.learn.user_service.exception.EmployeeNotFound;
@@ -55,7 +56,7 @@ public class AccountBankingServiceImpl implements AccountBankService {
     @Transactional
     @Override
     public void forgetAccountUser(String email) {
-        Optional<Customer> customer = customerRepository.findByEmail(email);
+        Optional<Customer> customer = customerRepository.findByEmailAndProvider(email, Provider.LOCAL);
         if( customer.isEmpty() ){
             throw new CustomerNotFound("Customer not found with email : " + email);
         }
@@ -74,7 +75,7 @@ public class AccountBankingServiceImpl implements AccountBankService {
         try{
             String optSaved = redisTemplate.opsForValue().get(email);
             if( optSaved.equals(opt) ){
-                Optional<Customer> customer = customerRepository.findByEmail(email);
+                Optional<Customer> customer = customerRepository.findByEmailAndProvider(email, Provider.LOCAL);
                 if( customer.isEmpty() ){
                     throw new CustomerNotFound("Customer not found with email : " + email);
                 }

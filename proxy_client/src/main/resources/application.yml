@@ -8,6 +8,27 @@ spring:
   redis:
     host: ${SPRING_REDIS_HOST:127.0.0.1}
     port: ${SPRING_REDIS_PORT:6379}
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: Ov23liwafWo0cDS2xWMe
+            clientSecret: 13cbbb85dc169c670a08bed400eb07441f5baae9
+            redirectUri: "http://localhost:6380/login/oauth2/code/{registrationId}"
+            scope:
+              - user:email
+              - read:user
+        provider:
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+            user-name-attribute: login
+
+app:
+  oauth2:
+    redirectUri: ${SPRING_REDIRECT_OAUTH:http://localhost:5173/oauth2/redirect}
 server:
   port: 8888
 feign:
@@ -16,3 +37,7 @@ feign:
       default:
         connectTimeout: 5000  # 5 giây
         readTimeout: 10000
+logging:
+  level:
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.security: DEBUG

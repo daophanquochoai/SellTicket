@@ -114,6 +114,18 @@ public class ApigatewayApplication {
                                 )
                                 .uri("lb://PROXYCLIENT")
                 )
+                .route("oauth2-route", r -> r
+                        .path("/oauth2/**", "/login/oauth2/**")
+                        .filters(f -> f
+                                .preserveHostHeader()
+                                .circuitBreaker(cb -> cb
+                                        .setName("oauth2Breaker")
+                                        .setFallbackUri("forward:/fallback/oauth2")
+                                )
+                        )
+                        .uri("lb://PROXYCLIENT")
+                )
+
                 .build();
     }
 

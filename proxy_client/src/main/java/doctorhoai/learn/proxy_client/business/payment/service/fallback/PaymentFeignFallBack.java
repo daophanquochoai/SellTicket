@@ -58,6 +58,11 @@ public class PaymentFeignFallBack implements FallbackFactory<PaymentFeign> {
             public ResponseEntity<Response> getAllBills(String page, String limit, String active, String orderBy, String asc, String q) {
                 return functionCommon.process(cause);
             }
+
+            @Override
+            public ResponseEntity<Response> getBillByCustomerId(String customerId) {
+                return functionCommon.process(cause);
+            }
         };
     }
 }

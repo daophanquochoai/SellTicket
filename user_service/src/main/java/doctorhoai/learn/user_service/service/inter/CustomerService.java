@@ -3,11 +3,13 @@ package doctorhoai.learn.user_service.service.inter;
 import doctorhoai.learn.user_service.dto.CustomerDto;
 import doctorhoai.learn.user_service.dto.request.AccountCustomer;
 import doctorhoai.learn.user_service.dto.request.CustomerRequest;
+import doctorhoai.learn.user_service.entity.Provider;
 
 import java.util.List;
 
 public interface CustomerService {
     CustomerDto addCustomer(CustomerRequest customer);
+    CustomerDto addCustomerBySocial(CustomerRequest customer);
     CustomerDto updateCustomer(String id, AccountCustomer account);
     void deleteCustomer(String id);
     void activeCustomer(String id);

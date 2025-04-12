@@ -25,4 +25,6 @@ public class Customer {
     private LocalDate timestamp;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 }

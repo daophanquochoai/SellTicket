@@ -12,7 +12,9 @@ import doctorhoai.learn.proxy_client.business.user.service.EmploymentFeign;
 import doctorhoai.learn.proxy_client.jwt.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
@@ -90,6 +92,7 @@ public class JwtUtilImpl implements JwtUtil {
             claims.put("id", customerDto.getId());
         }
         claims.put("roles", authorities);
+        claims.put("provider", "LOCAL");
         return this.createToken(claims, userDetails.getUsername());
     }
 
@@ -109,5 +112,8 @@ public class JwtUtilImpl implements JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
+    }
+    public static String getSecret(){
+        return SECRET;
     }
 }

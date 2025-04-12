@@ -1,6 +1,7 @@
 package doctorhoai.learn.user_service.controller;
 
 import doctorhoai.learn.user_service.dto.request.AccountCustomer;
+import doctorhoai.learn.user_service.dto.request.Constrain.LocalLogin;
 import doctorhoai.learn.user_service.dto.request.CustomerRequest;
 import doctorhoai.learn.user_service.dto.request.Password;
 import doctorhoai.learn.user_service.dto.response.Response;
@@ -16,7 +17,9 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.groups.Default;
 
 import java.util.Collections;
 
@@ -98,7 +101,7 @@ public class CustomerController {
     )
     @PostMapping("/add")
     public ResponseEntity<Response> addCustomer(
-            @RequestBody @Valid CustomerRequest customerRequest
+            @RequestBody @Validated({LocalLogin.class}) CustomerRequest customerRequest
             ){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(
@@ -106,6 +109,22 @@ public class CustomerController {
                                 .statusCode(HttpStatus.CREATED.value())
                                 .message("Add customer successfully")
                                 .data(customerService.addCustomer(customerRequest))
+                                .build()
+                );
+    }
+    @Operation(
+            summary = "Add customer social into database"
+    )
+    @PostMapping("/add/social")
+    public ResponseEntity<Response> addCustomerSocial(
+            @RequestBody @Validated({Default.class}) CustomerRequest customerRequest
+    ){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(
+                        Response.builder()
+                                .statusCode(HttpStatus.CREATED.value())
+                                .message("Add customer successfully")
+                                .data(customerService.addCustomerBySocial(customerRequest))
                                 .build()
                 );
     }

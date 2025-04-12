@@ -1,6 +1,7 @@
 package doctorhoai.learn.proxy_client.business.user.model.request;
 
 import doctorhoai.learn.proxy_client.business.user.model.Status;
+import doctorhoai.learn.proxy_client.business.user.model.request.Constrain.LocalLogin;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,17 +16,18 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 @Builder
 public class CustomerRequest {
-    @NotBlank(message = "Name not blank")
+    @NotBlank(message = "Name not blank", groups = {LocalLogin.class})
     private String name;
-    @Length(min = 10, max = 11)
+    @Length(min = 10, max = 11, groups = {LocalLogin.class})
     private String phoneNumber;
     @Email(message = "Email isn't in correct format")
     private String email;
     @NotBlank(message = "User name not blank")
     private String userName;
-    @Length(min = 4, message = "Password has more than 4 characters")
+    @Length(min = 4, message = "Password has more than 4 characters", groups = {LocalLogin.class})
     private String password;
     @NotNull(message = "Role isn't in format")
     private int roleId;
     private Status status;
+    private Provider provider;
 }

@@ -185,4 +185,17 @@ public class BillController {
         );
     }
 
+    @GetMapping("/get/{customerId}")
+    public ResponseEntity<Response> getBillByCustomerId(
+            @PathVariable @NotNull String customerId
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(200)
+                        .message("Get Bill By Customer")
+                        .data(billService.getAllBillByCustomerId(customerId))
+                        .build()
+        );
+    }
+
 }

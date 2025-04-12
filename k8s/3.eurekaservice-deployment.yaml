@@ -22,24 +22,22 @@ spec:
               value: configserver:http://configserver:8071
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_eurekaservice:f15
+          image: doctorhoai/huongdichvu_eurekaservice:f16
           livenessProbe:
-            exec:
-              command:
-                - curl --fail --silent http://localhost:8070/actuator/health/readiness | grep UP || exit 1
-            failureThreshold: 20
-            initialDelaySeconds: 10
-            periodSeconds: 20
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8070
+            initialDelaySeconds: 60
+            periodSeconds: 10
             timeoutSeconds: 5
           name: eurekaservice
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: 8070
-            failureThreshold: 3
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            timeoutSeconds: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
           ports:
             - containerPort: 8070
               protocol: TCP

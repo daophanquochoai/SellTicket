@@ -82,6 +82,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
         </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -128,7 +129,7 @@
                 <version>3.4.1</version>
                 <configuration>
                     <to>
-                        <image>doctorhoai/huongdichvu_apigateway:f15</image>
+                        <image>doctorhoai/huongdichvu_apigateway:f16</image>
                     </to>
                 </configuration>
             </plugin>

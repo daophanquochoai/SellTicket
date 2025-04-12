@@ -63,4 +63,5 @@ public class BillDto {
     @Length(min = 10, max = 12, message = "Number Phone isn't format")
     private String numberPhone;
     private String qrCode;
+    private String customerId;
 }

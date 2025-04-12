@@ -24,7 +24,7 @@ spec:
               value: dkbukqhmr
             - name: SPRING_URL_KAFKA
               value: kafka:29092
-          image: doctorhoai/huongdichvu_notificationservice:f15
+          image: doctorhoai/huongdichvu_notificationservice:f16
           resources:
             requests:
               memory: 512Mi
@@ -32,22 +32,22 @@ spec:
             limits:
               memory: 1024Mi
               cpu: 1000m
-          livenessProbe:
-            exec:
-              command:
-                - curl --fail --silent http://localhost:8080/actuator/healthy/readiness | grep UP || exit 1
-            failureThreshold: 20
-            initialDelaySeconds: 10
-            periodSeconds: 20
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            failureThreshold: 3
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            timeoutSeconds: 3
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health/liveness
+#              port: 8080
+#            failureThreshold: 3
+#            initialDelaySeconds: 30
+#            periodSeconds: 10
+#            timeoutSeconds: 5
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health/readiness
+#              port: 8080
+#            failureThreshold: 3
+#            initialDelaySeconds: 5
+#            periodSeconds: 5
+#            timeoutSeconds: 3
           name: noficationservice
           ports:
             - containerPort: 8080

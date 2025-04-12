@@ -42,6 +42,7 @@ public class Bill {
     @Column(nullable = false)
     private String numberPhone;
     private String qrcode;
+    private String customerId;
 
     @Override
     public String toString() {

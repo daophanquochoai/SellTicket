@@ -41,9 +41,13 @@ public class CustomerServiceImpl implements CustomerService {
         if( role.isEmpty()){
             throw new RoleNotFound("Role not found with id : " + customer.getRoleId());
         }
-        Optional<Customer> customerOptional = customerRepository.findByEmailOrPhoneNumber(customer.getEmail(), customer.getPhoneNumber());
-        if(customerOptional.isPresent()){
-            throw new CustomerDuplicated("Email or Phone Number has been registered");
+        try{
+            Optional<Customer> customerOptional = customerRepository.findByEmailOrPhoneNumberAndProvider(customer.getEmail(), customer.getPhoneNumber(), Provider.LOCAL);
+            if(customerOptional.isPresent()){
+                throw new CustomerDuplicated("Email or Số điện thoại đã được đăng ký");
+            }
+        }catch (Exception e){
+            throw new CustomerDuplicated("Email or Số điện thoại đã được đăng ký");
         }
         Optional<Account> accountOptional = accountRepository.findByUserName(customer.getUserName());
         if(accountOptional.isPresent()){
@@ -64,6 +68,35 @@ public class CustomerServiceImpl implements CustomerService {
                     .timestamp(LocalDate.now())
                     .account(accountSaved)
                     .status(Status.ACTIVE)
+                    .provider(Provider.LOCAL)
+                    .build();
+            Customer customerSaved = customerRepository.save(c);
+            return MapperToDto.CustomerToDto(customerSaved);
+        }catch (Exception e ){
+            log.error(e.getMessage());
+            throw new ErrorException(e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public CustomerDto addCustomerBySocial(CustomerRequest customer) {
+        Optional<Role> role = roleRepository.findById(1);
+        if( role.isEmpty()){
+            throw new RoleNotFound("Role not found with id : " + customer.getRoleId());
+        }
+        Optional<Customer> customerOptional = customerRepository.findByEmailOrPhoneNumberAndProviderNot(customer.getEmail(), customer.getPhoneNumber(), Provider.LOCAL);
+        if(customerOptional.isPresent()){
+            return MapperToDto.CustomerToDto(customerOptional.get());
+        }
+        try{
+            Customer c = Customer.builder()
+                    .name(customer.getName())
+                    .phoneNumber(customer.getPhoneNumber())
+                    .email(customer.getEmail())
+                    .timestamp(LocalDate.now())
+                    .status(Status.ACTIVE)
+                    .provider(customer.getProvider())
                     .build();
             Customer customerSaved = customerRepository.save(c);
             return MapperToDto.CustomerToDto(customerSaved);

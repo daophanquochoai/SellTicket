@@ -49,6 +49,11 @@ public class CustomerFeignCallBack implements FallbackFactory<CustomerFeign> {
             }
 
             @Override
+            public ResponseEntity<Response> addCustomerSocial(CustomerRequest customerRequest) {
+                return functionCommon.process(cause);
+            }
+
+            @Override
             public ResponseEntity<Response> forgetCustomer(String email) {
                 return functionCommon.process(cause);
             }
