@@ -15,7 +15,7 @@ const Step_2 : React.FC<Props> = ( props ) => {
             <div>
                 <motion.div
                     animate={{height: select !== 1  ? 80 : 180}}
-                    className={' border-2 border-border px-4 py-2 rounded-[10px] transition-all duration-700 ease-in-out overflow-hidden'}
+                    className={' border-2 border-border h-[80px] px-4 py-2 rounded-[10px] transition-all duration-700 ease-in-out overflow-hidden'}
                 >
                     <div className={`flex items-center group cursor-pointer mb-[10px] ${select === 1 ? 'bg-border text-textCol' : ''}`} onClick={() => setSelect(1)}>
                         <img src={'https://cinestar.com.vn/assets/images/img-card.png'} alt={'icon visa'} className={'w-[60px] h-[60px]'}/>

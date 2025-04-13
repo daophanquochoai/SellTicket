@@ -2,12 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const LoadingPage : React.FC = () => {
-    const text = "Loading...".split("");
+    const text = "Đang tải...".split("");
 
     return <>
         <div className={'flex w-full h-dvh items-center justify-center'}>
             <div className={'flex flex-col items-center'}>
-                <img src={'/loading.png'} className={'w-[70px] h-[70px] animate-iconAni'}/>
+                <img src={'/loading.png'} className={'w-[50px] h-[50px] animate-iconAni'}/>
                 <p className="text-main text-xl flex space-x-1">
                     {text.map((char, index) => (
                         <motion.span

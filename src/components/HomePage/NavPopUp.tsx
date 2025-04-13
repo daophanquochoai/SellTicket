@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {lazy, useEffect, useState} from "react";
 import {CloseOutlined} from "@ant-design/icons";
 import {getBillsByCustomer, removeToken} from "../../Helper/Helper.ts";
 import {useNavigate} from "react-router-dom";
@@ -10,22 +10,54 @@ import {
     useQuery,
 } from '@tanstack/react-query'
 import Bill from "../Dashboard/Bill/Bill.tsx";
+import {FaSearch} from "react-icons/fa";
+
+const ModalBill = lazy(()=> import("./../Dashboard/Bill/ModalBill.tsx"));
 
 
 interface NavPropUps {
     propUp : boolean;
     setPropUp : (arg : boolean) => void
 }
-
+const initBill : Bill = {
+    id : '',
+    totalPrice : 0,
+    transactionCode : "",
+    paymentMethodId : "",
+    paymentMethod : "",
+    active : "",
+    chairs : [],
+    dishes: [],
+    timestamp : "",
+    status : "",
+    filmShowTimeId : 0,
+    timeEnd : "",
+    timeStart : "",
+    timeStampSee : "",
+    roomId : "",
+    nameRoom : "",
+    nameBranch : "",
+    address : "",
+    filmId : "",
+    nameFilm : "",
+    userName : "",
+    email : "",
+    numberPhone : "",
+    qrCode : ""
+}
 const NavPopUp : React.FC<NavPropUps> = ({propUp, setPropUp}) => {
+
+    //modal
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [billSelected, setBillSeleted] = useState<Bill>(initBill);
+    const [search, setSearch] = useState<string>("");
 
     const colums = [
         {
-            title: 'Mã giao dịch',
-            dataIndex: 'transactionCode',
-            key: 'transactionCode',
+            title: 'Xuất chiếu',
+            key: 'showTime',
             render : (text)=>(
-                <p className={'text-purple-600 font-bold'}>{text}</p>
+                <p className={'text-purple-600 font-bold'}>{text.nameFilm}</p>
             )
         },
         {
@@ -75,10 +107,6 @@ const NavPopUp : React.FC<NavPropUps> = ({propUp, setPropUp}) => {
 
     const queryBillById = useQuery({queryKey : ['billById'], queryFn: ()=> getBillsByCustomer(info?.id)})
 
-    useEffect(() => {
-        console.log(queryBillById.data?.data?.data);
-    }, [queryBillById.data]);
-
     const handleLogout = () => {
         removeToken();
         if (setLogin) {
@@ -113,7 +141,10 @@ const NavPopUp : React.FC<NavPropUps> = ({propUp, setPropUp}) => {
                                             <p className={'text-[18px]'}>Thông tin người dùng</p>
                                         </li>
                                         <li
-                                            onClick={() => setOpenBill(true)}
+                                            onClick={() => {
+                                                setOpenBill(true);
+                                                setSearch("");
+                                            }}
                                             className={'flex text-white px-4 py-2 justify-center hover:text-black hover:bg-white border-2 border-main cursor-pointer duration-150'}>
                                             <p className={'text-[18px]'}>Lịch sử mua vé</p>
                                         </li>
@@ -135,23 +166,40 @@ const NavPopUp : React.FC<NavPropUps> = ({propUp, setPropUp}) => {
                     onCancel={()=>{
                         setOpenBill(false);
                     }}
+                    title={<p className={'text-main text-2xl uppercase font-bold'}>Danh sách vé đặt</p>}
                     footer={[]}
                     width={1000}
                 >
+                    <div className={'flex justify-end'}>
+                        <div className={'bg-white px-2 py-1 border-textAdmin border-[1px] flex items-center'}>
+                            <input className={'px-2 outline-0'} placeholder={'Nhập tên phim...'}
+                                   value={search}
+                                   onChange={(e) => setSearch(e.target.value)}
+                            />
+                            <button className={'text-xl'}><FaSearch/></button>
+                        </div>
+                    </div>
                     <Table<Bill>
                         pagination={false}
                         columns={colums}
                         loading={queryBillById.isLoading}
                         rowKey={col => col.id}
-                        scroll={{ x: 'max-content', y: 400 }}
-                        dataSource={!queryBillById ? [] : queryBillById.data?.data?.data}
+                        scroll={{x: 'max-content', y: 400}}
+                        dataSource={!queryBillById ? [] : queryBillById.data?.data?.data.filter(i=>i.nameFilm.normalize("NFD").replace(/[\u0300-\u036f]/g, "") .toLowerCase().includes(search.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") ))}
                         onRow={(record) => ({
                             onClick: () => {
+                                setBillSeleted(record);
+                                setOpenModal(true);
                             }
                         })}
                     />
                 </Modal>
             </div>
+            <ModalBill
+                isOpen={openModal}
+                setIsOpen={setOpenModal}
+                data={billSelected}
+            />
         </>
     )
 }

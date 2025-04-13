@@ -344,7 +344,6 @@ export const paymentBill :
     (bill : BillDto) => Promise<Response>
     = async ( bill ) => {
     try{
-        console.log(bill);
         const response = await  axios.post(`${env.url.API_BASE_URL}/payment-service/api/bill/add`,{
             ...bill
         });
