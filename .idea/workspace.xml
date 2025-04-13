@@ -5,106 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apigateway/src/main/resources/banner.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/request/Constrain/LocalLogin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/request/Provider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/OAuth2/CustomAuthenticationSuccessHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/OAuth2/CustomOAuth2UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/OAuth2/CustomUserDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/OAuth2/GitHubOAuth2UserInfoExtractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/OAuth2/OAuth2AuthenticationFailureHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/OAuth2/OAuth2UserInfoExtractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/request/Constrain/LocalLogin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/entity/Provider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/ApigatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/doctorhoai/learn/apigateway/ApigatewayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/dishservice-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/dishservice-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-cache/selectors/14390fbddd5b782a62c055a62477289afaa74c8d8a4128887651db8ec66324c7" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-cache/selectors/530e4bda7994c2ca14ca9ad36d21f05a2821a76d43b875b5d39906f7c6f49386" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-cache/selectors/de3c147a651266ce4c3a1a6bc65a80ac10952807dddf957c3009f9d7f945c516" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/jib-image.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eurekaserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/eurekaserver/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/film_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/2.configserver-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/2.configserver-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/3.eurekaservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/3.eurekaservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.dishservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.dishservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.filmservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.filmservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.noficationservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.noficationservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.paymentservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.paymentservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.rateservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.rateservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.roomservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.roomservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.showtimeservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.showtimeservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/4.userservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.userservice-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/5.apigateway-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/5.apigateway-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/5.proxyclient-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/5.proxyclient-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/6.app.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/6.app.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notificationservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notificationservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/controller/BillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/BillDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/BillDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/entity/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/entity/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillChairRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillChairRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/inter/BillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/inter/BillService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/controller/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/auth/model/request/Response.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/model/BillDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/model/BillDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/service/PaymentFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/service/PaymentFeign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/service/fallback/PaymentFeignFallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/service/fallback/PaymentFeignFallBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/request/CustomerRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/request/CustomerRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/CustomerFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/CustomerFeign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/CustomerFeignCallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/service/fallback/CustomerFeignCallBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/util/impl/JwtUtilImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/util/impl/JwtUtilImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/AuthenticationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/AuthenticationConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/auth/controller/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/auth/controller/AuthenticationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/auth/model/request/Response$ResponseBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/auth/model/request/Response.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/film/controller/RevenueController.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/film/controller/RevenueController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/controller/BillController.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/controller/BillController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/service/fallback/PaymentFeignFallBack$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/service/fallback/PaymentFeignFallBack$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/controller/CustomerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/controller/CustomerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/model/request/CustomerRequest$CustomerRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/model/request/CustomerRequest$CustomerRequestBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/model/request/CustomerRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/model/request/CustomerRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/service/CustomerFeign.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/service/CustomerFeign.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/service/fallback/CustomerFeignCallBack$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/service/fallback/CustomerFeignCallBack$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/jwt/util/impl/JwtUtilImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/jwt/util/impl/JwtUtilImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/AuthenticationConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/AuthenticationConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/SecurityConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/44b89f576b12d2236d2ecc7963401887fcf0c471e20d125da7f8aa104d3d7328" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/81e6d069460e79e06a124501856d81e1b18feff923c32a4b36d1cd5d05f97124" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/e83dc0067c3b5e65ee595fa3ba64dbf9c89f670caab50f398e5ed6f7eb1f65a8" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-image.digest" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-image.digest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-image.id" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-image.id" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-image.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy_client/target/proxy_client-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/proxy_client-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rateservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-cache/selectors/0410353ee9e289efed8203a42550466ca9053f3eda62944a3a2ad4c20fcc2968" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-cache/selectors/662f42e3806801dadb5b0a0914b4a517f0eadb278a904744c727ae3e470a8aac" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-cache/selectors/b514071fa968011b141f67f1ec41ba8c1b9579e6a6cf950a884762feb5df2602" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/jib-image.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/target/roomservice-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/roomservice-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/showtimeservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/request/CustomerRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/dto/request/CustomerRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/entity/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/repository/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/repository/CustomerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/AccountBankingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/AccountBankingServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/inter/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/inter/CustomerService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +112,7 @@
     "Spring Boot.ShowtimeserviceApplication.executor": "Run",
     "Spring Boot.UserServiceApplication (1).executor": "Run",
     "Spring Boot.UserServiceApplication.executor": "Run",
-    "Spring Boot.proxy.executor": "Debug",
+    "Spring Boot.proxy.executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "back__end",
@@ -627,7 +531,8 @@
       <workItem from="1744374955576" duration="6841000" />
       <workItem from="1744441730551" duration="7094000" />
       <workItem from="1744469128353" duration="7067000" />
-      <workItem from="1744477657274" duration="7079000" />
+      <workItem from="1744477657274" duration="8691000" />
+      <workItem from="1744514434557" duration="1066000" />
     </task>
     <servers />
   </component>
@@ -678,21 +583,6 @@
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java</url>
-          <line>286</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/util/impl/JwtUtilImpl.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="84" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/jwt/util/impl/JwtUtilImpl.java</url>
-          <line>95</line>
-          <option name="timeStamp" value="85" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/OAuth2/OAuth2AuthenticationFailureHandler.java</url>
           <line>19</line>
           <option name="timeStamp" value="91" />
@@ -711,6 +601,26 @@
           <url>file://$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/CustomerServiceImpl.java</url>
           <line>73</line>
           <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java</url>
+          <line>281</line>
+          <option name="timeStamp" value="104" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
