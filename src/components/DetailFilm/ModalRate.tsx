@@ -117,7 +117,6 @@ const ModalRate : React.FC<Props> = (props) => {
             toast.warning(<p className={'w-full'}>Không thể tải dữ liệu</p>)
             return;
         }
-        console.log(response)
         setData(response.data.data.data);
         if( page.pageCurrent != response.data.data.pageCurrent || page.pageTotal != response.data.data.totalPage){
             console.log(page.pageCurrent + " " + response.data.data.pageCurrent);
@@ -153,8 +152,9 @@ const ModalRate : React.FC<Props> = (props) => {
     const handleComment = async () => {
         const token : string | undefined = getToken();
         if(token == undefined || expireToken(token) || info == undefined){
-            toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
-            navigate('/login')
+            // toast.warning(<p className={'w-full'}>Phiên đăng nhập đã hết hạn</p>)
+            setIsComment(false);
+            // navigate('/login')
             return;
         }
         const response = await checkCommented(filmId,info?.id,token);

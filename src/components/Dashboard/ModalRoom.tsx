@@ -110,6 +110,11 @@ const ModalRoom : React.FC<Props> = ( props ) => {
         setLoading(true);
         const response = await updateRoom(dataRoom, token);
         setLoading(false);
+        console.log(response);
+        if( response.status == 400 ){
+            toast.warning(<p className={'w-full'}>{response.response?.data?.message}</p>)
+            return;
+        }
         if( response.status != 200 ){
             toast.warning(<p className={'w-full'}>Không thể cập nhật dữ liệu</p>)
             return;

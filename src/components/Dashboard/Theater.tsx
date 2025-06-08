@@ -153,10 +153,6 @@ const Theater: React.FC = () => {
     }, [params, pageBranch]);
 
     useEffect(() => {
-        console.log(dataRoomSelect)
-        console.log(dataRoom)
-    }, [dataRoom]);
-    useEffect(() => {
         if( selectBranch.length == 0) return;
         const temp : Branch = dataBranch.find(i=>i.id==selectBranch);
         if( temp == undefined){
@@ -244,7 +240,10 @@ const Theater: React.FC = () => {
         setLoadingRoom(true);
         const response = await updateBranch(branchSelect, token);
         setLoadingRoom(false);
-        console.log(response);
+        if( response.status == 400 ){
+            toast.warning(<p className={'w-full'}>{response.response?.data?.message}</p>)
+            return;
+        }
         if( response.status != 200 ){
             toast.warning(<p className={'w-full'}>Không thể cập nhật dữ liệu</p>)
             return;

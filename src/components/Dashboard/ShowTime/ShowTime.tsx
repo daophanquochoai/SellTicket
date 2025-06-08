@@ -4,7 +4,8 @@ import { DatePicker } from 'antd';
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
-    addShowTime, deleteShowTime,
+    addShowTime,
+    deleteShowTime,
     expireToken,
     fetchFilmShowByRoomAndTime,
     fetchRoomAll,
@@ -127,9 +128,13 @@ const ShowTime : React.FC = () => {
     const [loadingAccept, setLoadingAccept] = useState<boolean>(false);
     const [selected, setSelected] = useState<number>(0);
 
+    //ref
+    const datePicker = useRef<DatePickerRef>(null);
+    const picker = useRef(null);
+
     const navigate = useNavigate();
 
-    // ttime start -end
+    // time start -end
     dayjs.extend(customParseFormat);
 
 
@@ -200,7 +205,6 @@ const ShowTime : React.FC = () => {
             toast.warning(<p className={'w-full'}>Không thể tải dữ liệu</p>)
             return;
         }
-        console.log(response.data.data);
         setFilmShows(response.data.data);
     }
 
@@ -242,6 +246,7 @@ const ShowTime : React.FC = () => {
     const handlePostFilmShow = async () => {
         const roomId : string = roomRef.current == null ? '' : roomRef.current.value.toString();
         const subFilmId : string = subFilmRef.current == null ? '' : subFilmRef.current.value.toString();
+        console.log(datePicker.current.value)
         if( dataFilmShow.timestamp == '' || dataFilmShow.timeStart == '' || dataFilmShow.timeEnd == '' || subFilmId == '' || roomId == ''){
             toast.warning(<p className={'w-full'}>Vui lòng điền đầy đủ các trường</p>)
             return;
@@ -257,6 +262,12 @@ const ShowTime : React.FC = () => {
         const response = await addShowTime(dataFilmShow.timeStart, dataFilmShow.timeEnd, dataFilmShow.timestamp, subFilmId, roomId, token);
         setLoadingPost(false);
         // console.log(response)
+        if( response.status == 400 ){
+            toast.warning(<p className={'w-full'}>{response.response.data?.message}</p>)
+            console.log( response)
+            return;
+        }
+
         if( response.status != 201){
             toast.warning(<p className={'w-full'}>Không thể tạo dữ liệu</p>)
             return;
@@ -264,6 +275,7 @@ const ShowTime : React.FC = () => {
         toast.success(<p>Tạo thành công</p>)
         setIsOpenCreate(false);
         setRoomReload(roomId);
+        setDataFilmShow(initFilmShow)
     }
     const handleCancel = () => {
         setIsOpenCreate(false);
@@ -390,8 +402,8 @@ const ShowTime : React.FC = () => {
             >
                 <div className={'flex flex-col gap-4'}>
                     <div className={'flex items-start gap-4'}>
-                        <DatePicker size={'large'} onChange={(day,dayString)=>handleChangeDate(day,dayString)}/>
-                        <TimePicker.RangePicker prefix={<FieldTimeOutlined />} size={'large'} onChange={(time, timeString)=>handleChangeTime(time, timeString)}/>
+                        <DatePicker ref={datePicker} size={'large'} onChange={(day,dayString)=>handleChangeDate(day,dayString)}/>
+                        <TimePicker.RangePicker ref={picker} prefix={<FieldTimeOutlined />} size={'large'} onChange={(time, timeString)=>handleChangeTime(time, timeString)}/>
                     </div>
                     <div className={'flex flex-col gap-4'}>
                         <div className={'flex gap-2'}>

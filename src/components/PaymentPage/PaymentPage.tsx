@@ -40,6 +40,8 @@ const PaymentPage : React.FC = () => {
     const [loadingForm, setLoadingForm] = useState<boolean>(false);
     const navigate = useNavigate();
 
+    console.log(bill)
+
     useEffect(() => {
         handleOClock();
         return () => {

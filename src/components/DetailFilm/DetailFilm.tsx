@@ -74,7 +74,8 @@ interface CountTicket {
 interface Count {
     id : string,
     price : number,
-    count : number
+    count : number,
+    name : string
 }
 interface BillChairDto{
     id : string,
@@ -175,7 +176,6 @@ const DetailFilm : React.FC = () => {
     const [loadingAgain, setLoadingAgain] = useState<boolean>(false);
     //ref
     const bookTicketRef = useRef<NodeJS.Timeout | null>(null);
-
 
     useEffect(() => {
         const id : string[] = [];
@@ -324,7 +324,8 @@ const DetailFilm : React.FC = () => {
         const counterTemp = counter.filter(item => item.count != 0);
         counterTemp.forEach( count => {
             const dishDto : DishDto = {
-                id : count.id
+                id : count.id,
+                name: count.name
             }
             const value : BillDishDto = {
                 amount : count.count,

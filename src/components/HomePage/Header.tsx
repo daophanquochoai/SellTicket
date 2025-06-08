@@ -32,7 +32,7 @@ const Header : React.FC = () => {
 
     return(
         <>
-            <div className={"bg-foreground w-full flex justify-center h-[80px] fixed z-10"}>
+            <div className={"bg-foreground w-full flex justify-center h-[80px] fixed z-[100]"}>
                 <div className={"container flex justify-between items-center py-[10px]"}>
                     <div onClick={() => handleToHome()} className={'cursor-pointer'}>
                         <p className={"text-main text-[35px] font-bold"}>Movie<span

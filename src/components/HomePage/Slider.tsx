@@ -22,7 +22,6 @@ const Slider :React.FC = () => {
         setLoading(true);
         const response = await getSlider();
         setLoading(false);
-        console.log(response);
         if( response.status != 200 ){
             toast.warning(<p className={'w-full'}>Không thể tải slide</p>)
             return;

@@ -66,10 +66,8 @@ const Display : React.FC<Props> = ({title,active}) => {
             toast.error("Không thể kết nối với máy chủ");
             return;
         }
-        console.log(response);
         const data : Film[] = await response.data.data;
         setFilmList(data);
-        console.log(data)
     }
 
     const handleToDetailFilm = ( id : string) => {

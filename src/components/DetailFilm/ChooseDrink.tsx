@@ -18,7 +18,8 @@ interface Dish  {
 interface Count {
     id : string,
     price : number,
-    count : number
+    count : number,
+    name : string
 }
 interface Props {
     setSum : ( arg : number ) => void,
@@ -67,14 +68,14 @@ const ChooseDrink : React.FC<Props> = ( props ) => {
         setDish(response.data.data);
     }
 
-    const handleRise : (arg : string) => void = ( id : string) => {
+    const handleRise : (arg : string) => void = ( id : string, name : string) => {
         const item = counter.find(item => item.id === id);
         if( item === undefined){
             return;
         }
-        setCounter([...counter.filter(item=>item.id!==id), { id: id, price : item.price, count : item.count + 1}])
+        setCounter([...counter.filter(item=>item.id!==id), { id: id, price : item.price, count : item.count + 1, name: name}])
     }
-    const handleDown : (arg : string) => void = ( id : string ) => {
+    const handleDown : (arg : string) => void = ( id : string, name : string ) => {
         const item = counter.find(item => item.id === id);
         if( item === undefined){
             return;
@@ -82,7 +83,7 @@ const ChooseDrink : React.FC<Props> = ( props ) => {
         if( item.count === 0 ){
             return;
         }
-        setCounter([...counter.filter(item=>item.id!==id), { id: id, price : item.price, count : item.count - 1}])
+        setCounter([...counter.filter(item=>item.id!==id), { id: id, price : item.price, count : item.count - 1, name: name}])
     }
 
     return (
@@ -122,11 +123,11 @@ const ChooseDrink : React.FC<Props> = ( props ) => {
                                                                         <div>
                                                                             <div className={'inline-flex gap-4 items-center bg-gray-400 px-2 py-1'}>
                                                                                 <button className={'text-white text-xs cursor-pointer'}
-                                                                                      onClick={() => handleDown(i.id)}
+                                                                                      onClick={() => handleDown(i.id, i.name)}
                                                                                 ><FaMinus/></button>
                                                                                 <span className={'text-white'}>{temp.count || 0}</span>
                                                                                 <button className={'text-white text-xs cursor-pointer'}
-                                                                                      onClick={() => handleRise(i.id)}
+                                                                                      onClick={() => handleRise(i.id, i.name)}
                                                                                 ><FaPlus/></button>
                                                                             </div>
                                                                         </div>

@@ -68,7 +68,7 @@ const OverView : React.FC = () => {
         handleFetchYearForBill();
         handleFetchReport();
         handleFetchNumCustomerAndEmployee();
-    }, []);
+    }, [selectYear]);
     useEffect(() => {
         if( data?.length == 0 ) return;
         const month = new Date(Date.now()).getMonth() + 1;
@@ -250,7 +250,7 @@ const OverView : React.FC = () => {
                         <p className={'text-xl font-bold text-green-400'}>DOANH THU</p>
                         <Spin tip={'Đang tải...'} spinning={loadingYear}>
                             <Select
-                                defaultValue={selectYear}
+                                value={selectYear}
                                 style={{width: 120}}
                                 options={dataYear}
                                 onChange={e=>handleChangeYear(e)}

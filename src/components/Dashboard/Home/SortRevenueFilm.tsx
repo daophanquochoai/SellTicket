@@ -26,12 +26,10 @@ const SortRevenueFilm : React.FC<Props> = (props) => {
         setLoading(true);
         const response = await getRevenueFilm(props.month, props.year);
         setLoading(false);
-        console.log(response)
         if( response.status != 200 ){
             toast.warning(<p className={'w-full'}>Không thể tải biểu đồ</p>)
             return;
         }
-        console.log(response);
         setData(response.data?.data);
     }
 
