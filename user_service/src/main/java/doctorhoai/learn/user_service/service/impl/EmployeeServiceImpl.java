@@ -7,6 +7,7 @@ import doctorhoai.learn.user_service.entity.Account;
 import doctorhoai.learn.user_service.entity.Employee;
 import doctorhoai.learn.user_service.entity.Role;
 import doctorhoai.learn.user_service.entity.Status;
+import doctorhoai.learn.user_service.exception.DuplicateEmployee;
 import doctorhoai.learn.user_service.exception.EmployeeNotFound;
 import doctorhoai.learn.user_service.exception.ErrorException;
 import doctorhoai.learn.user_service.exception.RoleNotFound;
@@ -45,6 +46,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<Role> role = roleRepository.findById(2);
         if( role.isEmpty()){
             throw new RoleNotFound("Role not found with id : " + employee.getRoleId());
+        }
+        List<Employee> employees = employeeRepository.findByEmployee(employee.getEmail(), employee.getUserName());
+        if( employees.size() > 0 ){
+            throw new DuplicateEmployee("Duplicate employee : " + employee.getEmail() + " or " + employee.getUserName());
         }
         try{
             Account account = Account.builder()

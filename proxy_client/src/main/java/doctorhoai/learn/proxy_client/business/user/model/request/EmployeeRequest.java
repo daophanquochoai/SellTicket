@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.Length;
 public class EmployeeRequest {
     @NotBlank(message = "Name not blank")
     private String name;
+    @NotNull(message = "CCCD isn't null")
     @Length(min = 10,max = 12, message = "CCCD have length 10 - 12 characters")
     private String CCCD;
     @Email(message = "Email isn't in correct format")

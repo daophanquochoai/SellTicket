@@ -17,5 +17,6 @@ public interface RoomRepository extends JpaRepository<Room, String> {
     @Query("select r from Room r where (r.name like concat('%', :q, '%'))")
     Page<Room> getRoomByCustom(Pageable pageable, String q);
     List<Room> getRoomsByBranch_Id(String id);
+    List<Room> getRoomsByBranch_IdAndStatus(String id, Status status);
     List<Room> getRoomsByStatus(Status status);
 }

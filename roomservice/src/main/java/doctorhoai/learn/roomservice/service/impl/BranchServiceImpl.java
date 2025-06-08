@@ -2,10 +2,13 @@ package doctorhoai.learn.roomservice.service.impl;
 
 import doctorhoai.learn.roomservice.dto.BranchDto;
 import doctorhoai.learn.roomservice.entity.Branch;
+import doctorhoai.learn.roomservice.entity.Room;
 import doctorhoai.learn.roomservice.entity.Status;
+import doctorhoai.learn.roomservice.exception.BranchCantRemove;
 import doctorhoai.learn.roomservice.exception.BranchNotFound;
 import doctorhoai.learn.roomservice.helper.MapperToDto;
 import doctorhoai.learn.roomservice.repository.BranchRepository;
+import doctorhoai.learn.roomservice.repository.RoomRepository;
 import doctorhoai.learn.roomservice.service.inter.BranchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +27,8 @@ import java.util.Optional;
 public class BranchServiceImpl implements BranchService {
 
     private final BranchRepository branchRepository;
+    private final RoomRepository roomRepository;
+
     @Override
     public BranchDto addBranch(BranchDto branchDto) {
         Branch branch = Branch.builder()
@@ -47,6 +52,14 @@ public class BranchServiceImpl implements BranchService {
             throw new BranchNotFound("Branch not found with id : " + id);
         }
         Branch branchOld = branch.get();
+        if( branchOld.getStatus() != Status.valueOf(branchDto.getStatus())){
+            if( branchOld.getStatus() == Status.ACTIVE){
+                List<Room> rooms = roomRepository.getRoomsByBranch_IdAndStatus(id, Status.ACTIVE);
+                if( rooms.size() > 0 ){
+                    throw new BranchCantRemove("Branch still has room not deleted");
+                }
+            }
+        }
         branchOld.setNameBranch(branchDto.getNameBranch());
         branchOld.setAddress(branchDto.getAddress());
         branchOld.setStatus(Status.valueOf(branchDto.getStatus()));

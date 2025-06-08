@@ -25,7 +25,6 @@ import doctorhoai.learn.paymentservice.repository.*;
 import doctorhoai.learn.paymentservice.service.feign.*;
 import doctorhoai.learn.paymentservice.service.inter.BillService;
 import doctorhoai.learn.paymentservice.service.producer.KafkaMessagePublish;
-import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,7 +41,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -625,7 +623,7 @@ public class BillServiceImpl implements BillService {
                                     item.getActive().toString(),
                                     item.getDishDto().getName(),
                                     item.getDishDto().getImage(),
-                                    item.getDishDto().getTypeDish().getName()
+                                     item.getDishDto().getTypeDish().getName()
                             )
                     );
                 });

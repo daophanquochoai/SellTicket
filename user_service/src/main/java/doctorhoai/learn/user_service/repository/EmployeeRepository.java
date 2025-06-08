@@ -22,4 +22,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query("select e from Employee e where e.name like concat('%',:q,'%') or e.email like concat('%',:q,'%') or e.CCCD like concat('%',:q,'%')")
     Page<Employee> getAllByCustom(Pageable pageable, String q);
     Optional<Employee> getEmployeeByAccount_UserName(String username);
+
+    @Query(
+            """
+            select e from Employee e where e.email = :email or e.account.userName = :username
+            """
+    )
+    List<Employee> findByEmployee(String email, String username);
 }

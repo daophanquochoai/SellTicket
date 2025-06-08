@@ -74,15 +74,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if( username != null && SecurityContextHolder.getContext().getAuthentication() == null ) {
             final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            if(!tokenService.findToken(jwt)){
-                throw new UnAuthorizedException("Bad credentials");
-            }
-            if( this.jwtService.validateToken(jwt, userDetails) ) {
-                final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-                        =new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            }else {
+            try{
+                if(!tokenService.findToken(jwt)){
+                    throw new UnAuthorizedException("Bad credentials");
+                }
+                if( this.jwtService.validateToken(jwt, userDetails) ) {
+                    final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
+                            =new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }else {
+                    throw new UnAuthorizedException("Bad credentials");
+                }
+            }catch (Exception e) {
                 throw new UnAuthorizedException("Bad credentials");
             }
         }

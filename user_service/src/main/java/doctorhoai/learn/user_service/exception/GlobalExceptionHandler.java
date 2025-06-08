@@ -45,11 +45,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    @ExceptionHandler(value = {Exception.class, ErrorException.class})
+    @ExceptionHandler(value = {Exception.class, ErrorException.class, DuplicateEmployee.class})
     public ResponseEntity<Object> handleGlobalException(Exception exception,
                                                                   WebRequest webRequest) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage())
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), exception.getMessage())
         );
     }
 }

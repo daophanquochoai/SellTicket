@@ -3,6 +3,7 @@ package doctorhoai.learn.showtimeservice.controller;
 import doctorhoai.learn.showtimeservice.dto.FilmShowDto;
 import doctorhoai.learn.showtimeservice.dto.request.FilmShowRequest;
 import doctorhoai.learn.showtimeservice.dto.response.Response;
+import doctorhoai.learn.showtimeservice.entity.Status;
 import doctorhoai.learn.showtimeservice.service.FilmShowService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -135,6 +136,19 @@ public class FilmShowTimeController {
                         .statusCode(200)
                         .message("Get film show by param successful")
                         .data(filmShowService.getFilmShowBySubFilm(subfilmId))
+                        .build()
+        );
+    }
+
+    @GetMapping("/{roomId}/check/all")
+    public ResponseEntity<Response> getFilmShowByRoomAndActive(
+            @PathVariable @NotNull String roomId
+    ){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Get film show by room and status")
+                        .data(filmShowService.getFilmShowByRoomAndStatus(roomId, Status.ACTIVE))
                         .build()
         );
     }

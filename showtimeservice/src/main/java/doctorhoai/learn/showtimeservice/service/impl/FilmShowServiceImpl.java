@@ -11,6 +11,7 @@ import doctorhoai.learn.showtimeservice.dto.response.Response;
 import doctorhoai.learn.showtimeservice.entity.FilmShowTime;
 import doctorhoai.learn.showtimeservice.entity.Status;
 import doctorhoai.learn.showtimeservice.exception.ErrorException;
+import doctorhoai.learn.showtimeservice.exception.FilmShowTimeDuplicate;
 import doctorhoai.learn.showtimeservice.exception.FilmShowTimeNotFound;
 import doctorhoai.learn.showtimeservice.facade.RoomAsync;
 import doctorhoai.learn.showtimeservice.facade.SubFilmAsync;
@@ -49,6 +50,12 @@ public class FilmShowServiceImpl implements FilmShowService {
 
     @Override
     public FilmShowDto addFilmShow(FilmShowRequest filmShowRequest) {
+
+        //kiem tra co trung khong
+        List<FilmShowTime> filmShowTimeList = filmShowRepository.checkFilmShowTime(filmShowRequest.getTimeStart(), filmShowRequest.getTimeEnd(), filmShowRequest.getTimestamp(), filmShowRequest.getRoomId(), Status.ACTIVE);
+        if(!filmShowTimeList.isEmpty()){
+            throw new FilmShowTimeDuplicate("Time have been used");
+        }
 
 //        Response responseRoom = roomFeign.getRoomById(filmShowRequest.getRoomId()).getBody();
         //async
@@ -241,6 +248,12 @@ public class FilmShowServiceImpl implements FilmShowService {
     @Override
     public List<FilmShowDto> getFilmShowBySubFilm(String subFilmId) {
         List<FilmShowTime> list = filmShowRepository.getFilmShowTimeBySubFilmId(subFilmId);
+        return list.stream().map(MapperObject::mapToFilmShowDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FilmShowDto> getFilmShowByRoomAndStatus(String roomId, Status status) {
+        List<FilmShowTime> list = filmShowRepository.getFilmShowByRoomAndStatus(roomId, status, LocalDate.now());
         return list.stream().map(MapperObject::mapToFilmShowDto).collect(Collectors.toList());
     }
 }

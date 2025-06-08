@@ -24,7 +24,7 @@ spec:
               value: dkbukqhmr
             - name: SPRING_URL_KAFKA
               value: kafka:29092
-          image: doctorhoai/huongdichvu_notificationservice:f16
+          image: doctorhoai/huongdichvu_notificationservice:f17
           resources:
             requests:
               memory: 512Mi

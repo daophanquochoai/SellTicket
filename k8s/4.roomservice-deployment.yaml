@@ -33,7 +33,7 @@ spec:
               value: root
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_roomservice:f16
+          image: doctorhoai/huongdichvu_roomservice:f17
           imagePullPolicy: IfNotPresent
           resources:
             requests:

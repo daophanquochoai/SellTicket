@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: react-app
-          image: doctorhoai/movieticket:f16
+          image: doctorhoai/movieticket:f17
           ports:
             - containerPort: 80
           env:
@@ -22,6 +22,8 @@ spec:
               value: "http://localhost:6380/doctorhoai/proxy"
             - name: VITE_REACT_APP_PUBLIC_KEY
               value: "pk_test_51QuPM5BcNft3NmLQZVIJ785cTDy9t8KaqQ7jwCb5GbPOe263Fq6mRrsWrN6TMYt0VKSoYsayw5ODzJSKCIjVfuGX00MHglpjYu"
+            - name : VITE_REACT_APP_OAUTH2_REDIRECT_URI
+              value: "http://localhost:5173/oauth2/redirect"
           resources:
             limits:
               memory: "512Mi"

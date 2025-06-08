@@ -1,1 +1,1 @@
-{"image":"doctorhoai/huongdichvu_roomservice:f16","imageId":"sha256:091d4c5653069a4d94713a6597ddffdddeabc75ce7177881a650115552f25d91","imageDigest":"sha256:4d36d8518e136400b0f5c506726d25c6c95a3648f5e708ec48fa9e53185f32a7","tags":["f16"],"imagePushed":true}
+{"image":"doctorhoai/huongdichvu_roomservice:f18","imageId":"sha256:49021ae4c67de000014b39fd611a435356e94327920741d6801c2a727750dfb8","imageDigest":"sha256:7d295e0ad4da4e50f34762a82fd9a6186810a1a84ec0a198e47b6dca0a83f581","tags":["f18"],"imagePushed":true}

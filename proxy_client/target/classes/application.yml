@@ -13,9 +13,9 @@ spring:
       client:
         registration:
           github:
-            clientId: Ov23liwafWo0cDS2xWMe
-            clientSecret: 13cbbb85dc169c670a08bed400eb07441f5baae9
-            redirectUri: "http://localhost:6380/login/oauth2/code/{registrationId}"
+            clientId: ${SPRING_CLIENT_ID_GITHUB:Ov23liwafWo0cDS2xWMe}
+            clientSecret: ${SPRING_CLIENT_SECRET_GITHUB:13cbbb85dc169c670a08bed400eb07441f5baae9}
+            redirectUri: ${SPRING_REDIRECT_URI_GITHUB:http://localhost:6380/login/oauth2/code/{registrationId}}
             scope:
               - user:email
               - read:user

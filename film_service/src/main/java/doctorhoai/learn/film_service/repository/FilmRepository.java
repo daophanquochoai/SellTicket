@@ -14,9 +14,9 @@ import java.util.Optional;
 
 @Repository
 public interface FilmRepository extends JpaRepository<Film, String> {
-    @Query("select f from Film f where f.status = :status and (f.content like concat('%', :q, '%') or f.name like concat('%', :q, '%') or f.description like concat('%',:q, '%'))")
+    @Query("select f from Film f where f.status = :status and (lower(f.content) like concat('%', lower(:q), '%') or f.name like concat('%', lower(:q), '%') or lower(f.description) like concat('%',lower(:q), '%'))")
     Page<Film> getFilmByCustom(Pageable pageable, String q, Status status);
-    @Query("select f from Film f where f.content like concat('%', :q, '%') or f.name like concat('%', :q, '%') or f.description like concat('%',:q, '%')")
+    @Query("select f from Film f where lower(f.content) like concat('%', lower(:q), '%') or lower(f.name) like concat('%', lower(:q), '%') or lower(f.description) like concat('%',lower(:q), '%')")
     Page<Film> getFilmByCustom(Pageable pageable, String q);
     @Query("select f from Film f join fetch SubFilm sl on f.id = :s")
     Optional<Film> findFilmBySub(String s);

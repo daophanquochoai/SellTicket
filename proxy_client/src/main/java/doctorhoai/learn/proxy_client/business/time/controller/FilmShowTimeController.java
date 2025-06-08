@@ -22,7 +22,8 @@ public class FilmShowTimeController {
 
     @PostMapping("/add")
     public ResponseEntity<Response> addFilmShow(@Valid @RequestBody FilmShowRequest filmShowRequest){
-        return filmShowTimeFeign.addFilmShow(filmShowRequest);
+        ResponseEntity<Response> response = filmShowTimeFeign.addFilmShow(filmShowRequest);
+        return response;
     }
 
     @PutMapping("/update/{id}")

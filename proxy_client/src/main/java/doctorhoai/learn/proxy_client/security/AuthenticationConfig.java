@@ -3,10 +3,7 @@ package doctorhoai.learn.proxy_client.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 import javax.sql.DataSource;
@@ -24,14 +21,6 @@ public class AuthenticationConfig {
         );
         return jdbcUserDetailsManager;
     }
-//
-//    @Bean
-//    public AuthenticationManager authenticationManager(JdbcUserDetailsManager jdbcUserDetailsManager, PasswordEncoder passwordEncoder) {
-//        var authentication = new DaoAuthenticationProvider();
-//        authentication.setUserDetailsService(jdbcUserDetailsManager);
-//        authentication.setPasswordEncoder(passwordEncoder);
-//        return new ProviderManager(authentication);
-//    }
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager(); // ✅ Sửa chỗ này

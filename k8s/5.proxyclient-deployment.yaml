@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: proxyclient
-          image: doctorhoai/huongdichvu_proxyservice:f16
+          image: doctorhoai/huongdichvu_proxyservice:f17
           imagePullPolicy: IfNotPresent
           env:
             - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
@@ -46,6 +46,14 @@ spec:
               value: "6379"
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
+            - name: SPRING_CLIENT_ID_GITHUB
+              value: Ov23liwafWo0cDS2xWMe
+            - name: SPRING_CLIENT_SECRET_GITHUB
+              value: 13cbbb85dc169c670a08bed400eb07441f5baae9
+            - name: SPRING_REDIRECT_URI_GITHUB
+              value: http://localhost:6380/login/oauth2/code/{registrationId}
+            - name: SPRING_REDIRECT_OAUTH
+              value: http://localhost:5173/oauth2/redirect
           ports:
             - containerPort: 8888
               protocol: TCP

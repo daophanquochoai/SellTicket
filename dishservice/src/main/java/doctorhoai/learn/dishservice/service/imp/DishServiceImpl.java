@@ -1,6 +1,7 @@
 package doctorhoai.learn.dishservice.service.imp;
 
 import doctorhoai.learn.dishservice.dto.DishDto;
+import doctorhoai.learn.dishservice.dto.TypeDishDto;
 import doctorhoai.learn.dishservice.dto.request.DishRequest;
 import doctorhoai.learn.dishservice.entity.Dish;
 import doctorhoai.learn.dishservice.entity.Status;
@@ -32,7 +33,12 @@ public class DishServiceImpl implements DishService {
         if( dish.isEmpty() ){
             throw new DishNotFound("Dish not found with id : " + id);
         }
-        return MapperToDto.DishToDto(dish.get());
+        DishDto dishDto = MapperToDto.DishToDto(dish.get());
+        if( dish.get().getTypeDish() != null ){
+            TypeDishDto typeDishDto = MapperToDto.TypeDishToDto(dish.get().getTypeDish());
+            dishDto.setTypeDish(typeDishDto);
+        }
+        return dishDto;
     }
 
     @Override

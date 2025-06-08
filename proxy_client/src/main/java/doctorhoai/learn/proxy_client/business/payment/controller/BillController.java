@@ -23,7 +23,6 @@ public class BillController {
             @RequestBody @Valid BillDto billDto
     )
     {
-        System.out.println(123);
         return paymentFeign.createBill(billDto);
     }
 

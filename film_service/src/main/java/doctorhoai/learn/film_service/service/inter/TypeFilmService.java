@@ -1,6 +1,7 @@
 package doctorhoai.learn.film_service.service.inter;
 
 import doctorhoai.learn.film_service.dto.TypeFilmDto;
+import doctorhoai.learn.film_service.dto.response.PageResponse;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface TypeFilmService {
     List<TypeFilmDto> getAllTypeFilm();
     void deleteTypeFilm(String id);
     void activeTypeFilm(String id);
-    List<TypeFilmDto> getTypeFilmByCustom(String page, String limit, String q, String orderBy, String status, String asc);
+    PageResponse getTypeFilmByCustom(String page, String limit, String q, String orderBy, String status, String asc);
 }

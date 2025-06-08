@@ -5,10 +5,112 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36889aec-dc85-4790-8d00-f026e7dad416" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/dto/response/PageResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/CustomAccessDeniedHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/CustomAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/dto/FilmShowDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/exception/BranchCantRemove.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/exception/RoomCantRemove.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/client/fallback/FunctionCommon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/client/fallback/ShowTimeFallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/client/feign/ShowTimeFeign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/FilmShowTimeDuplicate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/exception/DuplicateEmployee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillChairRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/repository/BillChairRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/configserver/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/service/imp/DishServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/service/imp/DishServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/target/classes/doctorhoai/learn/dishservice/service/imp/DishServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/classes/doctorhoai/learn/dishservice/service/imp/DishServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/target/dishservice-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/dishservice-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-cache/selectors/9deb3bdc34fd737fb635f73389e767915fe640c59f1c5ab17820ef1e1f94c28d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-cache/selectors/b3cb34d5d465a3c5f5718079a9df69c5bdb4f79998d3c2349954c11aac2eaece" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-cache/selectors/bc6205b3220508bb95b84e3b6d2965415c674ca2ee6e0f55dc36da5c585149e2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-image.digest" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/jib-image.digest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-image.id" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/jib-image.id" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishservice/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/dishservice/target/jib-image.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eurekaserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/eurekaserver/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/repository/FilmRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/repository/FilmRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/repository/TypeFilmRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/repository/TypeFilmRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/TypeFilmServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/impl/TypeFilmServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/inter/TypeFilmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/film_service/src/main/java/doctorhoai/learn/film_service/service/inter/TypeFilmService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/2.configserver-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/2.configserver-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/3.eurekaservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/3.eurekaservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/4.dishservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.dishservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/4.filmservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.filmservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/4.noficationservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.noficationservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/4.paymentservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.paymentservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/4.rateservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.rateservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/4.roomservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.roomservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/4.showtimeservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.showtimeservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/4.userservice-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/4.userservice-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/5.apigateway-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/5.apigateway-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/5.proxyclient-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/5.proxyclient-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/6.app.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/6.app.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notificationservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notificationservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/TypeDishDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/dto/TypeDishDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/controller/FilmShowTimeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/time/controller/FilmShowTimeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/request/EmployeeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/user/model/request/EmployeeRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/config/filter/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/config/filter/JwtRequestFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/exception/GlobalException.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/exception/GlobalException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/AuthenticationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/AuthenticationConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/controller/BillController.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/payment/controller/BillController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/time/controller/FilmShowTimeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/time/controller/FilmShowTimeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/model/request/EmployeeRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/business/user/model/request/EmployeeRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/config/filter/JwtRequestFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/config/filter/JwtRequestFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/exception/GlobalException.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/exception/GlobalException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/AuthenticationConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/AuthenticationConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/classes/doctorhoai/learn/proxy_client/security/SecurityConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/jib-classpath-file" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-cache/jib-classpath-file" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/2dea082b3261718c9ff43d99cfc18e02059c1f0412b126151e050a21a0652057" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/34c8ab067f4f62c210103f3f10644d0c54ed16f9f8a63ba7d417293c356cf051" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/599e540267ef5a6d849acc11c0f0ceb2627088277c10831add6209fe0605ebd5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-cache/selectors/af093d9acb96eecf6848b343c2db59b79a71af7e04a7483f164e1076388d5a28" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-image.digest" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-image.digest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-image.id" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-image.id" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/jib-image.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_client/target/proxy_client-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_client/target/proxy_client-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rateservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rateservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/RoomserviceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/RoomserviceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/repository/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/repository/RoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/impl/BranchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/impl/BranchServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/impl/RoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/doctorhoai/learn/roomservice/service/impl/RoomServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/RoomserviceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/RoomserviceApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/exception/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/exception/GlobalExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/repository/RoomRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/repository/RoomRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/service/impl/BranchServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/service/impl/BranchServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/service/impl/RoomServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/classes/doctorhoai/learn/roomservice/service/impl/RoomServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-cache/selectors/07b1ab8985f2c047853c48dbd835383ec74e5da48a44f4da5487e3aab81d8a88" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-cache/selectors/565cc0f5260cad96bfb3b3014f6f302a9d3abac8fd2d9fa4cae4e5237c3aed0a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-cache/selectors/a8f89047901d41d7f5ef5846edbe6d372ab6bca9da922d7220a3b53480053365" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-image.digest" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/jib-image.digest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-image.id" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/jib-image.id" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/jib-image.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/target/roomservice-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/target/roomservice-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/controller/FilmShowTimeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/controller/FilmShowTimeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/repository/FilmShowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/repository/FilmShowRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/FilmShowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/FilmShowService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/repository/EmployeeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/repository/EmployeeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/doctorhoai/learn/user_service/service/impl/EmployeeServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,10 +122,10 @@
       <list>
         <option value="spring-beans.schema" />
         <option value="JUnit5 Test Class" />
-        <option value="Exception" />
         <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
@@ -68,75 +170,75 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.eureka.executor": "Run",
-    "Docker.docker/docker-compose2.yml: Compose Deployment.executor": "Run",
-    "Docker.docker: Compose Deployment.executor": "Run",
-    "JUnit.AccountBankingServiceImplTest.randomOpt.executor": "Run",
-    "JUnit.MapperToDtoTest.Test_DtoToAccount.executor": "Run",
-    "Maven.BaseDomain [clean,install,-DskipTests].executor": "Run",
-    "Maven.BaseDomain [clean,install].executor": "Run",
-    "Maven.apigateway [clean,install,jib:build...].executor": "Run",
-    "Maven.configserver [clean,install,jib:build...].executor": "Run",
-    "Maven.configserver [clean,install].executor": "Run",
-    "Maven.configserver.executor": "Run",
-    "Maven.dishservice [clean,install,jib:build...].executor": "Run",
-    "Maven.eurekaserver [clean,install,jib:build...].executor": "Run",
-    "Maven.film_service [clean,install,jib:build...].executor": "Run",
-    "Maven.notificationservice [clean,install...].executor": "Run",
-    "Maven.paymentservice [clean,install,jib:build...].executor": "Run",
-    "Maven.proxy_client [clean,install,jib:build...].executor": "Run",
-    "Maven.rateservice [clean,install,jib:build...].executor": "Run",
-    "Maven.roomservice [clean,install,jib:build...].executor": "Run",
-    "Maven.showtimeservice [clean,install,jib:build...].executor": "Run",
-    "Maven.user_service [clean,install,jib:build...].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ApigatewayApplication.executor": "Run",
-    "Spring Boot.BaseDomainApplication.executor": "Run",
-    "Spring Boot.ConfigserverApplication.executor": "Run",
-    "Spring Boot.DishserviceApplication.executor": "Run",
-    "Spring Boot.EurekaserverApplication.executor": "Run",
-    "Spring Boot.FilmServiceApplication.executor": "Run",
-    "Spring Boot.NotificationserviceApplication.executor": "Run",
-    "Spring Boot.PaymentserviceApplication.executor": "Run",
-    "Spring Boot.ProxyClientApplication.executor": "Run",
-    "Spring Boot.RateserviceApplication.executor": "Run",
-    "Spring Boot.RoomserviceApplication.executor": "Run",
-    "Spring Boot.ShowTime.executor": "Run",
-    "Spring Boot.ShowtimeserviceApplication.executor": "Run",
-    "Spring Boot.UserServiceApplication (1).executor": "Run",
-    "Spring Boot.UserServiceApplication.executor": "Run",
-    "Spring Boot.proxy.executor": "Run",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "back__end",
-    "jdk.selected.JAVA_MODULE": "jbr-21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Admin/Downloads/Hoc-Nhanh-React-Query-master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "http.proxy",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.eureka.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker/docker-compose2.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AccountBankingServiceImplTest.randomOpt.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MapperToDtoTest.Test_DtoToAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BaseDomain [clean,install,-DskipTests].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BaseDomain [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.apigateway [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.configserver [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.configserver [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.configserver.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.dishservice [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.eurekaserver [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.film_service [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.notificationservice [clean,install...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paymentservice [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.proxy_client [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.rateservice [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.roomservice [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.showtimeservice [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.user_service [clean,install,jib:build...].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApigatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.BaseDomainApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ConfigserverApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DishserviceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.EurekaserverApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FilmServiceApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.NotificationserviceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentserviceApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.ProxyClientApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.RateserviceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.RoomserviceApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.ShowTime.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.ShowtimeserviceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserServiceApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.proxy.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;back__end&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;jbr-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/MONHOC/HK2-NAM4/HuongDichVu/dashboardAndroid-main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql_aurora"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql_aurora&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -164,11 +266,11 @@
       <recent name="doctorhoai.learn.user_service.helper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="doctorhoai.learn.roomservice.service.client.fallback" />
       <recent name="doctorhoai.learn.paymentservice.config" />
       <recent name="doctorhoai.learn.proxy_client.business.user.model" />
       <recent name="doctorhoai.learn.proxy_client.business.film.model" />
       <recent name="doctorhoai.learn.showtimeservice.dto" />
-      <recent name="doctorhoai.learn.proxy_client.business.film.model.request" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -193,7 +295,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.docker: Compose Deployment">
+  <component name="RunManager" selected="Spring Boot.ConfigserverApplication">
     <configuration name="AccountBankingServiceImplTest.randomOpt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="user_service" />
       <extension name="coverage">
@@ -532,7 +634,56 @@
       <workItem from="1744441730551" duration="7094000" />
       <workItem from="1744469128353" duration="7067000" />
       <workItem from="1744477657274" duration="8691000" />
-      <workItem from="1744514434557" duration="1066000" />
+      <workItem from="1744514434557" duration="7145000" />
+      <workItem from="1744550674056" duration="420000" />
+      <workItem from="1744595777497" duration="1791000" />
+      <workItem from="1744647316196" duration="3207000" />
+      <workItem from="1744682595936" duration="6962000" />
+      <workItem from="1744727931818" duration="1324000" />
+      <workItem from="1744735943009" duration="107000" />
+      <workItem from="1744767123238" duration="7843000" />
+      <workItem from="1744823844191" duration="1322000" />
+      <workItem from="1744945801139" duration="125000" />
+      <workItem from="1745132169967" duration="136000" />
+      <workItem from="1745133772602" duration="543000" />
+      <workItem from="1745416640216" duration="360000" />
+      <workItem from="1745420817287" duration="93000" />
+      <workItem from="1745422417191" duration="188000" />
+      <workItem from="1745423140473" duration="341000" />
+      <workItem from="1745472198922" duration="358000" />
+      <workItem from="1745492046918" duration="1238000" />
+      <workItem from="1745499845417" duration="3914000" />
+      <workItem from="1745557037069" duration="6000" />
+      <workItem from="1745576266137" duration="5676000" />
+      <workItem from="1745626935570" duration="3173000" />
+      <workItem from="1745649740127" duration="20000" />
+      <workItem from="1745652750740" duration="2258000" />
+      <workItem from="1745655399862" duration="7146000" />
+      <workItem from="1745680247060" duration="34000" />
+      <workItem from="1745688760627" duration="356000" />
+      <workItem from="1745759812087" duration="4547000" />
+      <workItem from="1745799263912" duration="1460000" />
+      <workItem from="1745848506898" duration="3775000" />
+      <workItem from="1746251866798" duration="2122000" />
+      <workItem from="1746276174068" duration="1869000" />
+      <workItem from="1746284623111" duration="76000" />
+      <workItem from="1746355230490" duration="897000" />
+      <workItem from="1746424917562" duration="616000" />
+      <workItem from="1746872425228" duration="1804000" />
+      <workItem from="1746875273198" duration="28000" />
+      <workItem from="1746961065293" duration="854000" />
+      <workItem from="1746975672932" duration="38000" />
+      <workItem from="1747015866677" duration="661000" />
+      <workItem from="1747055274305" duration="3119000" />
+      <workItem from="1747543682306" duration="747000" />
+      <workItem from="1748144875041" duration="1069000" />
+      <workItem from="1748146863421" duration="32000" />
+      <workItem from="1748149485727" duration="1397000" />
+      <workItem from="1748663144749" duration="356000" />
+      <workItem from="1748673368458" duration="49000" />
+      <workItem from="1748749864631" duration="8000" />
+      <workItem from="1749265413862" duration="18087000" />
+      <workItem from="1749369571355" duration="543000" />
     </task>
     <servers />
   </component>
@@ -542,11 +693,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/FunctionCommon.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dishservice/src/main/java/doctorhoai/learn/dishservice/service/imp/TypeDishServiceImpl.java</url>
           <line>39</line>
@@ -561,26 +707,6 @@
           <url>file://$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/TicketServiceImpl.java</url>
           <line>78</line>
           <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/impl/RateServiceImpl.java</url>
-          <line>276</line>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/rateservice/src/main/java/doctorhoai/learn/rateservice/service/impl/RateServiceImpl.java</url>
-          <line>280</line>
-          <option name="timeStamp" value="68" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java</url>
-          <line>201</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/showtimeservice/src/main/java/doctorhoai/learn/showtimeservice/service/impl/FilmShowServiceImpl.java</url>
-          <line>230</line>
-          <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/security/OAuth2/OAuth2AuthenticationFailureHandler.java</url>
@@ -604,23 +730,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java</url>
-          <line>85</line>
-          <option name="timeStamp" value="99" />
+          <line>279</line>
+          <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="100" />
+          <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/exception/GlobalException.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/business/payment/controller/BillController.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="102" />
+          <url>file://$PROJECT_DIR$/proxy_client/src/main/java/doctorhoai/learn/proxy_client/exception/GlobalException.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java</url>
-          <line>281</line>
-          <option name="timeStamp" value="104" />
+          <line>616</line>
+          <option name="timeStamp" value="126" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/paymentservice/src/main/java/doctorhoai/learn/paymentservice/service/impl/BillServiceImpl.java</url>
+          <line>625</line>
+          <option name="timeStamp" value="127" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

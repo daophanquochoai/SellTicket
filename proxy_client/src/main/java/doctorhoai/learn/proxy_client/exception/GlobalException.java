@@ -3,6 +3,8 @@ package doctorhoai.learn.proxy_client.exception;
 import doctorhoai.learn.proxy_client.BaseDomain.ErrorResponse;
 import doctorhoai.learn.proxy_client.exception.payload.ExceptionMsg;
 import feign.FeignException;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -59,13 +62,16 @@ public class GlobalException extends ResponseEntityExceptionHandler {
                                 .now(ZoneId.systemDefault()))
                         .build(), badRequest);
     }
-    @ExceptionHandler({
+    @ExceptionHandler(exception = {
             UnAuthorizedException.class,
             BadRequestException.class,
+            ExpiredJwtException.class,
+            BadCredentialsException.class,
+            MalformedJwtException.class
     })
     public <T extends RuntimeException>ResponseEntity<ExceptionMsg> handleApiRequestException( final T e){
         log.info("**ApiExceptionHandler controller, handle Api request**");
-        final var badRequest = HttpStatus.BAD_REQUEST;
+        final var badRequest = HttpStatus.UNAUTHORIZED;
         return ResponseEntity.status(badRequest).body(
                 ExceptionMsg.builder()
                         .msg(e.getMessage())

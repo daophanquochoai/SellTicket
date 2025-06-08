@@ -11,6 +11,7 @@ doctorhoai\learn\proxy_client\business\film\controller\SubController.class
 doctorhoai\learn\proxy_client\business\user\service\RoleFeign.class
 doctorhoai\learn\proxy_client\business\user\model\AccountBankingDto$AccountBankingDtoBuilder.class
 doctorhoai\learn\proxy_client\business\room\controller\ChairController.class
+doctorhoai\learn\proxy_client\business\user\model\request\Provider.class
 doctorhoai\learn\proxy_client\business\payment\service\fallback\PaymentFeignFallBack$1.class
 doctorhoai\learn\proxy_client\business\payment\service\TicketFeign.class
 doctorhoai\learn\proxy_client\business\user\service\fallback\AccountBankFeignFallBack$1.class
@@ -24,7 +25,6 @@ doctorhoai\learn\proxy_client\business\user\model\ContactDto.class
 doctorhoai\learn\proxy_client\business\film\controller\SubFilmController.class
 doctorhoai\learn\proxy_client\business\dish\model\TypeDish.class
 doctorhoai\learn\proxy_client\business\film\model\request\SubFilmRequest.class
-doctorhoai\learn\proxy_client\business\auth\model\request\Response$ResponseBuilder.class
 doctorhoai\learn\proxy_client\business\dish\service\fallback\DishFeignFallBack.class
 doctorhoai\learn\proxy_client\business\payment\controller\TicketController.class
 doctorhoai\learn\proxy_client\business\user\model\ContactDto$ContactDtoBuilder.class
@@ -32,6 +32,7 @@ doctorhoai\learn\proxy_client\business\room\service\ChairFeign.class
 doctorhoai\learn\proxy_client\business\dish\service\fallback\DishFeignFallBack$1.class
 doctorhoai\learn\proxy_client\business\user\controller\ContactController.class
 doctorhoai\learn\proxy_client\business\film\controller\FilmController.class
+doctorhoai\learn\proxy_client\business\user\model\request\Constrain\LocalLogin.class
 doctorhoai\learn\proxy_client\business\film\model\SubDto$SubDtoBuilder.class
 doctorhoai\learn\proxy_client\business\rate\model\request\RateFilmRequest.class
 doctorhoai\learn\proxy_client\exception\payload\ExceptionMsg.class
@@ -60,6 +61,7 @@ doctorhoai\learn\proxy_client\business\user\service\fallback\RoleFeignFallBack$1
 doctorhoai\learn\proxy_client\business\film\model\SliderDto$SliderDtoBuilder.class
 doctorhoai\learn\proxy_client\business\user\model\AccountBankingDto.class
 doctorhoai\learn\proxy_client\business\dish\model\TypeDish$TypeDishBuilder.class
+doctorhoai\learn\proxy_client\security\OAuth2\GitHubOAuth2UserInfoExtractor.class
 doctorhoai\learn\proxy_client\business\auth\model\response\AuthenticationResponse.class
 doctorhoai\learn\proxy_client\business\user\model\request\Password$PasswordBuilder.class
 doctorhoai\learn\proxy_client\business\payment\controller\BillController.class
@@ -77,8 +79,10 @@ doctorhoai\learn\proxy_client\business\rate\model\RateForFilm.class
 doctorhoai\learn\proxy_client\business\user\service\fallback\EmployeeFeignCallBack.class
 doctorhoai\learn\proxy_client\business\dish\controller\TypeDishController.class
 doctorhoai\learn\proxy_client\business\film\service\TypeFilmFeign.class
+doctorhoai\learn\proxy_client\security\CustomAuthenticationEntryPoint.class
 doctorhoai\learn\proxy_client\jwt\util\impl\JwtUtilImpl.class
 doctorhoai\learn\proxy_client\business\film\model\TypeFilmDto.class
+doctorhoai\learn\proxy_client\security\OAuth2\CustomOAuth2UserService.class
 doctorhoai\learn\proxy_client\business\room\model\resquest\RoomRequest.class
 doctorhoai\learn\proxy_client\business\payment\model\TicketDto.class
 doctorhoai\learn\proxy_client\business\user\model\request\EmployeeRequest.class
@@ -93,9 +97,9 @@ doctorhoai\learn\proxy_client\business\room\model\resquest\RoomRequest$RoomReque
 doctorhoai\learn\proxy_client\business\user\service\fallback\CustomerFeignCallBack.class
 doctorhoai\learn\proxy_client\business\film\service\fallback\SubFilmFeignFallBack.class
 doctorhoai\learn\proxy_client\business\dish\model\DishDto.class
-doctorhoai\learn\proxy_client\business\auth\model\request\Response.class
 doctorhoai\learn\proxy_client\business\dish\model\TypeDishDto$TypeDishDtoBuilder.class
 doctorhoai\learn\proxy_client\security\AuthenticationConfig.class
+doctorhoai\learn\proxy_client\security\OAuth2\OAuth2AuthenticationFailureHandler.class
 doctorhoai\learn\proxy_client\business\payment\model\Ticket$TicketBuilder.class
 doctorhoai\learn\proxy_client\business\time\model\FilmShowDto$FilmShowDtoBuilder.class
 doctorhoai\learn\proxy_client\exception\UnAuthorizedException.class
@@ -103,6 +107,7 @@ doctorhoai\learn\proxy_client\business\film\controller\RevenueController.class
 doctorhoai\learn\proxy_client\business\film\model\TypeFilm.class
 doctorhoai\learn\proxy_client\business\film\service\fallback\SliderFeignFallBack.class
 doctorhoai\learn\proxy_client\business\payment\service\fallback\BillChairFeinFallBack$1.class
+doctorhoai\learn\proxy_client\security\OAuth2\OAuth2UserInfoExtractor.class
 doctorhoai\learn\proxy_client\business\user\model\request\Password.class
 doctorhoai\learn\proxy_client\business\user\model\AccountDto.class
 doctorhoai\learn\proxy_client\business\room\service\BranchFeign.class
@@ -112,6 +117,7 @@ doctorhoai\learn\proxy_client\business\film\model\SubFilm$SubFilmBuilder.class
 doctorhoai\learn\proxy_client\business\film\service\FilmFeign.class
 doctorhoai\learn\proxy_client\business\time\model\FilmShowDto.class
 doctorhoai\learn\proxy_client\business\payment\service\fallback\PaymentFeignFallBack.class
+doctorhoai\learn\proxy_client\security\OAuth2\CustomUserDetails.class
 doctorhoai\learn\proxy_client\business\dish\service\DishFeign.class
 doctorhoai\learn\proxy_client\business\user\service\fallback\CustomerFeignCallBack$1.class
 doctorhoai\learn\proxy_client\business\rate\controller\RateController.class
@@ -147,12 +153,14 @@ doctorhoai\learn\proxy_client\business\payment\service\fallback\TicketFallBack$1
 doctorhoai\learn\proxy_client\business\user\model\request\AccountCustomer$AccountCustomerBuilder.class
 doctorhoai\learn\proxy_client\business\user\model\Active.class
 doctorhoai\learn\proxy_client\business\user\service\ContactFeign.class
+doctorhoai\learn\proxy_client\security\OAuth2\CustomAuthenticationSuccessHandler.class
 doctorhoai\learn\proxy_client\BaseDomain\Response.class
 doctorhoai\learn\proxy_client\business\payment\model\BillDishDto.class
 doctorhoai\learn\proxy_client\business\time\service\fallback\FilmShowTimeFeignFallBack.class
 doctorhoai\learn\proxy_client\business\payment\service\PaymentFeign.class
 doctorhoai\learn\proxy_client\business\auth\model\response\AuthenticationResponse$AuthenticationResponseBuilder.class
 doctorhoai\learn\proxy_client\business\user\service\fallback\ContactFeignFallBack$1.class
+doctorhoai\learn\proxy_client\security\CorsConfig.class
 doctorhoai\learn\proxy_client\business\user\model\EmployeeDto.class
 doctorhoai\learn\proxy_client\business\film\service\fallback\RevenueFeignFallBack$1.class
 doctorhoai\learn\proxy_client\business\film\service\SliderFeign.class
@@ -191,6 +199,7 @@ doctorhoai\learn\proxy_client\business\film\service\fallback\FilmFeignFallBack$1
 doctorhoai\learn\proxy_client\business\user\controller\RoleController.class
 doctorhoai\learn\proxy_client\business\film\model\request\FilmRequest.class
 doctorhoai\learn\proxy_client\business\payment\controller\ReportController.class
+doctorhoai\learn\proxy_client\security\CustomAccessDeniedHandler.class
 doctorhoai\learn\proxy_client\business\film\service\fallback\SubFeignFallBack$1.class
 doctorhoai\learn\proxy_client\business\room\controller\BranchController.class
 doctorhoai\learn\proxy_client\business\room\service\fallback\RoomFeignFallBack$1.class

@@ -1,6 +1,7 @@
 package doctorhoai.learn.film_service.service.impl;
 
 import doctorhoai.learn.film_service.dto.TypeFilmDto;
+import doctorhoai.learn.film_service.dto.response.PageResponse;
 import doctorhoai.learn.film_service.entity.Status;
 import doctorhoai.learn.film_service.entity.TypeFilm;
 import doctorhoai.learn.film_service.exception.ErrorException;
@@ -10,6 +11,7 @@ import doctorhoai.learn.film_service.repository.TypeFilmRepository;
 import doctorhoai.learn.film_service.service.inter.TypeFilmService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -107,8 +109,8 @@ public class TypeFilmServiceImpl implements TypeFilmService {
     }
 
     @Override
-    public List<TypeFilmDto> getTypeFilmByCustom(String page, String limit, String q, String orderBy, String status, String asc) {
-        List<TypeFilm> list;
+    public PageResponse getTypeFilmByCustom(String page, String limit, String q, String orderBy, String status, String asc) {
+        Page<TypeFilm> list;
         Pageable pageable;
         if( asc.equals("asc")){
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit), Sort.by(orderBy));
@@ -120,6 +122,11 @@ public class TypeFilmServiceImpl implements TypeFilmService {
         }else{
             list = typeFilmRepository.getTypeFilmByCustom(pageable,q,Status.valueOf(status));
         }
-        return list.stream().map(MapperToDto::TypeFilmToDto).toList();
+        PageResponse pageResponse = PageResponse.builder()
+                .page(page)
+                .totalPage(String.valueOf(list.getTotalPages()))
+                .data(list.getContent())
+                .build();
+        return pageResponse;
     }
 }

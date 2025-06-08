@@ -3,6 +3,7 @@ package doctorhoai.learn.showtimeservice.service;
 import doctorhoai.learn.showtimeservice.dto.FilmShowDto;
 import doctorhoai.learn.showtimeservice.dto.FilmShowManage;
 import doctorhoai.learn.showtimeservice.dto.request.FilmShowRequest;
+import doctorhoai.learn.showtimeservice.entity.Status;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,4 +18,5 @@ public interface FilmShowService {
     FilmShowDto getFilmShowById(Integer Id);
     List<FilmShowDto> getFilmShowsByBranch(String branchId, LocalDate date, String filmId, String subId);
     List<FilmShowDto> getFilmShowBySubFilm(String subFilmId);
+    List<FilmShowDto> getFilmShowByRoomAndStatus(String roomId, Status status);
 }

@@ -29,7 +29,7 @@ spec:
               value: configserver:http://configserver:8071
             - name: SPRING_ZIPKIN_BASE_URL
               value: http://zipkin:9411/api/v2/spans
-          image: doctorhoai/huongdichvu_apigateway:f16
+          image: doctorhoai/huongdichvu_apigateway:f17
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -40,14 +40,14 @@ spec:
               cpu: 1000m
           livenessProbe:
             httpGet:
-              path: /actuator/health/liveness/readiness
+              path: /actuator/health/liveness
               port: 6380
             initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 5
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: 6380
             initialDelaySeconds: 60
             periodSeconds: 10

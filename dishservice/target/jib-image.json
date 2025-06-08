@@ -1,1 +1,1 @@
-{"image":"doctorhoai/huongdichvu_dishservice:f16","imageId":"sha256:ff9680d1115a3c3386cdd037f09ad62fa40317ec9607283833361a2f01cd41a5","imageDigest":"sha256:f689fff3bb4d708bfbaf6557d712dcccfa18da8273472adbd6756e821a80dd29","tags":["f16"],"imagePushed":true}
+{"image":"doctorhoai/huongdichvu_dishservice:f18","imageId":"sha256:606889fe3c8889c8958de4f25b76d70fb8ec78412a2bc858defc5fda8b02758c","imageDigest":"sha256:5f4eac7e7cbe005839e6434c8fbce2893ffef4e8706b90e919d23b0f3a021f5b","tags":["f18"],"imagePushed":true}

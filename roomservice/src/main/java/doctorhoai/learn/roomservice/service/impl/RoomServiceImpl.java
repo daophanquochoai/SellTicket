@@ -2,23 +2,28 @@ package doctorhoai.learn.roomservice.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import doctorhoai.learn.roomservice.dto.FilmShowDto;
 import doctorhoai.learn.roomservice.dto.RoomDto;
+import doctorhoai.learn.roomservice.dto.response.Response;
 import doctorhoai.learn.roomservice.dto.resquest.RoomRequest;
 import doctorhoai.learn.roomservice.entity.Branch;
 import doctorhoai.learn.roomservice.entity.Room;
 import doctorhoai.learn.roomservice.entity.Status;
-import doctorhoai.learn.roomservice.exception.BranchNotFound;
-import doctorhoai.learn.roomservice.exception.ErrorException;
-import doctorhoai.learn.roomservice.exception.RoomNotFound;
+import doctorhoai.learn.roomservice.exception.*;
 import doctorhoai.learn.roomservice.helper.MapperToDto;
 import doctorhoai.learn.roomservice.repository.BranchRepository;
 import doctorhoai.learn.roomservice.repository.RoomRepository;
+import doctorhoai.learn.roomservice.service.client.feign.ShowTimeFeign;
 import doctorhoai.learn.roomservice.service.inter.RoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +37,7 @@ public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final ObjectMapper objectMapper;
     private final BranchRepository branchRepository;
+    private final ShowTimeFeign showTimeFeign;
 
     @Override
     public RoomDto addRoom(RoomRequest roomRequest) {
@@ -57,32 +63,41 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public RoomDto updateRoom(String id, RoomRequest roomRequest) {
-        try{
-            Optional<Room> roomOptional = roomRepository.findById(id);
-            if( roomOptional.isEmpty() ){
-                throw new RoomNotFound("Room not found with id : " + id);
-            }
-            Room room = roomOptional.get();
-            room.setName(roomRequest.getName());
-            room.setPositionChair( roomRequest.getPositionChair());
-            if( !roomOptional.get().getBranch().getId().equals(roomRequest.getBranchId()) ){
-                Optional<Branch> branchOptional1 = branchRepository.findById(roomRequest.getBranchId());
-                if( branchOptional1.isEmpty() ){
-                    throw new BranchNotFound("Branch not found with id : " + roomRequest.getBranchId());
+        Optional<Room> roomOptional = roomRepository.findById(id);
+        if( roomOptional.isEmpty() ){
+            throw new RoomNotFound("Room not found with id : " + id);
+        }
+        Room room = roomOptional.get();
+        if( !room.getStatus().toString().equals(roomRequest.getStatus().toUpperCase()) ){
+            if( room.getStatus().equals(Status.ACTIVE) ){
+                ResponseEntity<Response> response = showTimeFeign.getFilmShowByRoomAndActive(id);
+                ObjectMapper objectMapper = new ObjectMapper()
+                        .registerModule(new ParameterNamesModule())
+                        .registerModule(new Jdk8Module())
+                        .registerModule(new JavaTimeModule());
+                if( response.getStatusCode().is2xxSuccessful()){
+                    Object data = response.getBody().getData();
+                    List<FilmShowDto> filmShowDtos = objectMapper.convertValue(data, objectMapper.getTypeFactory().constructCollectionType(List.class, FilmShowDto.class));
+                    if( filmShowDtos.size() > 0 ){
+                        throw new RoomCantRemove("The room still has unreleased movies.");
+                    }
+                }else{
+                    throw new ErrorException(response.getBody().getMessage());
                 }
-                room.setBranch(branchOptional1.get());
             }
-            room.setStatus(Status.valueOf(roomRequest.getStatus().toUpperCase()));
-            Room roomSaved = roomRepository.save(room);
-            return MapperToDto.RoomToDto(roomSaved);
         }
-        catch (BranchNotFound branchNotFound){
-            log.error(branchNotFound.getMessage());
-            throw new BranchNotFound(branchNotFound.getMessage());
-        } catch (Exception e){
-            log.error(e.getMessage());
-            throw new ErrorException(e.getMessage());
+        room.setName(roomRequest.getName());
+        room.setPositionChair( roomRequest.getPositionChair());
+        if( !roomOptional.get().getBranch().getId().equals(roomRequest.getBranchId()) ){
+            Optional<Branch> branchOptional1 = branchRepository.findById(roomRequest.getBranchId());
+            if( branchOptional1.isEmpty() ){
+                throw new BranchNotFound("Branch not found with id : " + roomRequest.getBranchId());
+            }
+            room.setBranch(branchOptional1.get());
         }
+        room.setStatus(Status.valueOf(roomRequest.getStatus().toUpperCase()));
+        Room roomSaved = roomRepository.save(room);
+        return MapperToDto.RoomToDto(roomSaved);
     }
 
     @Override

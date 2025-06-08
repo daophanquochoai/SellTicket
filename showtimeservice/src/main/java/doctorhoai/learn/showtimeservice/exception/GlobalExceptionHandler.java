@@ -60,6 +60,26 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                         new ErrorResponse(503, e.getMessage() )
                 );
     }
-
-
+    @ExceptionHandler(
+            value = {
+                    FilmShowTimeNotFound.class,
+            }
+    )
+    public ResponseEntity<ErrorResponse> handleNotFoundException( Exception ex, WebRequest request){
+        log.info("** Process not found exception **");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage() )
+        );
+    }
+    @ExceptionHandler(
+            value = {
+                    FilmShowTimeDuplicate.class,
+            }
+    )
+    public ResponseEntity<ErrorResponse> handleDuplicateException( Exception ex, WebRequest request){
+        log.info("** Process duplicate exception **");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage() )
+        );
+    }
 }

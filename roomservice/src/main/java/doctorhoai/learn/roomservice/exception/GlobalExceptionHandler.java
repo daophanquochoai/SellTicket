@@ -34,6 +34,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage())
         );
     }
+    @ExceptionHandler( value = {BranchCantRemove.class, RoomCantRemove.class})
+    public ResponseEntity<Object> handleCantRemoveException(RuntimeException  ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+        );
+    }
     @ExceptionHandler(value = {Exception.class, ErrorException.class})
     public ResponseEntity<Object> handleGlobalException(Exception exception,
                                                                   WebRequest webRequest) {

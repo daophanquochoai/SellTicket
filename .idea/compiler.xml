@@ -19,6 +19,21 @@
         </processorPath>
         <module name="eurekaserver" />
       </profile>
+      <profile name="Annotation profile for proxy_client" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="apigateway" />
+        <module name="proxy_client" />
+        <module name="BaseDomain" />
+        <module name="dishservice" />
+        <module name="paymentservice" />
+        <module name="film_service" />
+        <module name="notificationservice" />
+      </profile>
       <profile name="Annotation profile for user_service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -29,23 +44,8 @@
         </processorPath>
         <module name="user_service" />
         <module name="roomservice" />
-        <module name="showtimeservice" />
-        <module name="BaseDomain" />
-        <module name="dishservice" />
         <module name="rateservice" />
-        <module name="paymentservice" />
-        <module name="film_service" />
-        <module name="notificationservice" />
-      </profile>
-      <profile name="Annotation profile for proxy_client" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
-        </processorPath>
-        <module name="apigateway" />
-        <module name="proxy_client" />
+        <module name="showtimeservice" />
       </profile>
     </annotationProcessing>
   </component>
